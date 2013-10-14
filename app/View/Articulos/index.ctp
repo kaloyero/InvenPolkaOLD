@@ -9,9 +9,15 @@
 
     <?php foreach ($articulos as $articulo): ?>
     <tr>
-        <td><?php echo $articulo['Articulo']['id']; ?></td>
-        <td><?php echo $articulo['Articulo']['CodigoArticulo']; ?></td>
-    </tr>
-    <?php endforeach; ?>
+        <td><?php echo $articulo['Articulo']['id']?></td>
+        <td><?php echo $articulo['Articulo']['CodigoArticulo']?></td>
+		<td><?php $test= "/app/webroot/files/articulo/IdFoto/".$articulo['Articulo']['dir'].'/'.$articulo['Articulo']['idFoto'];
+			echo $this->Html->image($test, array('alt' => 'CakePHP','width'=>'200px'))?></td>
 
+    </tr>
+<?php endforeach; ?>
 </table>
+
+<?php
+     // $this->Paginator->options(array('url' => $this->passedArgs));
+ ?>

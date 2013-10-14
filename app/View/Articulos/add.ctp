@@ -4,7 +4,7 @@ echo $this->Form->create('Articulo',array('type' => 'file'));
 //echo $this->Form->create('Articulo', array('type' => 'file'));
 //echo $this->Form->input('filename',array('type'=>'file'));
 
-echo $this->Form->input('IdFoto', array('type' => 'file', 'label' => 'Foto'));
+echo $this->Form->input('idFoto', array('type' => 'file', 'label' => 'Foto'));
 echo $this->Form->input('dir', array('type' => 'hidden','value' => ''));
 
 

@@ -224,7 +224,7 @@
 /**
  * A random string used in security hashing methods.
  	Configure::write('Security.salt', 'DYhG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi');
- 
+
  */
 	Configure::write('Security.salt', 'pl345e-P45s_7h3*S@l7!');
 
@@ -349,7 +349,6 @@
  *       and their settings.
  */
 $engine = 'File';
-
 // In development mode, caches should expire quickly.
 $duration = '+999 days';
 if (Configure::read('debug') > 0) {
@@ -370,6 +369,11 @@ Cache::config('_cake_core_', array(
 	'serialize' => ($engine === 'File'),
 	'duration' => $duration
 ));
+
+Configure::write('Session', array(
+                           'defaults' => 'php',
+                           'ini' => array('session.auto_start' => 1),
+                        ));
 
 /**
  * Configure the cache for model and datasource caches. This cache configuration
