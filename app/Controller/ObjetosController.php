@@ -15,13 +15,27 @@ class ObjetosController extends AppController {
         if ($this->request->is('post')) {
             if ($this->Objeto->save($this->request->data)) {
                 $this->Session->setFlash('Tipo de objeto Guardado con Exito.');
-                $this->redirect(array('action' => 'index'));
+				if ($this->request->data['Objeto']['RedirectAction'] == 'siguiente'){
+					$this->redirect(array('action' => 'add'));
+				} else {
+					$this->redirect(array('action' => 'index'));
+				}
+
             }
         }
 
     }
 
 	function edit($id = null) {
+		$this->Objeto->id = $id;
+		if ($this->request->is('get')) {
+			$this->request->data = $this->Objeto->read();
+		} else {
+			if ($this->Objeto->save($this->request->data)) {
+				$this->Session->setFlash('Cambios guardados');
+				$this->redirect(array('action' => 'index'));
+			}
+		}
 
 	}	
 

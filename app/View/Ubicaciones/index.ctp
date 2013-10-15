@@ -10,6 +10,7 @@
         <td><?php echo $ubicacion['Ubicacione']['id']; ?></td>
         <td><?php echo $ubicacion['Ubicacione']['Descripcion']; ?></td>
 		<td><?php echo $this->Html->link('Edit', array('action' => 'edit', $ubicacion['Ubicacione']['id']));?></td>
+
     </tr>
 
 

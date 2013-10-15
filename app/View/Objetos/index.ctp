@@ -4,6 +4,7 @@
     <tr>
         <th>Id</th>
         <th>Nombre</th>
+        <th>Acciones</th>
     </tr>
 
     <?php foreach ($objetos as $objeto): ?>
@@ -12,6 +13,7 @@
         <td>
             <?php echo $objeto['Objeto']['Nombre']; ?></td>
         </td>
+		<td><?php echo $this->Html->link('Editar', array('action' => 'edit', $objeto['Objeto']['id']));?>    </td>        
     </tr>
     <?php endforeach; ?>
 

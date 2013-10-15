@@ -4,6 +4,7 @@
     <tr>
         <th>Id</th>
         <th>Nombre</th>
+        <th>Acciones</th>
     </tr>
 
     <?php foreach ($materiales as $material): ?>
@@ -12,6 +13,7 @@
         <td>
             <?php echo $material['Materiale']['Nombre']; ?></td>
         </td>
+		<td><?php echo $this->Html->link('Editar', array('action' => 'edit', $material['Materiale']['id']));?>    </td>        
     </tr>
     <?php endforeach; ?>
 

@@ -7,7 +7,7 @@
 
     <?php foreach ($inventarios as $inventario): ?>
     <tr>
-        <td><?php echo $inventario['Inventario']['IdInventario']; ?></td>
+        <td><?php echo $inventario['Inventario']['id']; ?></td>
         <td>
             <?php echo $inventario['Inventario']['Disponibilidad']; ?></td>
         </td>
