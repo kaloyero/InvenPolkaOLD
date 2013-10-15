@@ -8,7 +8,7 @@
 
     <?php foreach ($dimensiones as $dimension): ?>
     <tr>
-        <td><?php echo $dimension['Dimensione']['IdDimension']; ?></td>
+        <td><?php echo $dimension['Dimensione']['id']; ?></td>
         <td>
             <?php echo $dimension['Dimensione']['Nombre']; ?></td>
         </td>

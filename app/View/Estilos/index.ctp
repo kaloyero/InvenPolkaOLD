@@ -8,7 +8,7 @@
 
     <?php foreach ($estilos as $estilo): ?>
     <tr>
-        <td><?php echo $estilo['Estilo']['IdEstilo']; ?></td>
+        <td><?php echo $estilo['Estilo']['id']; ?></td>
         <td>
             <?php echo $estilo['Estilo']['Nombre']; ?></td>
         </td>

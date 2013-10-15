@@ -8,7 +8,7 @@
 
     <?php foreach ($decorados as $decorado): ?>
     <tr>
-        <td><?php echo $decorado['Decorado']['IdDecorado']; ?></td>
+        <td><?php echo $decorado['Decorado']['id']; ?></td>
         <td>
             <?php echo $decorado['Decorado']['Nombre']; ?></td>
         </td>

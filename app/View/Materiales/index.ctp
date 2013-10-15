@@ -8,7 +8,7 @@
 
     <?php foreach ($materiales as $material): ?>
     <tr>
-        <td><?php echo $material['Materiale']['IdMaterial']; ?></td>
+        <td><?php echo $material['Materiale']['id']; ?></td>
         <td>
             <?php echo $material['Materiale']['Nombre']; ?></td>
         </td>

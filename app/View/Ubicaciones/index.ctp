@@ -7,9 +7,12 @@
 
     <?php foreach ($ubicaciones as $ubicacion): ?>
     <tr>
-        <td><?php echo $ubicacion['Ubicacion']['IdUbicacion']; ?></td>
-        <td><?php echo $ubicacion['Ubicacion']['Descripcion']; ?></td>
+        <td><?php echo $ubicacion['Ubicacione']['id']; ?></td>
+        <td><?php echo $ubicacion['Ubicacione']['Descripcion']; ?></td>
+		<td><?php echo $this->Html->link('Edit', array('action' => 'edit', $ubicacion['Ubicacione']['id']));?></td>
     </tr>
+
+
     <?php endforeach; ?>
 
 </table>

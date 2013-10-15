@@ -36,31 +36,35 @@ class ArticulosController extends AppController {
 				echo "Guarda..?.";
                 $this->Session->setFlash('Articulo Guardada con Exito.');
                 $this->redirect(array('action' => 'index'));
-            }
+            }	else{
+					$this->setViewData();
+				}
         } else {
-			$material=new Materiale();
-			$materiales=$material->find('list',array('fields'=>array('Materiale.IdMaterial','Materiale.Nombre')));
-			$this->set('materiales',$materiales);
-			$categoria=new Categoria();
-			$categorias=$categoria->find('list',array('fields'=>array('Categoria.IdCategoria','Categoria.Nombre')));
-			$this->set('categorias',$categorias);
-			$decorado=new Decorado();
-			$decorados=$decorado->find('list',array('fields'=>array('Decorado.IdDecorado','Decorado.Nombre')));
-			$this->set('decorados',$decorados);
-			$dimension=new Dimensione();
-			$dimensiones=$dimension->find('list',array('fields'=>array('Dimensione.IdDimension','Dimensione.Nombre')));
-			$this->set('dimensiones',$dimensiones);
-			$estilo=new Estilo();
-			$estilos=$estilo->find('list',array('fields'=>array('Estilo.idEstilo','Estilo.Nombre')));
-			$this->set('estilos',$estilos);
-			$objeto=new Objeto();
-			$objetos=$objeto->find('list',array('fields'=>array('Objeto.IdObjeto','Objeto.Nombre')));
-			$this->set('objetos',$objetos);
-		}
+			$this->setViewData();
+			}
     }
 
 	function edit($id = null) {
-
+		    $this->Articulo->id = $id;
+		    if ($this->request->is('get')) {
+				$this->setViewData();
+		        $this->request->data = $this->Articulo->read();
+		    } else {
+		        if ($this->Articulo->save($this->request->data)) {
+		            $this->Session->setFlash('Your post has been updated.');
+		            $this->redirect(array('action' => 'index'));
+		        }else{
+						$this->setViewData();
+				}
+		    }
+	}
+	function setViewData() {
+		$this->set('materiales',$this->getMateriales());
+		$this->set('categorias',$this->getCategorias());
+		$this->set('decorados',$this->getDecorados());
+		$this->set('dimensiones',$this->getDimensiones());
+		$this->set('estilos',$this->getEstilos());
+		$this->set('objetos',$this->getObjetos());
 	}
 
 	function delete($id) {
@@ -93,6 +97,36 @@ class ArticulosController extends AppController {
 
 
 		 }
+	}
+	function getMateriales() {
+		$material=new Materiale();
+		$materiales=$material->find('list',array('fields'=>array('Materiale.id','Materiale.Nombre')));
+		return $materiales;
+	}
+	function getEstilos() {
+		$estilo=new Estilo();
+		$estilos=$estilo->find('list',array('fields'=>array('Estilo.id','Estilo.Nombre')));
+		return $estilos;
+	}
+	function getDecorados() {
+		$decorado=new Decorado();
+		$decorados=$decorado->find('list',array('fields'=>array('Decorado.id','Decorado.Nombre')));
+		return $decorados;
+	}
+	function getObjetos() {
+		$objeto=new Objeto();
+		$objetos=$objeto->find('list',array('fields'=>array('Objeto.id','Objeto.Nombre')));
+		return $objetos;
+	}
+	function getDimensiones() {
+		$dimension=new Dimensione();
+		$dimensiones=$dimension->find('list',array('fields'=>array('Dimensione.id','Dimensione.Nombre')));
+		return 	$dimensiones;
+	}
+	function getCategorias() {
+		$categoria=new Categoria();
+		$categorias=$categoria->find('list',array('fields'=>array('Categoria.id','Categoria.Nombre')));
+		return $categorias;
 	}
 }
 ?>

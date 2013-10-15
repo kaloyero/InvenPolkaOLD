@@ -7,10 +7,19 @@
 
     <?php foreach ($depositos as $deposito): ?>
     <tr>
-        <td><?php echo $deposito['Deposito']['IdDeposito']; ?></td>
+        <td><?php echo $deposito['Deposito']['id']; ?></td>
         <td>
             <?php echo $deposito['Deposito']['Nombre']; ?></td>
         </td>
+		<td>
+            <?php echo $deposito['Deposito']['FechaFin']; ?></td>
+
+        </td>
+			<td>
+	            <?php echo $this->Html->link('Edit', array('action' => 'edit', $deposito['Deposito']['id']));?>
+				</td>
+
+	        </td>
     </tr>
     <?php endforeach; ?>
 
