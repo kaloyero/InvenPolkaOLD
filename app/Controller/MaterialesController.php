@@ -14,15 +14,28 @@ class MaterialesController extends AppController {
     public function add() {
         if ($this->request->is('post')) {
             if ($this->Materiale->save($this->request->data)) {
-                $this->Session->setFlash('Material Guardada con Exito.');
-                $this->redirect(array('action' => 'index'));
+                $this->Session->setFlash('Material Guardado con Exito.');
+				if ($this->request->data['Materiale']['RedirectAction'] == 'siguiente'){
+					$this->redirect(array('action' => 'add'));
+				} else {
+					$this->redirect(array('action' => 'index'));
+				}
+
             }
         }
 
     }
 
 	function edit($id = null) {
-
+		$this->Materiale->id = $id;
+		if ($this->request->is('get')) {
+			$this->request->data = $this->Materiale->read();
+		} else {
+			if ($this->Materiale->save($this->request->data)) {
+				$this->Session->setFlash('Cambios guardados');
+				$this->redirect(array('action' => 'index'));
+			}
+		}		
 	}	
 
 	function delete($id) {

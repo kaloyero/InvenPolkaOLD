@@ -7,7 +7,7 @@
 
     <?php foreach ($depositos as $deposito): ?>
     <tr>
-        <td><?php echo $deposito['Deposito']['IdDeposito']; ?></td>
+        <td><?php echo $deposito['Deposito']['id']; ?></td>
         <td>
             <?php echo $deposito['Deposito']['Nombre']; ?></td>
         </td>

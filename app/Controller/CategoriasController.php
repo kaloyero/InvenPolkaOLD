@@ -15,13 +15,25 @@ class CategoriasController extends AppController {
         if ($this->request->is('post')) {
             if ($this->Categoria->save($this->request->data)) {
                 $this->Session->setFlash('Categoria Guardada con Exito.');
-                $this->redirect(array('action' => 'index'));
+				if ($this->request->data['Categoria']['RedirectAction'] == 'siguiente'){
+					$this->redirect(array('action' => 'add'));
+				} else {
+					$this->redirect(array('action' => 'index'));
+				}
             }
         }
     }
 
 	function edit($id = null) {
-
+		$this->Categoria->id = $id;
+		if ($this->request->is('get')) {
+			$this->request->data = $this->Categoria->read();
+		} else {
+			if ($this->Categoria->save($this->request->data)) {
+				$this->Session->setFlash('Cambios guardados');
+				$this->redirect(array('action' => 'index'));
+			}
+		}
 	}	
 
 	function delete($id) {

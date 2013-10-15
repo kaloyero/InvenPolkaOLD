@@ -7,7 +7,7 @@
 
     <?php foreach ($movimientos as $movimiento): ?>
     <tr>
-        <td><?php echo $movimiento['MovimientoInventario']['IdMovimientoInventario']; ?></td>
+        <td><?php echo $movimiento['MovimientoInventario']['id']; ?></td>
         <td>
             <?php echo $movimiento['MovimientoInventario']['Numero']; ?></td>
         </td>
