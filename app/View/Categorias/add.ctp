@@ -8,6 +8,8 @@ echo $this->Form->submit('Guardar');
 echo $this->Form->input('RedirectAction', array('type' => 'hidden','id' => 'RedirectAction','value' => ''));
 echo $this->Form->button('Guardar y seguir', 
 array('type' => 'button','onclick' => "javascript: document.getElementById('RedirectAction').value='siguiente';submit();"));
+echo $this->Form->input('guardaryseguir', array(
+                                  'type'=>'checkbox' )); 
 /* FIn Seguir agregando*/
 echo $this->Html->link('Cancelar', '/categorias');
 
