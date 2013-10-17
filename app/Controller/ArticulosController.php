@@ -33,7 +33,6 @@ class ArticulosController extends AppController {
         if ($this->request->is('post')) {
 
             if ($this->Articulo->save($this->request->data)) {
-				echo "Guarda..?.";
                 $this->Session->setFlash('Articulo Guardada con Exito.');
                 $this->redirect(array('action' => 'index'));
             }	else{
@@ -73,14 +72,43 @@ class ArticulosController extends AppController {
 	function find() {
 		$url = array('action'=>'index');
 		if($this->request->is("post")) {
-		      $filters = $this->request->data["Articulo"];
+		      $filters = $this->request->data["ArticuloSearch"];
 		      $this->passedArgs["CodigoArticulo"] = $filters["CodigoArticulo"];
+				$this->passedArgs["IdMaterial"] = $filters["IdMaterial"];
+				$this->passedArgs["IdEstilo"] = $filters["IdEstilo"];
+				$this->passedArgs["IdCategoria"] = $filters["IdCategoria"];
+				$this->passedArgs["IdObjeto"] = $filters["IdObjeto"];
+				$this->passedArgs["IdDecorado"] = $filters["IdDecorado"];
+				$this->passedArgs["IdDimension"] = $filters["IdDimension"];
+				$this->passedArgs["IdDecorado"] = $filters["IdDecorado"];
+
 			//echo $this->passedArgs["test"];
  			//$this->redirect(array('action' => 'index'));
 			//$this->redirect(array_merge($url,$filters));
 
 			if(isset($this->passedArgs["CodigoArticulo"])){
-				$conditions["Articulo.idFoto LIKE"] = "%".$this->passedArgs["CodigoArticulo"]."%";
+				//$conditions["Articulo.CodigoArticulo LIKE"] = "%".$this->passedArgs["CodigoArticulo"]."%";
+				}
+			if(isset($this->passedArgs["IdMaterial"])){
+				$conditions["Articulo.IdMaterial LIKE"] = "%".$this->passedArgs["IdMaterial"]."%";
+			}
+			if(isset($this->passedArgs["IdEstilo"])){
+				$conditions["Articulo.IdEstilo LIKE"] = "%".$this->passedArgs["IdEstilo"]."%";
+			}
+			if(isset($this->passedArgs["IdCategoria"])){
+				$conditions["Articulo.IdCategoria LIKE"] = "%".$this->passedArgs["IdCategoria"]."%";
+			}
+			if(isset($this->passedArgs["IdObjeto"])){
+				$conditions["Articulo.IdObjeto LIKE"] = "%".$this->passedArgs["IdObjeto"]."%";
+			}
+			if(isset($this->passedArgs["IdDimension"])){
+				$conditions["Articulo.IdDimension LIKE"] = "%".$this->passedArgs["IdDimension"]."%";
+			}
+			if(isset($this->passedArgs["IdDecorado"])){
+				$conditions["Articulo.IdDecorado LIKE"] = "%".$this->passedArgs["IdDecorado"]."%";
+			}
+
+
 				//paginate as normal
 				$this->paginate = array(
 				     'conditions' => $conditions,
@@ -92,11 +120,13 @@ class ArticulosController extends AppController {
 
 				// $this->set("articulos",$results);
 				$this->redirect(array('action' => 'index'));
-				}
 
 
 
-		 }
+
+		 }else{
+			$this->setViewData();
+		}
 	}
 	function getMateriales() {
 		$material=new Materiale();

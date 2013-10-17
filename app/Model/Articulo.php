@@ -12,7 +12,8 @@ class Articulo extends AppModel {
 			);
 		public $validate = array(
 				        'CodigoArticulo' => array(
-				            'rule' => 'notEmpty'
+				            'rule' => 'notEmpty',
+							'on' => 'create'
 				        ),
 						'Descripcion' => array(
 				            'rule' => 'notEmpty'
