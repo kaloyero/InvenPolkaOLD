@@ -13,8 +13,13 @@
         <td>
             <?php echo $dimension['Dimensione']['Nombre']; ?></td>
         </td>
-		<td><?php echo $this->Html->link('Editar', array('action' => 'edit', $dimension['Dimensione']['id']));?>    </td>        
+		<td><?php echo $this->Html->link('Editar', array('action' => 'edit', $dimension['Dimensione']['id']));?>    </td>
     </tr>
     <?php endforeach; ?>
 
 </table>
+<script type="text/javascript">
+    $(document).ready(function() {
+    dimension.hacerTablaEditable();
+    });
+</script>

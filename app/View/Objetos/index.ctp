@@ -13,8 +13,14 @@
         <td>
             <?php echo $objeto['Objeto']['Nombre']; ?></td>
         </td>
-		<td><?php echo $this->Html->link('Editar', array('action' => 'edit', $objeto['Objeto']['id']));?>    </td>        
+		<td><?php echo $this->Html->link('Editar', array('action' => 'edit', $objeto['Objeto']['id']));?>    </td>
     </tr>
     <?php endforeach; ?>
 
 </table>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+    objeto.hacerTablaEditable();
+    });
+</script>
