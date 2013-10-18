@@ -47,7 +47,7 @@ class ArticulosController extends AppController {
 				}
         } else {
 			$this->setViewData();
-			}
+		}
     }
 
 	function edit($id = null) {
