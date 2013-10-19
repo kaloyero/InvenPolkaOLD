@@ -33,6 +33,12 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 	
-	
+	function addRedirect($view) {	
+		if ($this->request->data[$view]['guardaryseguir'] == '1'){
+			$this->redirect(array('action' => 'add?check=1'));
+		} else {
+			$this->redirect(array('action' => 'index'));
+		}
+	}
 	
 }

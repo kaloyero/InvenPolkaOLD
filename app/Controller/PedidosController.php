@@ -25,8 +25,6 @@ class PedidosController extends AppController {
             }
         } else {
 			$this->setViewData();
-			$this->set('articulos',$this->getArticulos());
-
 		}
     }
 
@@ -53,6 +51,7 @@ class PedidosController extends AppController {
 	
 	private function setViewData() {
 		$this->set('proyectos',$this->getProyectos());
+		$this->set('articulos',$this->getArticulos());		
 	}
 	
 	private function getProyectos() {
@@ -69,7 +68,7 @@ class PedidosController extends AppController {
 
 	private function agregarDetalles() {
 		$idInsertedPedido = $this->Pedido->getInsertID();
-		$listDetalle = array ($this->request->data['PedidoDetalle']);
+		$listDetalle = array ($this->request->data['Detalle']);
 		foreach ($listDetalle as &$detalle) {
 			foreach ($detalle as &$det) {
 				$PedidoDetalle=new PedidoDetalle();
@@ -80,7 +79,6 @@ class PedidosController extends AppController {
 			}
 		}
 	}
-
 	
 }
 ?>

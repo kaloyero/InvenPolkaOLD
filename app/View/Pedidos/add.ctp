@@ -10,7 +10,7 @@ echo $this->Html->script('mylibs/jquery.dataTables.min');
 echo $this->Html->script('mylibs/jquery.notifications');
 
 echo $this->Html->script('pedidoJS');
-	
+echo $this->Html->script('agregarArticulos');	
 echo $this->Html->css(array('forms', 'tables', 'menu'));
 echo $this->Html->css('DebugKit.toolbar.css');
 echo $this->Html->css('Blog.common.css', null, array('plugin' => false));
@@ -27,16 +27,9 @@ echo $this->Form->input('Pedido.IdProyecto',array('type'=>'select','options'=>$p
 echo $this->Form->submit('Guardar');
 
 ?>
-<?php
-	//echo $this->Form->input('Cantidad',array('name'=>'PedidoCantidad'));
-//	echo $this->Form->input('Articulo',array('type'=>'select','options'=>$articulos,'empty'=>false,'label'=>'Articulo'));
-?>
-<?php 
-	//echo $this->Html->link('go back',"javascript:alert()"); 
-?>
-
-		<?php 	echo $this->Form->input('Articulo.Cantidad',array('id'=>'Articulo.Cantidad','type'=>'number')); 
-				echo $this->Form->input('Articulo.Articulo',array('id'=>'Articulo.Articulo','type'=>'select','options'=>$articulos,'empty'=>false,'label'=>'Articulo'));
+<?php 	
+echo $this->Form->input('Articulo.Cantidad',array('id'=>'Articulo.Cantidad','type'=>'number')); 
+echo $this->Form->input('Articulo.Articulo',array('id'=>'Articulo.Articulo','type'=>'select','options'=>$articulos,'empty'=>false,'label'=>'Articulo'));
 //		        <input type="text" name="mitexto[0]" id="campo_1" placeholder="Texto 1"/><a href="#" class="eliminar">&times;</a>		?>
 		<a id="agregarCampo" class="btn btn-info" href="#">Agregar Campo</a>
 <div id="contenedor">
