@@ -24,6 +24,7 @@ echo $this->Form->input('Numero');
 echo $this->Form->input('Descripcion');
 echo $this->Form->input('Fecha');
 echo $this->Form->input('Pedido.IdProyecto',array('type'=>'select','options'=>$proyectos,'empty'=>false,'label'=>'Proyecto'));
+echo $this->Form->input('Pedido.IdEstudio',array('type'=>'select','options'=>$estudios,'empty'=>false,'label'=>'Estudio'));
 echo $this->Form->submit('Guardar');
 
 ?>

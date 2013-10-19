@@ -25,7 +25,7 @@
 <h1><?php echo $this->Html->link('Pedidos', array('action' => '../pedidos')); ?></h1>
 <h1><i>Funciona: alta, listado</i></h1>
 <h1><i>Falta: edicion, eliminar</i></h1>
-<h1><?php echo $this->Html->link('Movimientos', array('action' => '../movimientos')); ?></h1>
+<h1><?php echo $this->Html->link('Movimientos', array('action' => '../movimientoInventarios')); ?></h1>
 <h1><i>Funciona: alta, listado</i></h1>
 <h1><i>Falta: edicion, eliminar</i></h1>
 <h1><?php echo $this->Html->link('Depositos', array('action' => '../depositos')); ?></h1>

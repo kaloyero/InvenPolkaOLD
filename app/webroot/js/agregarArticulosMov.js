@@ -4,7 +4,9 @@ $(document).ready(function() {
     var contenedor       = $("#contenedor"); //ID del contenedor
     var AddButton       = $("#agregarCampo"); //ID del Botón Agregar
 	var ArtCantidad       = $("#Articulo.Cantidad"); //Articulo cantidad
-	var ArtArticulo       = $("#Articulo.Articulo option:selected"); //Nombre del articulo
+	var ArtArticulo       = $("#Articulo.Articulo option:selected"); 
+	var ArtUbicacionOrig       = $("#Articulo.UbicacionOrig option:selected"); 
+	var ArtUbicacionDest       = $("#Articulo.UbicacionDest option:selected"); 
 
     //var x = número de campos existentes en el contenedor
     var x = $("#contenedor div").length ;
@@ -19,7 +21,12 @@ $(document).ready(function() {
 				' <div>' +
 				'	Articulo: <input name="nomArticulo" type="text" value="Nom Articulo ' + $(ArtArticulo).val() + '" readonly="readonly" />' +			
 				'	Cantidad: <input name="data[Detalle]['+FieldCount+'][Cantidad]" type="text" value="' + 1 + '" readonly="readonly" />' +			
-						   '  <input name="data[Detalle]['+FieldCount+'][IdArticulo]" type="hidden" value="' + 3 + '" readonly="readonly" />' +			
+				'	Ubicacion Origen: <input name="nomUbicacion" type="text" value="Ubicacion ' + $(ArtUbicacionOrig).val() + '" readonly="readonly" />' +						    
+				'	Ubicacion Destino: <input name="nomUbicacion" type="text" value="Ubicacion ' + $(ArtUbicacionDest).val() + '" readonly="readonly" />' +						    				
+				'  <input name="data[Detalle]['+FieldCount+'][IdArticulo]" type="hidden" value="' + 1 + '" readonly="readonly" />' +			
+				'  <input name="data[Detalle]['+FieldCount+'][IdUbicacionOrig]" type="hidden" value="' + 1 + '" readonly="readonly" />' +							
+				'  <input name="data[Detalle]['+FieldCount+'][IdUbicacionDest]" type="hidden" value="' + 1 + '" readonly="readonly" />' +							
+
 				'</div>');
             x++; 			
 			//<input type="text" name="mitexto[0]" id="campo_1" placeholder="Texto 1"/><a href="#" class="eliminar">&times;</a>

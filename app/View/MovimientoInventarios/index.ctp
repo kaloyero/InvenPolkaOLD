@@ -11,7 +11,9 @@
     <tr>
         <td><?php echo $movimiento['MovimientoInventario']['id']; ?></td>
         <td><?php echo $movimiento['MovimientoInventario']['Numero']; ?></td>
-        <td><?php echo $this->Html->link('Editar', array('action' => 'edit', $movimiento['MovimientoInventario']['id']));?>    </td>
+        <td>
+			<?php echo $this->Html->link('Editar', array('action' => 'edit', $movimiento['MovimientoInventario']['id']));?>    
+        </td>
     </tr>
     <?php endforeach; ?>
 

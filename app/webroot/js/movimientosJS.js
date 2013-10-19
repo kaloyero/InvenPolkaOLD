@@ -4,23 +4,26 @@ $(document).ready(function() {
 function selectMovementType(){
 	var combo = document.getElementById('comboInventario');
 	var selecterType = combo.options[combo.selectedIndex].value;	
-	var selecterCombo = document.getElementById('div'+selecterType);	
-	var divAS = document.getElementById('divAS');
-	var divIN = document.getElementById('divIN');
-	var divBA = document.getElementById('divBA');
-	var divTR = document.getElementById('divTR');
-	var divDE = document.getElementById('divDE');	
+	var divProyecto = document.getElementById('divProyecto');
+	var divDepositoDest = document.getElementById('divDepositoDest');
+	var divUbicacionDest = document.getElementById('divUbicacionDest');	
 
-	//Oculta los divs
-	hideDiv(divAS);
-	hideDiv(divIN);
-	hideDiv(divBA);
-	hideDiv(divTR);
-	hideDiv(divDE);
-	
-	//muestra el div seleccionado
-	selecterCombo.style.display = "block";
+	hideDiv(divProyecto);
+	hideDiv(divDepositoDest);
+	hideDiv(divUbicacionDest);
 
+	if (selecterType == 'P'){
+		showDiv(divProyecto);
+	} else if (selecterType == 'D'){
+		showDiv(divProyecto);
+	} else if (selecterType == 'I'){		
+
+	} else if (selecterType == 'B'){		
+
+	} else if (selecterType == 'T'){
+		showDiv(divDepositoDest);
+		showDiv(divUbicacionDest);
+	}
 }
 
 function showDiv(div){

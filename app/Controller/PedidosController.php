@@ -1,5 +1,6 @@
 <?php
 	App::import('Model','Proyecto');
+	App::import('Model','Estudio');	
 	App::import('Model','Articulo');	
 	App::import('Model','PedidoDetalle');	
 
@@ -51,6 +52,7 @@ class PedidosController extends AppController {
 	
 	private function setViewData() {
 		$this->set('proyectos',$this->getProyectos());
+		$this->set('estudios',$this->getEstudios());		
 		$this->set('articulos',$this->getArticulos());		
 	}
 	
@@ -58,6 +60,12 @@ class PedidosController extends AppController {
 		$proyecto=new Proyecto();
 		$proyectos=$proyecto->find('list',array('fields'=>array('Proyecto.id','Proyecto.Nombre')));
 		return $proyectos;
+	}
+
+	private function getEstudios() {
+		$estudio=new Estudio();
+		$estudios=$estudio->find('list',array('fields'=>array('Estudio.id','Estudio.Nombre')));
+		return $estudios;
 	}
 
 	private function getArticulos() {

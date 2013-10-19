@@ -13,66 +13,59 @@ echo $this->Html->css(array('forms', 'tables', 'menu'));
 
 echo $this->Form->create('MovimientoInventario');
 echo $this->Html->script('movimientosJS');
-echo $this->Html->script('agregarArticulos');
+echo $this->Html->script('agregarArticulosMov');
+
 echo $this->Form->input('Numero');
 echo $this->Form->input('Fecha');
 echo $this->Form->input('Descripcion');
-//echo $this->Form->input('TipoMovimiento');
 ?>
 <select name="data[MovimientoInventario][TipoMovimiento]" id="comboInventario" onchange="javascript:selectMovementType();">
-  <option value="SE">Seleccione el tipo de Movimiento</option>
-  <option value="AS">Asignacion de Articulos a proyectos</option>
-  <option value="DE">Devolucion de Articulos de proyectos</option>  
-  <option value="IN">Ingreso de Articulos</option>
-  <option value="BA">Baja de Articulos</option>
-  <option value="TR">Transferencia de Articulos entre depósitos</option>
+  <option value="I">Ingreso de Articulos</option>
+  <option value="B">Baja de Articulos</option>
+  <option value="P">Asignacion de Articulos a proyectos</option>
+  <option value="D">Devolucion de Articulos de proyectos</option>  
+  <option value="T">Transferencia de Articulos entre depósitos</option>
 </select>
 
-<div id="divAS" style="display: none;">
-<?php 
-echo $this->Form->input('MovimientoInventario.IdProyecto',array('type'=>'select','options'=>$proyectos,'empty'=>false,'label'=>'Proyecto'));
-echo $this->Form->input('MovimientoInventario.IdUbicacionDest',array('type'=>'select','options'=>$ubicaciones,'empty'=>false,'label'=>'Ubicacion Destino'));
-
-?>
-</div>
-
-<div id="divDE" style="display: none;">
-<?php 
-echo $this->Form->input('MovimientoInventario.IdProyecto',array('type'=>'select','options'=>$proyectos,'empty'=>false,'label'=>'Proyecto'));
-echo $this->Form->input('MovimientoInventario.IdUbicacionOrig',array('type'=>'select','options'=>$ubicaciones,'empty'=>false,'label'=>'Ubicacion Original'));
-?>
-</div>
-
-<div id="divIN" style="display: none;">
 <?php
 echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('type'=>'select','options'=>$depositos,'empty'=>false,'label'=>'Deposito Original'));
 ?>
 
-</div>
-
-<div id="divBA" style="display: none;">
-
-</div>
-
-<div id="divTR" style="display: none;">
-<?php
-echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('type'=>'select','options'=>$depositos,'empty'=>false,'label'=>'Deposito Original'));
+<div id="divDepositoDest" style="display: none;">
+<?php 
 echo $this->Form->input('MovimientoInventario.IdDepositoDest',array('type'=>'select','options'=>$depositos,'empty'=>false,'label'=>'Deposito Destino'));
 ?>
 </div>
 
+<div id="divProyecto" style="display: none;">
+<?php 
+echo $this->Form->input('MovimientoInventario.IdProyecto',array('type'=>'select','options'=>$proyectos,'empty'=>false,'label'=>'Proyecto'));
+echo $this->Form->input('MovimientoInventario.IdEstudio',array('type'=>'select','options'=>$estudios,'empty'=>false,'label'=>'Estudio'));
+?>
+</div>
 
+Agregar articulo
 <?php 	
+//Tomar Articulos dependiendo del Deposito seleccionado
 echo $this->Form->input('Articulo.Articulo',array('id'=>'Articulo.Articulo','type'=>'select','options'=>$articulos,'empty'=>false,'label'=>'Articulo'));
 echo $this->Form->input('Articulo.Cantidad',array('id'=>'Articulo.Cantidad','type'=>'number')); 
+echo $this->Form->input('MovimientoInventario.IdUbicacionOrig',array('type'=>'select','options'=>$ubicaciones,'empty'=>false,'label'=>'Ubicacion Original'));
 ?>
-		<a id="agregarCampo" class="btn btn-info" href="#">Agregar Campo</a>
+<div id="divUbicacionDest" style="display: none;">
+<?php
+echo $this->Form->input('MovimientoInventario.IdUbicacionDest',array('type'=>'select','options'=>$ubicaciones,'empty'=>false,'label'=>'Ubicacion Destino'));
+?>
+</div>
+
+<a id="agregarCampo" class="btn btn-info" href="#">Agregar Campo</a>
+
 <div id="contenedor">
     <div class="added">
 
 
     </div>
 </div>
+
 <?php
 echo $this->Form->submit('Guardar');
 ?>
