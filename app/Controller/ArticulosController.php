@@ -15,13 +15,20 @@ class ArticulosController extends AppController {
 	public $findResult;
     function index() {
 		//Array de variables para la vista $this->viewVars["articulos"];
-
+		//Si la session tiene cargada la variable articulos,viene de un redireccionamiento,si no,se pidio el listado completo
 				if ($this->Session->check("articulos")){
 					$result=$this->Session->read("articulos");
 					$this->set("articulos",$result);
 					$result=$this->Session->delete("articulos");
 				}else{
-					$this->set("articulos",$this->Articulo->find('all'));
+						//paginate as normal
+						$this->paginate = array(
+							'order' => array('Result.created ASC'),
+						     'limit' => 10
+						 );
+					//$this->set("articulos",$this->Articulo->find('all'));
+					$this->set("articulos",	$this->paginate('Articulo'));
+
 				}
     }
 

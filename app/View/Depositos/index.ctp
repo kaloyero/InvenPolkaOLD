@@ -24,3 +24,8 @@
     <?php endforeach; ?>
 
 </table>
+<script type="text/javascript">
+    $(document).ready(function() {
+    deposito.hacerTablaEditable();
+    });
+</script>

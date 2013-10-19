@@ -13,8 +13,14 @@
         <td>
             <?php echo $material['Materiale']['Nombre']; ?></td>
         </td>
-		<td><?php echo $this->Html->link('Editar', array('action' => 'edit', $material['Materiale']['id']));?>    </td>        
+		<td><?php echo $this->Html->link('Editar', array('action' => 'edit', $material['Materiale']['id']));?>    </td>
     </tr>
     <?php endforeach; ?>
 
 </table>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+    material.hacerTablaEditable();
+    });
+</script>
