@@ -1,16 +1,20 @@
 <?php
 class MaterialesController extends AppController {
-    
+
     public $helpers = array ('Html','Form');
 
     function index() {
-        $this->set('materiales', $this->Materiale->find('all'));
-    }	
+		$this->paginate = array(
+			'order' => array('Result.created ASC'),
+		     'limit' => 10
+		 );
+        $this->set('materiales', $this->paginate('Materiale'));
+    }
 
    public function view($id = null) {
 
-   }	
-   
+   }
+
     public function add() {
         if ($this->request->is('post')) {
             if ($this->Materiale->save($this->request->data)) {
@@ -35,8 +39,8 @@ class MaterialesController extends AppController {
 				$this->Session->setFlash('Cambios guardados');
 				$this->redirect(array('action' => 'index'));
 			}
-		}		
-	}	
+		}
+	}
 
 	function delete($id) {
 

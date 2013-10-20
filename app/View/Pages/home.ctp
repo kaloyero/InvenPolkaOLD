@@ -1,227 +1,243 @@
-<?php
-/**
- *
- * PHP 5
- *
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @package       app.View.Pages
- * @since         CakePHP(tm) v 0.10.0.1076
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+<div class="contentinner content-dashboard">
+	<div class="alert alert-info">
+    	<button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>Welcome!</strong> This alert needs your attention, but it's not super important.
+    </div><!--alert-->
 
-if (!Configure::read('debug')):
-	throw new NotFoundException();
-endif;
-App::uses('Debugger', 'Utility');
-?>
-<h2><?php echo __d('cake_dev', 'Release Notes for CakePHP %s.', Configure::version()); ?></h2>
-<p>
-	<a href="http://cakephp.org/changelogs/<?php echo Configure::version(); ?>"><?php echo __d('cake_dev', 'Read the changelog'); ?> </a>
-</p>
-<?php
-if (Configure::read('debug') > 0):
-	Debugger::checkSecurityKeys();
-endif;
-?>
-<p id="url-rewriting-warning" style="background-color:#e32; color:#fff;">
-	<?php echo __d('cake_dev', 'URL rewriting is not properly configured on your server.'); ?>
-	1) <a target="_blank" href="http://book.cakephp.org/2.0/en/installation/url-rewriting.html" style="color:#fff;">Help me configure it</a>
-	2) <a target="_blank" href="http://book.cakephp.org/2.0/en/development/configuration.html#cakephp-core-configuration" style="color:#fff;">I don't / can't use URL rewriting</a>
-</p>
-<p>
-<?php
-	if (version_compare(PHP_VERSION, '5.2.8', '>=')):
-		echo '<span class="notice success">';
-			echo __d('cake_dev', 'Your version of PHP is 5.2.8 or higher.');
-		echo '</span>';
-	else:
-		echo '<span class="notice">';
-			echo __d('cake_dev', 'Your version of PHP is too low. You need PHP 5.2.8 or higher to use CakePHP.');
-		echo '</span>';
-	endif;
-?>
-</p>
-<p>
-	<?php
-		if (is_writable(TMP)):
-			echo '<span class="notice success">';
-				echo __d('cake_dev', 'Your tmp directory is writable.');
-			echo '</span>';
-		else:
-			echo '<span class="notice">';
-				echo __d('cake_dev', 'Your tmp directory is NOT writable.');
-			echo '</span>';
-		endif;
-	?>
-</p>
-<p>
-	<?php
-		$settings = Cache::settings();
-		if (!empty($settings)):
-			echo '<span class="notice success">';
-				echo __d('cake_dev', 'The %s is being used for core caching. To change the config edit APP/Config/core.php ', '<em>' . $settings['engine'] . 'Engine</em>');
-			echo '</span>';
-		else:
-			echo '<span class="notice">';
-				echo __d('cake_dev', 'Your cache is NOT working. Please check the settings in APP/Config/core.php');
-			echo '</span>';
-		endif;
-	?>
-</p>
-<p>
-	<?php
-		$filePresent = null;
-		if (file_exists(APP . 'Config' . DS . 'database.php')):
-			echo '<span class="notice success">';
-				echo __d('cake_dev', 'Your database configuration file is present.');
-				$filePresent = true;
-			echo '</span>';
-		else:
-			echo '<span class="notice">';
-				echo __d('cake_dev', 'Your database configuration file is NOT present.');
-				echo '<br/>';
-				echo __d('cake_dev', 'Rename APP/Config/database.php.default to APP/Config/database.php');
-			echo '</span>';
-		endif;
-	?>
-</p>
-<?php
-if (isset($filePresent)):
-	App::uses('ConnectionManager', 'Model');
-	try {
-		$connected = ConnectionManager::getDataSource('default');
-	} catch (Exception $connectionError) {
-		$connected = false;
-		$errorMsg = $connectionError->getMessage();
-		if (method_exists($connectionError, 'getAttributes')):
-			$attributes = $connectionError->getAttributes();
-			if (isset($errorMsg['message'])):
-				$errorMsg .= '<br />' . $attributes['message'];
-			endif;
-		endif;
-	}
-?>
-<p>
-	<?php
-		if ($connected && $connected->isConnected()):
-			echo '<span class="notice success">';
-				echo __d('cake_dev', 'Cake is able to connect to the database.');
-			echo '</span>';
-		else:
-			echo '<span class="notice">';
-				echo __d('cake_dev', 'Cake is NOT able to connect to the database.');
-				echo '<br /><br />';
-				echo $errorMsg;
-			echo '</span>';
-		endif;
-	?>
-</p>
-<?php endif; ?>
-<?php
-	App::uses('Validation', 'Utility');
-	if (!Validation::alphaNumeric('cakephp')):
-		echo '<p><span class="notice">';
-			echo __d('cake_dev', 'PCRE has not been compiled with Unicode support.');
-			echo '<br/>';
-			echo __d('cake_dev', 'Recompile PCRE with Unicode support by adding <code>--enable-unicode-properties</code> when configuring');
-		echo '</span></p>';
-	endif;
-?>
+    <div class="row-fluid">
+    	<div class="span8">
+        	<ul class="widgeticons row-fluid">
+            	<li class="one_fifth"><a href=""><img src="img/gemicon/location.png" alt="" /><span>Maps</span></a></li>
+                <li class="one_fifth"><a href=""><img src="img/gemicon/image.png" alt="" /><span>Media</span></a></li>
+                <li class="one_fifth"><a href=""><img src="img/gemicon/reports.png" alt="" /><span>Reports</span></a></li>
+                <li class="one_fifth"><a href=""><img src="img/gemicon/edit.png" alt="" /><span>New Article</span></a></li>
+                <li class="one_fifth last"><a href=""><img src="img/gemicon/mail.png" alt="" /><span>Check Mail</span></a></li>
+            	<li class="one_fifth"><a href=""><img src="img/gemicon/calendar.png" alt="" /><span>Events</span></a></li>
+                <li class="one_fifth"><a href=""><img src="img/gemicon/users.png" alt="" /><span>Manage Users</span></a></li>
+                <li class="one_fifth"><a href=""><img src="img/gemicon/settings.png" alt="" /><span>Settings</span></a></li>
+                <li class="one_fifth"><a href=""><img src="img/gemicon/archive.png" alt="" /><span>Archives</span></a></li>
+                <li class="one_fifth last"><a href=""><img src="img/gemicon/notify.png" alt="" /><span>Notifications</span></a></li>
+            </ul>
 
-<p>
-	<?php
-		if (CakePlugin::loaded('DebugKit')):
-			echo '<span class="notice success">';
-				echo __d('cake_dev', 'DebugKit plugin is present');
-			echo '</span>';
-		else:
-			echo '<span class="notice">';
-				echo __d('cake_dev', 'DebugKit is not installed. It will help you inspect and debug different aspects of your application.');
-				echo '<br/>';
-				echo __d('cake_dev', 'You can install it from %s', $this->Html->link('github', 'https://github.com/cakephp/debug_kit'));
-			echo '</span>';
-		endif;
-	?>
-</p>
+            <br />
 
-<h3><?php echo __d('cake_dev', 'Editing this Page'); ?></h3>
-<p>
-<?php
-echo __d('cake_dev', 'To change the content of this page, edit: APP/View/Pages/home.ctp.<br />
-To change its layout, edit: APP/View/Layouts/default.ctp.<br />
-You can also add some CSS styles for your pages at: APP/webroot/css.');
-?>
-</p>
+            <h4 class="widgettitle">Report Summary</h4>
+            <div class="widgetcontent">
+            	<div id="chartplace2" style="height:300px;"></div>
+            </div><!--widgetcontent-->
 
-<h3><?php echo __d('cake_dev', 'Getting Started'); ?></h3>
-<p>
-	<?php
-		echo $this->Html->link(
-			sprintf('<strong>%s</strong> %s', __d('cake_dev', 'New'), __d('cake_dev', 'CakePHP 2.0 Docs')),
-			'http://book.cakephp.org/2.0/en/',
-			array('target' => '_blank', 'escape' => false)
-		);
-	?>
-</p>
-<p>
-	<?php
-		echo $this->Html->link(
-			__d('cake_dev', 'The 15 min Blog Tutorial'),
-			'http://book.cakephp.org/2.0/en/tutorials-and-examples/blog/blog.html',
-			array('target' => '_blank', 'escape' => false)
-		);
-	?>
-</p>
+            <h4 class="widgettitle">Recent Articles</h4>
+            <div class="widgetcontent">
+                <div id="tabs">
+                    <ul>
+                        <li><a href="#tabs-1"><span class="icon-forward"></span> Technology</a></li>
+                        <li><a href="#tabs-2"><span class="icon-eye-open"></span> Entertainment</a></li>
+                        <li><a href="#tabs-3"><span class="icon-leaf"></span> Fitness &amp; Health</a></li>
+                    </ul>
+                    <div id="tabs-1">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Submitted By</th>
+                                    <th>Date Added</th>
+                                    <th class="center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a href=""><strong>Excepteur sint occaecat cupidatat non...</strong></a></td>
+                                    <td><a href="">admin</a></td>
+                                    <td>Jan 02, 2013</td>
+                                    <td class="center"><a href="" class="btn"><span class="icon-edit"></span> Edit</a></td>
+                                </tr>
+                                <tr>
+                                    <td><a href=""><strong>Sed ut perspiciatis unde omnis iste natus...</strong></a></td>
+                                    <td><a href="">themepixels</a></td>
+                                    <td>Jan 02, 2013</td>
+                                    <td class="center"><a href="" class="btn"><span class="icon-edit"></span> Edit</a></td>
+                                </tr>
+                                <tr>
+                                    <td><a href=""><strong>Sed ut perspiciatis unde omnis iste natus</strong></a></td>
+                                    <td><a href="">johndoe</a></td>
+                                    <td>Jan 01, 2013</td>
+                                    <td class="center"><a href="" class="btn"><span class="icon-edit"></span> Edit</a></td>
+                                </tr>
+                                <tr>
+                                    <td><a href=""><strong>Quis autem vel eum iure reprehenderi...</strong></a></td>
+                                    <td><a href="">amanda</a></td>
+                                    <td>Jan 01, 2013</td>
+                                    <td class="center"><a href="" class="btn"><span class="icon-edit"></span> Edit</a></td>
+                                </tr>
+                                <tr>
+                                    <td><a href=""><strong>Nemo enim ipsam voluptatem quia</strong></a></td>
+                                    <td><a href="">mandylane</a></td>
+                                    <td>Dec 31, 2012</td>
+                                    <td class="center"><a href="" class="btn"><span class="icon-edit"></span> Edit</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="tabs-2">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Submitted By</th>
+                                    <th>Date Added</th>
+                                    <th class="center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a href=""><strong>Nemo enim ipsam voluptatem quia</strong></a></td>
+                                    <td><a href="">mandylane</a></td>
+                                    <td>Jan 04, 2012</td>
+                                    <td class="center"><a href="" class="btn"><span class="icon-edit"></span> Edit</a></td>
+                                </tr>
+                                <tr>
+                                    <td><a href=""><strong>Excepteur sint occaecat cupidatat non...</strong></a></td>
+                                    <td><a href="">admin</a></td>
+                                    <td>Jan 02, 2013</td>
+                                    <td class="center"><a href="" class="btn"><span class="icon-edit"></span> Edit</a></td>
+                                </tr>
+                                <tr>
+                                    <td><a href=""><strong>Sed ut perspiciatis unde omnis iste natus...</strong></a></td>
+                                    <td><a href="">themepixels</a></td>
+                                    <td>Jan 02, 2013</td>
+                                    <td class="center"><a href="" class="btn"><span class="icon-edit"></span> Edit</a></td>
+                                </tr>
+                                <tr>
+                                    <td><a href=""><strong>Sed ut perspiciatis unde omnis iste natus</strong></a></td>
+                                    <td><a href="">johndoe</a></td>
+                                    <td>Jan 01, 2013</td>
+                                    <td class="center"><a href="" class="btn"><span class="icon-edit"></span> Edit</a></td>
+                                </tr>
+                                <tr>
+                                    <td><a href=""><strong>Quis autem vel eum iure reprehenderi...</strong></a></td>
+                                    <td><a href="">amanda</a></td>
+                                    <td>Jan 01, 2013</td>
+                                    <td class="center"><a href="" class="btn"><span class="icon-edit"></span> Edit</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="tabs-3">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Submitted By</th>
+                                    <th>Date Added</th>
+                                    <th class="center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a href=""><strong>Quis autem vel eum iure reprehenderi...</strong></a></td>
+                                    <td><a href="">amanda</a></td>
+                                    <td>Jan 03, 2013</td>
+                                    <td class="center"><a href="" class="btn"><span class="icon-edit"></span> Edit</a></td>
+                                </tr>
+                                <tr>
+                                    <td><a href=""><strong>Nemo enim ipsam voluptatem quia</strong></a></td>
+                                    <td><a href="">mandylane</a></td>
+                                    <td>Dec 31, 2012</td>
+                                    <td class="center"><a href="" class="btn"><span class="icon-edit"></span> Edit</a></td>
+                                </tr>
+                                <tr>
+                                    <td><a href=""><strong>Excepteur sint occaecat cupidatat non...</strong></a></td>
+                                    <td><a href="">admin</a></td>
+                                    <td>Jan 02, 2013</td>
+                                    <td class="center"><a href="" class="btn"><span class="icon-edit"></span> Edit</a></td>
+                                </tr>
+                                <tr>
+                                    <td><a href=""><strong>Sed ut perspiciatis unde omnis iste natus...</strong></a></td>
+                                    <td><a href="">themepixels</a></td>
+                                    <td>Jan 02, 2013</td>
+                                    <td class="center"><a href="" class="btn"><span class="icon-edit"></span> Edit</a></td>
+                                </tr>
+                                <tr>
+                                    <td><a href=""><strong>Sed ut perspiciatis unde omnis iste natus</strong></a></td>
+                                    <td><a href="">johndoe</a></td>
+                                    <td>Jan 01, 2013</td>
+                                    <td class="center"><a href="" class="btn"><span class="icon-edit"></span> Edit</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div><!--#tabs-->
+            </div><!--widgetcontent-->
 
-<h3><?php echo __d('cake_dev', 'Official Plugins'); ?></h3>
-<p>
-<ul>
-	<li>
-		<?php echo $this->Html->link('DebugKit', 'https://github.com/cakephp/debug_kit') ?>:
-		<?php echo __d('cake_dev', 'provides a debugging toolbar and enhanced debugging tools for CakePHP applications.'); ?>
-	</li>
-	<li>
-		<?php echo $this->Html->link('Localized', 'https://github.com/cakephp/localized') ?>:
-		<?php echo __d('cake_dev', 'contains various localized validation classes and translations for specific countries'); ?>
-	</li>
-</ul>
-</p>
 
-<h3><?php echo __d('cake_dev', 'More about Cake'); ?></h3>
-<p>
-<?php echo __d('cake_dev', 'CakePHP is a rapid development framework for PHP which uses commonly known design patterns like Active Record, Association Data Mapping, Front Controller and MVC.'); ?>
-</p>
-<p>
-<?php echo __d('cake_dev', 'Our primary goal is to provide a structured framework that enables PHP users at all levels to rapidly develop robust web applications, without any loss to flexibility.'); ?>
-</p>
+        </div><!--span8-->
+        <div class="span4">
+        	<h4 class="widgettitle nomargin">Some Simple Instructions</h4>
+            <div class="widgetcontent bordered">
+            	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            </div><!--widgetcontent-->
 
-<ul>
-	<li><a href="http://cakefoundation.org/"><?php echo __d('cake_dev', 'Cake Software Foundation'); ?> </a>
-	<ul><li><?php echo __d('cake_dev', 'Promoting development related to CakePHP'); ?></li></ul></li>
-	<li><a href="http://www.cakephp.org"><?php echo __d('cake_dev', 'CakePHP'); ?> </a>
-	<ul><li><?php echo __d('cake_dev', 'The Rapid Development Framework'); ?></li></ul></li>
-	<li><a href="http://book.cakephp.org"><?php echo __d('cake_dev', 'CakePHP Documentation'); ?> </a>
-	<ul><li><?php echo __d('cake_dev', 'Your Rapid Development Cookbook'); ?></li></ul></li>
-	<li><a href="http://api.cakephp.org/"><?php echo __d('cake_dev', 'CakePHP API'); ?> </a>
-	<ul><li><?php echo __d('cake_dev', 'Quick Reference'); ?></li></ul></li>
-	<li><a href="http://bakery.cakephp.org"><?php echo __d('cake_dev', 'The Bakery'); ?> </a>
-	<ul><li><?php echo __d('cake_dev', 'Everything CakePHP'); ?></li></ul></li>
-	<li><a href="http://plugins.cakephp.org"><?php echo __d('cake_dev', 'CakePHP plugins repo'); ?> </a>
-	<ul><li><?php echo __d('cake_dev', 'A comprehensive list of all CakePHP plugins created by the community'); ?></li></ul></li>
-	<li><a href="https://groups.google.com/group/cake-php"><?php echo __d('cake_dev', 'CakePHP Google Group'); ?> </a>
-	<ul><li><?php echo __d('cake_dev', 'Community mailing list'); ?></li></ul></li>
-	<li><a href="irc://irc.freenode.net/cakephp">irc.freenode.net #cakephp</a>
-	<ul><li><?php echo __d('cake_dev', 'Live chat about CakePHP'); ?></li></ul></li>
-	<li><a href="https://github.com/cakephp/"><?php echo __d('cake_dev', 'CakePHP Code'); ?> </a>
-	<ul><li><?php echo __d('cake_dev', 'For the Development of CakePHP Git repository, Downloads'); ?></li></ul></li>
-	<li><a href="https://cakephp.lighthouseapp.com/"><?php echo __d('cake_dev', 'CakePHP Lighthouse'); ?> </a>
-	<ul><li><?php echo __d('cake_dev', 'CakePHP Tickets, Wiki pages, Roadmap'); ?></li></ul></li>
-</ul>
+            <h4 class="widgettitle nomargin">Events this month</h4>
+            <div class="widgetcontent">
+            	<div id="calendar" class="widgetcalendar"></div>
+            </div><!--widgetcontent-->
+
+            <h4 class="widgettitle">Site Impressions</h4>
+            <div class="widgetcontent">
+            	<div id="bargraph2" style="height:200px;"></div>
+            </div><!--widgetcontent-->
+
+            <h4 class="widgettitle">Recently Added Articles</h4>
+            <div class="widgetcontent">
+            	<div id="accordion" class="accordion">
+                        <h3><a href="#">Mauris mauris ante, blandit et</a></h3>
+                        <div>
+                            <p>
+                            Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
+                            ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
+                            amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
+                            odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+                            </p>
+                        </div>
+                        <h3><a href="#">Donec et ante phasellus eu ligula</a></h3>
+                        <div>
+                            <p>
+                            Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet
+                            purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor
+                            velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In
+                            suscipit faucibus urna.
+                            </p>
+                        </div>
+                        <h3><a href="#">Quam ante aliquam nisi</a></h3>
+                        <div>
+                            <p>
+                            Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis.
+                            Phasellus pellentesque purus in massa. Aenean in pede. Phasellus ac libero
+                            ac tellus pellentesque semper. Sed ac felis. Sed commodo, magna quis
+                            lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui.
+                            </p>
+                            <ul class="margin1020">
+                                <li>List item one</li>
+                                <li>List item two</li>
+                                <li>List item three</li>
+                            </ul>
+                        </div>
+                        <h3><a href="#">Pellentesque habitant morbi</a></h3>
+                        <div>
+                            <p>
+                            Cras dictum. Pellentesque habitant morbi tristique senectus et netus
+                            et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in
+                            faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia
+                            mauris vel est.
+                            </p>
+                            <p>
+                            Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus.
+                            Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
+                            inceptos himenaeos.
+                            </p>
+            	       </div>
+            	</div><!--#accordion-->
+            </div><!--widgetcontent-->
+        </div><!--span4-->
+    </div><!--row-fluid-->
+</div><!--contentinner-->

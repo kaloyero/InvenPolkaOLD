@@ -1,5 +1,5 @@
-<h1>Listado</h1>
-<table>
+<div class="contentinner">
+<table class="table">
     <tr>
         <th>Id</th>
         <th>Nombre</th>
@@ -13,3 +13,4 @@
     <?php endforeach; ?>
 
 </table>
+</div>

@@ -22,7 +22,7 @@ var ServerManager = new Class({
 		      url: "edit/"+config.editObject,
 		      data:  dataAEnviar,
 		      success: function(data) {
-		    	  console.log("LISTO");
+		    	  console.log("LISTO",data);
 				}
 		    } );
     }

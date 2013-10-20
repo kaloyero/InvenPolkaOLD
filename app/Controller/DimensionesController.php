@@ -1,16 +1,20 @@
 <?php
 class DimensionesController extends AppController {
-    
+
     public $helpers = array ('Html','Form');
 
     function index() {
-        $this->set('dimensiones', $this->Dimensione->find('all'));
-    }	
+		$this->paginate = array(
+			'order' => array('Result.created ASC'),
+		     'limit' => 10
+		 );
+        $this->set('dimensiones', $this->paginate('Dimensione'));
+    }
 
    public function view($id = null) {
 
-   }	
-   
+   }
+
     public function add() {
         if ($this->request->is('post')) {
             if ($this->Dimensione->save($this->request->data)) {
@@ -35,7 +39,7 @@ class DimensionesController extends AppController {
 				$this->redirect(array('action' => 'index'));
 			}
 		}
-	}	
+	}
 
 	function delete($id) {
 

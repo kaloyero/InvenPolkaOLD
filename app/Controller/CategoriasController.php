@@ -4,7 +4,16 @@ class CategoriasController extends AppController {
     public $helpers = array ('Html','Form');
 
     function index() {
-        $this->set('categorias', $this->Categoria->find('all'));
+		//Si fue un pedido ajax,uso un layout donde nada mas devuelve el contenido,sin los <html> <Headt> etc
+ 		if ($this->Session->check("ajaxRequest")){
+			$this->layout = 'empty';
+			$this->Session->delete("ajaxRequest");
+		}
+		$this->paginate = array(
+			'order' => array('Result.created ASC'),
+		     'limit' => 10
+		 );
+        $this->set('categorias', $this->paginate('Categoria'));
     }
 
    public function view($id = null) {
@@ -30,7 +39,8 @@ class CategoriasController extends AppController {
 			$this->request->data = $this->Categoria->read();
 		} else {
 			if ($this->Categoria->save($this->request->data)) {
-				$this->Session->setFlash('Cambios guardados');
+				//$this->Session->setFlash('Cambios guardados');
+				$this->Session->write("ajaxRequest",true);
 				$this->redirect(array('action' => 'index'));
 			}
 		}

@@ -1,16 +1,20 @@
 <?php
 class DecoradosController extends AppController {
-    
+
     public $helpers = array ('Html','Form');
 
     function index() {
-        $this->set('decorados', $this->Decorado->find('all'));
-    }	
+		$this->paginate = array(
+			'order' => array('Result.created ASC'),
+		     'limit' => 10
+		 );
+        $this->set('decorados', $this->paginate('Decorado'));
+    }
 
    public function view($id = null) {
 
-   }	
-   
+   }
+
     public function add() {
         if ($this->request->is('post')) {
             if ($this->Decorado->save($this->request->data)) {
@@ -35,7 +39,7 @@ class DecoradosController extends AppController {
 				$this->redirect(array('action' => 'index'));
 			}
 		}
-	}	
+	}
 
 	function delete($id) {
 
