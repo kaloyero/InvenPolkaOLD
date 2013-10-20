@@ -126,11 +126,7 @@ class ArticulosController extends AppController {
 
 				// $this->set("articulos",$results);
 				$this->redirect(array('action' => 'index'));
-
-
-
-
-		 }else{
+	 }else{
 			$this->setViewData();
 		}
 	}

@@ -70,3 +70,4 @@ $paginator = $this->Paginator;
 
  ?>
 </div>
+</div>
