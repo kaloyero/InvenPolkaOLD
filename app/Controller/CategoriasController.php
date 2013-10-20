@@ -24,13 +24,17 @@ class CategoriasController extends AppController {
         if ($this->request->is('post')) {
             if ($this->Categoria->save($this->request->data)) {
                 $this->Session->setFlash('Categoria Guardada con Exito.');
-				if ($this->request->data['Categoria']['RedirectAction'] == 'siguiente'){
-					$this->redirect(array('action' => 'add'));
-				} else {
-					$this->redirect(array('action' => 'index'));
-				}
+				$this->addRedirect('Categoria');
             }
-        }
+        } else {
+			
+/*			if ($this->params['check'] = 1){
+				$this->set('check',1);
+			} else {
+				$this->set('check',0);
+			}*/
+			
+		}
     }
 
 	function edit($id = null) {

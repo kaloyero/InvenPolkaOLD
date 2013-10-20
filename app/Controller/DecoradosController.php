@@ -19,12 +19,7 @@ class DecoradosController extends AppController {
         if ($this->request->is('post')) {
             if ($this->Decorado->save($this->request->data)) {
                 $this->Session->setFlash('Decorado Guardado con Exito.');
-				if ($this->request->data['Decorado']['RedirectAction'] == 'siguiente'){
-					$this->redirect(array('action' => 'add'));
-				} else {
-					$this->redirect(array('action' => 'index'));
-				}
-
+				$this->addRedirect('Decorado');
             }
         }
     }

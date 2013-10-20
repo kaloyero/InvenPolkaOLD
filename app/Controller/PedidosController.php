@@ -1,5 +1,6 @@
 <?php
 	App::import('Model','Proyecto');
+	App::import('Model','Estudio');	
 	App::import('Model','Articulo');	
 	App::import('Model','PedidoDetalle');	
 
@@ -25,8 +26,6 @@ class PedidosController extends AppController {
             }
         } else {
 			$this->setViewData();
-			$this->set('articulos',$this->getArticulos());
-
 		}
     }
 
@@ -53,12 +52,20 @@ class PedidosController extends AppController {
 	
 	private function setViewData() {
 		$this->set('proyectos',$this->getProyectos());
+		$this->set('estudios',$this->getEstudios());		
+		$this->set('articulos',$this->getArticulos());		
 	}
 	
 	private function getProyectos() {
 		$proyecto=new Proyecto();
 		$proyectos=$proyecto->find('list',array('fields'=>array('Proyecto.id','Proyecto.Nombre')));
 		return $proyectos;
+	}
+
+	private function getEstudios() {
+		$estudio=new Estudio();
+		$estudios=$estudio->find('list',array('fields'=>array('Estudio.id','Estudio.Nombre')));
+		return $estudios;
 	}
 
 	private function getArticulos() {
@@ -69,7 +76,7 @@ class PedidosController extends AppController {
 
 	private function agregarDetalles() {
 		$idInsertedPedido = $this->Pedido->getInsertID();
-		$listDetalle = array ($this->request->data['PedidoDetalle']);
+		$listDetalle = array ($this->request->data['Detalle']);
 		foreach ($listDetalle as &$detalle) {
 			foreach ($detalle as &$det) {
 				$PedidoDetalle=new PedidoDetalle();
@@ -80,7 +87,6 @@ class PedidosController extends AppController {
 			}
 		}
 	}
-
 	
 }
 ?>

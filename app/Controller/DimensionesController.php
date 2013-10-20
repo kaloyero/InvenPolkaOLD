@@ -19,12 +19,7 @@ class DimensionesController extends AppController {
         if ($this->request->is('post')) {
             if ($this->Dimensione->save($this->request->data)) {
                 $this->Session->setFlash('Dimension Guardada con Exito.');
-				if ($this->request->data['Dimensione']['RedirectAction'] == 'siguiente'){
-					$this->redirect(array('action' => 'add'));
-				} else {
-					$this->redirect(array('action' => 'index'));
-				}
-
+				$this->addRedirect('Dimensione');
             }
         }
     }

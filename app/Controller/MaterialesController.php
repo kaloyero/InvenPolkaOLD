@@ -19,12 +19,7 @@ class MaterialesController extends AppController {
         if ($this->request->is('post')) {
             if ($this->Materiale->save($this->request->data)) {
                 $this->Session->setFlash('Material Guardado con Exito.');
-				if ($this->request->data['Materiale']['RedirectAction'] == 'siguiente'){
-					$this->redirect(array('action' => 'add'));
-				} else {
-					$this->redirect(array('action' => 'index'));
-				}
-
+				$this->addRedirect('Materiale');
             }
         }
 

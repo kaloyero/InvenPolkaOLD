@@ -19,12 +19,7 @@ class EstilosController extends AppController {
         if ($this->request->is('post')) {
             if ($this->Estilo->save($this->request->data)) {
                 $this->Session->setFlash('Estilo Guardada con Exito.');
-				if ($this->request->data['Estilo']['RedirectAction'] == 'siguiente'){
-					$this->redirect(array('action' => 'add'));
-				} else {
-					$this->redirect(array('action' => 'index'));
-				}
-
+				$this->addRedirect('Estilo');
             }
         }
     }
