@@ -4,9 +4,10 @@ class CategoriasController extends AppController {
     public $helpers = array ('Html','Form');
 
     function index() {
+	//$this->redirect(array('controller' => 'pages', 'action' => 'display'));
 		//Si fue un pedido ajax,uso un layout donde nada mas devuelve el contenido,sin los <html> <Headt> etc
  		if ($this->Session->check("ajaxRequest")){
-			$this->layout = 'empty';
+			//$this->layout = 'empty';
 			$this->Session->delete("ajaxRequest");
 		}
 		$this->paginate = array(
@@ -27,13 +28,13 @@ class CategoriasController extends AppController {
 				$this->addRedirect('Categoria');
             }
         } else {
-			
+
 /*			if ($this->params['check'] = 1){
 				$this->set('check',1);
 			} else {
 				$this->set('check',0);
 			}*/
-			
+
 		}
     }
 

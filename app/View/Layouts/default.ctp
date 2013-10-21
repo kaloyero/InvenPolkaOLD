@@ -143,7 +143,6 @@
 
 </div><!--mainwrapper-->
 <script type="text/javascript">
-jQuery(document).ready(function(){
 
 		// basic chart
 		var flash = [[0, 2], [1, 6], [2,3], [3, 8], [4, 5], [5, 13], [6, 8]];
@@ -225,7 +224,6 @@ if (jQuery("#chartplace2").length) {
 		jQuery('#calendar').datepicker();
 /**/
 
-});
 </script>
 
 

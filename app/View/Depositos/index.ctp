@@ -17,7 +17,7 @@
 </div><!--pagetitle-->
 
 <div class="maincontent animate4 fadeInUp">
-<div class="contentinner"><table class="table">
+<div class="contentinner"><p><?php echo $this->Html->link('Agregar', array('action' => 'add')); ?></p><table class="table">
     <tr>
         <th>Id</th>
         <th>Nombre</th>

@@ -14,6 +14,7 @@ class ArticulosController extends AppController {
     public $helpers = array ('Html','Form');
 	public $findResult;
     function index() {
+  //if ($this->request->is('ajax')){
 		//Array de variables para la vista $this->viewVars["articulos"];
 		//Si la session tiene cargada la variable articulos,viene de un redireccionamiento,si no,se pidio el listado completo
 				if ($this->Session->check("articulos")){

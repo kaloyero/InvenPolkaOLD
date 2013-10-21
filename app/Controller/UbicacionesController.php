@@ -16,7 +16,6 @@ class UbicacionesController extends AppController {
 	        if ($this->request->is('post')) {
 
 	            if ($this->Ubicacione->save($this->request->data)) {
-					echo "Guarda..?.";
 	                $this->Session->setFlash('Ubicacion Guardada con Exito.');
 	                $this->redirect(array('action' => 'index'));
 	            }

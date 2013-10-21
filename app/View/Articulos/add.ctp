@@ -38,7 +38,7 @@ echo $this->Form->input('CodigoArticulo',array('class'=>'input-medium','div'=>fa
                                 <label>Codigo Articulo</label>
                                 <span class="field">',
 								'after'=>'</span></p>'));
-								echo $this->Form->input('Descripcion',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
+echo $this->Form->input('Descripcion',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
 								                                <label>Descripcion</label>
 								                                <span class="field">',
 																'after'=>'</span></p>'));
