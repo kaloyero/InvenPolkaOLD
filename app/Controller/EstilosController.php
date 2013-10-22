@@ -1,16 +1,20 @@
 <?php
 class EstilosController extends AppController {
-    
+
     public $helpers = array ('Html','Form');
 
     function index() {
-        $this->set('estilos', $this->Estilo->find('all'));
-    }	
+		$this->paginate = array(
+			'order' => array('Result.created ASC'),
+		     'limit' => 10
+		 );
+        $this->set('estilos', $this->paginate('Estilo'));
+    }
 
    public function view($id = null) {
 
-   }	
-   
+   }
+
     public function add() {
         if ($this->request->is('post')) {
             if ($this->Estilo->save($this->request->data)) {
@@ -29,8 +33,8 @@ class EstilosController extends AppController {
 				$this->Session->setFlash('Cambios guardados');
 				$this->redirect(array('action' => 'index'));
 			}
-		}	
-	}	
+		}
+	}
 
 	function delete($id) {
 
