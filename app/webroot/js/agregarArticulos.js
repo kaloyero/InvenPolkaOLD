@@ -19,7 +19,7 @@ $(document).ready(function() {
 				' <div>' +
 				'	Articulo: <input name="nomArticulo" type="text" value="Nom Articulo ' + $(ArtArticulo).val() + '" readonly="readonly" />' +			
 				'	Cantidad: <input name="data[Detalle]['+FieldCount+'][Cantidad]" type="text" value="' + 1 + '" readonly="readonly" />' +			
-						   '  <input name="data[Detalle]['+FieldCount+'][IdArticulo]" type="hidden" value="' + 3 + '" readonly="readonly" />' +			
+						   '  <input name="data[Detalle]['+FieldCount+'][IdArticulo]" type="hidden" value="' + 2 + '" readonly="readonly" />' +			
 				'</div>');
             x++; 			
 			//<input type="text" name="mitexto[0]" id="campo_1" placeholder="Texto 1"/><a href="#" class="eliminar">&times;</a>

@@ -56,23 +56,6 @@ class PedidosController extends AppController {
 		$this->set('articulos',$this->getArticulos());		
 	}
 	
-	private function getProyectos() {
-		$proyecto=new Proyecto();
-		$proyectos=$proyecto->find('list',array('fields'=>array('Proyecto.id','Proyecto.Nombre')));
-		return $proyectos;
-	}
-
-	private function getEstudios() {
-		$estudio=new Estudio();
-		$estudios=$estudio->find('list',array('fields'=>array('Estudio.id','Estudio.Nombre')));
-		return $estudios;
-	}
-
-	private function getArticulos() {
-		$articulo=new Articulo();
-		$articulos=$articulo->find('list',array('fields'=>array('Articulo.id','Articulo.Codigoarticulo','Articulo.Descripcion')));
-		return $articulos;
-	}
 
 	private function agregarDetalles() {
 		$idInsertedPedido = $this->Pedido->getInsertID();
@@ -87,6 +70,41 @@ class PedidosController extends AppController {
 			}
 		}
 	}
-	
+
+	function confirmarPedido($id = null) {
+		$pedido = $this->Pedido->read(null, $id);
+        if (!$this->Pedido->exists()) {
+//            throw new NotFoundException(__('Invalid model'));
+        } else {		
+			if ($pedido['Pedido']['estado'] == 'abierto'){
+				$this->Pedido->set('estado', 'confirmado');
+				$this->Pedido->save();
+			}
+		}
+		$this->redirect(array('action' => 'index'));
+		
+//		$this->Status->id = 3; // This avoids the query performed by read()
+//		$this->Status->saveField('amount', 5000);
+	}	
+
+	function getProyectos() {
+		$proyecto=new Proyecto();
+		$proyectos=$proyecto->find('list',array('fields'=>array('Proyecto.id','Proyecto.Nombre')));
+		return $proyectos;
+	}
+
+	function getEstudios() {
+		$estudio=new Estudio();
+		$estudios=$estudio->find('list',array('fields'=>array('Estudio.id','Estudio.Nombre')));
+		return $estudios;
+	}
+
+	function getArticulos() {
+		$articulo=new Articulo();
+		$articulos=$articulo->find('list',array('fields'=>array('Articulo.id','Articulo.Codigoarticulo','Articulo.Descripcion')));
+		return $articulos;
+	}
+
+
 }
 ?>

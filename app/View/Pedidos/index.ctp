@@ -13,9 +13,9 @@
         <td><?php echo $pedido['Pedido']['Numero']; ?></td>
         <td>
 			<?php 
-			if ($movimiento['Pedido']['estado'] = 'abierto'){
+			if ($pedido['Pedido']['estado'] == 'abierto'){
 				echo $this->Html->link('Editar', array('action' => 'edit', $pedido['Pedido']['id']));
-                echo $this->Html->link('Confirmar', array('action' => 'edit', $pedido['Pedido']['id']));
+                echo $this->Html->link('Confirmar', array('action' => 'confirmarPedido', $pedido['Pedido']['id']));
             }
 			?>	
 				

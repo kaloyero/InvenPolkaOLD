@@ -141,6 +141,17 @@ class MovimientoInventariosController extends AppController {
 		$estudios=$estudio->find('list',array('fields'=>array('Estudio.id','Estudio.Nombre')));
 		return $estudios;
 	}
+
+   public function view($id = null) {
+        $this->MovimientoInventario->id = $id;
+        $this->set('movimiento', $this->MovimientoInventario->read());
+   }
+
+   public function view($id = null) {
+        $this->MovimientoInventario->id = $id;
+        $this->set('movimiento', $this->MovimientoInventario->read());
+   }
+
 	
 }
 ?>

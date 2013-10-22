@@ -32,7 +32,7 @@ echo $this->Form->submit('Guardar');
 echo $this->Form->input('Articulo.Cantidad',array('id'=>'Articulo.Cantidad','type'=>'number')); 
 echo $this->Form->input('Articulo.Articulo',array('id'=>'Articulo.Articulo','type'=>'select','options'=>$articulos,'empty'=>false,'label'=>'Articulo'));
 //		        <input type="text" name="mitexto[0]" id="campo_1" placeholder="Texto 1"/><a href="#" class="eliminar">&times;</a>		?>
-		<a id="agregarCampo" class="btn btn-info" href="#">Agregar Campo</a>
+<a id="agregarCampo" class="btn btn-info" href="#">Agregar Campo</a>
 <div id="contenedor">
     <div class="added">
 
