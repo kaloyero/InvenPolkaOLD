@@ -31,7 +31,8 @@ class DimensionesController extends AppController {
 		} else {
 			if ($this->Dimensione->save($this->request->data)) {
 				$this->Session->setFlash('Cambios guardados');
-				$this->redirect(array('action' => 'index'));
+				//$this->redirect(array('action' => 'index'));
+				echo "Ok";
 			}
 		}
 	}

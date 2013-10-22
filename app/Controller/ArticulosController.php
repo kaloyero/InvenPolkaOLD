@@ -43,11 +43,11 @@ class ArticulosController extends AppController {
 
     public function add() {
         if ($this->request->is('post')) {
-
             if ($this->Articulo->save($this->request->data)) {
                 $this->Session->setFlash('Articulo Guardada con Exito.');
                 $this->redirect(array('action' => 'index'));
             }	else{
+					echo "NOFUN";
 					$this->setViewData();
 				}
         } else {

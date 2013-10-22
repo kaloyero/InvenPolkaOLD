@@ -2,11 +2,13 @@ var Dimension = new Class({
     Extends: Render,
     initialize: function(name){
         this.name = name;
+        this.type="dimension";
     },
-    hacerTablaEditable: function(){
-        this.parent("Dimensione");
-    },
+    onList: function(data){
+            this.parent(data);
+            this.hacerTablaEditable();
+    }
 
 });
 
-dimension=new Dimension();
+dimensionRender=new Dimension();

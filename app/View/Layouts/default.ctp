@@ -5,6 +5,25 @@
 <title>InvenPolka</title>
 <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/excanvas.min.js"></script><![endif]-->
 <?php
+	//Cargando archivos nuestros');
+
+	echo $this->Html->script('operacionesBasicas');
+	echo $this->Html->script('mootools.js');
+	echo $this->Html->script('Render');
+	echo $this->Html->script('RenderTranslator');
+	echo $this->Html->script('Articulo');
+
+	echo $this->Html->script('Categoria');
+	echo $this->Html->script('Material');
+	echo $this->Html->script('Estilo');
+	echo $this->Html->script('Objeto');
+	echo $this->Html->script('Decorado');
+	echo $this->Html->script('Dimension');
+	echo $this->Html->script('ComponentTranslator');
+
+	echo $this->Html->script('ServerManager');
+	echo $this->Html->script('SideBarController');
+	//Cargando archivos del template');
 	echo $this->Html->css('style.default');
 	echo $this->Html->script('jsTemplate/prettify/prettify');
 	echo $this->Html->script('jsTemplate/jquery-1.9.1.min');
@@ -16,13 +35,13 @@
 	echo $this->Html->script('jsTemplate/jquery.flot.min');
 	echo $this->Html->script('jsTemplate/jquery.flot.resize.min');
 	echo $this->Html->script('jsTemplate/custom');
+	echo $this->Html->script('jsTemplate/forms');
 
 
 
 
 	echo $this->fetch('css');
 	echo $this->fetch('script');
-	//echo $this->Html->script('jsTemplate/forms');
 ?>
 </head>
 
@@ -60,19 +79,19 @@
             <ul class="nav nav-tabs nav-stacked">
             	<li class="nav-header animate4 fadeInUp">Navegacion</li>
                 <li class="active animate5 fadeInUp"><a href="/invenPolka"><span class="icon-align-justify"></span> Inicio</a></li>
-                <li class="active  animate8 fadeInUp"><a href="/invenPolka/articulos"><span class="icon-th-list"></span> Articulos</a>
+                <li class="active  animate8 fadeInUp"><a id="articulo" class="option"><span class="icon-th-list"></span> Articulos</a>
                 	<ul>
                     	<li><a href="/invenPolka/articulos/add">Agregar</a></li>
                     </ul>
                 </li>
                 <li class="dropdown animate13 fadeInUp"><a href=""><span class="icon-pencil"></span> Configuraciones</a>
                 	<ul>
-                    	<li><a href="/invenPolka/categorias">Categorias</a></li>
-                        <li><a href="/invenPolka/materiales">Materiales</a></li>
-                        <li><a href="/invenPolka/estilos">Estilos</a></li>
-						<li><a href="/invenPolka/objetos">Objetos</a></li>
-						<li><a href="/invenPolka/dimensiones">Dimensiones</a></li>
-						<li><a href="/invenPolka/decorados">Decorados</a></li>
+                    	<li><a id="categoria" class="option">Categorias</a></li>
+                        <li><a id="material" class="option">Materiales</a></li>
+                        <li><a id="estilo" class="option">Estilos</a></li>
+						<li><a id="objeto" class="option">Objetos</a></li>
+						<li><a id="dimension" class="option">Dimensiones</a></li>
+						<li><a id="decorado" class="option">Decorados</a></li>
 
                     </ul>
                 </li>
@@ -125,8 +144,29 @@
 
     	</div><!--headerpanel-->
 <div class="contenidoDinamico">
-	<?php echo $this->fetch('content'); ?>
+	<div class="breadcrumbwidget animate2 fadeInUp">
+		<ul class="skins">
+	        <li><a href="default" class="skin-color default"></a></li>
+	        <li><a href="orange" class="skin-color orange"></a></li>
+	        <li><a href="dark" class="skin-color dark"></a></li>
+	        <li>&nbsp;</li>
+	        <li class="fixed"><a href="" class="skin-layout fixed"></a></li>
+	        <li class="wide"><a href="" class="skin-layout wide"></a></li>
+	    </ul><!--skins-->
+		<ul class="breadcrumb">
+	        <li><a href="dashboard.html">Home</a> <span class="divider">/</span></li>
+	        <li class="active">Dashboard</li>
+	    </ul>
+	</div><!--breadcrumbwidget-->
+	<div class="pagetitle animate3 fadeInUp">
+		<h1>Dashboard</h1> <span>Gestion General...</span>
+	</div><!--pagetitle-->
 
+	<div class="maincontent animate4 fadeInUp">
+	<div class="contentinner">
+	<?php echo $this->fetch('content'); ?>
+	</div>
+	</div>
 </div>
 
 
@@ -143,7 +183,7 @@
 
 </div><!--mainwrapper-->
 <script type="text/javascript">
-
+		sideBarController.bindMenuOptionsEvents();
 		// basic chart
 		var flash = [[0, 2], [1, 6], [2,3], [3, 8], [4, 5], [5, 13], [6, 8]];
 		var html5 = [[0, 5], [1, 4], [2,4], [3, 1], [4, 9], [5, 10], [6, 13]];

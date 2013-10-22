@@ -32,7 +32,8 @@ class ObjetosController extends AppController {
 		} else {
 			if ($this->Objeto->save($this->request->data)) {
 				$this->Session->setFlash('Cambios guardados');
-				$this->redirect(array('action' => 'index'));
+				//$this->redirect(array('action' => 'index'));
+				echo "Ok";
 			}
 		}
 

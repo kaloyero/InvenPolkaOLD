@@ -3,13 +3,14 @@ class CategoriasController extends AppController {
 
     public $helpers = array ('Html','Form');
 
+
     function index() {
 	//$this->redirect(array('controller' => 'pages', 'action' => 'display'));
 		//Si fue un pedido ajax,uso un layout donde nada mas devuelve el contenido,sin los <html> <Headt> etc
- 		if ($this->Session->check("ajaxRequest")){
-			//$this->layout = 'empty';
-			$this->Session->delete("ajaxRequest");
-		}
+ 		//if ($this->Session->check("ajaxRequest")){
+			////$this->layout = 'empty';
+		//	$this->Session->delete("ajaxRequest");
+	//	}
 		$this->paginate = array(
 			'order' => array('Result.created ASC'),
 		     'limit' => 10
@@ -25,8 +26,11 @@ class CategoriasController extends AppController {
         if ($this->request->is('post')) {
             if ($this->Categoria->save($this->request->data)) {
                 $this->Session->setFlash('Categoria Guardada con Exito.');
-				$this->addRedirect('Categoria');
-            }
+				echo "OK";
+				//$this->addRedirect('Categoria');
+            }else{
+			echo "Rp[oblema]";
+}
         } else {
 
 /*			if ($this->params['check'] = 1){
@@ -45,8 +49,9 @@ class CategoriasController extends AppController {
 		} else {
 			if ($this->Categoria->save($this->request->data)) {
 				//$this->Session->setFlash('Cambios guardados');
-				$this->Session->write("ajaxRequest",true);
-				$this->redirect(array('action' => 'index'));
+				//$this->Session->write("ajaxRequest",true);
+				//$this->redirect(array('action' => 'index'));
+				echo "Ok";
 			}
 		}
 	}

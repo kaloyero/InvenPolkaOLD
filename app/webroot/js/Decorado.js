@@ -2,11 +2,13 @@ var Decorado = new Class({
     Extends: Render,
     initialize: function(name){
         this.name = name;
+        this.type="decorado";
     },
-    hacerTablaEditable: function(){
-        this.parent("Decorado");
-    },
+    onList: function(data){
+            this.parent(data);
+            this.hacerTablaEditable();
+    }
 
 });
 
-decorado=new Decorado();
+decoradoRender=new Decorado();

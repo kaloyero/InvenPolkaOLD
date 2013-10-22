@@ -11,6 +11,6 @@ echo $this->Form->input('guardaryseguir', array('label'=>'Guardar y seguir', 'ty
 //echo $this->Html->link('Cancelar', '/categorias');
 
 //echo $this->Form->end();
-echo '<p class="stdformbutton"><button class="btn btn-primary">Guardar</button><button type="reset" class="btn">Limpiar Formulario</button></p>';
+echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</button><button type="reset" class="btn">Limpiar Formulario</button></p>';
 ?>
 </div>
