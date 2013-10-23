@@ -2,11 +2,12 @@ var Material = new Class({
     Extends: Render,
     initialize: function(name){
         this.name = name;
+        this.type="material";
     },
-    hacerTablaEditable: function(){
-        this.parent("Materiale");
-    },
-
+    onList: function(data){
+            this.parent(data);
+            this.hacerTablaEditable();
+    }
 });
 
-material=new Material();
+materialRender=new Material();

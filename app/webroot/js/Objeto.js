@@ -2,11 +2,12 @@ var Objeto = new Class({
     Extends: Render,
     initialize: function(name){
         this.name = name;
+        this.type="objeto";
     },
-    hacerTablaEditable: function(){
-        this.parent("Objeto");
-    },
-
+    onList: function(data){
+            this.parent(data);
+            this.hacerTablaEditable();
+    }
 });
 
-objeto=new Objeto();
+objetoRender=new Objeto();

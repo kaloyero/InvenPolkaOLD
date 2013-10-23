@@ -2,11 +2,13 @@ var Categoria = new Class({
     Extends: Render,
     initialize: function(name){
         this.name = name;
+        this.type="categoria"
     },
-    hacerTablaEditable: function(){
-        this.parent("Categoria");
-    },
+    onList: function(data){
+            this.parent(data);
+            this.hacerTablaEditable();
+         },
 
 });
 
-categoria=new Categoria();
+categoriaRender=new Categoria();

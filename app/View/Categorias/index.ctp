@@ -1,28 +1,9 @@
-<div class="breadcrumbwidget animate2 fadeInUp">
-	<ul class="skins">
-        <li><a href="default" class="skin-color default"></a></li>
-        <li><a href="orange" class="skin-color orange"></a></li>
-        <li><a href="dark" class="skin-color dark"></a></li>
-        <li>&nbsp;</li>
-        <li class="fixed"><a href="" class="skin-layout fixed"></a></li>
-        <li class="wide"><a href="" class="skin-layout wide"></a></li>
-    </ul><!--skins-->
-	<ul class="breadcrumb">
-        <li><a href="dashboard.html">Home</a> <span class="divider">/</span></li>
-        <li class="active">Categorias</li>
-    </ul>
-</div><!--breadcrumbwidget-->
-<div class="pagetitle animate3 fadeInUp">
-	<h1>Categorias</h1> <span>Gestion de Categorias...</span>
-</div><!--pagetitle-->
-
-<div class="maincontent animate4 fadeInUp">
-<div class="contentinner"><p><?php echo $this->Html->link('Agregar', array('action' => 'add')); ?></p>
+<p><a id="add">Agregar</a></p>
 <table class="table">
     <tr>
         <th>Id</th>
         <th>Nombre</th>
-        <th>Acciones</th>
+        <th>Que ponemos?</th>
     </tr>
 
     <?php foreach ($categorias as $categoria): ?>
@@ -33,7 +14,6 @@
 		//echo $this->Html->link($categoria['Categoria']['Nombre'],
 		//array('controller' => 'categorias', 'action' => 'view', $categoria['Categoria']['id'])); ?>
         </td>
-		<td><?php echo $this->Html->link('Editar', array('action' => 'edit', $categoria['Categoria']['id']));?>    </td>
     </tr>
     <?php endforeach; ?>
 
@@ -69,11 +49,7 @@ $paginator = $this->Paginator;
 
 
  ?>
-<script type="text/javascript">
-    jQuery.ready(function() {
-    categoria.hacerTablaEditable();
-    });
-</script>
+
 </div>
 </div>
 

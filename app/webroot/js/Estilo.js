@@ -2,11 +2,12 @@ var Estilo = new Class({
     Extends: Render,
     initialize: function(name){
         this.name = name;
+        this.type="estilo";
     },
-    hacerTablaEditable: function(){
-        this.parent("Estilo");
-    },
-
+    onList: function(data){
+            this.parent(data);
+            this.hacerTablaEditable();
+    }
 });
 
-estilo=new Estilo();
+estiloRender=new Estilo();
