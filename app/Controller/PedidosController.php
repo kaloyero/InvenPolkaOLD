@@ -1,7 +1,5 @@
 <?php
-	App::import('Model','Proyecto');
-	App::import('Model','Estudio');	
-	App::import('Model','Articulo');	
+	App::import('Model','ConsutasSelect');
 	App::import('Model','PedidoDetalle');	
 
 class PedidosController extends AppController {
@@ -51,9 +49,10 @@ class PedidosController extends AppController {
 	}
 	
 	private function setViewData() {
-		$this->set('proyectos',$this->getProyectos());
-		$this->set('estudios',$this->getEstudios());		
-		$this->set('articulos',$this->getArticulos());		
+		$consultasSelect = new ConsultasSelect();
+		$this->set('proyectos',$consultasSelect ->getProyectos());
+		$this->set('estudios',$consultasSelect ->getEstudios());		
+		$this->set('articulos',$consultasSelect ->getArticulos());		
 	}
 	
 
@@ -87,23 +86,6 @@ class PedidosController extends AppController {
 //		$this->Status->saveField('amount', 5000);
 	}	
 
-	function getProyectos() {
-		$proyecto=new Proyecto();
-		$proyectos=$proyecto->find('list',array('fields'=>array('Proyecto.id','Proyecto.Nombre')));
-		return $proyectos;
-	}
-
-	function getEstudios() {
-		$estudio=new Estudio();
-		$estudios=$estudio->find('list',array('fields'=>array('Estudio.id','Estudio.Nombre')));
-		return $estudios;
-	}
-
-	function getArticulos() {
-		$articulo=new Articulo();
-		$articulos=$articulo->find('list',array('fields'=>array('Articulo.id','Articulo.Codigoarticulo','Articulo.Descripcion')));
-		return $articulos;
-	}
 
 
 }
