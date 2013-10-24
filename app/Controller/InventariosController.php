@@ -17,6 +17,7 @@ class InventariosController extends AppController {
         $this->set('inventarios', $this->paginate('Inventario'));
     }
 
+
    public function view($id = null) {
         $this->Inventario->id = $id;
         $this->set('inventario', $this->Inventario->read());

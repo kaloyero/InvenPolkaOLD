@@ -9,6 +9,7 @@ class DepositosController extends AppController {
 			     'limit' => 10
 		 );
         $this->set('depositos', $this->paginate('Deposito'));
+
     }
 
    public function view($id = null) {

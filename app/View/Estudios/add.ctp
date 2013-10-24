@@ -1,4 +1,3 @@
-
 <?php
 echo '<h4 class="widgettitle nomargin shadowed">Estudios</h4>';
 echo '<div class="widgetcontent bordered shadowed nopadding">';
@@ -19,4 +18,3 @@ echo $this->Form->input('FechaFin',array('empty'=>false,'class'=>'uniformselect'
 echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</button><button type="reset" class="btn">Limpiar Formulario</button></p>';
 ?>
 </div>
-

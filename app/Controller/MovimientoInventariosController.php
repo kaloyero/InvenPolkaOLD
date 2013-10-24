@@ -1,10 +1,6 @@
 <?php
 
-	App::import('Model','Proyecto');
-	App::import('Model','Articulo');
-	App::import('Model','Deposito');
-	App::import('Model','Ubicacione');
-	App::import('Model','Estudio');	
+	App::import('Model','ConsultasSelect');
 	App::import('Model','MovimientoDetalleInventario');
 
 class MovimientoInventariosController extends AppController {
@@ -13,7 +9,26 @@ class MovimientoInventariosController extends AppController {
 	var $uses = array('MovimientoInventario','MovimientoDetalleInventario');
 
     function index() {
-        $this->set('movimientos', $this->MovimientoInventario->find('all'));
+		//Si la session tiene cargada la variable articulos,viene de un redireccionamiento,si no,se pidio el listado completo
+		if ($this->Session->check("movimientos")){
+			$this->paginate = array(
+				 'conditions' => $this->Session->read("movimientoss"),
+				 'order' => array('Result.created ASC'),
+				 'limit' => 5
+			 );
+			$this->set("movimientos",$this->paginate('MovimientoInventario'));
+			$this->Session->delete("movimientos");
+		}else{
+				//paginate as normal
+				$this->paginate = array(
+					'order' => array('Result.created ASC'),
+					 'limit' => 10
+				 );
+			//$this->set("articulos",$this->Articulo->find('all'));
+			$this->set("movimientos",	$this->paginate('MovimientoInventario'));
+
+		}
+
     }	
 
    public function view($id = null) {
@@ -35,27 +50,6 @@ class MovimientoInventariosController extends AppController {
 		}
 
     }
-
-    private function addValidationMov($tipoMovi) {
-		if ($tipoMovi == 'P'){
-			$this->request->data['MovimientoInventario']['IdDepositoDest'] = null;
-		} else if ($tipoMovi  == 'D'){
-			$this->request->data['MovimientoInventario']['IdDepositoDest'] = null;
-		} else if ($tipoMovi  == 'I'){		
-			$this->request->data['MovimientoInventario']['IdDepositoDest'] = null;
-			$this->request->data['MovimientoInventario']['IdEstudio'] = null;
-			$this->request->data['MovimientoInventario']['IdProyecto'] = null;
-		} else if ($tipoMovi == 'B'){		
-			$this->request->data['MovimientoInventario']['IdDepositoDest'] = null;
-			$this->request->data['MovimientoInventario']['IdEstudio'] = null;
-			$this->request->data['MovimientoInventario']['IdProyecto'] = null;
-		} else if ($tipoMovi  == 'T'){
-			$this->request->data['MovimientoInventario']['IdEstudio'] = null;
-			$this->request->data['MovimientoInventario']['IdProyecto'] = null;
-		}
-		
-	}
-
 
 	function edit($id = null) {
 		$this->MovimientoInventario->id = $id;
@@ -83,64 +77,89 @@ class MovimientoInventariosController extends AppController {
 		foreach ($listDetalle as &$detalle) {
 			foreach ($detalle as &$det) {
 			$det = $this->addValidationMovDetalle($det,$tipoMovi);
-
 				$MovDetalle=new MovimientoDetalleInventario();
 				$MovDetalle= array('IdMovimientoInventario' => $idInsertedMovimiento,
 									  'IdArticulo' => $det['IdArticulo'],
 									  'Cantidad' => $det['Cantidad'],
 									  'IdUbicacionOrig' => $det['IdUbicacionOrig'],
 									  'IdUbicacionDest' => $det['IdUbicacionDest'],
-									  'IdProyectoDetalle' => $det['IdProyectoDetalle']);
+									  'IdPedidoDetalle' => $det['IdPedidoDetalle']);
 				$this->MovimientoDetalleInventario->saveall($MovDetalle);
 			}
 		}
 	}
+	
+    private function addValidationMov($tipoMovi) {
+		switch ($tipoMovi) {
+			case 'P':
+				$this->request->data['MovimientoInventario']['IdDepositoDest'] = null;
+				break;
+			case 'D':
+				$this->request->data['MovimientoInventario']['IdDepositoDest'] = null;
+				break;
+			case 'I':
+				$this->request->data['MovimientoInventario']['IdDepositoDest'] = null;
+				$this->request->data['MovimientoInventario']['IdEstudio'] = null;
+				$this->request->data['MovimientoInventario']['IdProyecto'] = null;
+				break;
+			case 'B':
+				$this->request->data['MovimientoInventario']['IdDepositoDest'] = null;
+				$this->request->data['MovimientoInventario']['IdEstudio'] = null;
+				$this->request->data['MovimientoInventario']['IdProyecto'] = null;
+				break;
+			case 'T':
+				$this->request->data['MovimientoInventario']['IdEstudio'] = null;
+				$this->request->data['MovimientoInventario']['IdProyecto'] = null;
+				break;
+		}
+
+	}
+	
     private function addValidationMovDetalle($det,$tipoMovi) {
-		$det['IdProyectoDetalle'] = null;
-		if ($tipoMovi != 'T'){
-			$det['IdUbicacionDest'] = null;
-		} 
+		$det['IdUbicacionDest'] = null;
+		$det['IdUbicacionOrig'] = null;
+		switch ($tipoMovi) {
+			case 'P':
+				break;
+			case 'D':
+				break;
+			case 'I':
+				$det['IdPedidoDetalle'] = null;
+				break;
+			case 'B':
+				$det['IdPedidoDetalle'] = null;
+				break;
+			case 'T':
+				$det['IdPedidoDetalle'] = null;
+				break;
+		}
+
 		return $det;
 	}
 
 	
 	private function setViewData() {
-		$this->set('proyectos',$this->getProyectos());
-		$this->set('articulos',$this->getArticulos());		
-		$this->set('depositos',$this->getDepositos());
-		$this->set('ubicaciones',$this->getUbicaciones());
-		$this->set('estudios',$this->getEstudios());		
+		$consultasSelect = new ConsultasSelect();
+		$this->set('proyectos',$consultasSelect->getProyectos());
+		$this->set('articulos',$consultasSelect->getArticulos());		
+		$this->set('depositos',$consultasSelect->getDepositos());
+		$this->set('ubicaciones',$consultasSelect->getUbicacionesByDeposito(1));
+		$this->set('estudios',$consultasSelect->getEstudios());		
 	}
 	
-	private function getProyectos() {
-		$proyecto=new Proyecto();
-		$proyectos=$proyecto->find('list',array('fields'=>array('Proyecto.id','Proyecto.Nombre')));
-		return $proyectos;
-	}
 
-	private function getUbicaciones() {
-		$ubicacione=new Ubicacione();
-		$ubicaciones=$ubicacione->find('list',array('fields'=>array('Ubicacione.id','Ubicacione.CodigoUbicacion','Ubicacione.Descripcion')));
+
+   function getUbicacionesByDeposito($id = null) {
+		$model=new Ubicacione();
+		$ubicaciones = $model->find('list', array('fields' => array('Ubicacione.id','Ubicacione.CodigoUbicacion'),
+        'conditions' => array('Ubicacione.IdDeposito =' => $id)));
 		return $ubicaciones;
-	}
+   }
 
-	private function getDepositos() {
-		$deposito=new Deposito();
-		$depositos=$deposito->find('list',array('fields'=>array('Deposito.id','Deposito.Nombre')));
-		return $depositos;
-	}
+   function getArticuloByDeposito($id = null) {
+		return "loco";
+   }
 
-	private function getArticulos() {
-		$articulo=new Articulo();
-		$articulos=$articulo->find('list',array('fields'=>array('Articulo.id','Articulo.Codigoarticulo')));
-		return $articulos;
-	}
-
-	private function getEstudios() {
-		$estudio=new Estudio();
-		$estudios=$estudio->find('list',array('fields'=>array('Estudio.id','Estudio.Nombre')));
-		return $estudios;
-	}
 	
 }
 ?>

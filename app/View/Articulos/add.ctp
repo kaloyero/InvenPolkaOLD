@@ -1,4 +1,3 @@
-
 <?php
 echo '<h4 class="widgettitle nomargin shadowed">Articulo</h4>';
 echo '<div class="widgetcontent bordered shadowed nopadding">';
@@ -42,5 +41,3 @@ echo $this->Form->input('Articulo.IdObjeto',array('type'=>'select','options'=>$o
 echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</button><button type="reset" class="btn">Limpiar Formulario</button></p>';
 ?>
 </div>
-
-

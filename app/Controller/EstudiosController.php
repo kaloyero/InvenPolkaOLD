@@ -10,6 +10,7 @@ class EstudiosController extends AppController {
 		 );
         $this->set('estudios', $this->paginate('Estudio'));
 
+
     }
 
    public function view($id = null) {

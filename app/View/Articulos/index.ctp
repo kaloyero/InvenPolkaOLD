@@ -4,6 +4,7 @@
     <tr>
         <th>Id</th>
         <th>Nombre</th>
+        <th>Acciones</th>        
     </tr>
 
     <?php foreach ($articulos as $articulo): ?>

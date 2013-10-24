@@ -2,6 +2,8 @@
     <tr>
         <th>Id</th>
         <th>Nombre</th>
+        <th>Fecha de Fin</th>
+        <th>Acciones</th>        
     </tr>
 
     <?php foreach ($depositos as $deposito): ?>

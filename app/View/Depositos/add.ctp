@@ -15,3 +15,5 @@ echo $this->Form->input('guardaryseguir', array('label'=>'Guardar y seguir', 'ty
 echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</button><button type="reset" class="btn">Limpiar Formulario</button></p>';
 ?>
 </div>
+
+

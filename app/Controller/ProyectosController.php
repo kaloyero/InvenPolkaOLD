@@ -11,6 +11,7 @@ class ProyectosController extends AppController {
         $this->set('proyectos', $this->paginate('Proyecto'));
     }
 
+
    public function view($id = null) {
         $this->Proyecto->id = $id;
         $this->set('proyecto', $this->Proyecto->read());

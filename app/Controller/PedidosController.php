@@ -1,16 +1,46 @@
 <?php
-	App::import('Model','Proyecto');
-	App::import('Model','Estudio');	
-	App::import('Model','Articulo');	
+	App::import('Model','ConsultasSelect');
 	App::import('Model','PedidoDetalle');	
-
+	App::import('Model','Proyecto');
+	
 class PedidosController extends AppController {
 	public $helpers = array('Html','Form');
 	var $uses = array('Pedido','PedidoDetalle');
-    
+	public $findResult;
+
     function index() {
-        $this->set('pedidos', $this->Pedido->find('all'));
-    }	
+		//Si la session tiene cargada la variable articulos,viene de un redireccionamiento,si no,se pidio el listado completo
+		if ($this->Session->check("pedidos")){
+			$this->paginate = array(
+				 'conditions' => $this->Session->read("pedidos"),
+				 'order' => array('Result.created ASC'),
+				 'limit' => 5
+			 );
+			$this->set("pedidos",$this->paginate('Pedido'));
+			$this->Session->delete("pedidos");
+		}else{
+				//paginate as normal
+				$this->paginate = array(
+					'order' => array('Result.created ASC'),
+					 'limit' => 10
+				 );
+			//$this->set("articulos",$this->Articulo->find('all'));
+			$this->set("pedidos",	$this->paginate('Pedido'));
+
+		}
+
+    }
+
+	function getEstilos() {
+		$estilo=new Estilo();
+		$estilos=$estilo->find('list',array('fields'=>array('Estilo.id','Estilo.Nombre')));
+		return $estilos;
+	}
+
+    
+//    function index() {
+//        $this->set('pedidos', $this->Pedido->find('all'));
+//    }	
 
    public function view($id = null) {
         $this->Pedido->id = $id;
@@ -41,7 +71,6 @@ class PedidosController extends AppController {
 			}else{
 				$this->setViewData();
 			}
-
 		}		
 	}	
 
@@ -51,28 +80,12 @@ class PedidosController extends AppController {
 	}
 	
 	private function setViewData() {
-		$this->set('proyectos',$this->getProyectos());
-		$this->set('estudios',$this->getEstudios());		
-		$this->set('articulos',$this->getArticulos());		
+		$consultasSelect = new ConsultasSelect();
+		$this->set('proyectos',$consultasSelect ->getProyectos());
+		$this->set('estudios',$consultasSelect ->getEstudios());		
+		$this->set('articulos',$consultasSelect ->getArticulos());		
 	}
 	
-	private function getProyectos() {
-		$proyecto=new Proyecto();
-		$proyectos=$proyecto->find('list',array('fields'=>array('Proyecto.id','Proyecto.Nombre')));
-		return $proyectos;
-	}
-
-	private function getEstudios() {
-		$estudio=new Estudio();
-		$estudios=$estudio->find('list',array('fields'=>array('Estudio.id','Estudio.Nombre')));
-		return $estudios;
-	}
-
-	private function getArticulos() {
-		$articulo=new Articulo();
-		$articulos=$articulo->find('list',array('fields'=>array('Articulo.id','Articulo.Codigoarticulo','Articulo.Descripcion')));
-		return $articulos;
-	}
 
 	private function agregarDetalles() {
 		$idInsertedPedido = $this->Pedido->getInsertID();
@@ -87,6 +100,22 @@ class PedidosController extends AppController {
 			}
 		}
 	}
-	
+
+	function confirmarPedido($id = null) {
+		$pedido = $this->Pedido->read(null, $id);
+        if (!$this->Pedido->exists()) {
+//            throw new NotFoundException(__('Invalid model'));
+        } else {		
+			if ($pedido['Pedido']['estado'] == 'abierto'){
+				$this->Pedido->set('estado', 'confirmado');
+				$this->Pedido->save();
+			}
+		}
+		$this->redirect(array('action' => 'index'));
+		
+//		$this->Status->id = 3; // This avoids the query performed by read()
+//		$this->Status->saveField('amount', 5000);
+	}	
+
 }
 ?>
