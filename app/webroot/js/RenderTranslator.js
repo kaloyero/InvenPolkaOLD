@@ -9,6 +9,18 @@ var RenderTranslator = new Class({
 		case "articulo":
 			return articuloRender;
 			break;
+		case "pedido":
+			return pedidoRender;
+			break;
+		case "movimientoInventario":
+			return movimientoInventarioRender;
+			break;
+		case "inventario":
+			return inventarioRender;
+			break;
+		case "proyecto":
+			return proyectoRender;
+			break;
 	    case "categoria":
 			return categoriaRender;
 			break;

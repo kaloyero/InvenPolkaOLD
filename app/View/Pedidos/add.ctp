@@ -1,43 +1,41 @@
-<h1>Agregar</h1>
 <?php
-echo $this->Html->charset('ISO-8859-1');
-
-echo $this->Html->script('libs/jquery-1.6.2.min');
-echo $this->Html->script('mylibs/jquery-ui-1.8.15.custom.min');
-echo $this->Html->script('libs/jquery.visualize');
-echo $this->Html->script('mylibs/jquery.validate');
-echo $this->Html->script('mylibs/jquery.dataTables.min');
-echo $this->Html->script('mylibs/jquery.notifications');
-
-echo $this->Html->script('pedidoJS');
-echo $this->Html->script('agregarArticulos');	
-echo $this->Html->css(array('forms', 'tables', 'menu'));
-echo $this->Html->css('DebugKit.toolbar.css');
-echo $this->Html->css('Blog.common.css', null, array('plugin' => false));
-
-//  <link rel="stylesheet" href="resources/css/jquery-ui-1.8.15.custom.css"> <!-- jQuery UI, optional -->
-
-
+echo '<h4 class="widgettitle nomargin shadowed">Pedido</h4>';
+echo '<div class="widgetcontent bordered shadowed nopadding">';
 
 echo $this->Form->create('Pedido');
 echo $this->Form->input('Numero');
 echo $this->Form->input('Descripcion');
 echo $this->Form->input('Fecha');
-echo $this->Form->input('Pedido.IdProyecto',array('type'=>'select','options'=>$proyectos,'empty'=>false,'label'=>'Proyecto'));
-echo $this->Form->input('Pedido.IdEstudio',array('type'=>'select','options'=>$estudios,'empty'=>false,'label'=>'Estudio'));
-echo $this->Form->submit('Guardar');
-
+echo $this->Form->input('Pedido.IdProyecto',array('type'=>'select','options'=>$proyectos,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p>
+                                <label>Proyecto</label>
+                                <span class="field">',
+								'after'=>'</span></p>'));
+echo $this->Form->input('Pedido.IdEstudio',array('type'=>'select','options'=>$estudios,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p>
+                                <label>Estudio</label>
+                                <span class="field">',
+								'after'=>'</span></p>'));
 ?>
+<BR>
+<b>Agregar articulo</b>
 <?php 	
-echo $this->Form->input('Articulo.Cantidad',array('id'=>'Articulo.Cantidad','type'=>'number')); 
-echo $this->Form->input('Articulo.Articulo',array('id'=>'Articulo.Articulo','type'=>'select','options'=>$articulos,'empty'=>false,'label'=>'Articulo'));
-//		        <input type="text" name="mitexto[0]" id="campo_1" placeholder="Texto 1"/><a href="#" class="eliminar">&times;</a>		?>
-<a id="agregarCampo" class="btn btn-info" href="#">Agregar Campo</a>
+//Agregar Articulos al pedido (detalle pedido)
+echo $this->Form->input('ArtArticulo',array('id'=>'ArtArticulo','type'=>'select','options'=>$articulos,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p>
+                                <label>Articulo</label>
+                                <span class="field">',
+								'after'=>'</span></p>'));
+echo $this->Form->input('ArtCantidad',array('id'=>'ArtCantidad','label'=>'Cantidad','value'=>'0','type'=>'number')); 
+?>
+
+<a id="agregarArticulo" class="btn btn-info" href="#">Agregar Campo</a>
+<BR>
 <div id="contenedor">
     <div class="added">
-
-
-    </div>
+	</div>
+</div>
+<BR>
+<?php 	
+echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</button><button type="reset" class="btn">Limpiar Formulario</button></p>';
+?>
 </div>
 
 <?php echo $this->Form->end();?>

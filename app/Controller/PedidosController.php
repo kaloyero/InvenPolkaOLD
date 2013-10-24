@@ -1,14 +1,46 @@
 <?php
-	App::import('Model','ConsutasSelect');
+	App::import('Model','ConsultasSelect');
 	App::import('Model','PedidoDetalle');	
-
+	App::import('Model','Proyecto');
+	
 class PedidosController extends AppController {
 	public $helpers = array('Html','Form');
 	var $uses = array('Pedido','PedidoDetalle');
-    
+	public $findResult;
+
     function index() {
-        $this->set('pedidos', $this->Pedido->find('all'));
-    }	
+		//Si la session tiene cargada la variable articulos,viene de un redireccionamiento,si no,se pidio el listado completo
+		if ($this->Session->check("pedidos")){
+			$this->paginate = array(
+				 'conditions' => $this->Session->read("pedidos"),
+				 'order' => array('Result.created ASC'),
+				 'limit' => 5
+			 );
+			$this->set("pedidos",$this->paginate('Pedido'));
+			$this->Session->delete("pedidos");
+		}else{
+				//paginate as normal
+				$this->paginate = array(
+					'order' => array('Result.created ASC'),
+					 'limit' => 10
+				 );
+			//$this->set("articulos",$this->Articulo->find('all'));
+			$this->set("pedidos",	$this->paginate('Pedido'));
+
+		}
+
+    }
+
+	function getEstilos() {
+		$estilo=new Estilo();
+		$estilos=$estilo->find('list',array('fields'=>array('Estilo.id','Estilo.Nombre')));
+		return $estilos;
+	}
+
+    
+//    function index() {
+//        $this->set('pedidos', $this->Pedido->find('all'));
+//    }	
 
    public function view($id = null) {
         $this->Pedido->id = $id;
@@ -39,7 +71,6 @@ class PedidosController extends AppController {
 			}else{
 				$this->setViewData();
 			}
-
 		}		
 	}	
 
@@ -85,8 +116,6 @@ class PedidosController extends AppController {
 //		$this->Status->id = 3; // This avoids the query performed by read()
 //		$this->Status->saveField('amount', 5000);
 	}	
-
-
 
 }
 ?>

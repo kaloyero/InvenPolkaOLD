@@ -10,7 +10,24 @@ class InventariosController extends AppController {
     public $helpers = array ('Html','Form');
 
     function index() {
-        $this->set('inventarios', $this->Inventario->find('all'));
+		//Si la session tiene cargada la variable articulos,viene de un redireccionamiento,si no,se pidio el listado completo
+		if ($this->Session->check("inventarios")){
+			$this->paginate = array(
+				 'conditions' => $this->Session->read("inventarios"),
+				 'order' => array('Result.created ASC'),
+				 'limit' => 5
+			 );
+			$this->set("inventarios",$this->paginate('Inventario'));
+			$this->Session->delete("inventarios");
+		}else{
+				//paginate as normal
+				$this->paginate = array(
+					'order' => array('Result.created ASC'),
+					 'limit' => 10
+				 );
+			//$this->set("articulos",$this->Articulo->find('all'));
+			$this->set("inventarios",	$this->paginate('Inventario'));
+		}
     }	
 
    public function view($id = null) {

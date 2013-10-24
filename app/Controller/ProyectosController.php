@@ -4,7 +4,25 @@ class ProyectosController extends AppController {
     public $helpers = array ('Html','Form');
 
     function index() {
-        $this->set('proyectos', $this->Proyecto->find('all'));
+		//Si la session tiene cargada la variable articulos,viene de un redireccionamiento,si no,se pidio el listado completo
+		if ($this->Session->check("proyectos")){
+			$this->paginate = array(
+				 'conditions' => $this->Session->read("proyectos"),
+				 'order' => array('Result.created ASC'),
+				 'limit' => 5
+			 );
+			$this->set("proyectos",$this->paginate('Proyecto'));
+			$this->Session->delete("proyectos");
+		}else{
+				//paginate as normal
+				$this->paginate = array(
+					'order' => array('Result.created ASC'),
+					 'limit' => 10
+				 );
+			//$this->set("articulos",$this->Articulo->find('all'));
+			$this->set("proyectos",	$this->paginate('Proyecto'));
+		}
+
     }	
 
    public function view($id = null) {

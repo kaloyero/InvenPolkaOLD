@@ -1,25 +1,15 @@
-<h1>Agregar</h1>
 <?php
-echo $this->Html->charset('ISO-8859-1');
-
-echo $this->Html->script('libs/jquery-1.6.2.min');
-echo $this->Html->script('mylibs/jquery-ui-1.8.15.custom.min');
-echo $this->Html->script('libs/jquery.visualize');
-echo $this->Html->script('mylibs/jquery.validate');
-echo $this->Html->script('mylibs/jquery.dataTables.min');
-echo $this->Html->script('mylibs/jquery.notifications');
-
-echo $this->Html->css(array('forms', 'tables', 'menu'));
+echo '<h4 class="widgettitle nomargin shadowed">Articulo</h4>';
+echo '<div class="widgetcontent bordered shadowed nopadding">';
 
 echo $this->Form->create('MovimientoInventario');
-echo $this->Html->script('movimientosJS');
-echo $this->Html->script('agregarArticulosMov');
-
 echo $this->Form->input('Numero');
 echo $this->Form->input('Fecha');
 echo $this->Form->input('Descripcion');
 ?>
-<select name="data[MovimientoInventario][TipoMovimiento]" id="comboInventario" onchange="javascript:selectMovementType();">
+<div class="input text">
+<label for="comboInventario">Tipo de Movimiento</label>
+<select name="data[MovimientoInventario][TipoMovimiento]" id="comboInventario" >
   <option value="I">Ingreso de Articulos</option>
   <option value="B">Baja de Articulos</option>
   <option value="P">Asignacion de Articulos a proyectos</option>
@@ -27,6 +17,7 @@ echo $this->Form->input('Descripcion');
   <option value="T">Transferencia de Articulos entre depósitos</option>
 </select>
 
+</div>
 <?php
 echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('type'=>'select','options'=>$depositos,'empty'=>false,'label'=>'Deposito Original'));
 ?>
@@ -39,34 +30,39 @@ echo $this->Form->input('MovimientoInventario.IdDepositoDest',array('type'=>'sel
 
 <div id="divProyecto" style="display: none;">
 <?php
-echo $this->Form->input('MovimientoInventario.IdProyecto',array('type'=>'select','options'=>$proyectos,'empty'=>false,'label'=>'Proyecto'));
-echo $this->Form->input('MovimientoInventario.IdEstudio',array('type'=>'select','options'=>$estudios,'empty'=>false,'label'=>'Estudio'));
+echo $this->Form->input('MovimientoInventario.IdProyecto',array('type'=>'select','options'=>$proyectos,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p>
+                                <label>Proyecto</label>
+                                <span class="field">',
+								'after'=>'</span></p>'));
+echo $this->Form->input('MovimientoInventario.IdEstudio',array('type'=>'select','options'=>$estudios,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p>
+                                <label>Estudio</label>
+                                <span class="field">',
+								'after'=>'</span></p>'));
 ?>
 </div>
 
-Agregar articulo
-<?php
-//Tomar Articulos dependiendo del Deposito seleccionado
-echo $this->Form->input('Articulo.Articulo',array('id'=>'Articulo.Articulo','type'=>'select','options'=>$articulos,'empty'=>false,'label'=>'Articulo'));
-echo $this->Form->input('Articulo.Cantidad',array('id'=>'Articulo.Cantidad','type'=>'number'));
-echo $this->Form->input('MovimientoInventario.IdUbicacionOrig',array('type'=>'select','options'=>$ubicaciones,'empty'=>false,'label'=>'Ubicacion Original'));
+<BR>
+<b>Agregar articulo</b>
+<?php 	
+//Agregar Articulos al pedido (detalle pedido)
+echo $this->Form->input('ArtArticulo',array('id'=>'ArtArticulo','type'=>'select','options'=>$articulos,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p>
+                                <label>Articulo</label>
+                                <span class="field">',
+								'after'=>'</span></p>'));
+echo $this->Form->input('ArtCantidad',array('id'=>'ArtCantidad','label'=>'Cantidad','value'=>'0','type'=>'number')); 
+//echo $this->Form->input('MovimientoInventario.IdUbicacionOrig',array('type'=>'select','options'=>$ubicaciones,'empty'=>false,'label'=>'Ubicacion Original'));
 ?>
-<div id="divUbicacionDest" style="display: none;">
-<?php
-echo $this->Form->input('MovimientoInventario.IdUbicacionDest',array('type'=>'select','options'=>$ubicaciones,'empty'=>false,'label'=>'Ubicacion Destino'));
-?>
-</div>
 
-<a id="agregarCampo" class="btn btn-info" href="#">Agregar Campo</a>
-
+<a id="agregarArticulo" class="btn btn-info" href="#">Agregar Campo</a>
+<BR>
 <div id="contenedor">
     <div class="added">
-
-
-    </div>
+	</div>
 </div>
+<BR>
 
 <?php
-echo $this->Form->submit('Guardar');
+echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</button><button type="reset" class="btn">Limpiar Formulario</button></p>';
 ?>
 <?php echo $this->Form->end();?>
+

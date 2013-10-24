@@ -9,7 +9,26 @@ class MovimientoInventariosController extends AppController {
 	var $uses = array('MovimientoInventario','MovimientoDetalleInventario');
 
     function index() {
-        $this->set('movimientos', $this->MovimientoInventario->find('all'));
+		//Si la session tiene cargada la variable articulos,viene de un redireccionamiento,si no,se pidio el listado completo
+		if ($this->Session->check("movimientos")){
+			$this->paginate = array(
+				 'conditions' => $this->Session->read("movimientoss"),
+				 'order' => array('Result.created ASC'),
+				 'limit' => 5
+			 );
+			$this->set("movimientos",$this->paginate('MovimientoInventario'));
+			$this->Session->delete("movimientos");
+		}else{
+				//paginate as normal
+				$this->paginate = array(
+					'order' => array('Result.created ASC'),
+					 'limit' => 10
+				 );
+			//$this->set("articulos",$this->Articulo->find('all'));
+			$this->set("movimientos",	$this->paginate('MovimientoInventario'));
+
+		}
+
     }	
 
    public function view($id = null) {
@@ -31,27 +50,6 @@ class MovimientoInventariosController extends AppController {
 		}
 
     }
-
-    private function addValidationMov($tipoMovi) {
-		if ($tipoMovi == 'P'){
-			$this->request->data['MovimientoInventario']['IdDepositoDest'] = null;
-		} else if ($tipoMovi  == 'D'){
-			$this->request->data['MovimientoInventario']['IdDepositoDest'] = null;
-		} else if ($tipoMovi  == 'I'){		
-			$this->request->data['MovimientoInventario']['IdDepositoDest'] = null;
-			$this->request->data['MovimientoInventario']['IdEstudio'] = null;
-			$this->request->data['MovimientoInventario']['IdProyecto'] = null;
-		} else if ($tipoMovi == 'B'){		
-			$this->request->data['MovimientoInventario']['IdDepositoDest'] = null;
-			$this->request->data['MovimientoInventario']['IdEstudio'] = null;
-			$this->request->data['MovimientoInventario']['IdProyecto'] = null;
-		} else if ($tipoMovi  == 'T'){
-			$this->request->data['MovimientoInventario']['IdEstudio'] = null;
-			$this->request->data['MovimientoInventario']['IdProyecto'] = null;
-		}
-		
-	}
-
 
 	function edit($id = null) {
 		$this->MovimientoInventario->id = $id;
@@ -79,23 +77,63 @@ class MovimientoInventariosController extends AppController {
 		foreach ($listDetalle as &$detalle) {
 			foreach ($detalle as &$det) {
 			$det = $this->addValidationMovDetalle($det,$tipoMovi);
-
 				$MovDetalle=new MovimientoDetalleInventario();
 				$MovDetalle= array('IdMovimientoInventario' => $idInsertedMovimiento,
 									  'IdArticulo' => $det['IdArticulo'],
 									  'Cantidad' => $det['Cantidad'],
 									  'IdUbicacionOrig' => $det['IdUbicacionOrig'],
 									  'IdUbicacionDest' => $det['IdUbicacionDest'],
-									  'IdProyectoDetalle' => $det['IdProyectoDetalle']);
+									  'IdPedidoDetalle' => $det['IdPedidoDetalle']);
 				$this->MovimientoDetalleInventario->saveall($MovDetalle);
 			}
 		}
 	}
+	
+    private function addValidationMov($tipoMovi) {
+		switch ($tipoMovi) {
+			case 'P':
+				$this->request->data['MovimientoInventario']['IdDepositoDest'] = null;
+				break;
+			case 'D':
+				$this->request->data['MovimientoInventario']['IdDepositoDest'] = null;
+				break;
+			case 'I':
+				$this->request->data['MovimientoInventario']['IdDepositoDest'] = null;
+				$this->request->data['MovimientoInventario']['IdEstudio'] = null;
+				$this->request->data['MovimientoInventario']['IdProyecto'] = null;
+				break;
+			case 'B':
+				$this->request->data['MovimientoInventario']['IdDepositoDest'] = null;
+				$this->request->data['MovimientoInventario']['IdEstudio'] = null;
+				$this->request->data['MovimientoInventario']['IdProyecto'] = null;
+				break;
+			case 'T':
+				$this->request->data['MovimientoInventario']['IdEstudio'] = null;
+				$this->request->data['MovimientoInventario']['IdProyecto'] = null;
+				break;
+		}
+
+	}
+	
     private function addValidationMovDetalle($det,$tipoMovi) {
-		$det['IdProyectoDetalle'] = null;
-		if ($tipoMovi != 'T'){
-			$det['IdUbicacionDest'] = null;
-		} 
+		$det['IdUbicacionDest'] = null;
+		$det['IdUbicacionOrig'] = null;
+		switch ($tipoMovi) {
+			case 'P':
+				break;
+			case 'D':
+				break;
+			case 'I':
+				$det['IdPedidoDetalle'] = null;
+				break;
+			case 'B':
+				$det['IdPedidoDetalle'] = null;
+				break;
+			case 'T':
+				$det['IdPedidoDetalle'] = null;
+				break;
+		}
+
 		return $det;
 	}
 

@@ -12,6 +12,10 @@
 	echo $this->Html->script('Render');
 	echo $this->Html->script('RenderTranslator');
 	echo $this->Html->script('Articulo');
+	echo $this->Html->script('Pedido');
+	echo $this->Html->script('MovimientoInventario');
+	echo $this->Html->script('Inventario');
+	echo $this->Html->script('Proyecto');		
 
 	echo $this->Html->script('Categoria');
 	echo $this->Html->script('Material');
@@ -83,6 +87,31 @@
                 	<ul>
                     	<li><a href="/invenPolka/articulos/add">Agregar</a></li>
                     </ul>
+                  
+                </li>
+                <li class="active  animate9 fadeInUp"><a id="pedido" class="option"><span class="icon-th-list"></span> Pedidos</a>
+                	<ul>
+                    	<li><a href="/invenPolka/pedidos/add">Agregar</a></li>
+                    </ul>
+                  
+                </li>
+                <li class="active  animate10 fadeInUp"><a id="movimientoInventario" class="option"><span class="icon-th-list"></span> Movimientos</a>
+                	<ul>
+                    	<li><a href="/invenPolka/movimientoInventarios/add">Agregar</a></li>
+                    </ul>
+                  
+                </li>
+                <li class="active  animate8 fadeInUp"><a id="inventario" class="option"><span class="icon-th-list"></span> Inventario</a>
+                	<ul>
+                    	<li><a href="/invenPolka/inventarios/add">Agregar</a></li>
+                    </ul>
+                  
+                </li>
+                <li class="active  animate8 fadeInUp"><a id="proyecto" class="option"><span class="icon-th-list"></span> Proyecto	</a>
+                	<ul>
+                    	<li><a href="/invenPolka/proyectos/add">Agregar</a></li>
+                    </ul>
+                  
                 </li>
                 <li class="dropdown animate13 fadeInUp"><a href=""><span class="icon-pencil"></span> Configuraciones</a>
                 	<ul>
