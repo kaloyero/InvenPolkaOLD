@@ -15,7 +15,7 @@
 
         </td>
 			<td>
-	            <?php echo $this->Html->link('Edit', array('action' => 'edit', $deposito['Deposito']['id']));?>
+	            <?php echo $this->Html->link('Edit', array('action' => 'edit', $deposito['Deposito']['id']),array('class' => 'edit'));?>
 				</td>
 
 	        </td>

@@ -4,7 +4,12 @@ class EstudiosController extends AppController {
     public $helpers = array ('Html','Form');
 
     function index() {
-        $this->set('estudios', $this->Estudio->find('all'));
+		$this->paginate = array(
+				'order' => array('Result.created ASC'),
+			     'limit' => 10
+		 );
+        $this->set('estudios', $this->paginate('Estudio'));
+
     }
 
    public function view($id = null) {

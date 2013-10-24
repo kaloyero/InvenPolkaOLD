@@ -19,6 +19,11 @@
 	echo $this->Html->script('Objeto');
 	echo $this->Html->script('Decorado');
 	echo $this->Html->script('Dimension');
+	echo $this->Html->script('Proyecto');
+	echo $this->Html->script('Deposito');
+	echo $this->Html->script('Estudio');
+	echo $this->Html->script('Inventario');
+
 	echo $this->Html->script('ComponentTranslator');
 
 	echo $this->Html->script('ServerManager');
@@ -84,6 +89,11 @@
                     	<li><a href="/invenPolka/articulos/add">Agregar</a></li>
                     </ul>
                 </li>
+				<li class="active  animate8 fadeInUp"><a id="proyecto" class="option"><span class="icon-th-list"></span> Proyectos</a>
+				<li class="active  animate8 fadeInUp"><a id="deposito" class="option"><span class="icon-th-list"></span> Deposito</a>
+				<li class="active  animate8 fadeInUp"><a id="estudio" class="option"><span class="icon-th-list"></span> Estudio</a>
+				<li class="active  animate8 fadeInUp"><a id="inventario" class="option"><span class="icon-th-list"></span>Inventario</a>
+
                 <li class="dropdown animate13 fadeInUp"><a href=""><span class="icon-pencil"></span> Configuraciones</a>
                 	<ul>
                     	<li><a id="categoria" class="option">Categorias</a></li>

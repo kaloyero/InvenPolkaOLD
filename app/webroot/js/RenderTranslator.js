@@ -27,6 +27,18 @@ var RenderTranslator = new Class({
 	    case "objeto":
 			return objetoRender;
 			break;
+		case "proyecto":
+    	    return proyectoRender;
+    		break;
+    	case "deposito":
+        	return depositoRender;
+        	break;
+        case "estudio":
+            return estudioRender;
+            break;
+        case "inventario":
+            return inventarioRender;
+            break;
 	}
  }
 

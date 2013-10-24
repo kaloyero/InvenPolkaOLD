@@ -28,6 +28,26 @@ var ComponentTranslator = new Class(
 					}
 				});
 			},
+			update : function(objectType,formData) {
+    				serverManager.update({
+    					object : objectType,
+    					data:formData,
+    					onSuccess : function(data) {
+    					    var renderInstace = renderTranslator.getRender(objectType);
+    					    renderInstace.onUpdated(data);
+    					}
+    				});
+    			},
+			 view : function(objectType,idObject) {
+    				serverManager.view({
+    					object : objectType,
+    					id : idObject,
+    					onSuccess : function(data) {
+    					    var renderInstace = renderTranslator.getRender(objectType);
+                            renderInstace.onView(data);
+    					}
+    				});
+    			}
 
 		});
 

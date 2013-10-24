@@ -9,6 +9,11 @@ var ServerManager = new Class({
         this.services['dimension']={};
         this.services['estilo']={};
         this.services['objeto']={};
+        this.services['proyecto']={};
+        this.services['deposito']={};
+        this.services['estudio']={};
+        this.services['inventario']={};
+
 
         this.services['articulo']["controllerName"]="articulos";
         this.services['articulo']["model"]="Articulo";
@@ -23,11 +28,19 @@ var ServerManager = new Class({
         this.services['estilo']["controllerName"]="estilos";
         this.services['estilo']["model"]="Estilo";
         this.services['objeto']["controllerName"]="objetos";
-        this.services['objeto']["model"]="Objeto"
+        this.services['objeto']["model"]="Objeto";
+        this.services['proyecto']["controllerName"]="proyectos";
+        this.services['proyecto']["model"]="Proyecto"
+        this.services['deposito']["controllerName"]="depositos";
+        this.services['deposito']["model"]="Deposito"
+        this.services['estudio']["controllerName"]="estudios";
+        this.services['estudio']["model"]="Estudio"
+        this.services['inventario']["controllerName"]="inventarios";
+        this.services['inventario']["model"]="Inventario"
 
     },
 
-    update: function(config){
+    updateConfigurations: function(config){
     	var self=this;
     	var type = config.object;
     	var dataAEnviar = {};
@@ -41,6 +54,19 @@ var ServerManager = new Class({
 		      data:  dataAEnviar,
 		      success: function(data) {
 		    	  console.log("LISTO",data);
+				}
+		    } );
+    },
+    update: function(config){
+    	var self=this;
+    	var type = config.object;
+
+    	jQuery.ajax( {
+		      type: "POST",
+		      url: self.services[type]["controllerName"]+"/edit/"+config.editObject,
+		      data: config.data.serialize(),
+		      success: function(data) {
+		    	 config.onSuccess(data);
 				}
 		    } );
     },
@@ -82,7 +108,19 @@ var ServerManager = new Class({
 		    	  config.onSuccess(data);
 				}
 		    } );
-    }
+    },
+    view: function(config){
+    	var self=this;
+    	var type = config.object;
+
+    	jQuery.ajax( {
+		      type: "GET",
+		      url: self.services[type]["controllerName"]+"/edit/"+config.id,
+		      success: function(data) {
+		    	  config.onSuccess(data);
+				}
+		    } );
+    },
 
 });
 

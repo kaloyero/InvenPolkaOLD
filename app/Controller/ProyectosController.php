@@ -1,17 +1,21 @@
 <?php
 class ProyectosController extends AppController {
-    
+
     public $helpers = array ('Html','Form');
 
     function index() {
-        $this->set('proyectos', $this->Proyecto->find('all'));
-    }	
+		$this->paginate = array(
+				'order' => array('Result.created ASC'),
+			     'limit' => 10
+		 );
+        $this->set('proyectos', $this->paginate('Proyecto'));
+    }
 
    public function view($id = null) {
         $this->Proyecto->id = $id;
         $this->set('proyecto', $this->Proyecto->read());
-   }	
-   
+   }
+
     public function add() {
         if ($this->request->is('post')) {
             if ($this->Proyecto->save($this->request->data)) {
@@ -31,7 +35,7 @@ class ProyectosController extends AppController {
 				$this->redirect(array('action' => 'index'));
 			}
 		}
-	}	
+	}
 
 	function delete($id) {
 

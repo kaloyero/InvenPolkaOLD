@@ -4,7 +4,11 @@ class DepositosController extends AppController {
     public $helpers = array ('Html','Form');
 
     function index() {
-        $this->set('depositos', $this->Deposito->find('all'));
+		$this->paginate = array(
+				'order' => array('Result.created ASC'),
+			     'limit' => 10
+		 );
+        $this->set('depositos', $this->paginate('Deposito'));
     }
 
    public function view($id = null) {

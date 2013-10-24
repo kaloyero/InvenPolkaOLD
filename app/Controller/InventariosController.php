@@ -6,18 +6,22 @@
 	App::import('Model','Proyecto');
 
 class InventariosController extends AppController {
-    
+
     public $helpers = array ('Html','Form');
 
     function index() {
-        $this->set('inventarios', $this->Inventario->find('all'));
-    }	
+        $this->paginate = array(
+			'order' => array('Result.created ASC'),
+		     'limit' => 10
+		 );
+        $this->set('inventarios', $this->paginate('Inventario'));
+    }
 
    public function view($id = null) {
         $this->Inventario->id = $id;
         $this->set('inventario', $this->Inventario->read());
-   }	
-   
+   }
+
     public function add() {
         if ($this->request->is('post')) {
             if ($this->Inventario->save($this->request->data)) {
@@ -34,7 +38,7 @@ class InventariosController extends AppController {
 		$this->Inventario->id = $id;
 		if ($this->request->is('get')) {
 			$this->request->data = $this->Inventario->read();
-			$this->setViewData();			
+			$this->setViewData();
 		} else {
 			if ($this->Inventario->save($this->request->data)) {
 				$this->Session->setFlash('Cambios guardados');
@@ -43,20 +47,20 @@ class InventariosController extends AppController {
 					$this->setViewData();
 			}
 
-		}		
-	}	
+		}
+	}
 
 	function delete($id) {
 
 	}
-	
+
 	function setViewData() {
 		$this->set('articulos',$this->getArticulos());
 		$this->set('depositos',$this->getDepositos());
 		$this->set('ubicaciones',$this->getUbicaciones());
 		$this->set('proyectos',$this->getProyectos());
 	}
-	
+
 	function getArticulos() {
 		$articulo=new Articulo();
 		$articulos=$articulo->find('list',array('fields'=>array('Articulo.id','Articulo.CodigoArticulo')));

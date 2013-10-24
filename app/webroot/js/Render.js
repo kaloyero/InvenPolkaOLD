@@ -40,17 +40,36 @@ var Render = new Class({
            this.bindListEvents();
       },
     onAdd: function(data){
-                this.cleanCanvas();
-                jQuery(".contentinner").append(data);
-                // Transform upload file
-        	    jQuery('.uniform-file').uniform();
-                this.bindAddEvents();
+        this.cleanCanvas();
+        jQuery(".contentinner").append(data);
+        // Transform upload file
+        jQuery('.uniform-file').uniform();
+        this.bindAddEvents();
          },
+    onView: function(data){
+        this.cleanCanvas();
+        jQuery(".contentinner").append(data);
+        // Transform upload file
+        jQuery('.uniform-file').uniform();
+        this.bindEditEvents();
+    },
+    onUpdated: function(data){
+           alert("Actualizado!")
+       },
+
     bindListEvents:function() {
            var self=this;
+
         	jQuery('#add').bind("click", function(e) {
         	    translator.add(self.type);
            })
+           jQuery('.edit').bind("click", function(e) {
+               console.log("DATaaa",self.getSelectedRowId(this))
+               translator.view(self.type,self.getSelectedRowId(this));
+
+               return false;
+       	    //translator.view(self.type);
+          })
         },
     bindAddEvents:function() {
           var self=this;
@@ -59,7 +78,18 @@ var Render = new Class({
          //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
          return false;
          });
-     }
+     },
+     bindEditEvents:function() {
+         var self=this;
+         jQuery('.edit').bind("click", function(e) {
+             translator.update(self.type, self.getForm());
+             //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
+            return false;
+             });
+         },
+      getSelectedRowId:function(selectedRow) {
+          return jQuery(selectedRow).parent().parent().find(":first" ).text()
+      }
 
 });
 
