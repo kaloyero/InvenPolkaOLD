@@ -4,7 +4,26 @@ class DepositosController extends AppController {
     public $helpers = array ('Html','Form');
 
     function index() {
-        $this->set('depositos', $this->Deposito->find('all'));
+		//Si la session tiene cargada la variable depositos,viene de un redireccionamiento,si no,se pidio el listado completo
+				if ($this->Session->check("depositos")){
+					$this->paginate = array(
+					     'conditions' => $this->Session->read("depositos"),
+					     'order' => array('Result.created ASC'),
+					     'limit' => 5
+					 );
+					$this->set("depositos",$this->paginate('Deposito'));
+					$this->Session->delete("depositos");
+				}else{
+						//paginate as normal
+						$this->paginate = array(
+							'order' => array('Result.created ASC'),
+						     'limit' => 10
+						 );
+					//$this->set("depositos",$this->Deposito->find('all'));
+					$this->set("depositos",	$this->paginate('Deposito'));
+
+				}
+ 
     }
 
    public function view($id = null) {

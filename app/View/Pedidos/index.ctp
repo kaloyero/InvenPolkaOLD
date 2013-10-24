@@ -2,8 +2,11 @@
 
 <table class="table">
     <tr>
-        <th>Id</th>
-        <th>Nombre</th>
+        <th>Codigo</th>
+        <th>Numero</th>
+        <th>Fecha</th>
+        <th>Proyecto</th>
+        <th>Estudio</th>                        
         <th>Acciones</th>        
     </tr>
 
@@ -11,6 +14,9 @@
     <tr>
         <td><?php echo $pedido['Pedido']['id']; ?></td>
         <td><?php echo $pedido['Pedido']['Numero']; ?></td>
+        <td><?php echo $pedido['Pedido']['Fecha']; ?></td>
+        <td><?php echo $pedido['Proyecto']['Nombre']; ?></td>
+        <td><?php echo $pedido['Estudio']['Nombre']; ?></td>                        
         <td>
 			<?php 
 			if ($pedido['Pedido']['estado'] == 'abierto'){

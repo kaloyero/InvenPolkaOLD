@@ -1,4 +1,4 @@
-var Pedido = new Class({
+var Estudio = new Class({
     Extends: Render,
     initialize: function(name){
         this.name = name;
@@ -21,7 +21,7 @@ var Pedido = new Class({
      bindListEvents:function() {
 
      	jQuery('#add').bind("click", function(e) {
-     	    translator.add("pedido")
+     	    translator.add("estudio")
         })
      },
      bindAddEvents:function() {
@@ -34,21 +34,21 @@ var Pedido = new Class({
 		var FieldCount = x-1; //para el seguimiento de los campos
 		 
       	jQuery('.save').bind("click", function(e) {
-            translator.save("pedido", self.getForm());
+            translator.save("estudio", self.getForm());
       	    //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
       	    //return false;
         });
-
+		
 		//Agregar articulos en la tabla
 		AddArticuloBtn.bind("click", function(e) {
 			FieldCount++;
 			//agregar campo
 			contenedor.append('' +
 				' <div>' +
-				'	Articulo: <input name="nomArticulo" type="text" value="' + ArtArticulo.text() + '" readonly="readonly" />' +			
-				'	Cantidad: <input name="data[Detalle]['+FieldCount+'][Cantidad]" type="text" value="' + ArtCantidad.val() + '" readonly="readonly" />' +			
-				'  <input name="data[Detalle]['+FieldCount+'][IdArticulo]" type="hidden" value="' + ArtArticulo.val() + '" readonly="readonly" />' +
-				'<a href="#" class="eliminar">&times;</a>' +
+				'	Articulo: <input name="nomArticulo" type="text" value="' + ArtArticulo.text() + '" readonly />' +			
+				'	Cantidad: <input name="data[Detalle]['+FieldCount+'][Cantidad]" type="text" value="' + ArtCantidad.val() + '" readonly />' +			
+				'  <input name="data[Detalle]['+FieldCount+'][IdArticulo]" type="hidden" value="' + ArtArticulo.val() + '" readonly />' +
+				'<a href="#" class="eliminar">×</a>' +
 			'</div>');
 				x++; 			
         });
@@ -59,4 +59,4 @@ var Pedido = new Class({
 
 });
 
-pedidoRender=new Pedido();
+estudioRender=new Estudio();

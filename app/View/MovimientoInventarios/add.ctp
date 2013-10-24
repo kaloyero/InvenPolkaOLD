@@ -19,7 +19,7 @@ echo $this->Form->input('Descripcion');
 
 </div>
 <?php
-echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('type'=>'select','options'=>$depositos,'empty'=>false,'label'=>'Deposito Original'));
+echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depositoOriginal','type'=>'select','options'=>$depositos,'empty'=>false,'label'=>'Deposito Original'));
 ?>
 
 <div id="divDepositoDest" style="display: none;">

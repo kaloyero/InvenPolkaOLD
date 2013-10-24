@@ -35,9 +35,12 @@ var MovimientoInventario = new Class({
 //		var ArtUbicacionDest        = jQuery('#ArtUbicacionDest option:selected'); //Articulo seleccionado
 		var x = jQuery('#contenedor div').length ;		//var x = número de campos existentes en el contenedor 
 		var FieldCount = x-1; //para el seguimiento de los campos
-		//TIPO DE MOVIMIENTO
+		//Combo TIPO DE MOVIMIENTO
 		var tipoMovimientoCmb		= jQuery('#comboInventario');
-		 
+		//Combo DEPOSITO
+		var depositoCmb		= jQuery('#depositoOriginal');
+
+		
       	jQuery('.save').bind("click", function(e) {
             translator.save("movimientoInventario", self.getForm());
       	    //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
@@ -82,7 +85,13 @@ var MovimientoInventario = new Class({
 //				showDiv(divUbicacionDest);
 			}
        	});
+		
+		//Combo Deposito
+		depositoCmb.bind("change", function(e) {
+			alert("");
 
+			return false;
+       	});
    	}
 	
 		

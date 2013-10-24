@@ -2,8 +2,11 @@
 
 <table class="table">
     <tr>
-        <th>Id</th>
-        <th>Nombre</th>
+        <th>Codigo</th>
+        <th>Numero</th>
+		<th>Fecha</th>
+        <th>Tipo Movimiento</th>
+        <th>Deposito</th>
         <th>Acciones</th>        
     </tr>
 
@@ -11,6 +14,28 @@
     <tr>
         <td><?php echo $movimiento['MovimientoInventario']['id']; ?></td>
         <td><?php echo $movimiento['MovimientoInventario']['Numero']; ?></td>
+        <td><?php echo $movimiento['MovimientoInventario']['Fecha']; ?></td>
+        <td><?php 
+		switch ($movimiento['MovimientoInventario']['TipoMovimiento']) {
+			case 'P':
+				echo "Asignacion de Articulos a proyectos" ; 
+				break;
+			case 'D':
+				echo "Devolucion de Articulos de proyectos"; 
+				break;
+			case 'I':
+				echo "Ingreso de Articulos"; 
+				break;
+			case 'B':
+				echo "Baja de Articulos"; 
+				break;
+			case 'T':
+				echo "Transferencia de Articulos entre depósitos"; 
+				break;
+		} ?>
+		</td>        
+        <td><?php echo $movimiento['Deposito']['Nombre']; ?></td>        
+
         <td>
 			<?php echo $this->Html->link('Editar', array('action' => 'edit', $movimiento['MovimientoInventario']['id']));?>
         </td>

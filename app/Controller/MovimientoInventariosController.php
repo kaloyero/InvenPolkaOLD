@@ -155,6 +155,11 @@ class MovimientoInventariosController extends AppController {
         'conditions' => array('Ubicacione.IdDeposito =' => $id)));
 		return $ubicaciones;
    }
+
+   function getArticuloByDeposito($id = null) {
+		return "loco";
+   }
+
 	
 }
 ?>

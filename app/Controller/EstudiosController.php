@@ -4,7 +4,25 @@ class EstudiosController extends AppController {
     public $helpers = array ('Html','Form');
 
     function index() {
-        $this->set('estudios', $this->Estudio->find('all'));
+		//Si la session tiene cargada la variable estudios,viene de un redireccionamiento,si no,se pidio el listado completo
+		if ($this->Session->check("estudios")){
+			$this->paginate = array(
+				 'conditions' => $this->Session->read("estudios"),
+				 'order' => array('Result.created ASC'),
+				 'limit' => 5
+			 );
+			$this->set("estudios",$this->paginate('Estudio'));
+			$this->Session->delete("estudios");
+		}else{
+				//paginate as normal
+				$this->paginate = array(
+					'order' => array('Result.created ASC'),
+					 'limit' => 10
+				 );
+			//$this->set("estudios",$this->Estudio->find('all'));
+			$this->set("estudios",	$this->paginate('Estudio'));
+
+		}
     }
 
    public function view($id = null) {
