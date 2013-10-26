@@ -25,7 +25,7 @@ var Inventario = new Class({
         })
      },
      bindAddEvents:function() {
-         var self=this;
+        var self=this;
       	jQuery('.save').bind("click", function(e) {
             translator.save("inventario", self.getForm());
       	    //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit

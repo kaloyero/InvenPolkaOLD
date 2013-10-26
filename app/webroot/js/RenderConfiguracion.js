@@ -1,8 +1,7 @@
-var Categoria = new Class({
+var RenderConfiguracion = new Class({
     Extends: Render,
     initialize: function(name){
-        this.name = name;
-        this.type="categoria"
+		this.name = name;
     },
     onList: function(data){
             this.parent(data);
@@ -18,4 +17,4 @@ var Categoria = new Class({
     },
 });
 
-categoriaRender=new Categoria();
+renderConfiguracion=new RenderConfiguracion();

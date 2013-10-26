@@ -1,4 +1,3 @@
-<p><a id="add">Agregar</a></p>
 <table class="table">
     <tr>
         <th>Id</th>
@@ -46,10 +45,21 @@ $paginator = $this->Paginator;
         echo $paginator->last("Last");
 
     	echo "</div>";
-
-
- ?>
-
+?>
 </div>
 </div>
+<?php
+
+echo $this->Form->create('Categoria',array('class' => 'stdform stdform2','inputDefaults' => array(
+        'div' => array('class' => 'field'))));
+echo $this->Form->input('Nombre',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
+								                                <label>Nombre</label>
+								                                <span class="field">',
+																'after'=>'</span></p>'));
+
+echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</button><button type="reset" class="btn">Limpiar Formulario</button></p>';
+?>
+</div>
+<?php echo $this->Form->end();?>
+
 
