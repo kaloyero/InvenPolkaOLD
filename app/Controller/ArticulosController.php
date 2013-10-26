@@ -108,26 +108,28 @@ class ArticulosController extends AppController {
 			//echo $this->passedArgs["test"];
  			//$this->redirect(array('action' => 'index'));
 			//$this->redirect(array_merge($url,$filters));
+			if(!empty($this->passedArgs["CodigoArticulo"])){
+				echo"IOHHSI";
 
-			if(isset($this->passedArgs["CodigoArticulo"])){
 				$conditions["Articulo.CodigoArticulo LIKE"] = "%".$this->passedArgs["CodigoArticulo"]."%";
 				}else{
-					if(isset($this->passedArgs["IdMaterial"])){
+					if(!empty($this->passedArgs["IdMaterial"])){
 						$conditions["Articulo.IdMaterial LIKE"] = "%".$this->passedArgs["IdMaterial"]."%";
 					}
-					if(isset($this->passedArgs["IdEstilo"])){
+					if(!empty($this->passedArgs["IdEstilo"])){
+						echo"SI";
 						$conditions["Articulo.IdEstilo LIKE"] = "%".$this->passedArgs["IdEstilo"]."%";
 					}
-					if(isset($this->passedArgs["IdCategoria"])){
+					if(!empty($this->passedArgs["IdCategoria"])){
 						$conditions["Articulo.IdCategoria LIKE"] = "%".$this->passedArgs["IdCategoria"]."%";
 					}
-					if(isset($this->passedArgs["IdObjeto"])){
+					if(!empty($this->passedArgs["IdObjeto"])){
 						$conditions["Articulo.IdObjeto LIKE"] = "%".$this->passedArgs["IdObjeto"]."%";
 					}
-					if(isset($this->passedArgs["IdDimension"])){
+					if(!empty($this->passedArgs["IdDimension"])){
 						$conditions["Articulo.IdDimension LIKE"] = "%".$this->passedArgs["IdDimension"]."%";
 					}
-					if(isset($this->passedArgs["IdDecorado"])){
+					if(!empty($this->passedArgs["IdDecorado"])){
 						$conditions["Articulo.IdDecorado LIKE"] = "%".$this->passedArgs["IdDecorado"]."%";
 					}
 				}
