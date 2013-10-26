@@ -17,7 +17,7 @@ var Render = new Class({
                      var elementIdToEdit=jQuery(this).parent().siblings().first().text();
                      jQuery(this).parent().text(newContent);
                      jQuery(this).parent().removeClass("cellEditing");
-                     serverManager.update({
+                     serverManager.updateConfigurations({
      					object : self.type,editObject:elementIdToEdit,value:newContent});
                  }
              });

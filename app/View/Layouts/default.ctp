@@ -46,6 +46,7 @@
 	echo $this->Html->script('jsTemplate/jquery.flot.min');
 	echo $this->Html->script('jsTemplate/jquery.flot.resize.min');
 	echo $this->Html->script('jsTemplate/custom');
+	echo $this->Html->script('jsTemplate/uploadForm');
 	echo $this->Html->script('jsTemplate/forms');
 
 
@@ -96,7 +97,6 @@
                     </ul>
 
                 </li>
-<<<<<<< HEAD
 				<li class="active  animate8 fadeInUp"><a id="proyecto" class="option"><span class="icon-th-list"></span> Proyectos</a>
 				<li class="active  animate8 fadeInUp"><a id="deposito" class="option"><span class="icon-th-list"></span> Deposito</a>
 				<li class="active  animate8 fadeInUp"><a id="estudio" class="option"><span class="icon-th-list"></span> Estudio</a>
