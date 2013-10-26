@@ -45,6 +45,10 @@
 	echo $this->Html->script('jsTemplate/bootstrap.min');
 	echo $this->Html->script('jsTemplate/jquery.flot.min');
 	echo $this->Html->script('jsTemplate/jquery.flot.resize.min');
+	echo $this->Html->script('jsTemplate/jquery.dataTables.min');
+	//echo $this->Html->css('demo_table');
+	//echo $this->Html->css('demo_page');
+
 	echo $this->Html->script('jsTemplate/custom');
 	echo $this->Html->script('jsTemplate/uploadForm');
 	echo $this->Html->script('jsTemplate/forms');

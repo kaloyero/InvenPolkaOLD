@@ -38,6 +38,27 @@ var Render = new Class({
            this.cleanCanvas();
            jQuery(".contentinner").append(data);
            this.bindListEvents();
+           jQuery('#browserList').dataTable({
+                       "bProcessing": true,
+                       "bServerSide": true,
+                      // "iDisplayLength" : 10,
+                       "bPaginate": true,
+                       "sPaginationType": "full_numbers",
+                       "sAjaxSource": "categorias/ajaxData",
+                       "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+                           console.log("DATa",arguments)
+                       },
+                       "fnInitComplete": function(oSettings, json) {
+                             console.log("ARGUU",arguments)
+                           }
+                   });
+         /*
+           jQuery('#browserList').dataTable({
+               "aaData": ["Alexis"],
+               "aoColumns": [
+                           { "sTitle": "Nombre" }
+                       ]
+           });*/
       },
     onAdd: function(data){
         this.cleanCanvas();

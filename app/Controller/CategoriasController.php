@@ -42,6 +42,12 @@ class CategoriasController extends AppController {
 		}
     }
 
+	function ajaxData() {
+	        //$this->Categoria = "Browser";
+	        $this->autoRender = false;
+			$output = $this->Categoria->GetData();
+	       echo json_encode($output);
+	    }
 	function edit($id = null) {
 		$this->Categoria->id = $id;
 		if ($this->request->is('get')) {
