@@ -41,7 +41,6 @@ var Render = new Class({
            jQuery('#browserList').dataTable({
                        "bProcessing": true,
                        "bServerSide": true,
-                      // "iDisplayLength" : 10,
                        "bPaginate": true,
                        "sPaginationType": "full_numbers",
                        "sAjaxSource": "categorias/ajaxData",
@@ -52,13 +51,7 @@ var Render = new Class({
                              console.log("ARGUU",arguments)
                            }
                    });
-         /*
-           jQuery('#browserList').dataTable({
-               "aaData": ["Alexis"],
-               "aoColumns": [
-                           { "sTitle": "Nombre" }
-                       ]
-           });*/
+
       },
     onAdd: function(data){
         this.cleanCanvas();
