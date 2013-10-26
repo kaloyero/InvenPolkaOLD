@@ -7,6 +7,7 @@ var Articulo = new Class({
 
      bindAddEvents:function() {
          var self=this;
+         this.styleForm();
          jQuery('form').ajaxForm({
                     // any other options,
                  beforeSubmit: function () {
@@ -17,7 +18,7 @@ var Articulo = new Class({
                         return true;
                     }
                 },
-                 submit: function () {
+                 success: function () {
                      alert("Guardado!")
                  }
 
@@ -25,12 +26,38 @@ var Articulo = new Class({
        },
      bindEditEvents:function() {
          var self=this;
-         console.log("EDIT")
+         this.styleForm();
          jQuery('form').ajaxForm({
              success: function () {
                         alert("Guardado!")
              }
         })
+    },
+
+    onFinder:function(data) {
+        this.cleanCanvas();
+        jQuery(".contentinner").append(data);
+        // Transform upload file
+        jQuery('.uniform-file').uniform();
+        this.bindFinderEvents()
+    },
+    onSearched:function(data) {
+
+           this.cleanCanvas();
+           jQuery(".contentinner").append(data);
+           // Transform upload file
+           jQuery('.uniform-file').uniform();
+           this.bindListEvents()
+       },
+
+     bindFinderEvents:function() {
+         var self=this;
+         this.styleForm();
+         jQuery('.save').bind("click", function(e) {
+         translator.search(self.type, self.getForm());
+          //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
+          return false;
+          });
     },
      validateImage:function() {
         var fileName = jQuery("input:file").val();
@@ -43,4 +70,6 @@ var Articulo = new Class({
 });
 
 articuloRender=new Articulo();
+
+
 

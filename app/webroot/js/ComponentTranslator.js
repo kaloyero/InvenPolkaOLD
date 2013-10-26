@@ -10,6 +10,15 @@ var ComponentTranslator = new Class(
 					}
 				});
 			},
+			showFinder : function(objectType) {
+				serverManager.showFinder({
+					object : objectType,
+					onSuccess : function(data) {
+					    var renderInstace = renderTranslator.getRender(objectType);
+                        renderInstace.onFinder(data);
+					}
+				});
+			},
 			add : function(objectType) {
 				serverManager.add({
 					object : objectType,
@@ -25,6 +34,16 @@ var ComponentTranslator = new Class(
 					data:formData,
 					onSuccess : function(data) {
 					 console.log("LISTO")
+					}
+				});
+			},
+			search : function(objectType,formData) {
+				serverManager.search({
+					object : objectType,
+					data:formData,
+					onSuccess : function(data) {
+					    var renderInstace = renderTranslator.getRender(objectType);
+                        renderInstace.onSearched(data);
 					}
 				});
 			},

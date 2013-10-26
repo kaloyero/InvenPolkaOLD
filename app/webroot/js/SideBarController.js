@@ -5,6 +5,9 @@ var SideBarController = new Class({
     onOptionSelected: function(objectType){
     	translator.show(objectType);
     },
+    onSearchSelected: function(objectType){
+    	translator.showFinder(objectType);
+    },
 
     bindMenuOptionsEvents:function() {
 
@@ -12,6 +15,11 @@ var SideBarController = new Class({
     		var objectId=jQuery(this).attr("id");
     		sideBarController.onOptionSelected(objectId);
     });
+    	jQuery('.search').bind("click", function(e) {
+    		var objectId=jQuery(this).attr("id");
+    		sideBarController.onSearchSelected(objectId);
+    });
+
     }
 
 });

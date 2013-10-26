@@ -96,6 +96,8 @@
             	<li class="nav-header animate4 fadeInUp">Navegacion</li>
                 <li class="active animate5 fadeInUp"><a href="/invenPolka"><span class="icon-align-justify"></span> Inicio</a></li>
                 <li class="active  animate8 fadeInUp"><a id="articulo" class="option"><span class="icon-th-list"></span> Articulos</a>
+	            <li class="active  animate8 fadeInUp"><a id="articulo" class="search"><span class="icon-th-list"></span> Buscador Articulos</a>
+
                 	<ul>
                     	<li><a href="/invenPolka/articulos/add">Agregar</a></li>
                     </ul>
