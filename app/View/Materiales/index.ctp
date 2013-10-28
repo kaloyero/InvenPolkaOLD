@@ -17,6 +17,7 @@
     <?php endforeach; ?>
 
 </table>
+<p class="stdformbutton"></p>
 <?php
      // $this->Paginator->options(array('url' => $this->passedArgs));
 $paginator = $this->Paginator;

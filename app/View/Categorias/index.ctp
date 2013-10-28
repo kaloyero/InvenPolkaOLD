@@ -7,3 +7,5 @@
 	    <tbody>
 
 	    </tbody></table>
+
+	<p class="stdformbutton"></p>

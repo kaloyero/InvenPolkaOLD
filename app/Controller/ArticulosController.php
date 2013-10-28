@@ -109,8 +109,6 @@ class ArticulosController extends AppController {
  			//$this->redirect(array('action' => 'index'));
 			//$this->redirect(array_merge($url,$filters));
 			if(!empty($this->passedArgs["CodigoArticulo"])){
-				echo"IOHHSI";
-
 				$conditions["Articulo.CodigoArticulo LIKE"] = "%".$this->passedArgs["CodigoArticulo"]."%";
 				}else{
 					if(!empty($this->passedArgs["IdMaterial"])){

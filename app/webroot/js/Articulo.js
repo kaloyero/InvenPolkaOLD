@@ -15,10 +15,12 @@ var Articulo = new Class({
                          alert("Seleccione una Foto del ARticulooo")
                          return false;
                     }else{
+                        self.addLoader();
                         return true;
                     }
                 },
                  success: function () {
+                     self.removeLoader();
                      alert("Guardado!")
                  }
 
@@ -28,8 +30,13 @@ var Articulo = new Class({
          var self=this;
          this.styleForm();
          jQuery('form').ajaxForm({
+             beforeSubmit: function () {
+                 self.addLoader();
+                 return true;
+             },
              success: function () {
-                        alert("Guardado!")
+                 self.removeLoader();
+                 alert("Guardado!")
              }
         })
     },

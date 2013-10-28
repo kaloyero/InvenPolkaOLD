@@ -74,7 +74,7 @@ var ServerManager = new Class({
 		      url: self.services[type]["controllerName"]+"/edit/"+config.editObject,
 		      data:  dataAEnviar,
 		      success: function(data) {
-		    	  console.log("LISTO",data);
+		    	  config.onSuccess(data);
 				}
 		    } );
     },
