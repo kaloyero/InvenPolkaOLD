@@ -1,4 +1,5 @@
 <?php
+
 class Categoria extends AppModel {
         public $name = 'Categoria';
 
@@ -14,22 +15,6 @@ class Categoria extends AppModel {
 				),
 			),
 		);
-public function GetData() {
-		/** Paging*/
-			$results =$this->query('SELECT Nombre FROM categorias limit '.$_GET['iDisplayStart'].' ,'.$_GET['iDisplayLength']);
-			$arrayData=array();
 
-			foreach($results as $j){
-				array_push($arrayData, array($j["categorias"]["Nombre"]));
-			}
-
-			$test = array(
-							"sEcho" => intval($_GET['sEcho']),
- 		                	"iTotalRecords" => 130,
-		                	"iTotalDisplayRecords" => 13,
-							"aaData"=> $arrayData
-						  );
-			return $test;
-	}
 }
 ?>

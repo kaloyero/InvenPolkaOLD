@@ -10,7 +10,9 @@ echo $this->Form->input('Director',array('class'=>'input-medium','div'=>false,'l
 echo $this->Form->input('FechaIni',array('empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p><label>Fecha Ini</label><span class="field">','after'=>'</span></p>'));
 echo $this->Form->input('FechaFin',array('empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p><label>Fecha Fin</label><span class="field">','after'=>'</span></p>'));
 
-//echo $this->Form->end('Guardar');
+
 echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</button><button type="reset" class="btn">Limpiar Formulario</button></p>';
 ?>
-</div>
+<?php
+echo $this->Form->end();
+?>

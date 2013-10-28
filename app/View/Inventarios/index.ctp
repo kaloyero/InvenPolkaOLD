@@ -1,15 +1,21 @@
 <p><a id="add">Agregar</a></p><table class="table">
     <tr>
-        <th>Id</th>
+        <th>Codigo</th>
+        <th>Articulo</th>
         <th>Disponibilidad</th>
+        <th>Deposito</th>
+        <th>Proyecto</th>        
         <th>Acciones</th>
     </tr>
 
     <?php foreach ($inventarios as $inventario): ?>
     <tr>
         <td><?php echo $inventario['Inventario']['id']; ?></td>
+        <td><?php echo $inventario['Articulo']['CodigoArticulo']; ?></td>
         <td><?php echo $inventario['Inventario']['Disponibilidad']; ?></td>
-        <td><?php echo $this->Html->link('Editar', array('action' => 'edit', $inventario['Inventario']['id']),array('class' => 'edit'));?>    </td>
+        <td><?php echo $inventario['Deposito']['Nombre']; ?></td>
+        <td><?php echo $inventario['Proyecto']['Nombre']; ?></td>
+        <td><?php echo $this->Html->link('Editar', array('action' => 'edit', $inventario['Inventario']['id']));?>    </td>
     </tr>
     <?php endforeach; ?>
 

@@ -1,4 +1,6 @@
 <?php
+	App::import('Model','ConsultasSelect');
+
 class MaterialesController extends AppController {
 
     public $helpers = array ('Html','Form');
@@ -24,6 +26,13 @@ class MaterialesController extends AppController {
         }
 
     }
+
+	function ajaxData() {
+			$consultas =new ConsultasSelect();
+	        $this->autoRender = false;
+			$output = $consultas->getDataConfig('materiales');
+	        echo json_encode($output);
+	}
 
 	function edit($id = null) {
 		$this->Materiale->id = $id;

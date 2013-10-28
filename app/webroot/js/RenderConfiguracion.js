@@ -1,4 +1,4 @@
-var Render = new Class({
+var RenderConfiguracion = new Class({
     initialize: function(name){
         this.name = name;
     },
@@ -17,8 +17,8 @@ var Render = new Class({
                      var elementIdToEdit=jQuery(this).parent().siblings().first().text();
                      jQuery(this).parent().text(newContent);
                      jQuery(this).parent().removeClass("cellEditing");
-                     self.addLoader();
-                     translator.updateConfigurations(self.type,elementIdToEdit,newContent);
+                     serverManager.updateConfigurations({
+     					object : self.type,editObject:elementIdToEdit,value:newContent});
                  }
              });
 
@@ -35,10 +35,25 @@ var Render = new Class({
         return jQuery("form");
     },
     onList: function(data){
-           var self=this;
            this.cleanCanvas();
            jQuery(".contentinner").append(data);
            this.bindListEvents();
+           jQuery('#browserList').dataTable({
+                       "bProcessing": true,
+                       "bServerSide": true,
+                       "bPaginate": true,
+                       "sPaginationType": "full_numbers",
+                       "sAjaxSource": "categorias/ajaxData",
+                       "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+                           console.log("DATa",arguments)
+                       },
+                       "fnInitComplete": function(oSettings, json) {
+                             console.log("ARGUU",arguments)
+                           },
+
+
+                   });
+
       },
     onAdd: function(data){
         this.cleanCanvas();
@@ -47,21 +62,9 @@ var Render = new Class({
         jQuery('.uniform-file').uniform();
         this.bindAddEvents();
          },
-    onView: function(data){
-        this.cleanCanvas();
-        jQuery(".contentinner").append(data);
-        // Transform upload file
-        jQuery('.uniform-file').uniform();
-        this.bindEditEvents();
-    },
     onUpdated: function(data){
-            this.removeLoader();
            alert("Actualizado!")
        },
-    onSaved: function(data){
-             self.removeLoader();
-            alert("Guardado!")
-      },
 
     bindListEvents:function() {
            var self=this;
@@ -70,63 +73,40 @@ var Render = new Class({
         	    translator.add(self.type);
            })
            jQuery('.edit').bind("click", function(e) {
-
                console.log("DATaaa",self.getSelectedRowId(this))
                translator.view(self.type,self.getSelectedRowId(this));
 
                return false;
        	    //translator.view(self.type);
           })
+
+          	jQuery('.save').bind("click", function(e) {
+          		translator.save(self.type, self.getForm());
+				this.cleanCanvas();
+				//Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
+				return false;
+			});		  
         },
     bindAddEvents:function() {
           var self=this;
-          this.styleForm();
           jQuery('.save').bind("click", function(e) {
-              translator.save(self.type, self.getForm());
-              self.addLoader();
+          translator.save(self.type, self.getForm());
          //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
          return false;
          });
      },
      bindEditEvents:function() {
          var self=this;
-         this.styleForm();
          jQuery('.edit').bind("click", function(e) {
              translator.update(self.type, self.getForm());
-             self.addLoader();
              //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
             return false;
              });
          },
       getSelectedRowId:function(selectedRow) {
           return jQuery(selectedRow).parent().parent().find(":first" ).text()
-      },
-      styleForm:function() {
-          jQuery('input:checkbox, input:radio, select.uniformselect').uniform();
-        },
-      addLoader:function() {
-           jQuery('.stdformbutton').append('<img src="/invenPolka/app/webroot/files/gif/16.GIF" class ="loader" alt="CakePHP" height="50px" width="50px">');
+      }
 
-      },
-      removeLoader:function() {
-          jQuery('.loader').remove();
-       },
-       makeDatatable:function() {
-           var self=this;
-            var oTable=   jQuery('#configurationTable').dataTable({
-                           "bProcessing": true,
-                           "bServerSide": true,
-                           "bPaginate": true,
-                           "sPaginationType": "full_numbers",
-                           "sAjaxSource": serverManager.services[this.type]["controllerName"]+"/ajaxData",
-                           "fnDrawCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-                               //Este CallBack se ejecuta cuando esta lista la tabla
-                               jQuery("#configurationTable td:first-child").css('display','none');
-                               self.hacerTablaEditable();
-                           }
-                       });
-       // oTable.fnSetColumnVis( 0, false );
-          }
 });
 
-render=new Render();
+renderConfiguracion=new RenderConfiguracion();

@@ -1,4 +1,6 @@
 <?php
+	App::import('Model','ConsultasSelect');
+
 class DecoradosController extends AppController {
 
     public $helpers = array ('Html','Form');
@@ -23,6 +25,13 @@ class DecoradosController extends AppController {
             }
         }
     }
+
+	function ajaxData() {
+			$consultas =new ConsultasSelect();
+	        $this->autoRender = false;
+			$output = $consultas->getDataConfig('decorados');
+	        echo json_encode($output);
+	}
 
 	function edit($id = null) {
 		$this->Decorado->id = $id;

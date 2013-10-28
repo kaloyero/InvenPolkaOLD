@@ -2,29 +2,10 @@ var Pedido = new Class({
     Extends: Render,
     initialize: function(name){
         this.name = name;
+		this.type = 'pedido';
     },
-    hacerTablaEditable: function(){
-
-    },
-    onList: function(data){
-        this.cleanCanvas();
-        jQuery(".contentinner").append(data);
-        this.bindListEvents();
-     },
-     onAdd: function(data){
-         this.cleanCanvas();
-         jQuery(".contentinner").append(data);
-         // Transform upload file
-     	jQuery('.uniform-file').uniform();
-         this.bindAddEvents();
-      },
-     bindListEvents:function() {
-
-     	jQuery('#add').bind("click", function(e) {
-     	    translator.add("pedido")
-        })
-     },
      bindAddEvents:function() {
+		this.parent();
 		var self=this;
  		var contenedor        		= jQuery('#contenedor'); //ID del contenedor
 		var AddArticuloBtn			= jQuery('#agregarArticulo');
@@ -33,6 +14,7 @@ var Pedido = new Class({
 		var x = jQuery('#contenedor div').length ;		//var x = número de campos existentes en el contenedor
 		var FieldCount = x-1; //para el seguimiento de los campos
 
+		//TODO ver de sacar
       	jQuery('.save').bind("click", function(e) {
             translator.save("pedido", self.getForm());
       	    //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
@@ -54,9 +36,6 @@ var Pedido = new Class({
         });
 
   	}
-
-
-
 });
 
 pedidoRender=new Pedido();

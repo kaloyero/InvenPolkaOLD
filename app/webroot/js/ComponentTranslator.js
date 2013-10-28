@@ -35,6 +35,10 @@ var ComponentTranslator = new Class(
 					onSuccess : function(data) {
 					     var renderInstace = renderTranslator.getRender(objectType);
     					    renderInstace.onSaved(data);
+
+					        jQuery.jGrowl("Creado con exito.", {
+						        theme : 'success'
+					        });
 					}
 				});
 			},
