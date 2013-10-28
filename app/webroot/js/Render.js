@@ -74,6 +74,7 @@ var Render = new Class({
         },
     bindAddEvents:function() {
           var self=this;
+          this.styleForm();
           jQuery('.save').bind("click", function(e) {
           translator.save(self.type, self.getForm());
          //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
@@ -82,6 +83,7 @@ var Render = new Class({
      },
      bindEditEvents:function() {
          var self=this;
+         this.styleForm();
          jQuery('.edit').bind("click", function(e) {
              translator.update(self.type, self.getForm());
              //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
@@ -90,7 +92,11 @@ var Render = new Class({
          },
       getSelectedRowId:function(selectedRow) {
           return jQuery(selectedRow).parent().parent().find(":first" ).text()
-      }
+      },
+      styleForm:function() {
+          jQuery('input:checkbox, input:radio, select.uniformselect').uniform();
+        },
+
 
 });
 

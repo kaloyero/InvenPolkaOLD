@@ -3,12 +3,12 @@ var ServerManager = new Class({
         this.name = name;
         this.services={};
         this.services['articulo']={};
-        this.services['pedido']={};		
-        this.services['inventario']={};		
-        this.services['proyecto']={};	
-        this.services['estudio']={};							
-        this.services['deposito']={};									
-        this.services['movimientoInventario']={};		
+        this.services['pedido']={};
+        this.services['inventario']={};
+        this.services['proyecto']={};
+        this.services['estudio']={};
+        this.services['deposito']={};
+        this.services['movimientoInventario']={};
 		this.services['categoria']={};
         this.services['material']={};
         this.services['decorado']={};
@@ -19,6 +19,7 @@ var ServerManager = new Class({
         this.services['deposito']={};
         this.services['estudio']={};
         this.services['inventario']={};
+        this.services['buscadorArticulo']={};
 
 
         this.services['articulo']["controllerName"]="articulos";
@@ -55,6 +56,8 @@ var ServerManager = new Class({
         this.services['estudio']["model"]="Estudio"
         this.services['inventario']["controllerName"]="inventarios";
         this.services['inventario']["model"]="Inventario"
+        this.services['buscadorArticulo']["controllerName"]="articulos";
+        this.services['buscadorArticulo']["model"]="Inventario"
 
     },
 
@@ -100,6 +103,32 @@ var ServerManager = new Class({
 			}
 		});
     },
+    showFinder: function(config){
+
+       	var type = config.object;
+       	var self=this;
+       	jQuery.ajax({
+   			type: 'GET',
+   			url: self.services[type]["controllerName"]+"/find",
+   			success: function(data) {
+                   config.onSuccess(data);
+   			}
+   		});
+       },
+     search: function(config){
+
+         var type = config.object;
+         var self=this;
+          	jQuery.ajax({
+      			type: 'POST',
+      			url: self.services[type]["controllerName"]+"/find",
+      			data: config.data.serialize(),
+      			success: function(data) {
+                      config.onSuccess(data);
+      			}
+      		});
+          },
+
     add: function(config){
 
     	var self=this;
