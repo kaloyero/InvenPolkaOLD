@@ -25,9 +25,32 @@ var ComponentTranslator = new Class(
 					data:formData,
 					onSuccess : function(data) {
 					 console.log("LISTO")
+					jQuery.jGrowl("Creado con exito.", {
+						theme : 'success'
+					});
 					}
 				});
 			},
+			update : function(objectType,formData) {
+    				serverManager.update({
+    					object : objectType,
+    					data:formData,
+    					onSuccess : function(data) {
+    					    var renderInstace = renderTranslator.getRender(objectType);
+    					    renderInstace.onUpdated(data);
+    					}
+    				});
+    			},
+			 view : function(objectType,idObject) {
+    				serverManager.view({
+    					object : objectType,
+    					id : idObject,
+    					onSuccess : function(data) {
+    					    var renderInstace = renderTranslator.getRender(objectType);
+                            renderInstace.onView(data);
+    					}
+    				});
+    			}
 
 		});
 

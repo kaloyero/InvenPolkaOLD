@@ -17,7 +17,7 @@ class Articulo extends AppModel {
 				        ),
 						'Descripcion' => array(
 				            'rule' => 'notEmpty'
-				        ),
+				        ),/*
 						'idFoto' => array(
 				            'rule1'=>array(
 							        'rule' => array('extension',array('jpeg','jpg','png','gif')),
@@ -32,7 +32,7 @@ class Articulo extends AppModel {
 							        'message' => 'Seleccione una imagen valida',
 							        'on' => 'update',
 							    ),
-				        ),
+				        ),*/
 
 						'IdCategoria' => array(
 				            'rule' => 'notEmpty',

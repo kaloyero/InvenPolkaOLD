@@ -1,4 +1,6 @@
 <?php
+	App::import('Model','ConsultasSelect');
+
 class CategoriasController extends AppController {
 
     public $helpers = array ('Html','Form');
@@ -41,6 +43,13 @@ class CategoriasController extends AppController {
 
 		}
     }
+
+	function ajaxData() {
+			$consultas =new ConsultasSelect();
+	        $this->autoRender = false;
+			$output = $consultas->getDataConfig('categorias');
+	        echo json_encode($output);
+	}
 
 	function edit($id = null) {
 		$this->Categoria->id = $id;

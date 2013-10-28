@@ -1611,3 +1611,8 @@ body.loginbody { background: #f7f7f7 url(../img/gray_jean.png); }
 	.verwizard .verticalmenu { float: none; width: auto; margin-bottom: 20px; }
 	.verwizard .stepContainer, .verwizard .actionBar { margin-left: 0; }
 }
+
+div.growlUI { background: url(check48.png) no-repeat 10px 10px }
+div.growlUI h1, div.growlUI h2 {
+	color: white; padding: 5px 5px 5px 75px; text-align: left
+}

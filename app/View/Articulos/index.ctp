@@ -4,7 +4,7 @@
     <tr>
         <th>Id</th>
         <th>Nombre</th>
-        <th>Acciones</th>        
+        <th>Acciones</th>
     </tr>
 
     <?php foreach ($articulos as $articulo): ?>
@@ -13,7 +13,7 @@
         <td><?php echo $articulo['Articulo']['CodigoArticulo']?></td>
 		<td><?php $test= "/app/webroot/files/articulo/IdFoto/".$articulo['Articulo']['dir'].'/'.$articulo['Articulo']['idFoto'];
 			echo $this->Html->image($test, array('alt' => 'CakePHP','width'=>'200px'))?></td>
-			<td><?php echo $this->Html->link('Edit', array('action' => 'edit', $articulo['Articulo']['id']));?></td>
+			<td><?php echo $this->Html->link('Edit', array('action' => 'edit', $articulo['Articulo']['id']),array('class' => 'edit'));?></td>
 
 
     </tr>

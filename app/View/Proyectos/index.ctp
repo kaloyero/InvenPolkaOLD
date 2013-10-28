@@ -1,5 +1,4 @@
-<p><a id="add">Agregar</a></p>
-
+<p><a id="add">Agregar</a></p><table class="table">
 <table class="table">
     <tr>
         <th>Nombre</th>
@@ -12,18 +11,17 @@
 
     <?php foreach ($proyectos as $proyecto): ?>
     <tr>
+		<td><?php echo $proyecto['Proyecto']['id']; ?></td>
 		<td><?php echo $this->Html->link($proyecto['Proyecto']['Nombre'], array('action' => 'view', $proyecto['Proyecto']['id']));?>    </td>
-        <td><?php echo $proyecto['Proyecto']['Descripcion']; ?></td>
+		<td><?php echo $proyecto['Proyecto']['Descripcion']; ?></td>
         <td><?php echo $proyecto['Proyecto']['Director']; ?></td>
         <td><?php echo $proyecto['Proyecto']['FechaIni']; ?></td>
         <td><?php echo $proyecto['Proyecto']['FechaFin']; ?></td>
-		<td><?php echo $this->Html->link('Editar', array('action' => 'edit', $proyecto['Proyecto']['id']));?>    </td>
+		<td><?php echo $this->Html->link('Editar', array('action' => 'edit', $proyecto['Proyecto']['id']),array('class' => 'edit'));?>    </td>
     </tr>
     <?php endforeach; ?>
 
 </table>
-
-
 <?php
      // $this->Paginator->options(array('url' => $this->passedArgs));
 $paginator = $this->Paginator;
@@ -52,5 +50,6 @@ $paginator = $this->Paginator;
         echo $paginator->last("Last");
 
     	echo "</div>";
+
 
  ?>

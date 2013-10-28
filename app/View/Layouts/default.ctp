@@ -14,10 +14,10 @@
 	echo $this->Html->script('Articulo');
 	echo $this->Html->script('Pedido');
 	echo $this->Html->script('Deposito');
-	echo $this->Html->script('Estudio');		
+	echo $this->Html->script('Estudio');
 	echo $this->Html->script('MovimientoInventario');
 	echo $this->Html->script('Inventario');
-	echo $this->Html->script('Proyecto');		
+	echo $this->Html->script('Proyecto');
 
 	echo $this->Html->script('Categoria');
 	echo $this->Html->script('Material');
@@ -25,6 +25,11 @@
 	echo $this->Html->script('Objeto');
 	echo $this->Html->script('Decorado');
 	echo $this->Html->script('Dimension');
+	echo $this->Html->script('Proyecto');
+	echo $this->Html->script('Deposito');
+	echo $this->Html->script('Estudio');
+	echo $this->Html->script('Inventario');
+
 	echo $this->Html->script('ComponentTranslator');
 
 	echo $this->Html->script('ServerManager');
@@ -40,7 +45,13 @@
 	echo $this->Html->script('jsTemplate/bootstrap.min');
 	echo $this->Html->script('jsTemplate/jquery.flot.min');
 	echo $this->Html->script('jsTemplate/jquery.flot.resize.min');
+	echo $this->Html->script('jsTemplate/jquery.dataTables.min');
+	echo $this->Html->script('jsTemplate/jquery.notifications');
+	//echo $this->Html->css('demo_table');
+	//echo $this->Html->css('demo_page');
+
 	echo $this->Html->script('jsTemplate/custom');
+	echo $this->Html->script('jsTemplate/uploadForm');
 	echo $this->Html->script('jsTemplate/forms');
 
 
@@ -89,46 +100,14 @@
                 	<ul>
                     	<li><a href="/invenPolka/articulos/add">Agregar</a></li>
                     </ul>
-                  
+
                 </li>
-                <li class="active  animate9 fadeInUp"><a id="pedido" class="option"><span class="icon-th-list"></span> Pedidos</a>
-                	<ul>
-                    	<li><a href="/invenPolka/pedidos/add">Agregar</a></li>
-                    </ul>
-                  
-                </li>
-                <li class="active  animate10 fadeInUp"><a id="movimientoInventario" class="option"><span class="icon-th-list"></span> Movimientos</a>
-                	<ul>
-                    	<li><a href="/invenPolka/movimientoInventarios/add">Agregar</a></li>
-                    </ul>
-                  
-                </li>
-                
-                <li class="active  animate8 fadeInUp"><a id="inventario" class="option"><span class="icon-th-list"></span> Inventario</a>
-                	<ul>
-                    	<li><a href="/invenPolka/inventarios/add">Agregar</a></li>
-                    </ul>
-                  
-                </li>
-                <li class="active  animate8 fadeInUp"><a id="proyecto" class="option"><span class="icon-th-list"></span> Proyecto	</a>
-                	<ul>
-                    	<li><a href="/invenPolka/proyectos/add">Agregar</a></li>
-                    </ul>
-                  
-                </li>
-                <li class="active  animate8 fadeInUp"><a id="estudio" class="option"><span class="icon-th-list"></span> Estudios	</a>
-                	<ul>
-                    	<li><a href="/invenPolka/estudios/add">Agregar</a></li>
-                    </ul>
-                  
-                </li>
-                <li class="active  animate8 fadeInUp"><a id="deposito" class="option"><span class="icon-th-list"></span> Depositos	</a>
-                	<ul>
-                    	<li><a href="/invenPolka/depositos/add">Agregar</a></li>
-                    </ul>
-                  
-                </li>
-                
+				<li class="active  animate8 fadeInUp"><a id="proyecto" class="option"><span class="icon-th-list"></span> Proyectos</a>
+				<li class="active  animate8 fadeInUp"><a id="deposito" class="option"><span class="icon-th-list"></span> Deposito</a>
+				<li class="active  animate8 fadeInUp"><a id="estudio" class="option"><span class="icon-th-list"></span> Estudio</a>
+				<li class="active  animate8 fadeInUp"><a id="inventario" class="option"><span class="icon-th-list"></span>Inventario</a>
+				<li class="active  animate8 fadeInUp"><a id="pedido" class="option"><span class="icon-th-list"></span>Pedidos</a>
+				<li class="active  animate8 fadeInUp"><a id="movimientoInventario" class="option"><span 		  class="icon-th-list"></span>Movimientos</a>
                 <li class="dropdown animate13 fadeInUp"><a href=""><span class="icon-pencil"></span> Configuraciones</a>
                 	<ul>
                     	<li><a id="categoria" class="option">Categorias</a></li>

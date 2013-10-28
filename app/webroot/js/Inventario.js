@@ -2,12 +2,7 @@ var Inventario = new Class({
     Extends: Render,
     initialize: function(name){
         this.name = name;
-    },
-    hacerTablaEditable: function(){
-        //this.parent("Categoria");
-    },
-    onList: function(data){
-        this.cleanCanvas();
+        this.type="inventario";
         jQuery(".contentinner").append(data);
         this.bindListEvents();
      },
@@ -27,12 +22,11 @@ var Inventario = new Class({
      bindAddEvents:function() {
         var self=this;
       	jQuery('.save').bind("click", function(e) {
-            translator.save("inventario", self.getForm());
-      	    //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
-      	    return false;
-      });
-  }
+        this.type="inventario";
+
+			});			
+    },
 
 });
 
-inventarioRender=new Inventario();
+inventarioRender=new Inventario()

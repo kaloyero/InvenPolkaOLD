@@ -47,7 +47,6 @@ class ArticulosController extends AppController {
                 $this->Session->setFlash('Articulo Guardada con Exito.');
                 $this->redirect(array('action' => 'index'));
             }	else{
-					echo "NOFUN";
 					$this->setViewData();
 				}
         } else {
@@ -61,13 +60,14 @@ class ArticulosController extends AppController {
 				$this->setViewData();
 		        $this->request->data = $this->Articulo->read();
 		    } else {
-		        if ($this->Articulo->save($this->request->data)) {
-		            $this->Session->setFlash('Your post has been updated.');
-		            $this->redirect(array('action' => 'index'));
-		        }else{
+		        if ($this->Articulo->save($this->request->data,array('fieldList' =>$this->getFieldsToEdit() ))){
+					 $this->Session->setFlash('Your post has been updated.');
+					 $this->redirect(array('action' => 'index'));
+				}else{
 						$this->setViewData();
-				}
-		    }
+					}
+	    }
+
 	}
 	function setViewData() {
 		$this->set('materiales',$this->getMateriales());
@@ -76,6 +76,17 @@ class ArticulosController extends AppController {
 		$this->set('dimensiones',$this->getDimensiones());
 		$this->set('estilos',$this->getEstilos());
 		$this->set('objetos',$this->getObjetos());
+	}
+	//Si el usuario esta editando un articulo,y el idFoto viene vacio,quiere decir que no la cambio,entonces,editamos todos los campos,menos
+	//el de la foto,porque sino lo pone vacio.Si cambio la foto,hacer el update normal
+	function getFieldsToEdit() {
+		$fieldList= array();
+		if(!empty($this->request->data["Articulo"]["idFoto"])){
+			$fieldsToEdit= array('CodigoArticulo', 'Descripcion', 'IdCategoria', 'IdObjeto', 'IdEstilo', 'IdMaterial', 'IdDecorado', 'IdDimension','idFoto');
+		}else{
+			$fieldList= array('CodigoArticulo', 'Descripcion', 'IdCategoria', 'IdObjeto', 'IdEstilo', 'IdMaterial', 'IdDecorado', 'IdDimension');
+		}
+			return $fieldList;
 	}
 
 	function delete($id) {

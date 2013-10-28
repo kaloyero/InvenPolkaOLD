@@ -1,6 +1,4 @@
-<p><a id="add">Agregar</a></p>
-
-<table class="table">
+<p><a id="add">Agregar</a></p><table class="table">
     <tr>
         <th>Codigo</th>
         <th>Articulo</th>
@@ -22,7 +20,6 @@
     <?php endforeach; ?>
 
 </table>
-
 <?php
      // $this->Paginator->options(array('url' => $this->passedArgs));
 $paginator = $this->Paginator;
@@ -51,5 +48,6 @@ $paginator = $this->Paginator;
         echo $paginator->last("Last");
 
     	echo "</div>";
+
 
  ?>

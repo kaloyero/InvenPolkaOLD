@@ -1,4 +1,6 @@
 <?php
+	App::import('Model','ConsultasSelect');
+	
 class DimensionesController extends AppController {
 
     public $helpers = array ('Html','Form');
@@ -23,6 +25,13 @@ class DimensionesController extends AppController {
             }
         }
     }
+
+	function ajaxData() {
+			$consultas =new ConsultasSelect();
+	        $this->autoRender = false;
+			$output = $consultas->getDataConfig('dimensiones');
+	        echo json_encode($output);
+	}
 
 	function edit($id = null) {
 		$this->Dimensione->id = $id;

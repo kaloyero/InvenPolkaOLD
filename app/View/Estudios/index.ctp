@@ -1,6 +1,4 @@
 <p><a id="add">Agregar</a></p><table class="table">
-
-<table class="table">
     <tr>
         <th>Nombre</th>
         <th>Descripcion</th>
@@ -13,12 +11,11 @@
 		<td><?php echo $this->Html->link($estudio['Estudio']['Nombre'], array('action' => 'view', $estudio['Estudio']['id']));?>    </td>
         <td><?php echo $estudio['Estudio']['Descripcion']; ?></td>
         <td><?php echo $estudio['Estudio']['FechaFin']; ?></td>
-		<td><?php echo $this->Html->link('Editar', array('action' => 'edit', $estudio['Estudio']['id']));?>    </td>
+		<td><?php echo $this->Html->link('Editar', array('action' => 'edit', $estudio['Estudio']['id']),array('class' => 'edit'));?>   </td>
     </tr>
     <?php endforeach; ?>
 
 </table>
-
 <?php
      // $this->Paginator->options(array('url' => $this->passedArgs));
 $paginator = $this->Paginator;
@@ -47,5 +44,6 @@ $paginator = $this->Paginator;
         echo $paginator->last("Last");
 
     	echo "</div>";
+
 
  ?>

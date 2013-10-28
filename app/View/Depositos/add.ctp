@@ -1,7 +1,6 @@
 <?php
 echo '<h4 class="widgettitle nomargin shadowed">Deposito</h4>';
 echo '<div class="widgetcontent bordered shadowed nopadding">';
-
 echo $this->Form->create('Deposito',array('class' => 'stdform stdform2','inputDefaults' => array(
         'div' => array('class' => 'field'))));
 echo $this->Form->input('Nombre');
@@ -12,6 +11,7 @@ echo $this->Form->input('guardaryseguir', array('label'=>'Guardar y seguir', 'ty
 
 //echo $this->Form->end();
 echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</button><button type="reset" class="btn">Limpiar Formulario</button></p>';
-
-echo $this->Form->end();
 ?>
+</div>
+
+

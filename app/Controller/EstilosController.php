@@ -1,4 +1,6 @@
 <?php
+	App::import('Model','ConsultasSelect');
+
 class EstilosController extends AppController {
 
     public $helpers = array ('Html','Form');
@@ -23,6 +25,13 @@ class EstilosController extends AppController {
             }
         }
     }
+
+	function ajaxData() {
+			$consultas =new ConsultasSelect();
+	        $this->autoRender = false;
+			$output = $consultas->getDataConfig('estilos');
+	        echo json_encode($output);
+	}
 
 	function edit($id = null) {
 		$this->Estilo->id = $id;

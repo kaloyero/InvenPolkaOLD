@@ -1,4 +1,5 @@
 <?php
+
 class Categoria extends AppModel {
         public $name = 'Categoria';
 
@@ -13,6 +14,7 @@ class Categoria extends AppModel {
 					'message' => 'Maximo 50 caracteres'
 				),
 			),
-		);		
+		);
+
 }
 ?>
