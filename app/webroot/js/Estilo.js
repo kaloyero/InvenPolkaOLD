@@ -22,7 +22,7 @@ var Estilo = new Class({
 				//Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
 				return false;
 			});
-    },
+    }
 });
 
 estiloRender=new Estilo();
