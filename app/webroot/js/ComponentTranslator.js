@@ -62,7 +62,7 @@ var ComponentTranslator = new Class(
     					onSuccess : function(data) {
     					    var renderInstace = renderTranslator.getRender(objectType);
     					    renderInstace.onUpdated(data);
-							jQuery.jGrowl("Guardado Satisfactoriamente.", {
+							jQuery.jGrowl("Actualizado Satisfactoriamente.", {
 								theme : 'success'
 							});
 						},
@@ -74,6 +74,9 @@ var ComponentTranslator = new Class(
         					editObject:elementIdToEdit,
         					value:newValue,
         					onSuccess : function(data) {
+        					    jQuery.jGrowl("Actualizado Satisfactoriamente.", {
+    								theme : 'success'
+    							});
         					    var renderInstace = renderTranslator.getRender(objectType);
         					    renderInstace.onUpdated(data);
         					}
