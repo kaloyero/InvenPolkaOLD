@@ -5,6 +5,12 @@
                 <th style="display:none;">Id</th>
                 <th>Codigo Articulo</th>
                 <th>Foto</th>
+                <th>Categoria</th>
+				<th>Objeto</th>				
+				<th>Uso/Decorado</th>
+				<th>Material/Color</th>
+				<th>Tamaño</th>
+				<th>Estilo</th>
                 <th>Acciones</th>
             </tr>
 	</thead>

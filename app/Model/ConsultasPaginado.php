@@ -31,8 +31,65 @@ class ConsultasPaginado extends AppModel {
 ****************************** {INICIO} ARTICULO -> DATATABLE ***************
 \********************************************************************************/
 
-	/*   */
+	/* Para el listado de Articulos */
 	function getDataArticulos() {
+		$tabla="articulos_vista";
+		$model=new Articulo();
+		//Columnas que voy a mostrar
+	    $aColumns = array( 'id','CodigoArticulo','dir','idFoto','descripcion','categoria','decorado','objeto','estilo','material','dimension' );
+        //Columnas por las que se va a filtrar
+	    $aColumnsFilter = array( 'CodigoArticulo','descripcion','categoria','decorado','objeto','estilo','material','dimension' );
+		//Columna por la cual se va ordenar
+		$orderByfield = 'CodigoArticulo';
+
+		//CREATE TABLE//
+		//Consigue el query que se va ejecutar
+		$query=$this->getDataDefaultQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield,"");
+		//Ejecuta el query, obtengo las filas
+		$rows =$model->query("".$query['select'].";");
+		//Obtengo los totales
+		$totales = $this->getTotales($model,$query);
+		//Proceso los campos para llenar la tabla
+		$arrayData=$this->getArrayDataArticulos($tabla,$rows,$query['select']);
+		//Obtengo la tabla
+		$output = $this->createConfigTable($arrayData,$totales["total"],$totales["tDisplay"]);
+//		$output = $this->createConfigTable($arrayData,40,40);
+
+		return $output;
+
+	}
+
+	/* Para la funcionalidad Busqueda de Articulos */
+	function getDataArticulosSearch($whereFilter) {
+		$tabla="articulos_vista";
+		$model=new Articulo();
+		//Columnas que voy a mostrar
+	    $aColumns = array( 'id','CodigoArticulo','dir','idFoto','descripcion','categoria','decorado','objeto','estilo','material','dimension' ,'id_categoria','id_decorado','id_objeto','id_estilo','id_material','id_dimension');
+        //Columnas por las que se va a filtrar
+	    $aColumnsFilter = array(  );
+		//Columna por la cual se va ordenar
+		$orderByfield = 'CodigoArticulo,categoria,decorado,objeto,estilo,material,dimension';
+
+		//CREATE TABLE//
+		//Consigue el query que se va ejecutar
+		$query=$this->getDataDefaultQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield,$whereFilter);
+	    $aColumnsFilter = array('CodigoArticulo','descripcion','categoria','decorado','objeto','estilo','material','dimension');
+		$query=$this->getDataArticuloQuerySearch($tabla,$query,$aColumnsFilter,$orderByfield);
+		//Ejecuta el query, obtengo las filas
+		$rows =$model->query("".$query['select'].";");
+		//Obtengo los totales
+		$totales = $this->getTotales($model,$query);
+		//Proceso los campos para llenar la tabla
+		$arrayData=$this->getArrayDataArticulos($tabla,$rows,$query['select']);
+		//Obtengo la tabla
+		$output = $this->createConfigTable($arrayData,$totales["total"],$totales["tDisplay"]);
+//		$output = $this->createConfigTable($arrayData,40,40);
+
+		return $output;
+	}
+
+	/* Para la funcionalidad Busqueda de Articulos */
+	function getDataArticulosSearch2() {
 		$model=new Articulo();
 		$tabla="Art";
 		//Columnas que voy a mostrar
@@ -57,44 +114,33 @@ class ConsultasPaginado extends AppModel {
 	Devuelve 	query['select'] -> Sentencia select
 				query['where']  -> Sentencia where
  */
-private function getDataArticuloQuery($tabla) {
+private function getDataArticuloQuerySearch($tabla,$query,$aColumnsFilter,$orderBy) {
 
-		//Partes del query
-		$select = "SELECT `Art`.`id` as id, `Art`.`CodigoArticulo` as `CodigoArticulo`, `Art`.`dir` as `dir`, `Art`.`idFoto` as `idFoto`, `Cat`.`Nombre` , `Dec`.`Nombre` as `decorado`, `Obj`.`Nombre` as `objeto`, `Est`.`Nombre` as `estilo`, `Mat`.`Nombre` as `materia`, `Dim`.`Nombre` as `dimension` ";
-		$from = " FROM `inventario`.`articulos` as `".$tabla."`
-LEFT JOIN `inventario`.`categorias` AS `Cat` ON (`".$tabla."`.`IdCategoria` = `Cat`.`id`)
-LEFT JOIN `inventario`.`decorados` AS `Dec` ON (`".$tabla."`.`IdDecorado` = `Dec`.`id`)
-LEFT JOIN `inventario`.`objetos` AS `Obj` ON (`".$tabla."`.`IdObjeto` = `Obj`.`id`)
-LEFT JOIN `inventario`.`estilos` AS `Est` ON (`".$tabla."`.`IdEstilo` = `Est`.`id`)
-LEFT JOIN `inventario`.`materiales` AS `Mat` ON (`".$tabla."`.`IdMaterial` = `Mat`.`id`)
-LEFT JOIN `inventario`.`dimensiones` AS `Dim` ON (`".$tabla."`.`IdDimension` = `Dim`.`id`) ";
-
-
-		$limit = 'limit '.$_GET['iDisplayStart'].' ,'.$_GET['iDisplayLength'] ;
-		$orderBy = " order by `".$tabla."`.`CodigoArticulo` ";
+	if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" ){
+		$select = "SELECT id, CodigoArticulo, dir, idFoto, descripcion, categoria, decorado, objeto, estilo, material, dimension, id_categoria, id_decorado, id_objeto, id_estilo, id_material, id_dimension";
+		$from = " FROM (".$query['selectWOL'].") as `".$tabla."` ";
 		$sWhere = "";
-
-		/*BUSQUEDA*/
-        if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" )
-        {
-            $sWhere = "WHERE (";
-			            $sWhere = "WHERE (";
-            $sWhere .= "`".$tabla."`.`CodigoArticulo` LIKE '%".( $_GET['sSearch'] )."%' OR ";
-            $sWhere .= "`Cat`.`Nombre` LIKE '%".( $_GET['sSearch'] )."%' OR ";
-            $sWhere .= "`Dec`.`Nombre` LIKE '%".( $_GET['sSearch'] )."%' OR ";
-            $sWhere .= "`Obj`.`Nombre` LIKE '%".( $_GET['sSearch'] )."%' OR ";
-            $sWhere .= "`Est`.`Nombre` LIKE '%".( $_GET['sSearch'] )."%' OR ";
-            $sWhere .= "`Mat`.`Nombre` LIKE '%".( $_GET['sSearch'] )."%' OR ";
-            $sWhere .= "`Dim`.`Nombre` LIKE '%".( $_GET['sSearch'] )."%' ";
-
-            $sWhere .= ')';
-        }
+			if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" )
+			{
+				$sWhere = "WHERE (";
+							$sWhere = "WHERE (";
+				for ( $i=0 ; $i<count($aColumnsFilter) ; $i++ )
+				{
+					$sWhere .= "`".$aColumnsFilter[$i]."` LIKE '%".( $_GET['sSearch'] )."%' OR ";
+				}
+				$sWhere = substr_replace( $sWhere, "", -3 );
+				$sWhere .= ')';
+			}
+	
+		$limit = 'limit '.$_GET['iDisplayStart'].' ,'.$_GET['iDisplayLength'] ;
+		$orderBy = " order by ".$orderBy." ";
 
 		$query['select'] = $select.$from.$sWhere.$orderBy.$limit;
 		$query['from'] =   $from;
 		$query['where'] = $sWhere;
-
-		return $query;
+	}
+	
+	return $query;
 
 }
 
@@ -104,8 +150,9 @@ LEFT JOIN `inventario`.`dimensiones` AS `Dim` ON (`".$tabla."`.`IdDimension` = `
 /*			$fila=array();
         	array_push($fila, "1");
 	        array_push($fila, array($titi));
+																								
 			array_push($arrayDt, $fila);
-*/
+//*/
 //      array_push($arrayDt, array());
 
       foreach($rows as $j){
@@ -114,16 +161,17 @@ LEFT JOIN `inventario`.`dimensiones` AS `Dim` ON (`".$tabla."`.`IdDimension` = `
 	        array_push($fila, array($j[$tabla]['CodigoArticulo']));
 			array_push($fila, '<img src="/InvenPolka/app/webroot/files/articulo/IdFoto/'.$j[$tabla]['dir'].'/'.$j[$tabla]['idFoto'].'" alt="CakePHP" width="200px">');
 //	        array_push($fila, array($titi));
-//			array_push($fila, array($j[$tabla]['Cat']['Nombre']));
-//			array_push($fila, array($j[$tabla]['decorado']));
-//			array_push($fila, array($j[$tabla]['materia']));
-//			array_push($fila, array($j[$tabla]['dimension']));
-//			array_push($fila, array($j[$tabla]['estilo']));
+			array_push($fila, array($j[$tabla]['categoria']));
+			array_push($fila, array($j[$tabla]['objeto']));			
+			array_push($fila, array($j[$tabla]['decorado']));
+			array_push($fila, array($j[$tabla]['material']));
+			array_push($fila, array($j[$tabla]['dimension']));
+			array_push($fila, array($j[$tabla]['estilo']));
 			array_push($fila, "<a href='/InvenPolka/articulos/edit/".$j[$tabla]['id']."' class='edit'>Edit</a>");
 
 			array_push($arrayDt, $fila);
       }
-
+//*/
 
 	 return $arrayDt;
 	}
@@ -205,7 +253,7 @@ private function getArrayData($tabla,$rows,$aColumns,$titi) {
 /* Este metodo crearía la tabla para aquellas tablas que muestren datos solamente de una tabla */
 private function getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield) {
 		//Consigue el query que se va ejecutar
-		$query=$this->getDataDefaultQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield);
+		$query=$this->getDataDefaultQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield,"");
 		//Ejecuta el query, obtengo las filas
 		$rows =$model->query("".$query['select'].";");
 		//Obtengo los totales
@@ -222,7 +270,7 @@ private function getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderBy
 	Devuelve 	query['select'] -> Sentencia select
 				query['where']  -> Sentencia where
  */
-private function getDataDefaultQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield) {
+private function getDataDefaultQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield,$where) {
 
         //Columnas por las que se va a filtrar
 	    $aColumnsShow = "";
@@ -244,19 +292,25 @@ private function getDataDefaultQuery($tabla,$aColumns,$aColumnsFilter,$orderByfi
 		$sWhere = "";
 
 		/*BUSQUEDA*/
-        if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" )
-        {
-            $sWhere = "WHERE (";
-			            $sWhere = "WHERE (";
-            for ( $i=0 ; $i<count($aColumnsFilter) ; $i++ )
-            {
-                $sWhere .= "`".$aColumnsFilter[$i]."` LIKE '%".( $_GET['sSearch'] )."%' OR ";
-            }
-            $sWhere = substr_replace( $sWhere, "", -3 );
-            $sWhere .= ')';
-        }
+		//Si el wehre viene vacio
+		if ($where == ""){
+			if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" )
+			{
+				$sWhere = "WHERE (";
+							$sWhere = "WHERE (";
+				for ( $i=0 ; $i<count($aColumnsFilter) ; $i++ )
+				{
+					$sWhere .= "`".$aColumnsFilter[$i]."` LIKE '%".( $_GET['sSearch'] )."%' OR ";
+				}
+				$sWhere = substr_replace( $sWhere, "", -3 );
+				$sWhere .= ')';
+			}
+		} else {
+			$sWhere = " WHERE (".$where.")";
+		}
 
 		$query['select'] = $select.$from.$sWhere.$orderBy.$limit;
+		$query['selectWOL'] = $select.$from.$sWhere;
 		$query['from'] =  $from;
 		$query['where'] = $sWhere;
 

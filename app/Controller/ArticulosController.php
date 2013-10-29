@@ -16,10 +16,7 @@ class ArticulosController extends AppController {
     public $helpers = array ('Html','Form');
 	public $findResult;
     function index() {
-  //if ($this->request->is('ajax')){
-		//Array de variables para la vista $this->viewVars["articulos"];
-		//Si la session tiene cargada la variable articulos,viene de un redireccionamiento,si no,se pidio el listado completo
-				if ($this->Session->check("articulos")){
+/*				if ($this->Session->check("articulos")){
 					$this->paginate = array(
 					     'conditions' => $this->Session->read("articulos"),
 					     'order' => array('Result.created ASC'),
@@ -34,7 +31,7 @@ class ArticulosController extends AppController {
 						 'limit' => 10
 					 );
 					$this->set("articulos",	$this->paginate('Articulo'));
-				}
+				}*/
     }
 
    public function view($id = null) {
@@ -56,10 +53,17 @@ class ArticulosController extends AppController {
     }
 
 	function ajaxData() {
+		if ($this->Session->check("articulos")){
 			$paginado =new ConsultasPaginado();
 	        $this->autoRender = false;
-			$output = $paginado->getDataArticulos();
+			$output = $paginado->getDataArticulosSearch($this->Session->read("articulos"));
 	        echo json_encode($output);
+		} else {
+			$paginado =new ConsultasPaginado();
+	        $this->autoRender = false;
+//			$output = $paginado->getDataArticulos();
+	        echo json_encode($output);
+		}
 	}
 
 	function edit($id = null) {
@@ -129,34 +133,37 @@ class ArticulosController extends AppController {
 			//echo $this->passedArgs["test"];
  			//$this->redirect(array('action' => 'index'));
 			//$this->redirect(array_merge($url,$filters));
+			$conditions = "";
 			if(!empty($this->passedArgs["CodigoArticulo"])){
-				$conditions["Articulo.CodigoArticulo LIKE"] = "%".$this->passedArgs["CodigoArticulo"]."%";
+				$conditions= $conditions."CodigoArticulo LIKE '%".$this->passedArgs["CodigoArticulo"]."%' AND ";
 				}else{
 					if(!empty($this->passedArgs["IdMaterial"])){
-						$conditions["Articulo.IdMaterial LIKE"] = "%".$this->passedArgs["IdMaterial"]."%";
+						$conditions= $conditions."id_material LIKE '".$this->passedArgs["IdMaterial"]."' AND ";
 					}
 					if(!empty($this->passedArgs["IdEstilo"])){
 						echo"SI";
-						$conditions["Articulo.IdEstilo LIKE"] = "%".$this->passedArgs["IdEstilo"]."%";
+						$conditions= $conditions."id_estilo LIKE '".$this->passedArgs["IdEstilo"]."' AND ";
 					}
 					if(!empty($this->passedArgs["IdCategoria"])){
-						$conditions["Articulo.IdCategoria LIKE"] = "%".$this->passedArgs["IdCategoria"]."%";
+						$conditions= $conditions."id_categoria LIKE '".$this->passedArgs["IdCategoria"]."' AND ";
 					}
 					if(!empty($this->passedArgs["IdObjeto"])){
-						$conditions["Articulo.IdObjeto LIKE"] = "%".$this->passedArgs["IdObjeto"]."%";
+						$conditions= $conditions."id_objeto LIKE '".$this->passedArgs["IdObjeto"]."' AND ";
 					}
 					if(!empty($this->passedArgs["IdDimension"])){
-						$conditions["Articulo.IdDimension LIKE"] = "%".$this->passedArgs["IdDimension"]."%";
+						$conditions= $conditions."id_dimension LIKE '".$this->passedArgs["IdDimension"]."' AND ";
 					}
 					if(!empty($this->passedArgs["IdDecorado"])){
-						$conditions["Articulo.IdDecorado LIKE"] = "%".$this->passedArgs["IdDecorado"]."%";
+						$conditions= $conditions."id_decorado LIKE '".$this->passedArgs["IdDecorado"]."' AND ";
 					}
 				}
 
-
+		        $conditions = substr_replace( $conditions, "", -4 );
 				//$_SESSION['prueba']="puti";
 				$this->Session->write("articulos",$conditions);
 
+				
+				
 				// $this->set("articulos",$results);
 				//$this->redirect(array('action' => 'index'));
 	 }else{
