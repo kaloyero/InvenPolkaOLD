@@ -329,6 +329,13 @@ class UploadBehavior extends ModelBehavior {
 				$thumbnailPath .= $tempPath . DS;
 			}
 			$tmp = $this->runtime[$model->alias][$field]['tmp_name'];
+			// Replaces all spaces with hyphens.
+			$model->data[$model->alias][$field] = str_replace(' ', '-', $model->data[$model->alias][$field]);
+			// Removes special chars.
+			$strreplaced = preg_replace("/[&']/","_",$strfile);
+			$value = preg_replace(" /[&'#]/","",$value);
+			$model->data[$model->alias][$field]= preg_replace(" /[&'#]/", "", 	$model->data[$model->alias][$field]);
+
 			$filePath = $path . $model->data[$model->alias][$field];
 			if (!$this->handleUploadedFile($model->alias, $field, $tmp, $filePath)) {
 				CakeLog::error(sprintf('Model %s, Field %s: Unable to move the uploaded file to %s', $model->alias, $field, $filePath));
@@ -364,6 +371,9 @@ class UploadBehavior extends ModelBehavior {
 
 	public function handleUploadedFile($modelAlias, $field, $tmp, $filePath) {
 		if (is_uploaded_file($tmp)) {
+			//$filePath = str_replace('', '-', $string); // Replaces all spaces with hyphens.
+			//$filePath= preg_replace('/[^A-Za-z0-9\-]/', '', $filePath); // Removes special chars.
+			//$filePath=str_replace(' ', '', $filePath);
 			return move_uploaded_file($tmp, $filePath);
 		} else {
 			return rename($tmp, $filePath);

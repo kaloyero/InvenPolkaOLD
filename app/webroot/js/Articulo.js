@@ -22,7 +22,9 @@ var Articulo = new Class({
                 },
                  success: function () {
                      self.removeLoader();
-                     alert("Guardado!")
+                     jQuery.jGrowl("Creado con exito.", {
+					        theme : 'success'
+				        });
                  }
 
            });
@@ -37,7 +39,9 @@ var Articulo = new Class({
              },
              success: function () {
                  self.removeLoader();
-                 alert("Guardado!")
+                 jQuery.jGrowl("Creado con exito.", {
+				        theme : 'success'
+			        });
              }
         })
     },
@@ -57,6 +61,7 @@ var Articulo = new Class({
            // Transform upload file
            jQuery('.uniform-file').uniform();
            this.bindListEvents()
+           this.makeDatatable();
        },
 
      bindFinderEvents:function() {

@@ -43,6 +43,7 @@ class ArticulosController extends AppController {
 
     public function add() {
         if ($this->request->is('post')) {
+				$this->removeSpecialCharactersFromImage();
             if ($this->Articulo->save($this->request->data)) {
                 $this->Session->setFlash('Articulo Guardada con Exito.');
                 $this->redirect(array('action' => 'index'));
@@ -53,7 +54,7 @@ class ArticulosController extends AppController {
 			$this->setViewData();
 			}
     }
-	
+
 	function ajaxData() {
 			$paginado =new ConsultasPaginado();
 	        $this->autoRender = false;
@@ -67,7 +68,12 @@ class ArticulosController extends AppController {
 				$this->setViewData();
 		        $this->request->data = $this->Articulo->read();
 		    } else {
-		        if ($this->Articulo->save($this->request->data,array('fieldList' =>$this->getFieldsToEdit() ))){
+			  $fieldsToEdit=$this->getFieldsToEdit();
+				if(!empty($this->request->data["Articulo"]["idFoto"])){
+					$this->removeSpecialCharactersFromImage();
+
+				}
+		        if ($this->Articulo->save($this->request->data,array('fieldList' => $fieldsToEdit ))){
 					 $this->Session->setFlash('Your post has been updated.');
 					 $this->redirect(array('action' => 'index'));
 				}else{
@@ -90,6 +96,7 @@ class ArticulosController extends AppController {
 	function getFieldsToEdit() {
 		$fieldList= array();
 		if(!empty($this->request->data["Articulo"]["idFoto"])){
+
 			$fieldsToEdit= array('CodigoArticulo', 'Descripcion', 'IdCategoria', 'IdObjeto', 'IdEstilo', 'IdMaterial', 'IdDecorado', 'IdDimension','idFoto');
 		}else{
 			$fieldList= array('CodigoArticulo', 'Descripcion', 'IdCategoria', 'IdObjeto', 'IdEstilo', 'IdMaterial', 'IdDecorado', 'IdDimension');
@@ -99,6 +106,12 @@ class ArticulosController extends AppController {
 
 	function delete($id) {
 
+	}
+	function removeSpecialCharactersFromImage() {
+		// Replaces all spaces with hyphens.
+		$this->request->data['Articulo']['idFoto'] = str_replace(' ', '-', $this->request->data['Articulo']['idFoto']);
+		// Removes special chars.
+		$this->request->data['Articulo']['idFoto']= preg_replace(" /[&'#]/", "",$this->request->data['Articulo']['idFoto']);
 	}
 	function find() {
 		$url = array('action'=>'index');
@@ -145,7 +158,7 @@ class ArticulosController extends AppController {
 				$this->Session->write("articulos",$conditions);
 
 				// $this->set("articulos",$results);
-				$this->redirect(array('action' => 'index'));
+				//$this->redirect(array('action' => 'index'));
 	 }else{
 			$this->setViewData();
 		}

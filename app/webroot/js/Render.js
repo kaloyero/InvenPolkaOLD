@@ -58,11 +58,9 @@ var Render = new Class({
     },
     onUpdated: function(data){
             this.removeLoader();
-           alert("Actualizado!")
        },
     onSaved: function(data){
-             self.removeLoader();
-            alert("Guardado!")
+             this.removeLoader();
       },
 
     bindListEvents:function() {
@@ -123,14 +121,14 @@ var Render = new Class({
                            "sAjaxSource": serverManager.services[this.type]["controllerName"]+"/ajaxData",
                            "fnDrawCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
 							   jQuery('.edit').bind("click", function(e) {
-					
+
 								   console.log("DATaaa",self.getSelectedRowId(this))
 								   translator.view(self.type,self.getSelectedRowId(this));
-					
+
 								   return false;
 								//translator.view(self.type);
 							  })
-							   
+
                                //Este CallBack se ejecuta cuando esta lista la tabla
                                jQuery("#configurationTable td:first-child").css('display','none');
                                self.hacerTablaEditable();

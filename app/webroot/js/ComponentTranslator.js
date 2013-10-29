@@ -33,12 +33,14 @@ var ComponentTranslator = new Class(
 					object : objectType,
 					data:formData,
 					onSuccess : function(data) {
+					    console.log("PASA")
+					    jQuery.jGrowl("Creado con exito.", {
+					        theme : 'success'
+				        });
 					     var renderInstace = renderTranslator.getRender(objectType);
     					    renderInstace.onSaved(data);
 
-					        jQuery.jGrowl("Creado con exito.", {
-						        theme : 'success'
-					        });
+
 
 					}
 				});

@@ -92,7 +92,7 @@ var ServerManager = new Class({
 		    } );
     },
     showList: function(config){
-
+        console.log("LLLL")
     	var type = config.object;
     	var self=this;
     	jQuery.ajax({
@@ -124,7 +124,8 @@ var ServerManager = new Class({
       			url: self.services[type]["controllerName"]+"/find",
       			data: config.data.serialize(),
       			success: function(data) {
-                      config.onSuccess(data);
+      			    self.showList({object:type,onSuccess:config.onSuccess})
+                      //config.onSuccess(data);
       			}
       		});
           },
