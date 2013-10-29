@@ -4,6 +4,25 @@ var Articulo = new Class({
         this.name = name;
         this.type='articulo';
     },
+    onList: function(data){
+            this.parent(data);
+            this.hacerTablaEditable();
+            this.oTable = jQuery('#browserList').dataTable({
+                       "bProcessing": true,
+                       "bServerSide": true,
+                       "bPaginate": true,
+                       "sPaginationType": "full_numbers",
+                       "sAjaxSource": "articulos/ajaxData",
+                       "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+                           console.log("DATa",arguments)
+                       },
+                       "fnInitComplete": function(oSettings, json) {
+                             console.log("ARGUU",arguments)
+                           },
+                   });
+
+
+    },
 
      bindAddEvents:function() {
          var self=this;

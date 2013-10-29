@@ -38,8 +38,7 @@ var Render = new Class({
            this.cleanCanvas();
            jQuery(".contentinner").append(data);
            this.bindListEvents();
-
-      },
+	},
     onAdd: function(data){
         this.cleanCanvas();
         jQuery(".contentinner").append(data);

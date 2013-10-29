@@ -33,10 +33,10 @@ var ComponentTranslator = new Class(
 					object : objectType,
 					data:formData,
 					onSuccess : function(data) {
-					 console.log("LISTO")
-					jQuery.jGrowl("Creado con exito.", {
-						theme : 'success'
-					});
+						console.log("LISTO")
+						jQuery.jGrowl("Creado con exito.", {
+							theme : 'success'
+						});
 					}
 				});
 			},
@@ -57,7 +57,10 @@ var ComponentTranslator = new Class(
     					onSuccess : function(data) {
     					    var renderInstace = renderTranslator.getRender(objectType);
     					    renderInstace.onUpdated(data);
-    					}
+							jQuery.jGrowl("Guardado Satisfactoriamente.", {
+								theme : 'success'
+							});
+						},
     				});
     			},
 			 view : function(objectType,idObject) {

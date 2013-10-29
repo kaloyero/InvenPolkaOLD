@@ -8,6 +8,8 @@
 	App::import('Model','Decorado');
 	App::import('Model','Estilo');
 	App::import('Model','Objeto');
+	App::import('Model','ConsultasSelect');
+	App::import('Model','ConsultasPaginado');
 
 
 class ArticulosController extends AppController {
@@ -26,14 +28,12 @@ class ArticulosController extends AppController {
 					$this->set("articulos",$this->paginate('Articulo'));
 					$this->Session->delete("articulos");
 				}else{
-						//paginate as normal
-						$this->paginate = array(
-							'order' => array('Result.created ASC'),
-						     'limit' => 10
-						 );
-					//$this->set("articulos",$this->Articulo->find('all'));
+					//paginate as normal
+					$this->paginate = array(
+						'order' => array('Result.created ASC'),
+						 'limit' => 10
+					 );
 					$this->set("articulos",	$this->paginate('Articulo'));
-
 				}
     }
 
@@ -53,6 +53,13 @@ class ArticulosController extends AppController {
 			$this->setViewData();
 			}
     }
+	
+	function ajaxData() {
+			$paginado =new ConsultasPaginado();
+	        $this->autoRender = false;
+			$output = $paginado->getDataArticulos();
+	        echo json_encode($output);
+	}
 
 	function edit($id = null) {
 		    $this->Articulo->id = $id;
@@ -70,12 +77,13 @@ class ArticulosController extends AppController {
 
 	}
 	function setViewData() {
-		$this->set('materiales',$this->getMateriales());
-		$this->set('categorias',$this->getCategorias());
-		$this->set('decorados',$this->getDecorados());
-		$this->set('dimensiones',$this->getDimensiones());
-		$this->set('estilos',$this->getEstilos());
-		$this->set('objetos',$this->getObjetos());
+		$consultas = new ConsultasSelect();
+		$this->set('materiales',$consultas->getMateriales());
+		$this->set('categorias',$consultas->getCategorias());
+		$this->set('decorados',$consultas->getDecorados());
+		$this->set('dimensiones',$consultas->getDimensiones());
+		$this->set('estilos',$consultas->getEstilos());
+		$this->set('objetos',$consultas->getObjetos());
 	}
 	//Si el usuario esta editando un articulo,y el idFoto viene vacio,quiere decir que no la cambio,entonces,editamos todos los campos,menos
 	//el de la foto,porque sino lo pone vacio.Si cambio la foto,hacer el update normal
@@ -143,36 +151,6 @@ class ArticulosController extends AppController {
 	 }else{
 			$this->setViewData();
 		}
-	}
-	function getMateriales() {
-		$material=new Materiale();
-		$materiales=$material->find('list',array('fields'=>array('Materiale.id','Materiale.Nombre')));
-		return $materiales;
-	}
-	function getEstilos() {
-		$estilo=new Estilo();
-		$estilos=$estilo->find('list',array('fields'=>array('Estilo.id','Estilo.Nombre')));
-		return $estilos;
-	}
-	function getDecorados() {
-		$decorado=new Decorado();
-		$decorados=$decorado->find('list',array('fields'=>array('Decorado.id','Decorado.Nombre')));
-		return $decorados;
-	}
-	function getObjetos() {
-		$objeto=new Objeto();
-		$objetos=$objeto->find('list',array('fields'=>array('Objeto.id','Objeto.Nombre')));
-		return $objetos;
-	}
-	function getDimensiones() {
-		$dimension=new Dimensione();
-		$dimensiones=$dimension->find('list',array('fields'=>array('Dimensione.id','Dimensione.Nombre')));
-		return 	$dimensiones;
-	}
-	function getCategorias() {
-		$categoria=new Categoria();
-		$categorias=$categoria->find('list',array('fields'=>array('Categoria.id','Categoria.Nombre')));
-		return $categorias;
 	}
 }
 ?>
