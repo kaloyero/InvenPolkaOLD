@@ -3,7 +3,7 @@ var Dimension = new Class({
     initialize: function(name){
         this.name = name;
         this.type="dimension";
-        this.breadcrumb='Dimension';
+        this.breadcrumb='Dimensiones';
         this.descripcion="Desde aqui administre las Dimensiones"
     },
     onList: function(data){

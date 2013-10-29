@@ -3,8 +3,8 @@ var Articulo = new Class({
     initialize: function(name){
         this.name = name;
         this.type='articulo';
-        this.breadcrumb='Articulo';
-        this.descripcion="Desde aqui administre los Articlos"
+        this.breadcrumb='Articulos';
+        this.descripcion="Desde aqui administre los Articulos"
     },
      bindAddEvents:function() {
          var self=this;

@@ -218,44 +218,7 @@
 </div><!--mainwrapper-->
 <script type="text/javascript">
 
-	jQuery(".btn").bind("click", function (event, pos, item) {
-		if (jQuery(".search-query").val() == "silchu"){
-			jQuery(".contentinner").empty()
 
-			jQuery(".contentinner").append('<img src="http://www.alcoberro.info/imatges/sartre.jpg" width="237" height="234">');
-			jQuery(".contentinner").append('<p style="font-weight:bold;color:#0C6C88;letter-spacing:1pt;word-spacing:2pt;font-size:12px;text-align:left;font-family:arial, helvetica, sans-serif;line-height:1;" >IMPORTANTE:Frases de tu idolo Sartre para que te vueles mas la cabeza:</p>');
-			jQuery(".contentinner").append("<p></p>");
-
-
-
-			jQuery(".contentinner").append('<p style="font-weight:bold;color:#000000;letter-spacing:1pt;word-spacing:2pt;font-size:12px;text-align:left;font-family:arial, helvetica, sans-serif;line-height:1;" >Soñar en teoría, es vivir un poco, pero vivir soñando es no existir</p>');
-			jQuery(".contentinner").append('<p style="font-weight:bold;color:#000000;letter-spacing:1pt;word-spacing:2pt;font-size:12px;text-align:left;font-family:arial, helvetica, sans-serif;line-height:1;">No perdamos nada de nuestro tiempo; quizá los hubo más bellos, pero este es el nuestro</p>');
-			jQuery(".contentinner").append('<p style="font-weight:bold;color:#000000;letter-spacing:1pt;word-spacing:2pt;font-size:12px;text-align:left;font-family:arial, helvetica, sans-serif;line-height:1;">El hombre nace libre, responsable y sin excusas.</p>');
-			jQuery(".contentinner").append('<p style="font-weight:bold;color:#000000;letter-spacing:1pt;word-spacing:2pt;font-size:12px;text-align:left;font-family:arial, helvetica, sans-serif;line-height:1;">La conciencia sólo puede existir de una manera, y es teniendo conciencia de que existe.</p>');
-
-jQuery(".contentinner").append('<p style="font-weight:bold;color:#0C6C88;letter-spacing:1pt;word-spacing:2pt;font-size:12px;text-align:left;font-family:arial, helvetica, sans-serif;line-height:1;">Ahora despedimos a nuestra viejo amigo Sarti con un fuerte aplauso,y ya que tengo la opportunity pregunto:.</p>');
-jQuery(".contentinner").append('<p style="font-weight:bold;color:#0C6C88;letter-spacing:1pt;word-spacing:2pt;font-size:12px;text-align:left;font-family:arial, helvetica, sans-serif;line-height:1;">No que cuando pueda cerrar todo esto me vas a invitar a pasear de noche ,para aprovecharla y olvidar nuestras penas?</p>');
-jQuery(".contentinner").append('<p style="font-weight:bold;color:#0C6C88;letter-spacing:1pt;word-spacing:2pt;font-size:12px;text-align:left;font-family:arial, helvetica, sans-serif;line-height:1;">Me faltaron baladas el otro dia,es verdad,hace click en el siguiente enlace,este tema no falla :</p>');
-jQuery(".contentinner").append('<p style="font-weight:bold;color:#0C6C88;letter-spacing:1pt;word-spacing:2pt;font-size:12px;text-align:left;font-family:arial, helvetica, sans-serif;line-height:1;"><a href="http://www.youtube.com/watch?v=34DVb8yjyqs">Balada para Sofilcha</a></p>');
-
-
-
-jQuery(".contentinner").append('<img src="http://www.revistamundoverde.net/wp-content/themes/NewsFlash2/thumb.php?src=http://www.revistamundoverde.net/wp-content/uploads/2012/10/algas.jpg&w=555&zc=1&q=80&bid=1 height="420" width="420"">');
-
-jQuery(".contentinner").append('<img src="http://www.escuelapedia.com/wp-content/uploads/Algas-pluricelulares.jpg" height="400" width="400">');
-
-
-
-
-
-
-		}
-
-
-
-		return false
-
- 	})
 		sideBarController.bindMenuOptionsEvents();
 		// basic chart
 		var flash = [[0, 2], [1, 6], [2,3], [3, 8], [4, 5], [5, 13], [6, 8]];

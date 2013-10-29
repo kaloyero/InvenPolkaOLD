@@ -3,7 +3,7 @@ var Estilo = new Class({
     initialize: function(name){
         this.name = name;
         this.type="estilo";
-        this.breadcrumb='Estilo';
+        this.breadcrumb='Estilos';
         this.descripcion="Desde aqui administre los Estilos"
     },
     onList: function(data){

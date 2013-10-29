@@ -3,7 +3,7 @@ var Categoria = new Class({
     initialize: function(name){
         this.name = name;
         this.type="categoria";
-        this.breadcrumb='Categoria';
+        this.breadcrumb='Categorias';
         this.descripcion="Desde aqui administre las Categorias"
     },
     onList: function(data){
