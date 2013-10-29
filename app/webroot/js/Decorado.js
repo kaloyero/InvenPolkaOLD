@@ -4,7 +4,7 @@ var Decorado = new Class({
         this.name = name;
         this.type="decorado";
         this.breadcrumb='Decorado';
-        this.descripcion="Desde aqui controle los Decorados"
+        this.descripcion="Desde aqui administre los Decorados"
     },
     onList: function(data){
             this.parent(data);

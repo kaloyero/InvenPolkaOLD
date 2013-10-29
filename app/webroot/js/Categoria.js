@@ -4,7 +4,7 @@ var Categoria = new Class({
         this.name = name;
         this.type="categoria";
         this.breadcrumb='Categoria';
-        this.descripcion="Desde aqui controle las Categorias"
+        this.descripcion="Desde aqui administre las Categorias"
     },
     onList: function(data){
             this.parent(data);

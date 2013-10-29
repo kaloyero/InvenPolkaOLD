@@ -4,7 +4,7 @@ var Dimension = new Class({
         this.name = name;
         this.type="dimension";
         this.breadcrumb='Dimension';
-        this.descripcion="Desde aqui controle las Dimensiones"
+        this.descripcion="Desde aqui administre las Dimensiones"
     },
     onList: function(data){
             this.parent(data);

@@ -4,7 +4,7 @@ var Estilo = new Class({
         this.name = name;
         this.type="estilo";
         this.breadcrumb='Estilo';
-        this.descripcion="Desde aqui controle los Estilos"
+        this.descripcion="Desde aqui administre los Estilos"
     },
     onList: function(data){
             this.parent(data);

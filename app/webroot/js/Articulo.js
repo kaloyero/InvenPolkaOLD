@@ -4,7 +4,7 @@ var Articulo = new Class({
         this.name = name;
         this.type='articulo';
         this.breadcrumb='Articulo';
-        this.descripcion="Desde aqui controle los Articlos"
+        this.descripcion="Desde aqui administre los Articlos"
     },
      bindAddEvents:function() {
          var self=this;

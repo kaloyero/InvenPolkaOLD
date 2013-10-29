@@ -119,6 +119,16 @@ var Render = new Class({
                            "bPaginate": true,
                            "sPaginationType": "full_numbers",
                            "sAjaxSource": serverManager.services[this.type]["controllerName"]+"/ajaxData",
+                           "oLanguage": {
+                                    "sSearch": "Busqueda:",
+                                    "sInfo": "Mostrando _START_ hasta _END_ de un total de  _TOTAL_ registros",
+                                    "oPaginate": {
+                                            "sNext": "Proxima",
+                                            "sFirst": "Primera",
+                                            "sLast": "Ultima",
+                                            "sPrevious": "Previo"
+                                          }
+                                  },
                            "fnDrawCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
 							   jQuery('.edit').bind("click", function(e) {
 

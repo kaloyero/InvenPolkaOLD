@@ -1,5 +1,5 @@
 <?php
-echo '<h4 class="widgettitle nomargin shadowed">Articulo</h4>';
+echo '<h4 class="widgettitle nomargin shadowed">Articulos</h4>';
 echo '<div class="widgetcontent bordered shadowed nopadding">';
 
 echo $this->Form->create('Articulo',array('type' => 'file','class' => 'stdform stdform2','inputDefaults' => array(

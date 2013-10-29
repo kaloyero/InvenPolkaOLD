@@ -4,7 +4,7 @@ var Objeto = new Class({
         this.name = name;
         this.type="objeto";
         this.breadcrumb='Objeto';
-        this.descripcion="Desde aqui controle los Objetos"
+        this.descripcion="Desde aqui administre los Objetos"
     },
     onList: function(data){
             this.parent(data);
