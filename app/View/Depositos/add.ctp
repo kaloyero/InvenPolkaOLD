@@ -1,5 +1,5 @@
 <?php
-echo '<h4 class="widgettitle nomargin shadowed">Deposito</h4>';
+echo '<h4 class="widgettitle nomargin shadowed">Depositos</h4>';
 echo '<div class="widgetcontent bordered shadowed nopadding">';
 echo $this->Form->create('Deposito',array('class' => 'stdform stdform2','inputDefaults' => array(
         'div' => array('class' => 'field'))));

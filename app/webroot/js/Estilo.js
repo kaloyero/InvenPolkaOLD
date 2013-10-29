@@ -3,8 +3,8 @@ var Estilo = new Class({
     initialize: function(name){
         this.name = name;
         this.type="estilo";
-        this.breadcrumb='Estilo';
-        this.descripcion="Desde aqui controle los Estilos"
+        this.breadcrumb='Estilos';
+        this.descripcion="Desde aqui administre los Estilos"
     },
     onList: function(data){
             this.parent(data);
@@ -14,6 +14,7 @@ var Estilo = new Class({
     bindListEvents:function() {
 			var self=this;
           	jQuery('.save').bind("click", function(e) {
+          	    self.addLoader();
           		translator.save(self.type, self.getForm());
 				//limpio el formulario
 				jQuery(".input-medium").val("");
@@ -22,7 +23,7 @@ var Estilo = new Class({
 				//Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
 				return false;
 			});
-    },
+    }
 });
 
 estiloRender=new Estilo();

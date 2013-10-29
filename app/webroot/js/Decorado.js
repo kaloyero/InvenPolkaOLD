@@ -3,8 +3,8 @@ var Decorado = new Class({
     initialize: function(name){
         this.name = name;
         this.type="decorado";
-        this.breadcrumb='Decorado';
-        this.descripcion="Desde aqui controle los Decorados"
+        this.breadcrumb='Decorados';
+        this.descripcion="Desde aqui administre los Decorados"
     },
     onList: function(data){
             this.parent(data);
@@ -13,6 +13,7 @@ var Decorado = new Class({
     bindListEvents:function() {
 			var self=this;
           	jQuery('.save').bind("click", function(e) {
+          	    self.addLoader();
           		translator.save(self.type, self.getForm());
 				//limpio el formulario
 				jQuery(".input-medium").val("");

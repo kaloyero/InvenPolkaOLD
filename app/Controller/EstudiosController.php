@@ -1,4 +1,6 @@
 <?php
+App::import('Model','ConsultasPaginado');
+
 class EstudiosController extends AppController {
 
     public $helpers = array ('Html','Form');
@@ -27,11 +29,16 @@ class EstudiosController extends AppController {
             }
         } else {
 
-
-
 		}
 
     }
+	function ajaxData() {
+			$paginado =new ConsultasPaginado();
+	        $this->autoRender = false;
+			$output = $paginado->getDataEstudios();
+	        echo json_encode($output);
+	}
+
 
 	function edit($id = null) {
 		$this->Estudio->id = $id;

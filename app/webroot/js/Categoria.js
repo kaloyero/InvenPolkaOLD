@@ -3,8 +3,8 @@ var Categoria = new Class({
     initialize: function(name){
         this.name = name;
         this.type="categoria";
-        this.breadcrumb='Categoria';
-        this.descripcion="Desde aqui controle las Categorias"
+        this.breadcrumb='Categorias';
+        this.descripcion="Desde aqui administre las Categorias"
     },
     onList: function(data){
             this.parent(data);
@@ -14,6 +14,7 @@ var Categoria = new Class({
     bindListEvents:function() {
 			var self=this;
           	jQuery('.save').bind("click", function(e) {
+          	    self.addLoader();
           		translator.save(self.type, self.getForm());
 				//limpio el formulario
 				jQuery(".input-medium").val("");

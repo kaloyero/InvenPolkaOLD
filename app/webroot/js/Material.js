@@ -4,7 +4,7 @@ var Material = new Class({
         this.name = name;
         this.type="material";
         this.breadcrumb='Material';
-        this.descripcion="Desde aqui controle los Materiales"
+        this.descripcion="Desde aqui administre los Materiales"
     },
     onList: function(data){
             this.parent(data);
@@ -13,6 +13,7 @@ var Material = new Class({
     bindListEvents:function() {
 			var self=this;
           	jQuery('.save').bind("click", function(e) {
+          	    self.addLoader();
           		translator.save(self.type, self.getForm());
 				//limpio el formulario
 				jQuery(".input-medium").val("");

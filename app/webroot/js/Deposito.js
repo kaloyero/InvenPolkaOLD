@@ -3,6 +3,8 @@ var Deposito = new Class({
     initialize: function(name){
         this.name = name;
         this.type="deposito";
+        this.breadcrumb='Depositos';
+        this.descripcion="Desde aqui administre los Depositos"
     }
 });
 

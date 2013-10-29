@@ -1,4 +1,6 @@
 <?php
+App::import('Model','ConsultasPaginado');
+
 class ProyectosController extends AppController {
 
     public $helpers = array ('Html','Form');
@@ -16,6 +18,12 @@ class ProyectosController extends AppController {
         $this->Proyecto->id = $id;
         $this->set('proyecto', $this->Proyecto->read());
    }
+	function ajaxData() {
+			$paginado =new ConsultasPaginado();
+	        $this->autoRender = false;
+			$output = $paginado->getDataProyectos();
+	        echo json_encode($output);
+	}
 
     public function add() {
         if ($this->request->is('post')) {

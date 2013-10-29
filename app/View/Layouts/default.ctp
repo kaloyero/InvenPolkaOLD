@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html><head>
-
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -165,11 +164,10 @@
     			<div class="dropdown userinfo">
                     <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="/page.html">Hola, Usuario! <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="editprofile.html"><span class="icon-edit"></span> Edit Profile</a></li>
-                        <li><a href=""><span class="icon-wrench"></span> Account Settings</a></li>
-                        <li><a href=""><span class="icon-eye-open"></span> Privacy Settings</a></li>
+                        <li><a href="#"><span class="icon-edit"></span> Editar Perfil</a></li>
+						<li><a href="#"><span class="icon-edit"></span> Enviar Mensaje</a></li>
                         <li class="divider"></li>
-                        <li><a href="index.html"><span class="icon-off"></span> Sign Out</a></li>
+                        <li><a href="#"><span class="icon-off"></span> Salir</a></li>
                     </ul>
                 </div><!--dropdown-->
 
@@ -210,8 +208,8 @@
     <div class="clearfix"></div>
 
     <div class="footer">
-    	<div class="footerleft">Katniss Premium Admin Template v1.0</div>
-    	<div class="footerright" style="margin-left: 260px;">© ThemePixels - <a href="http://twitter.com/themepixels">Follow me on Twitter</a> - <a href="http://dribbble.com/themepixels">Follow me on Dribbble</a></div>
+    	<div class="footerleft">Inventario Polka v1.0</div>
+    	<div class="footerright" style="margin-left: 260px;">© Version Beta - <a href="#s">Polka</a> - <a href="#"></a></div>
     </div><!--footer-->
 
 

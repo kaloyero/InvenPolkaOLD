@@ -3,8 +3,8 @@ var Dimension = new Class({
     initialize: function(name){
         this.name = name;
         this.type="dimension";
-        this.breadcrumb='Dimension';
-        this.descripcion="Desde aqui controle las Dimensiones"
+        this.breadcrumb='Dimensiones';
+        this.descripcion="Desde aqui administre las Dimensiones"
     },
     onList: function(data){
             this.parent(data);
@@ -13,6 +13,7 @@ var Dimension = new Class({
     bindListEvents:function() {
 			var self=this;
           	jQuery('.save').bind("click", function(e) {
+          	    self.addLoader();
           		translator.save(self.type, self.getForm());
 				//limpio el formulario
 				jQuery(".input-medium").val("");

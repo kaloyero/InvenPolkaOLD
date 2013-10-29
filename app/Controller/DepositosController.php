@@ -1,4 +1,6 @@
 <?php
+App::import('Model','ConsultasPaginado');
+
 class DepositosController extends AppController {
 
     public $helpers = array ('Html','Form');
@@ -15,7 +17,12 @@ class DepositosController extends AppController {
    public function view($id = null) {
 
    }
-
+	function ajaxData() {
+			$paginado =new ConsultasPaginado();
+	        $this->autoRender = false;
+			$output = $paginado->getDataDepositos();
+	        echo json_encode($output);
+	}
     public function add() {
 	    if ($this->request->is('post')) {
     		if ($this->Deposito->save($this->request->data)) {

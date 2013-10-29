@@ -70,8 +70,6 @@ var Render = new Class({
         	    translator.add(self.type);
            })
            jQuery('.edit').bind("click", function(e) {
-
-               console.log("DATaaa",self.getSelectedRowId(this))
                translator.view(self.type,self.getSelectedRowId(this));
 
                return false;
@@ -99,7 +97,7 @@ var Render = new Class({
              });
          },
       getSelectedRowId:function(selectedRow) {
-          return jQuery(selectedRow).parent().parent().find(":first" ).text()
+          return jQuery(selectedRow).parent().parent().parent().parent().find(":first" ).text()
       },
       styleForm:function() {
           jQuery('input:checkbox, input:radio, select.uniformselect').uniform();
@@ -119,10 +117,20 @@ var Render = new Class({
                            "bPaginate": true,
                            "sPaginationType": "full_numbers",
                            "sAjaxSource": serverManager.services[this.type]["controllerName"]+"/ajaxData",
+                           "oLanguage": {
+                                    "sSearch": "Busqueda:",
+                                    "sInfo": "Mostrando _START_ hasta _END_ de un total de  _TOTAL_ registros",
+                                    "sInfoFiltered": " - (Filtrando de un maximo de _MAX_ registros)",
+                                    "oPaginate": {
+                                            "sNext": "Proxima",
+                                            "sFirst": "Primera",
+                                            "sLast": "Ultima",
+                                            "sPrevious": "Previo"
+
+                                          }
+                                  },
                            "fnDrawCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
 							   jQuery('.edit').bind("click", function(e) {
-
-								   console.log("DATaaa",self.getSelectedRowId(this))
 								   translator.view(self.type,self.getSelectedRowId(this));
 
 								   return false;
