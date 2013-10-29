@@ -1,6 +1,10 @@
 <?php
 	App::import('Model','Articulo');
 	App::import('Model','Categoria');
+	App::import('Model','Proyecto');
+	App::import('Model','Estudio');
+	App::import('Model','Deposito');
+
 
 class ConsultasPaginado extends AppModel {
 	public $name = 'ConsultasPaginado';
@@ -20,10 +24,68 @@ class ConsultasPaginado extends AppModel {
 		//Columna por la cual se va ordenar
 		$orderByfield = 'Nombre';
 
-		$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield);
+		$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,false);
 
 		return $output;
 	}
+
+	////////////////////////////// {FIN} CONFIGURACION -> DATATABLE //////////////////////////////
+
+	/********************************************************************************\
+	****************************** {INICIO} Proyecto -> DATATABLE ***************
+	\********************************************************************************/
+
+		/*   */
+		function getDataProyectos() {
+				$model=new Proyecto();
+				$tabla="proyectos";
+				//Columnas que voy a mostrar
+			    $aColumns = array( 'id','Nombre','Director');
+		        //Columnas por las que se va a filtrar
+			    $aColumnsFilter = array( 'Nombre','Director' );
+				//Columna por la cual se va ordenar
+				$orderByfield = 'Nombre';
+				$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,true);
+				return $output;
+		}
+		////////////////////////////// {FIN} CONFIGURACION -> DATATABLE //////////////////////////////
+
+		/********************************************************************************\
+		****************************** {INICIO} Proyecto -> DATATABLE ***************
+		\********************************************************************************/
+
+			/*   */
+		function getDataEstudios() {
+				$model=new Estudio();
+				$tabla="estudios";
+				//Columnas que voy a mostrar
+				$aColumns = array( 'id','Nombre','Descripcion');
+				//Columnas por las que se va a filtrar
+				$aColumnsFilter = array( 'Nombre','Descripcion' );
+				//Columna por la cual se va ordenar
+				$orderByfield = 'Nombre';
+				$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,true);
+				return $output;
+			}
+			////////////////////////////// {FIN} CONFIGURACION -> DATATABLE //////////////////////////////
+
+			/********************************************************************************\
+			****************************** {INICIO} Proyecto -> DATATABLE ***************
+			\********************************************************************************/
+
+					/*   */
+		function getDataDepositos() {
+			$model=new Estudio();
+			$tabla="depositos";
+			//Columnas que voy a mostrar
+			$aColumns = array( 'id','Nombre');
+			//Columnas por las que se va a filtrar
+			$aColumnsFilter = array( 'Nombre' );
+			//Columna por la cual se va ordenar
+			$orderByfield = 'Nombre';
+			$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,true);
+			return $output;
+		}
 
 ////////////////////////////// {FIN} CONFIGURACION -> DATATABLE //////////////////////////////
 
@@ -201,9 +263,25 @@ private function getArrayData($tabla,$rows,$aColumns,$titi) {
 	 return $arrayDt;
 
 }
+private function getArrayDataWithEditLink($tabla,$rows,$aColumns,$titi) {
+      $arrayDt=array();
+
+  //    array_push($arrayDt, array($titi));
+
+      foreach($rows as $j){
+			$fila=array();
+	        foreach($aColumns as $column){
+			        array_push($fila, array($j[$tabla][$column]));
+			}
+			array_push($fila, "<a href='/InvenPolka/articulos/edit/".$j[$tabla]['id']."' class='edit'>Edit</a>");
+			array_push($arrayDt, $fila);
+      }
+	 return $arrayDt;
+
+}
 
 /* Este metodo crearía la tabla para aquellas tablas que muestren datos solamente de una tabla */
-private function getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield) {
+private function getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,$withEditLink) {
 		//Consigue el query que se va ejecutar
 		$query=$this->getDataDefaultQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield);
 		//Ejecuta el query, obtengo las filas
@@ -211,7 +289,13 @@ private function getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderBy
 		//Obtengo los totales
 		$totales = $this->getTotales($model,$query);
 		//Proceso los campos para llenar la tabla
-		$arrayData=$this->getArrayData($tabla,$rows,$aColumns,$query['select']);
+		if ($withEditLink==true){
+			$arrayData=$this->getArrayDataWithEditLink($tabla,$rows,$aColumns,$query['select']);
+
+		}else{
+			$arrayData=$this->getArrayData($tabla,$rows,$aColumns,$query['select']);
+
+		}
 		//Obtengo la tabla
 		$output = $this->createConfigTable($arrayData,$totales["total"],$totales["tDisplay"]);
 

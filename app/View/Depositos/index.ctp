@@ -1,58 +1,14 @@
-<p><a id="add">Agregar</a></p><table class="table">
-    <tr>
-        <th>Id</th>
-        <th>Nombre</th>
-        <th>Fecha de Fin</th>
-        <th>Acciones</th>        
-    </tr>
+<p><a id="add">Agregar</a></p>
 
-    <?php foreach ($depositos as $deposito): ?>
-    <tr>
-        <td><?php echo $deposito['Deposito']['id']; ?></td>
-        <td>
-            <?php echo $deposito['Deposito']['Nombre']; ?></td>
-        </td>
-		<td>
-            <?php echo $deposito['Deposito']['FechaFin']; ?></td>
-
-        </td>
-			<td>
-	            <?php echo $this->Html->link('Edit', array('action' => 'edit', $deposito['Deposito']['id']),array('class' => 'edit'));?>
-				</td>
-
-	        </td>
-    </tr>
-    <?php endforeach; ?>
+<table  id="configurationTable" class ="table table-bordered" width="100%"  style="width: 100%;">
+        <thead>
+                <tr>
+                <th style="display:none;">Id</th>
+ 				<th>Nombre</th>
+				<th>Descripcion</th>
+		</tr>
+        </thead>
+        <tbody>
+      	</tbody>
 
 </table>
-<?php
-     // $this->Paginator->options(array('url' => $this->passedArgs));
-$paginator = $this->Paginator;
-// pagination section
-    echo "<div class='paging'>";
-
-        // the 'first' page button
-        echo $paginator->first("First");
-
-        // 'prev' page button,
-        // we can check using the paginator hasPrev() method if there's a previous page
-        // save with the 'next' page button
-        if($paginator->hasPrev()){
-            echo $paginator->prev("Prev");
-        }
-
-        // the 'number' page buttons
-        echo $paginator->numbers(array('modulus' => 2));
-
-        // for the 'next' button
-        if($paginator->hasNext()){
-            echo $paginator->next("Next");
-        }
-
-        // the 'last' page button
-        echo $paginator->last("Last");
-
-    	echo "</div>";
-
-
- ?>
