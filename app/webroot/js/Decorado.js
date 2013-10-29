@@ -3,6 +3,8 @@ var Decorado = new Class({
     initialize: function(name){
         this.name = name;
         this.type="decorado";
+        this.breadcrumb='Decorado';
+        this.descripcion="Desde aqui controle los Decorados"
     },
     onList: function(data){
             this.parent(data);

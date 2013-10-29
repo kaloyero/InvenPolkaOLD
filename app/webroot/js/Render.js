@@ -39,6 +39,7 @@ var Render = new Class({
            this.cleanCanvas();
            jQuery(".contentinner").append(data);
            this.bindListEvents();
+           this.drawHeader();
       },
     onAdd: function(data){
         this.cleanCanvas();
@@ -126,7 +127,16 @@ var Render = new Class({
                            }
                        });
        // oTable.fnSetColumnVis( 0, false );
-          }
+          },
+     drawHeader:function() {
+         jQuery('.headerBig').empty();
+         jQuery('.headerBig').append(this.breadcrumb);
+         jQuery('.headerDescription').empty();
+         jQuery('.headerDescription').append(this.descripcion);
+         jQuery('.activeBreadcrum').empty();
+         jQuery('.activeBreadcrum').append(this.breadcrumb);
+
+     }
 });
 
 render=new Render();

@@ -3,6 +3,8 @@ var Material = new Class({
     initialize: function(name){
         this.name = name;
         this.type="material";
+        this.breadcrumb='Material';
+        this.descripcion="Desde aqui controle los Materiales"
     },
     onList: function(data){
             this.parent(data);
