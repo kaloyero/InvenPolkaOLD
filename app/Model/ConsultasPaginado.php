@@ -14,7 +14,7 @@ class ConsultasPaginado extends AppModel {
 	function getDataConfig($tabla) {
 		$model=new Categoria();
 		//Columnas que voy a mostrar
-	    $aColumns = array( 'Nombre' );
+	    $aColumns = array( 'id','Nombre' );
         //Columnas por las que se va a filtrar
 	    $aColumnsFilter = array( 'Nombre' );
 		//Columna por la cual se va ordenar
@@ -34,32 +34,97 @@ class ConsultasPaginado extends AppModel {
 	/*   */
 	function getDataArticulos() {
 		$model=new Articulo();
-		$tabla="articulos";
+		$tabla="Art";
 		//Columnas que voy a mostrar
-	    $aColumns = array( 'id','CodigoArticulo','idFoto','dir' );
-        //Columnas por las que se va a filtrar
-	    $aColumnsFilter = array( 'CodigoArticulo' );
-		//Columna por la cual se va ordenar
-		$orderByfield = 'CodigoArticulo';
-
-		$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield);
+	    $aColumns = array( 'id','CodigoArticulo' );
+		
+		//Consigue el query que se va ejecutar
+		$query=$this->getDataArticuloQuery($tabla);
+		//Ejecuta el query, obtengo las filas
+		$rows =$model->query("".$query['select'].";");
+		//Obtengo los totales
+		$totales = $this->getTotales($model,$query); 
+		//Proceso los campos para llenar la tabla
+		$arrayData=$this->getArrayDataArticulos($tabla,$rows,$query['select']);
+		//Obtengo la tabla
+ 		$output = $this->createConfigTable($arrayData,$totales["total"],$totales["tDisplay"]);		
 
 		return $output;
+
 	}
 
-	private function getArrayDataArticulos($tabla,$rows,$aColumns,$titi) {			
+/* 
+	Devuelve 	query['select'] -> Sentencia select
+				query['where']  -> Sentencia where
+ */
+private function getDataArticuloQuery($tabla) {
+
+		//Partes del query
+		$select = "SELECT `Art`.`id` as id, `Art`.`CodigoArticulo` as `CodigoArticulo`, `Art`.`dir` as `dir`, `Art`.`idFoto` as `idFoto`, `Cat`.`Nombre` , `Dec`.`Nombre` as `decorado`, `Obj`.`Nombre` as `objeto`, `Est`.`Nombre` as `estilo`, `Mat`.`Nombre` as `materia`, `Dim`.`Nombre` as `dimension` ";
+		$from = " FROM `inventario`.`articulos` as `".$tabla."`
+LEFT JOIN `inventario`.`categorias` AS `Cat` ON (`".$tabla."`.`IdCategoria` = `Cat`.`id`) 
+LEFT JOIN `inventario`.`decorados` AS `Dec` ON (`".$tabla."`.`IdDecorado` = `Dec`.`id`) 
+LEFT JOIN `inventario`.`objetos` AS `Obj` ON (`".$tabla."`.`IdObjeto` = `Obj`.`id`) 
+LEFT JOIN `inventario`.`estilos` AS `Est` ON (`".$tabla."`.`IdEstilo` = `Est`.`id`) 
+LEFT JOIN `inventario`.`materiales` AS `Mat` ON (`".$tabla."`.`IdMaterial` = `Mat`.`id`) 
+LEFT JOIN `inventario`.`dimensiones` AS `Dim` ON (`".$tabla."`.`IdDimension` = `Dim`.`id`) ";
+
+		
+		$limit = 'limit '.$_GET['iDisplayStart'].' ,'.$_GET['iDisplayLength'] ;
+		$orderBy = " order by `".$tabla."`.`CodigoArticulo` ";
+		$sWhere = "";
+		
+		/*BUSQUEDA*/
+        if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" )
+        {
+            $sWhere = "WHERE (";
+			            $sWhere = "WHERE (";
+            $sWhere .= "`".$tabla."`.`CodigoArticulo` LIKE '%".( $_GET['sSearch'] )."%' OR ";
+            $sWhere .= "`Cat`.`Nombre` LIKE '%".( $_GET['sSearch'] )."%' OR ";
+            $sWhere .= "`Dec`.`Nombre` LIKE '%".( $_GET['sSearch'] )."%' OR ";
+            $sWhere .= "`Obj`.`Nombre` LIKE '%".( $_GET['sSearch'] )."%' OR ";
+            $sWhere .= "`Est`.`Nombre` LIKE '%".( $_GET['sSearch'] )."%' OR ";
+            $sWhere .= "`Mat`.`Nombre` LIKE '%".( $_GET['sSearch'] )."%' OR ";
+            $sWhere .= "`Dim`.`Nombre` LIKE '%".( $_GET['sSearch'] )."%' ";
+			
+            $sWhere .= ')';
+        }
+		
+		$query['select'] = $select.$from.$sWhere.$orderBy.$limit;
+		$query['from'] =   $from;
+		$query['where'] = $sWhere;
+
+		return $query;
+
+}
+
+	private function getArrayDataArticulos($tabla,$rows,$titi) {			
       $arrayDt=array();
 
-//      array_push($arrayDt, array($titi));					
-		
+/*			$fila=array();
+        	array_push($fila, "1");					
+	        array_push($fila, array($titi));					
+			array_push($arrayDt, $fila);					
+*/
+//      array_push($arrayDt, array());					
+	
       foreach($rows as $j){
 			$fila=array();
+        	array_push($fila, array($j[$tabla]['id']));					
 	        array_push($fila, array($j[$tabla]['CodigoArticulo']));					
 			array_push($fila, '<img src="/InvenPolka/app/webroot/files/articulo/IdFoto/'.$j[$tabla]['dir'].'/'.$j[$tabla]['idFoto'].'" alt="CakePHP" width="200px">');					
+//	        array_push($fila, array($titi));
+//			array_push($fila, array($j[$tabla]['Cat']['Nombre']));
+//			array_push($fila, array($j[$tabla]['decorado']));
+//			array_push($fila, array($j[$tabla]['materia']));
+//			array_push($fila, array($j[$tabla]['dimension']));
+//			array_push($fila, array($j[$tabla]['estilo']));
 			array_push($fila, "<a href='/InvenPolka/articulos/edit/".$j[$tabla]['id']."' class='edit'>Edit</a>");					
 
 			array_push($arrayDt, $fila);					
       }
+
+	  
 	 return $arrayDt;
 	}
 
@@ -74,8 +139,8 @@ class ConsultasPaginado extends AppModel {
 \********************************************************************************/
 
 /* Este metodo devuelve la sentencia COUNT para obtener la cantidad de itms que abarca la consulta*/
-private function getConfigDisplayCountQuery($tabla,$where) {
-	$select = "SELECT COUNT( * ) AS var FROM ".$tabla." ".$where;	
+private function getConfigDisplayCountQuery($from,$where) {
+	$select = "SELECT COUNT( * ) AS var ".$from." ".$where;	
 	
 	return $select;
 }
@@ -108,11 +173,11 @@ private function createConfigTable($arrayData,$total,$totalDisplay) {
 			return $display;
 }		
 
-private function getTotales ($model,$tabla,$where){
+private function getTotales ($model,$query){
 		//Obtengo el total de registros en la tabla
-		$total = $this->getVarParam($model->query($this->getConfigDisplayCountQuery($tabla,"")));
+		$total = $this->getVarParam($model->query($this->getConfigDisplayCountQuery($query['from'],"")));
 		//Obtengo el total de registros filtrados
-		$totalDisplay = $this->getVarParam($model->query($this->getConfigDisplayCountQuery($tabla,$where)));
+		$totalDisplay = $this->getVarParam($model->query($this->getConfigDisplayCountQuery($query['from'],$query['where'])));
 
 		$totales["total"]=$total;
 		$totales["tDisplay"]=$totalDisplay;		
@@ -124,7 +189,7 @@ private function getTotales ($model,$tabla,$where){
 private function getArrayData($tabla,$rows,$aColumns,$titi) {			
       $arrayDt=array();
 
-      array_push($arrayDt, array($titi));					
+  //    array_push($arrayDt, array($titi));					
 		
       foreach($rows as $j){
 			$fila=array();
@@ -144,9 +209,9 @@ private function getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderBy
 		//Ejecuta el query, obtengo las filas
 		$rows =$model->query("".$query['select'].";");
 		//Obtengo los totales
-		$totales = $this->getTotales($model,$tabla,$query['where']); 
+		$totales = $this->getTotales($model,$query); 
 		//Proceso los campos para llenar la tabla
-		$arrayData=$this->getArrayDataArticulos($tabla,$rows,$aColumns,$query['select']);
+		$arrayData=$this->getArrayData($tabla,$rows,$aColumns,$query['select']);
 		//Obtengo la tabla
 		$output = $this->createConfigTable($arrayData,$totales["total"],$totales["tDisplay"]);
 		
@@ -172,7 +237,8 @@ private function getDataDefaultQuery($tabla,$aColumns,$aColumnsFilter,$orderByfi
 		}
 
 		//Partes del query
-		$select = "SELECT ".$aColumnsShow." FROM ".$tabla." ";
+		$select = "SELECT ".$aColumnsShow;
+		$from = " FROM ".$tabla." ";
 		$limit = 'limit '.$_GET['iDisplayStart'].' ,'.$_GET['iDisplayLength'] ;
 		$orderBy = " order by ".$orderByfield." ";
 		$sWhere = "";
@@ -182,15 +248,16 @@ private function getDataDefaultQuery($tabla,$aColumns,$aColumnsFilter,$orderByfi
         {
             $sWhere = "WHERE (";
 			            $sWhere = "WHERE (";
-            for ( $i=0 ; $i<count($aColumns) ; $i++ )
+            for ( $i=0 ; $i<count($aColumnsFilter) ; $i++ )
             {
-                $sWhere .= "`".$aColumns[$i]."` LIKE '%".( $_GET['sSearch'] )."%' OR ";
+                $sWhere .= "`".$aColumnsFilter[$i]."` LIKE '%".( $_GET['sSearch'] )."%' OR ";
             }
             $sWhere = substr_replace( $sWhere, "", -3 );
             $sWhere .= ')';
         }
 		
-		$query['select'] = $select.$sWhere.$orderBy.$limit;
+		$query['select'] = $select.$from.$sWhere.$orderBy.$limit;
+		$query['from'] =  $from;
 		$query['where'] = $sWhere;
 
 		return $query;

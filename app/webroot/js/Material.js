@@ -7,21 +7,7 @@ var Material = new Class({
     onList: function(data){
             this.parent(data);
             this.hacerTablaEditable();
-            this.oTable = jQuery('#browserList').dataTable({
-                       "bProcessing": true,
-                       "bServerSide": true,
-                       "bPaginate": true,
-                       "sPaginationType": "full_numbers",
-                       "sAjaxSource": "materiales/ajaxData",
-                       "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-                           console.log("DATa",arguments)
-                       },
-                       "fnInitComplete": function(oSettings, json) {
-                             console.log("ARGUU",arguments)
-                           },
-                   });
-
-
+            this.makeDatatable();
     },
     bindListEvents:function() {
 			var self=this;
@@ -31,10 +17,10 @@ var Material = new Class({
 				jQuery(".input-medium").val("");
 				//Actualizo la tabla en la pagina en q esta
 				jQuery('.paginate_active').click();
-				jQuery.growlUI('Growl Notification', 'Have a nice day!'); 
+				jQuery.growlUI('Growl Notification', 'Have a nice day!');
 				//Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
 				return false;
-			});			
+			});
     },
 });
 

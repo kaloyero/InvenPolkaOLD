@@ -1,5 +1,6 @@
 <?php
 	App::import('Model','ConsultasPaginado');
+	App::import('Model','ConsultasSelect');
 
 class CategoriasController extends AppController {
 

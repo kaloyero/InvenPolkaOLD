@@ -47,7 +47,6 @@
 	echo $this->Html->script('jsTemplate/jquery.flot.min');
 	echo $this->Html->script('jsTemplate/jquery.flot.resize.min');
 	echo $this->Html->script('jsTemplate/jquery.dataTables.min');
-	echo $this->Html->script('jsTemplate/jquery.notifications');
 	//echo $this->Html->css('demo_table');
 	//echo $this->Html->css('demo_page');
 
@@ -61,10 +60,13 @@
 	echo $this->fetch('css');
 	echo $this->fetch('script');
 ?>
-<link rel="stylesheet" type="text/css" href="/invenPolka/css/styleTest.css">
-<script type="text/javascript" src="/invenPolka/js/jsTemplate/modernizr.custom.26887.js"></script>
-<script type="text/javascript" src="/invenPolka/js/jsTemplate/jquery.imgslider.js"></script>
+<script src="js/jsTemplate/bgpos.js"></script>
+    <script src="js/jsTemplate/jquery.bubbleSlideshow.js"></script>
 
+	<link rel="stylesheet" href="css/styles.css" />
+
+        <!-- The plugin stylehseet -->
+        <link rel="stylesheet" href="css/jquery.bubbleSlideshow.css" />
 </head>
 
 <body>
@@ -191,47 +193,22 @@
 	<div class="pagetitle animate3 fadeInUp">
 		<h1>Dashboard</h1> <span>Gestion General...</span>
 	</div><!--pagetitle-->
+			<ul id="slideShow" class="opa"></ul>
 
+	        <p class="credit"><a href="http://www.flickr.com/photos/zanthia/"></a><br />
+	        	<i>
+	                <a href="http://www.flickr.com/photos/zanthia/5713923079/"></a>
+	                <a href="http://www.flickr.com/photos/zanthia/5542165153/"></a>
+	                <a href="http://www.flickr.com/photos/zanthia/5822520546/"></a>
+	                <a href="http://www.flickr.com/photos/zanthia/4341260799/"></a><br />
+	                <a href="http://www.flickr.com/photos/zanthia/5047301420/"> </a>
+	                <a href="http://www.flickr.com/photos/zanthia/4305139726/"></a>
+	            </i>
+	        </p>
 	<div class="maincontent animate4 fadeInUp">
 	<div class="contentinner">
 
-		 <div class="containerTEst">
-
-
-
-				<div class="main">
-
-					<div class="fs-slider" id="fs-slider">
-
-						<figure>
-							<img src="/invenPolka/app/webroot/files/articulo/IdFoto/13/CAmbiada.jpg" alt="image01" />
-
-						</figure>
-
-						<figure>
-							<img src="/invenPolka/app/webroot/files/articulo/IdFoto/13/CAmbiada.jpg" alt="image02" />
-
-						</figure>
-<figure>
-							<img src="/invenPolka/app/webroot/files/articulo/IdFoto/13/CAmbiada.jpg" alt="image03" />
-
-						</figure>
-
-						<figure>
-							<img src="/invenPolka/app/webroot/files/articulo/IdFoto/33/P1000793.JPG" alt="image04" />
-
-						</figure>
-
-						<figure>
-							<img src="/invenPolka/app/webroot/files/articulo/IdFoto/13/CAmbiada.jpg" alt="image05" />
-
-						</figure>
-
-					</div><!-- /fs-slider -->
-
-				</div>
-
-	        </div>
+	<?php echo $this->fetch('content'); ?>
 	</div>
 	</div>
 </div>
@@ -352,7 +329,19 @@ if (jQuery("#chartplace2").length) {
 		jQuery('#calendar').datepicker();
 
 
-		jQuery( '#fs-slider' ).imgslider();
+		var photos = [
+				'http://farm6.static.flickr.com/5230/5822520546_dd2b6d7e24_z.jpg',
+				'http://farm5.static.flickr.com/4014/4341260799_b466a1dfe4_z.jpg',
+				'http://farm6.static.flickr.com/5138/5542165153_86e782382e_z.jpg',
+				'http://farm5.static.flickr.com/4040/4305139726_829be74e29_z.jpg',
+				'http://farm4.static.flickr.com/3071/5713923079_60f53b383f_z.jpg',
+				'http://farm5.static.flickr.com/4108/5047301420_621d8a7912_z.jpg'
+			];
+			var slideshow = jQuery('#slideShow').bubbleSlideshow(photos);
+
+			jQuery(window).load(function(){
+				slideshow.autoAdvance(5000);
+			});
 
 
 

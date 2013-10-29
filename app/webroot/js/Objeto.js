@@ -7,21 +7,7 @@ var Objeto = new Class({
     onList: function(data){
             this.parent(data);
             this.hacerTablaEditable();
-            this.oTable = jQuery('#browserList').dataTable({
-                       "bProcessing": true,
-                       "bServerSide": true,
-                       "bPaginate": true,
-                       "sPaginationType": "full_numbers",
-                       "sAjaxSource": "objetos/ajaxData",
-                       "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-                           console.log("DATa",arguments)
-                       },
-                       "fnInitComplete": function(oSettings, json) {
-                             console.log("ARGUU",arguments)
-                           },
-                   });
-
-
+            this.makeDatatable();
     },
     bindListEvents:function() {
 			var self=this;
@@ -33,7 +19,7 @@ var Objeto = new Class({
 				jQuery('.paginate_active').click();
 				//Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
 				return false;
-			});			
+			});
     },
 });
 

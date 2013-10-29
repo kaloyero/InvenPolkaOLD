@@ -17,8 +17,8 @@ var Render = new Class({
                      var elementIdToEdit=jQuery(this).parent().siblings().first().text();
                      jQuery(this).parent().text(newContent);
                      jQuery(this).parent().removeClass("cellEditing");
-                     serverManager.updateConfigurations({
-     					object : self.type,editObject:elementIdToEdit,value:newContent});
+                     self.addLoader();
+                     translator.updateConfigurations(self.type,elementIdToEdit,newContent);
                  }
              });
 
@@ -35,9 +35,12 @@ var Render = new Class({
         return jQuery("form");
     },
     onList: function(data){
+           var self=this;
            this.cleanCanvas();
            jQuery(".contentinner").append(data);
-           this.bindListEvents();
+           this.makeDatatable();
+		   this.bindListEvents();
+
 	},
     onAdd: function(data){
         this.cleanCanvas();
@@ -54,8 +57,13 @@ var Render = new Class({
         this.bindEditEvents();
     },
     onUpdated: function(data){
+            this.removeLoader();
            alert("Actualizado!")
        },
+    onSaved: function(data){
+             self.removeLoader();
+            alert("Guardado!")
+      },
 
     bindListEvents:function() {
            var self=this;
@@ -64,6 +72,7 @@ var Render = new Class({
         	    translator.add(self.type);
            })
            jQuery('.edit').bind("click", function(e) {
+
                console.log("DATaaa",self.getSelectedRowId(this))
                translator.view(self.type,self.getSelectedRowId(this));
 
@@ -75,7 +84,8 @@ var Render = new Class({
           var self=this;
           this.styleForm();
           jQuery('.save').bind("click", function(e) {
-          translator.save(self.type, self.getForm());
+              translator.save(self.type, self.getForm());
+              self.addLoader();
          //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
          return false;
          });
@@ -85,6 +95,7 @@ var Render = new Class({
          this.styleForm();
          jQuery('.edit').bind("click", function(e) {
              translator.update(self.type, self.getForm());
+             self.addLoader();
              //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
             return false;
              });
@@ -95,8 +106,38 @@ var Render = new Class({
       styleForm:function() {
           jQuery('input:checkbox, input:radio, select.uniformselect').uniform();
         },
+      addLoader:function() {
+           jQuery('.stdformbutton').append('<img src="/invenPolka/app/webroot/files/gif/16.GIF" class ="loader" alt="CakePHP" height="50px" width="50px">');
 
-
+      },
+      removeLoader:function() {
+          jQuery('.loader').remove();
+       },
+       makeDatatable:function() {
+           var self=this;
+            var oTable=   jQuery('#configurationTable').dataTable({
+                           "bProcessing": true,
+                           "bServerSide": true,
+                           "bPaginate": true,
+                           "sPaginationType": "full_numbers",
+                           "sAjaxSource": serverManager.services[this.type]["controllerName"]+"/ajaxData",
+                           "fnDrawCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+							   jQuery('.edit').bind("click", function(e) {
+					
+								   console.log("DATaaa",self.getSelectedRowId(this))
+								   translator.view(self.type,self.getSelectedRowId(this));
+					
+								   return false;
+								//translator.view(self.type);
+							  })
+							   
+                               //Este CallBack se ejecuta cuando esta lista la tabla
+                               jQuery("#configurationTable td:first-child").css('display','none');
+                               self.hacerTablaEditable();
+                           }
+                       });
+       // oTable.fnSetColumnVis( 0, false );
+          }
 });
 
 render=new Render();

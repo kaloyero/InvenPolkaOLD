@@ -4,26 +4,6 @@ var Articulo = new Class({
         this.name = name;
         this.type='articulo';
     },
-    onList: function(data){
-            this.parent(data);
-            this.hacerTablaEditable();
-            this.oTable = jQuery('#browserList').dataTable({
-                       "bProcessing": true,
-                       "bServerSide": true,
-                       "bPaginate": true,
-                       "sPaginationType": "full_numbers",
-                       "sAjaxSource": "articulos/ajaxData",
-                       "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-                           console.log("DATa",arguments)
-                       },
-                       "fnInitComplete": function(oSettings, json) {
-                             console.log("ARGUU",arguments)
-                           },
-                   });
-
-
-    },
-
      bindAddEvents:function() {
          var self=this;
          this.styleForm();
@@ -34,10 +14,12 @@ var Articulo = new Class({
                          alert("Seleccione una Foto del ARticulooo")
                          return false;
                     }else{
+                        self.addLoader();
                         return true;
                     }
                 },
                  success: function () {
+                     self.removeLoader();
                      alert("Guardado!")
                  }
 
@@ -47,8 +29,13 @@ var Articulo = new Class({
          var self=this;
          this.styleForm();
          jQuery('form').ajaxForm({
+             beforeSubmit: function () {
+                 self.addLoader();
+                 return true;
+             },
              success: function () {
-                        alert("Guardado!")
+                 self.removeLoader();
+                 alert("Guardado!")
              }
         })
     },

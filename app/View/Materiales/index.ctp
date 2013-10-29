@@ -1,11 +1,13 @@
-<table  id="browserList" width="100%"  style="width: 100%;">
-	<thead>
-	        <tr>
-                <th>Nombre</th>
-	</thead>
-	<tbody>
-	</tbody>
+<table  id="configurationTable" class ="table table-bordered" width="100%"  style="width: 100%;">
+        <thead>
+                <tr>
+                <th style="display:none;">Id</th>
+ 				<th>Nombre</th>
+        </thead>
+        <tbody>
+        </tbody>
 </table>
+<p class="stdformbutton"></p>
 <?php
 echo '<h4 class="widgettitle nomargin shadowed">Materiales</h4>';
 echo '<div class="widgetcontent bordered shadowed nopadding">';

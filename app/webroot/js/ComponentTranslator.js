@@ -33,10 +33,13 @@ var ComponentTranslator = new Class(
 					object : objectType,
 					data:formData,
 					onSuccess : function(data) {
-						console.log("LISTO")
-						jQuery.jGrowl("Creado con exito.", {
-							theme : 'success'
-						});
+					     var renderInstace = renderTranslator.getRender(objectType);
+    					    renderInstace.onSaved(data);
+
+					        jQuery.jGrowl("Creado con exito.", {
+						        theme : 'success'
+					        });
+
 					}
 				});
 			},
@@ -63,6 +66,17 @@ var ComponentTranslator = new Class(
 						},
     				});
     			},
+    		updateConfigurations : function(objectType,elementIdToEdit,newValue) {
+        				serverManager.updateConfigurations({
+        					object : objectType,
+        					editObject:elementIdToEdit,
+        					value:newValue,
+        					onSuccess : function(data) {
+        					    var renderInstace = renderTranslator.getRender(objectType);
+        					    renderInstace.onUpdated(data);
+        					}
+        				});
+        		},
 			 view : function(objectType,idObject) {
     				serverManager.view({
     					object : objectType,
