@@ -1,5 +1,5 @@
 <?php
-	App::import('Model','ConsultasSelect');
+	App::import('Model','ConsultasPaginado');
 
 class ObjetosController extends AppController {
 
@@ -28,7 +28,7 @@ class ObjetosController extends AppController {
     }
 
 	function ajaxData() {
-			$consultas =new ConsultasSelect();
+			$consultas =new ConsultasPaginado();
 	        $this->autoRender = false;
 			$output = $consultas->getDataConfig('objetos');
 	        echo json_encode($output);

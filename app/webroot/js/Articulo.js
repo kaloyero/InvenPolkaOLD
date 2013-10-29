@@ -3,6 +3,8 @@ var Articulo = new Class({
     initialize: function(name){
         this.name = name;
         this.type='articulo';
+        this.breadcrumb='Articulo';
+        this.descripcion="Desde aqui controle los Articlos"
     },
      bindAddEvents:function() {
          var self=this;
@@ -45,6 +47,7 @@ var Articulo = new Class({
         jQuery(".contentinner").append(data);
         // Transform upload file
         jQuery('.uniform-file').uniform();
+        this.drawSearchHeader();
         this.bindFinderEvents()
     },
     onSearched:function(data) {
@@ -72,7 +75,16 @@ var Articulo = new Class({
              }else{
                  return false;
              }
-         }
+         },
+    drawSearchHeader:function() {
+        jQuery('.headerBig').empty();
+        jQuery('.headerBig').append("Busqueda de Articulos");
+        jQuery('.headerDescription').empty();
+        jQuery('.headerDescription').append("Realize busqueda de articulos");
+        jQuery('.activeBreadcrum').empty();
+        jQuery('.activeBreadcrum').append("Busqueda de Articulos");
+
+            }
 });
 
 articuloRender=new Articulo();

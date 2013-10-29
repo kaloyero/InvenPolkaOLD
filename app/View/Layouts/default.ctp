@@ -185,11 +185,11 @@
 	    </ul><!--skins-->
 		<ul class="breadcrumb">
 	        <li><a href="dashboard.html">Home</a> <span class="divider">/</span></li>
-	        <li class="active">Dashboard</li>
+	        <li class="active activeBreadcrum">Dashboard</li>
 	    </ul>
 	</div><!--breadcrumbwidget-->
 	<div class="pagetitle animate3 fadeInUp">
-		<h1>Dashboard</h1> <span>Gestion General...</span>
+		<h1 class="headerBig">Dashboard</h1> <span class="headerDescription">Gestion General...</span>
 	</div><!--pagetitle-->
 
 	<div class="maincontent animate4 fadeInUp">
@@ -251,26 +251,7 @@
 </div><!--mainwrapper-->
 <script type="text/javascript">
 
-	jQuery(".btn").bind("click", function (event, pos, item) {
-		if (jQuery(".search-query").val() == "silchu"){
-			jQuery(".contentinner").empty()
- 			jQuery(".contentinner").append("IMPORTANTE:Frases de tu idolo Sartre para que te vueles mas la cabeza: ");
-			jQuery(".contentinner").append("<p></p>");
-			jQuery(".contentinner").append("<p>Soñar en teoría, es vivir un poco, pero vivir soñando es no existir</p>");
-			jQuery(".contentinner").append("<p>No perdamos nada de nuestro tiempo; quizá los hubo más bellos, pero este es el nuestro</p>");
-			jQuery(".contentinner").append("<p>El hombre nace libre, responsable y sin excusas.</p>");
-			jQuery(".contentinner").append("<p>La conciencia sólo puede existir de una manera, y es teniendo conciencia de que existe.</p>");
 
-
-		}	if (jQuery(".search-query").val() == "osten"){
-			jQuery(".contentinner").empty()
- 			jQuery(".contentinner").append("Alguien me debe contar algo con lujos de detalle.Ya que me quede sin el premio de la apuesta ");
-			jQuery(".contentinner").append("<p></p>");
-			jQuery(".contentinner").append("<p>Por ahi podes llegar a levantar la mala actitud del dia de ayer ,gal.</p>");
-		}
-		return false
-
- 	})
 		sideBarController.bindMenuOptionsEvents();
 		// basic chart
 		var flash = [[0, 2], [1, 6], [2,3], [3, 8], [4, 5], [5, 13], [6, 8]];

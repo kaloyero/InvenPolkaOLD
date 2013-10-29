@@ -5,7 +5,7 @@
 	App::import('Model','Ubicacione');
 	App::import('Model','Estudio');	
 	App::import('Model','Categoria');	
-    	App::import('Model','Materiale');
+   	App::import('Model','Materiale');
 	App::import('Model','Dimensione');
 	App::import('Model','Decorado');
 	App::import('Model','Estilo');

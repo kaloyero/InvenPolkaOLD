@@ -3,11 +3,12 @@ var Dimension = new Class({
     initialize: function(name){
         this.name = name;
         this.type="dimension";
+        this.breadcrumb='Dimension';
+        this.descripcion="Desde aqui controle las Dimensiones"
     },
     onList: function(data){
             this.parent(data);
             this.hacerTablaEditable();
-            this.makeDatatable();
     },
     bindListEvents:function() {
 			var self=this;
