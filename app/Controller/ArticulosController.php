@@ -16,22 +16,10 @@ class ArticulosController extends AppController {
     public $helpers = array ('Html','Form');
 	public $findResult;
     function index() {
-/*				if ($this->Session->check("articulos")){
-					$this->paginate = array(
-					     'conditions' => $this->Session->read("articulos"),
-					     'order' => array('Result.created ASC'),
-					     'limit' => 5
-					 );
-					$this->set("articulos",$this->paginate('Articulo'));
-					$this->Session->delete("articulos");
-				}else{
-					//paginate as normal
-					$this->paginate = array(
-						'order' => array('Result.created ASC'),
-						 'limit' => 10
-					 );
-					$this->set("articulos",	$this->paginate('Articulo'));
-				}*/
+ 	if ($_GET['isSearch']=='undefined' || $_GET['isSearch']!=true ) {
+	   	//Borramos de la sesion,las condiciones de los articulos,porque el usuario entro a el listado completo
+		$this->Session->delete("articulos");
+	}
     }
 
    public function view($id = null) {
@@ -134,9 +122,9 @@ class ArticulosController extends AppController {
  			//$this->redirect(array('action' => 'index'));
 			//$this->redirect(array_merge($url,$filters));
 			$conditions = "";
-			if(!empty($this->passedArgs["CodigoArticulo"])){
-				$conditions= $conditions."CodigoArticulo LIKE '%".$this->passedArgs["CodigoArticulo"]."%' AND ";
-				}else{
+					if(!empty($this->passedArgs["CodigoArticulo"])){
+						$conditions= $conditions."CodigoArticulo LIKE '%".$this->passedArgs["CodigoArticulo"]."%' AND ";
+					}
 					if(!empty($this->passedArgs["IdMaterial"])){
 						$conditions= $conditions."id_material LIKE '".$this->passedArgs["IdMaterial"]."' AND ";
 					}
@@ -156,8 +144,7 @@ class ArticulosController extends AppController {
 					if(!empty($this->passedArgs["IdDecorado"])){
 						$conditions= $conditions."id_decorado LIKE '".$this->passedArgs["IdDecorado"]."' AND ";
 					}
-				}
-
+				//Borramos el ultimo And
 		        $conditions = substr_replace( $conditions, "", -4 );
 				//$_SESSION['prueba']="puti";
 				$this->Session->write("articulos",$conditions);
