@@ -4,7 +4,7 @@ var Render = new Class({
     },
     hacerTablaEditable: function(){
         var self=this;
-        jQuery("td").dblclick(function () {
+        jQuery('table tr td:not(:last-child)').dblclick(function () {
              var OriginalContent = jQuery(this).text();
 
              jQuery(this).addClass("cellEditing");
@@ -62,12 +62,12 @@ var Render = new Class({
             this.removeLoader();
        },
     onSaved: function(data){
+             this.checkContinue();
              this.removeLoader();
       },
-
+    //SIRVE ESTO?Que ahora casi todo depende de cuando termine de carga la tabla
     bindListEvents:function() {
            var self=this;
-
         	jQuery('#add').bind("click", function(e) {
         	    translator.add(self.type);
            })
@@ -131,17 +131,21 @@ var Render = new Class({
 
                                           }
                                   },
+                            //Este CallBack se ejecuta cuando esta lista la tabla
                            "fnDrawCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
 							   jQuery('.edit').bind("click", function(e) {
+							       console.log("ESESES",self.getSelectedRowId(this))
 								   translator.view(self.type,self.getSelectedRowId(this));
 
 								   return false;
 								//translator.view(self.type);
 							  })
+							  //Ocultamos la columna ID
+                              jQuery("#configurationTable td:first-child").css('display','none');
 
-                               //Este CallBack se ejecuta cuando esta lista la tabla
-                               jQuery("#configurationTable td:first-child").css('display','none');
-                               self.hacerTablaEditable();
+                               //Si la tabla es de configuraciones,hacerla editable
+                               if (self.isConfigurationTable())
+                                    self.hacerTablaEditable();
                            }
                        });
        // oTable.fnSetColumnVis( 0, false );
@@ -154,7 +158,25 @@ var Render = new Class({
          jQuery('.activeBreadcrum').empty();
          jQuery('.activeBreadcrum').append(this.breadcrumb);
 
-     }
+     },
+     isConfigurationTable:function() {
+        if (this.type=="categoria"||this.type=="material"||this.type=="estilo"||this.type=="objeto"||this.type=="dimension"||this.type=="decorado")  {
+            return true;
+        }
+        return false;
+      },
+      checkContinue:function() {
+          if (jQuery('.seguir').length >0 ){
+            if (jQuery('.seguir').is(':checked')) {
+                //Limpio el Form
+                jQuery('.stdform')[0].reset();
+
+            }else{
+               translator.show(this.type);
+              //llamo al listado correspondiente
+            }
+        }
+      }
 });
 
 render=new Render();

@@ -40,8 +40,6 @@ var ComponentTranslator = new Class(
 					     var renderInstace = renderTranslator.getRender(objectType);
     					    renderInstace.onSaved(data);
 
-
-
 					}
 				});
 			},

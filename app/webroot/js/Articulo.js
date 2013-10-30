@@ -21,6 +21,7 @@ var Articulo = new Class({
                     }
                 },
                  success: function () {
+                     self.checkContinue();
                      self.removeLoader();
                      jQuery.jGrowl("Creado con exito.", {
 					        theme : 'success'
@@ -88,8 +89,14 @@ var Articulo = new Class({
         jQuery('.headerDescription').append("Realize busqueda de articulos");
         jQuery('.activeBreadcrum').empty();
         jQuery('.activeBreadcrum').append("Busqueda de Articulos");
+    },
+     checkContinue:function() {
+         this.parent();
+         //Limpio el campo Span donde se guarda el nombre del archivo seleccionado
+         jQuery('.filename').empty();
+         jQuery('.filename').append('No file selected');
 
-            }
+     }
 });
 
 articuloRender=new Articulo();

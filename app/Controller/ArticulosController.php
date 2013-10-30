@@ -158,8 +158,8 @@ class ArticulosController extends AppController {
 				//$_SESSION['prueba']="puti";
 				$this->Session->write("articulos",$conditions);
 
-				
-				
+
+
 				// $this->set("articulos",$results);
 				//$this->redirect(array('action' => 'index'));
 	 }else{

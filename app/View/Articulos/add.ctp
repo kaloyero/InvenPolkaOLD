@@ -43,3 +43,5 @@ echo $this->Form->input('Articulo.IdObjeto',array('type'=>'select','options'=>$o
 echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</button><button type="reset" class="btn">Limpiar Formulario</button></p>';
 ?>
 </div>
+<label>Guardar y Seguir</label>
+<span class="field"><input type="checkbox"class='seguir' name="check2" style="opacity: 0;"></span>
