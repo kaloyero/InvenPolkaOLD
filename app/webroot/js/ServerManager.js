@@ -91,12 +91,16 @@ var ServerManager = new Class({
 				}
 		    } );
     },
-    showList: function(config){
+    showList: function(config,action){
         console.log("LLLL")
     	var type = config.object;
     	var self=this;
+		var dataAenviar = {};
+		actionFrom = action;
+		dataAenviar['actionFrom'] = action;
     	jQuery.ajax({
 			type: 'GET',
+			data: dataAenviar,
 			url: self.services[type]["controllerName"],
 			success: function(data) {
                 config.onSuccess(data);
@@ -124,7 +128,7 @@ var ServerManager = new Class({
       			url: self.services[type]["controllerName"]+"/find",
       			data: config.data.serialize(),
       			success: function(data) {
-      			    self.showList({object:type,onSuccess:config.onSuccess})
+      			    self.showList({object:type,onSuccess:config.onSuccess},"search")
                       //config.onSuccess(data);
       			}
       		});

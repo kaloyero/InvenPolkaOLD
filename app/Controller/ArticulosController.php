@@ -16,22 +16,18 @@ class ArticulosController extends AppController {
     public $helpers = array ('Html','Form');
 	public $findResult;
     function index() {
-/*				if ($this->Session->check("articulos")){
-					$this->paginate = array(
-					     'conditions' => $this->Session->read("articulos"),
-					     'order' => array('Result.created ASC'),
-					     'limit' => 5
-					 );
-					$this->set("articulos",$this->paginate('Articulo'));
-					$this->Session->delete("articulos");
-				}else{
-					//paginate as normal
-					$this->paginate = array(
-						'order' => array('Result.created ASC'),
-						 'limit' => 10
-					 );
-					$this->set("articulos",	$this->paginate('Articulo'));
-				}*/
+		if($this->request->is("get")) {
+			echo $this->request->data['actionFrom'];
+			echo $this->request->dataAenviar['actionFrom'];
+			echo $this->request->data['dataAenviar']['actionFrom'];
+			if($this->request->dataAenviar['action'] == null || $this->request->dataAenviar['action'] != 'search') {
+				$this->Session->delete('articulos');
+				echo "utp";
+			}
+						echo "iaju2";
+		}
+						echo "iaju";
+
     }
 
    public function view($id = null) {

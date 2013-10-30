@@ -47,6 +47,8 @@ var Render = new Class({
         jQuery(".contentinner").append(data);
         // Transform upload file
         jQuery('.uniform-file').uniform();
+    	//Inicializo calendario 
+     	jQuery('.datepicker').datepicker({ dateFormat: 'dd-mm-yy' });
         this.bindAddEvents();
          },
     onView: function(data){
