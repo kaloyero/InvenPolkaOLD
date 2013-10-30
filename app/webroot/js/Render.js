@@ -164,14 +164,16 @@ var Render = new Class({
         return false;
       },
       checkContinue:function() {
-          if (jQuery('.seguir').is(':checked')) {
-              console.log("EL FORM ",jQuery('.stdform'))
-              jQuery('.stdform')[0].reset();
-             //Limpio el Form
-          }else{
+          if (jQuery('.seguir').length >0 ){
+            if (jQuery('.seguir').is(':checked')) {
+                //Limpio el Form
+                jQuery('.stdform')[0].reset();
+
+            }else{
                translator.show(this.type);
               //llamo al listado correspondiente
-          }
+            }
+        }
       }
 });
 
