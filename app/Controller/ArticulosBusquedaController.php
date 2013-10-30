@@ -61,7 +61,7 @@ class ArticulosController extends AppController {
 		} else {
 			$paginado =new ConsultasPaginado();
 	        $this->autoRender = false;
-			$output = $paginado->getDataArticulos();
+//			$output = $paginado->getDataArticulos();
 	        echo json_encode($output);
 		}
 	}
