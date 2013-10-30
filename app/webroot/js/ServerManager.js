@@ -129,7 +129,6 @@ var ServerManager = new Class({
       			}
       		});
           },
-
     add: function(config){
 
     	var self=this;
