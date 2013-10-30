@@ -63,10 +63,9 @@ var Render = new Class({
              this.checkContinue();
              this.removeLoader();
       },
-
+    //SIRVE ESTO?Que ahora casi todo depende de cuando termine de carga la tabla
     bindListEvents:function() {
            var self=this;
-
         	jQuery('#add').bind("click", function(e) {
         	    translator.add(self.type);
            })
@@ -133,6 +132,7 @@ var Render = new Class({
                             //Este CallBack se ejecuta cuando esta lista la tabla
                            "fnDrawCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
 							   jQuery('.edit').bind("click", function(e) {
+							       console.log("ESESES",self.getSelectedRowId(this))
 								   translator.view(self.type,self.getSelectedRowId(this));
 
 								   return false;

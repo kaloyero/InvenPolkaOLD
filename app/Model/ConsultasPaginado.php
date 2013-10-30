@@ -193,7 +193,7 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumnsFilter,$order
 				$sWhere = substr_replace( $sWhere, "", -3 );
 				$sWhere .= ')';
 			}
-	
+
 		$limit = 'limit '.$_GET['iDisplayStart'].' ,'.$_GET['iDisplayLength'] ;
 		$orderBy = " order by ".$orderBy." ";
 
@@ -201,7 +201,7 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumnsFilter,$order
 		$query['from'] =   $from;
 		$query['where'] = $sWhere;
 	}
-	
+
 	return $query;
 
 }
@@ -212,7 +212,7 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumnsFilter,$order
 /*			$fila=array();
         	array_push($fila, "1");
 	        array_push($fila, array($titi));
-																								
+
 			array_push($arrayDt, $fila);
 //*/
 //      array_push($arrayDt, array());
@@ -223,12 +223,12 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumnsFilter,$order
 			array_push($fila, '<img src="/InvenPolka/app/webroot/files/articulo/IdFoto/'.$j[$tabla]['dir'].'/'.$j[$tabla]['idFoto'].'" alt="CakePHP" width="200px">');
 //	        array_push($fila, array($titi));
 			array_push($fila, array($j[$tabla]['categoria']));
-			array_push($fila, array($j[$tabla]['objeto']));			
+			array_push($fila, array($j[$tabla]['objeto']));
 			array_push($fila, array($j[$tabla]['decorado']));
 			array_push($fila, array($j[$tabla]['material']));
 			array_push($fila, array($j[$tabla]['dimension']));
 			array_push($fila, array($j[$tabla]['estilo']));
-			array_push($fila, "<a href='/InvenPolka/articulos/edit/".$j[$tabla]['id']."' class='edit'>Edit</a>");
+				array_push($fila, " <div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/articulos/edit/".$j[$tabla]['id']."' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>");
 
 			array_push($arrayDt, $fila);
       }

@@ -5,8 +5,7 @@
                 <tr>
                 <th style="display:none;">Id</th>
  				<th>Nombre</th>
-				<th>Acciones</th>
-
+				<th>Descripcion</th>
 		</tr>
         </thead>
         <tbody>
