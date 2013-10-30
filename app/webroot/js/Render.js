@@ -60,6 +60,7 @@ var Render = new Class({
             this.removeLoader();
        },
     onSaved: function(data){
+             this.checkContinue();
              this.removeLoader();
       },
 
@@ -161,6 +162,16 @@ var Render = new Class({
             return true;
         }
         return false;
+      },
+      checkContinue:function() {
+          if (jQuery('.seguir').is(':checked')) {
+              console.log("EL FORM ",jQuery('.stdform'))
+              jQuery('.stdform')[0].reset();
+             //Limpio el Form
+          }else{
+               translator.show(this.type);
+              //llamo al listado correspondiente
+          }
       }
 });
 
