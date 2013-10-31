@@ -1,7 +1,7 @@
 jQuery.noConflict();
 
 jQuery(document).ready(function(){
-
+    jQuery('head').append('<link id="skinstyle" rel="stylesheet" href="css/style.dark.css" type="text/css" />');
 	prettyPrint();			//syntax highlighter
 	mainwrapperHeight();
 	responsive();

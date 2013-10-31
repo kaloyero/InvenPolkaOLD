@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pol-ka</title>
 <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/excanvas.min.js"></script><![endif]-->
@@ -66,6 +65,9 @@
 <script type="text/javascript" src="/invenPolka/js/jsTemplate/jquery.imgslider.js"></script>
 <script src="/invenPolka/js/jsTemplate/jquery.growl.js" type="text/javascript"></script>
 <link href="/invenPolka/css/jquery.growl.css" rel="stylesheet" type="text/css" />
+<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+
+
 
 </head>
 

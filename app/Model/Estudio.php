@@ -30,17 +30,8 @@ class Estudio extends AppModel {
 					'rule' => array('maxLength', '100'),
 					'message' => 'Maximo 100 caracteres'
 				)
-			),
-			'FechaFin' => array(
-				'ruleName' => array(
-					'rule' => 'notEmpty',
-					'message' => 'El campo no puede estar vacio'
-				),
-				'ruleName2' => array(
-					'rule' => 'date'
-				)
 			)
 		);
-		
+
 }
 ?>

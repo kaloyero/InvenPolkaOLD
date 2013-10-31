@@ -4,7 +4,7 @@
 	App::import('Model','Proyecto');
 	App::import('Model','Estudio');
 	App::import('Model','Deposito');
-
+	App::import('Model','Inventario');
 
 class ConsultasPaginado extends AppModel {
 	public $name = 'ConsultasPaginado';
@@ -48,11 +48,11 @@ class ConsultasPaginado extends AppModel {
 				$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,true);
 				return $output;
 		}
-		////////////////////////////// {FIN} CONFIGURACION -> DATATABLE //////////////////////////////
+////////////////////////////// {FIN} PROYECTO -> DATATABLE //////////////////////////////
 
-		/********************************************************************************\
-		****************************** {INICIO} Proyecto -> DATATABLE ***************
-		\********************************************************************************/
+/********************************************************************************\
+****************************** {INICIO} ESTUDIOS -> DATATABLE ********************
+\********************************************************************************/
 
 			/*   */
 		function getDataEstudios() {
@@ -67,13 +67,12 @@ class ConsultasPaginado extends AppModel {
 				$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,true);
 				return $output;
 			}
-			////////////////////////////// {FIN} CONFIGURACION -> DATATABLE //////////////////////////////
+////////////////////////////// {FIN} ESTUDIOS -> DATATABLE //////////////////////////////
 
-			/********************************************************************************\
-			****************************** {INICIO} Proyecto -> DATATABLE ***************
-			\********************************************************************************/
+/*************************************************************************************\
+****************************** {INICIO} DEPOSITOS -> DATATABLE *************************
+\*************************************************************************************/
 
-					/*   */
 		function getDataDepositos() {
 			$model=new Estudio();
 			$tabla="depositos";
@@ -87,7 +86,28 @@ class ConsultasPaginado extends AppModel {
 			return $output;
 		}
 
-////////////////////////////// {FIN} CONFIGURACION -> DATATABLE //////////////////////////////
+////////////////////////////// {FIN} DEPOSITOS -> DATATABLE //////////////////////////////
+
+
+/*************************************************************************************\
+****************************** {INICIO} Inventario -> DATATABLE *************************
+\*************************************************************************************/
+
+		function getDataInventarios() {
+			$model=new Inventario();
+			$tabla="inventarios_vista";
+			//Columnas que voy a mostrar
+
+			$aColumns = array( 'id' ,'articulo', 'dir' ,'idFoto',  'Disponibilidad'  , 'deposito' ,  'proyecto');
+			//Columnas por las que se va a filtrar
+			$aColumnsFilter = array(  'Disponibilidad' ,'articulo' ,  'proyecto' ,  'deposito' ,  'ubicacion' );
+			//Columna por la cual se va ordenar
+			$orderByfield = 'deposito,ubicacion,proyecto,articulo';
+			$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,true);
+			return $output;
+		}
+
+////////////////////////////// {FIN} Inventario -> DATATABLE //////////////////////////////
 
 /********************************************************************************\
 ****************************** {INICIO} ARTICULO -> DATATABLE ***************
@@ -148,28 +168,6 @@ class ConsultasPaginado extends AppModel {
 //		$output = $this->createConfigTable($arrayData,40,40);
 
 		return $output;
-	}
-
-	/* Para la funcionalidad Busqueda de Articulos */
-	function getDataArticulosSearch2() {
-		$model=new Articulo();
-		$tabla="Art";
-		//Columnas que voy a mostrar
-	    $aColumns = array( 'id','CodigoArticulo' );
-
-		//Consigue el query que se va ejecutar
-		$query=$this->getDataArticuloQuery($tabla);
-		//Ejecuta el query, obtengo las filas
-		$rows =$model->query("".$query['select'].";");
-		//Obtengo los totales
-		$totales = $this->getTotales($model,$query);
-		//Proceso los campos para llenar la tabla
-		$arrayData=$this->getArrayDataArticulos($tabla,$rows,$query['select']);
-		//Obtengo la tabla
- 		$output = $this->createConfigTable($arrayData,$totales["total"],$totales["tDisplay"]);
-
-		return $output;
-
 	}
 
 /*
@@ -319,7 +317,14 @@ private function getArrayDataWithEditLink($tabla,$rows,$aColumns,$titi) {
       foreach($rows as $j){
 			$fila=array();
 	        foreach($aColumns as $column){
-			        array_push($fila, array($j[$tabla][$column]));
+				if ($column != "dir" && $column != "idFoto"){
+					array_push($fila, array($j[$tabla][$column]));
+				} else {
+					//Si es foto
+					if ($column == "idFoto"){
+						array_push($fila, '<img src="/InvenPolka/app/webroot/files/articulo/IdFoto/'.$j[$tabla]['dir'].'/'.$j[$tabla]['idFoto'].'" alt="CakePHP" width="200px">');						
+					}
+				}
 			}
 			array_push($fila, " <div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/articulos/edit/".$j[$tabla]['id']."' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>");
 			array_push($arrayDt, $fila);

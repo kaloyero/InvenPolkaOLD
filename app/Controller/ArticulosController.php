@@ -16,17 +16,10 @@ class ArticulosController extends AppController {
     public $helpers = array ('Html','Form');
 	public $findResult;
     function index() {
-		if($this->request->is("get")) {
-			echo $this->request->data['actionFrom'];
-			echo $this->request->dataAenviar['actionFrom'];
-			echo $this->request->data['dataAenviar']['actionFrom'];
-			if($this->request->dataAenviar['action'] == null || $this->request->dataAenviar['action'] != 'search') {
-				$this->Session->delete('articulos');
-				echo "utp";
-			}
-						echo "iaju2";
-		}
-						echo "iaju";
+ 	if ($_GET['isSearch']=='undefined' || $_GET['isSearch']!=true ) {
+	   	//Borramos de la sesion,las condiciones de los articulos,porque el usuario entro a el listado completo
+		$this->Session->delete("articulos");
+	}
 
     }
 
@@ -130,9 +123,9 @@ class ArticulosController extends AppController {
  			//$this->redirect(array('action' => 'index'));
 			//$this->redirect(array_merge($url,$filters));
 			$conditions = "";
-			if(!empty($this->passedArgs["CodigoArticulo"])){
-				$conditions= $conditions."CodigoArticulo LIKE '%".$this->passedArgs["CodigoArticulo"]."%' AND ";
-				}else{
+					if(!empty($this->passedArgs["CodigoArticulo"])){
+						$conditions= $conditions."CodigoArticulo LIKE '%".$this->passedArgs["CodigoArticulo"]."%' AND ";
+					}
 					if(!empty($this->passedArgs["IdMaterial"])){
 						$conditions= $conditions."id_material LIKE '".$this->passedArgs["IdMaterial"]."' AND ";
 					}
@@ -152,8 +145,7 @@ class ArticulosController extends AppController {
 					if(!empty($this->passedArgs["IdDecorado"])){
 						$conditions= $conditions."id_decorado LIKE '".$this->passedArgs["IdDecorado"]."' AND ";
 					}
-				}
-
+				//Borramos el ultimo And
 		        $conditions = substr_replace( $conditions, "", -4 );
 				//$_SESSION['prueba']="puti";
 				$this->Session->write("articulos",$conditions);
