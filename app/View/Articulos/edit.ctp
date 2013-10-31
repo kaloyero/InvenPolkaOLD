@@ -11,7 +11,7 @@ echo $this->Form->create('Articulo',array('type' => 'file','class' => 'stdform s
 echo $this->Form->input('idFoto', array('type' => 'file', 'accept' =>'image/*', 'label' => false,'class'=>'uniform-file','div'=>array('class'=>'field uploader focus')));
 echo $this->Form->input('idFoto', array('type' => 'hidden','value' => ''),array('id' => 'preview'));
 echo $this->Form->input('id', array('type' => 'hidden'));
-echo '<span class="field"><img src="/invenPolka/app/webroot/files/articulo/IdFoto/'.$this->data['Articulo']['dir'].'/'.$this->data['Articulo']['idFoto'] .' "alt="CakePHP" width="200px"></span>';
+echo '<span class="field"><img src="/invenPolka/app/webroot/files/articulo/IdFoto/'.$this->data['Articulo']['dir'].'/'.$this->data['Articulo']['idFoto'] .' "alt="CakePHP" height="500px" width="500px"></span>';
 
 
 
