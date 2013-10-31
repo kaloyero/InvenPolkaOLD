@@ -65,7 +65,7 @@
 <script type="text/javascript" src="/invenPolka/js/jsTemplate/jquery.imgslider.js"></script>
 <script src="/invenPolka/js/jsTemplate/jquery.growl.js" type="text/javascript"></script>
 <link href="/invenPolka/css/jquery.growl.css" rel="stylesheet" type="text/css" />
-<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+<script src="/invenPolka/js/jsTemplate/jquery.validate.js"></script>
 
 
 
