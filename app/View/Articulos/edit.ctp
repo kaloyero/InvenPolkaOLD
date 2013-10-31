@@ -27,21 +27,15 @@ echo $this->Form->input('Descripcion',array('class'=>'input-medium','div'=>false
 								                                <label>Descripcion</label>
 								                                <span class="field">',
 																'after'=>'</span></p>'));
-//echo $this->Form->input('Descripcion',array('class'=>'input-medium'));
-//Acceder al wrapper del Input array('div'=>array('class'=>'selector focus') Poner antes del input 'before'=>'<span>Decorado</span>'
-echo $this->Form->input('Articulo.IdMaterial',array('type'=>'select','options'=>$materiales,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p>
-                                <label>Material</label>
-                                <span class="field">',
-								'after'=>'</span></p>'));
-echo $this->Form->input('Articulo.IdDecorado',array('type'=>'select','options'=>$decorados,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p>
-								                                <label>Decorado</label>
-								                                <span class="field">',
-																'after'=>'</span></p>'));
-echo $this->Form->input('Articulo.IdCategoria',array('type'=>'select','options'=>$categorias,'empty'=>false,'class'=>'uniformselect'															,'div'=>false,'label'=>false,'before'=>'<p><label>Categoria</label><span class="field">','after'=>'</span></p>'));
+																echo $this->Form->input('Articulo.IdMaterial',array('type'=>'select','options'=>$materiales,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p>
+																                                <label>Configuraciones</label>
+																                                <span class="field"> Material : '));
+																echo $this->Form->input('Articulo.IdDecorado',array('type'=>'select','options'=>$decorados,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Decorado : '));
+																echo $this->Form->input('Articulo.IdCategoria',array('type'=>'select','options'=>$categorias,'empty'=>false,'class'=>'uniformselect'															,'div'=>false,'label'=>false,'before'=>' Categoria : '));
 
-echo $this->Form->input('Articulo.IdDimension',array('type'=>'select','options'=>$dimensiones,'empty'=>false,'class'=>'uniformselect'																								,'div'=>false,'label'=>false,'before'=>'<p><label>Dimension</label><span class="field">','after'=>'</span></p>'));
-echo $this->Form->input('Articulo.IdEstilo',array('type'=>'select','options'=>$estilos,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p><label>Estilo</label><span class="field">','after'=>'</span></p>'));
-echo $this->Form->input('Articulo.IdObjeto',array('type'=>'select','options'=>$objetos,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p><label>Objeto</label><span class="field">','after'=>'</span></p>'));
+																echo $this->Form->input('Articulo.IdDimension',array('type'=>'select','options'=>$dimensiones,'empty'=>false,'class'=>'uniformselect'																								,'div'=>false,'label'=>false,'before'=>' Dimension : '));
+																echo $this->Form->input('Articulo.IdEstilo',array('type'=>'select','options'=>$estilos,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Estilo : '));
+																echo $this->Form->input('Articulo.IdObjeto',array('type'=>'select','options'=>$objetos,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Objeto : ','after'=>'</span></p>'));
 //echo '<p class="stdformbutton">button class="btn btn-primary">Guardar</button><button type="reset" class="btn">Limpiar campos</button></p>';
 
 //echo $this->Form->submit(__('Guardar',true), array('class'=>'btn btn-primary','div'=>false,'label'=>false,'before'=>'<p class="stdformbutton"><label>Guardar </label><span class="field">','after'=>'</span></p>'));
