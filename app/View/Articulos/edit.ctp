@@ -22,6 +22,7 @@ echo $this->Form->input('CodigoArticulo',array('class'=>'input-medium','div'=>fa
                                 <label>Codigo Articulo</label>
                                 <span class="field">',
 								'after'=>'</span></p>'));
+
 echo $this->Form->input('Descripcion',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
 								                                <label>Descripcion</label>
 								                                <span class="field">',
@@ -44,6 +45,7 @@ echo $this->Form->input('Articulo.IdObjeto',array('type'=>'select','options'=>$o
 //echo '<p class="stdformbutton">button class="btn btn-primary">Guardar</button><button type="reset" class="btn">Limpiar campos</button></p>';
 
 //echo $this->Form->submit(__('Guardar',true), array('class'=>'btn btn-primary','div'=>false,'label'=>false,'before'=>'<p class="stdformbutton"><label>Guardar </label><span class="field">','after'=>'</span></p>'));
-echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</button><button type="reset" class="btn">Limpiar Formulario</button></p>';
+echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</button></p>';
+
 ?>
 </div>

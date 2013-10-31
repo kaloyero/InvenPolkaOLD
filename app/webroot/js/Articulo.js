@@ -9,16 +9,22 @@ var Articulo = new Class({
      bindAddEvents:function() {
          var self=this;
          this.styleForm();
+         this.generateValidation();
+
          jQuery('form').ajaxForm({
                     // any other options,
                  beforeSubmit: function () {
-                     if (!self.validateImage()){
-                         alert("Seleccione una Foto del ARticulooo")
-                         return false;
-                    }else{
-                        self.addLoader();
-                        return true;
-                    }
+                     //Si pasa la validacion del Form(Excepto la de la imagen que la preguntamos luego)
+                           if (self.getForm().valid()){
+                               if (!self.validateImage()){
+                                        alert("Seleccione una Foto del ARticulooo")
+                                        return false;
+                                    }else{
+                                        console.log("Else")
+                                        self.addLoader();
+                                        return true;
+                                    }
+                                }
                 },
                  success: function () {
                      self.checkContinue();
@@ -33,14 +39,18 @@ var Articulo = new Class({
      bindEditEvents:function() {
          var self=this;
          this.styleForm();
+         this.generateValidation();
+
          jQuery('form').ajaxForm({
              beforeSubmit: function () {
-                 self.addLoader();
-                 return true;
+                 if (self.getForm().valid()){
+                     self.addLoader();
+                     return true;
+                }
              },
              success: function () {
-                 self.removeLoader();
-                 jQuery.jGrowl("Creado con exito.", {
+                 self.onUpdated();
+                 jQuery.jGrowl("Actualizado con exito.", {
 				        theme : 'success'
 			        });
              }
@@ -96,7 +106,11 @@ var Articulo = new Class({
          jQuery('.filename').empty();
          jQuery('.filename').append('No file selected');
 
-     }
+     },
+     onUpdated: function(){
+             this.parent();
+             translator.show(this.type);
+    }
 });
 
 articuloRender=new Articulo();

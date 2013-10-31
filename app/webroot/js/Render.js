@@ -32,7 +32,7 @@ var Render = new Class({
           jQuery(".contentinner").empty();
     },
     getForm: function(){
-        return jQuery("form");
+        return jQuery(".stdform");
     },
     onList: function(data){
            var self=this;
@@ -45,6 +45,7 @@ var Render = new Class({
     onAdd: function(data){
         this.cleanCanvas();
         jQuery(".contentinner").append(data);
+        //jQuery("#DepositoAddForm").validate();
         // Transform upload file
         jQuery('.uniform-file').uniform();
         this.bindAddEvents();
@@ -79,19 +80,27 @@ var Render = new Class({
     bindAddEvents:function() {
           var self=this;
           this.styleForm();
+          this.generateValidation();
+
           jQuery('.save').bind("click", function(e) {
-              translator.save(self.type, self.getForm());
-              self.addLoader();
-         //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
-         return false;
+              //Si pasa la validacion,salvamos
+              if (self.getForm().valid()){
+                   translator.save(self.type, self.getForm());
+                    self.addLoader();
+              }
+              //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
+              return false;
          });
      },
      bindEditEvents:function() {
          var self=this;
          this.styleForm();
+         this.generateValidation();
          jQuery('.edit').bind("click", function(e) {
-             translator.update(self.type, self.getForm());
-             self.addLoader();
+             if (self.getForm().valid()){
+                 translator.update(self.type, self.getForm());
+                 self.addLoader();
+            }
              //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
             return false;
              });
@@ -174,7 +183,18 @@ var Render = new Class({
               //llamo al listado correspondiente
             }
         }
+      },
+      setValidationMessage:function(){
+             jQuery.validator.messages.required = "El siguiente campo es necesario!";
+        },
+      generateValidation:function(){
+          this.getForm().validate({
+                  errorLabelContainer: "#message_box", wrapper: "li"
+              });
+          this.setValidationMessage();
       }
+
+
 });
 
 render=new Render();

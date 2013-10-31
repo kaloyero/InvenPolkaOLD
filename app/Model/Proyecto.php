@@ -1,7 +1,7 @@
 <?php
 class Proyecto extends AppModel {
         public $name = 'Proyecto';
-		
+
 		public $validate = array(
 			'Nombre' => array(
 				'ruleName' => array(
@@ -53,13 +53,8 @@ class Proyecto extends AppModel {
 				'ruleName2' => array(
 					'rule' => 'date'
 				)
-			),
-			'FechaFin' => array(
-				'ruleName2' => array(
-					'rule' => 'date'
-				)
 			)
 		);
-		
+
 }
 ?>
