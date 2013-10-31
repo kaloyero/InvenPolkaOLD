@@ -20,6 +20,7 @@ class ArticulosController extends AppController {
 	   	//Borramos de la sesion,las condiciones de los articulos,porque el usuario entro a el listado completo
 		$this->Session->delete("articulos");
 	}
+
     }
 
    public function view($id = null) {

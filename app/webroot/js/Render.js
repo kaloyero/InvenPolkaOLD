@@ -48,6 +48,8 @@ var Render = new Class({
         //jQuery("#DepositoAddForm").validate();
         // Transform upload file
         jQuery('.uniform-file').uniform();
+    	//Inicializo calendario 
+     	jQuery('.datepicker').datepicker({ dateFormat: 'dd-mm-yy' });
         this.bindAddEvents();
          },
     onView: function(data){

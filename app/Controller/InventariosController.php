@@ -1,20 +1,13 @@
 <?php
 
-    App::import('Model','Articulo');
-	App::import('Model','Deposito');
-	App::import('Model','Ubicacione');
-	App::import('Model','Proyecto');
+	App::import('Model','ConsultasSelect');
+	App::import('Model','ConsultasPaginado');	
 
 class InventariosController extends AppController {
 
     public $helpers = array ('Html','Form');
 
     function index() {
-        $this->paginate = array(
-			'order' => array('Result.created ASC'),
-		     'limit' => 10
-		 );
-        $this->set('inventarios', $this->paginate('Inventario'));
     }
 
 
@@ -34,6 +27,14 @@ class InventariosController extends AppController {
 		}
 
     }
+
+	function ajaxData() {
+			$paginado =new ConsultasPaginado();
+	        $this->autoRender = false;
+			$output = $paginado->getDataInventarios();
+	        echo json_encode($output);
+	}
+
 
 	function edit($id = null) {
 		$this->Inventario->id = $id;
@@ -56,33 +57,12 @@ class InventariosController extends AppController {
 	}
 
 	function setViewData() {
-		$this->set('articulos',$this->getArticulos());
-		$this->set('depositos',$this->getDepositos());
-		$this->set('ubicaciones',$this->getUbicaciones());
-		$this->set('proyectos',$this->getProyectos());
+		$consultas = new ConsultasSelect();
+		$this->set('articulos',$consultas->getArticulos());
+		$this->set('depositos',$consultas->getDepositos());
+		$this->set('ubicaciones',$consultas->getUbicaciones());
+		$this->set('proyectos',$consultas->getProyectos());
 	}
-
-	function getArticulos() {
-		$articulo=new Articulo();
-		$articulos=$articulo->find('list',array('fields'=>array('Articulo.id','Articulo.CodigoArticulo')));
-		return $articulos;
-	}
-	function getDepositos() {
-		$deposito=new Deposito();
-		$depositos=$deposito->find('list',array('fields'=>array('Deposito.id','Deposito.Nombre')));
-		return $depositos;
-	}
-	function getUbicaciones() {
-		$ubicacione=new Ubicacione();
-		$ubicaciones=$ubicacione->find('list',array('fields'=>array('Ubicacione.id','Ubicacione.CodigoUbicacion')));
-		return $ubicaciones;
-	}
-	function getProyectos() {
-		$proyecto=new Proyecto();
-		$proyectos=$proyecto->find('list',array('fields'=>array('Proyecto.id','Proyecto.Nombre')));
-		return $proyectos;
-	}
-
 
 }
 ?>

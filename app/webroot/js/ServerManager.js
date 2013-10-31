@@ -92,7 +92,7 @@ var ServerManager = new Class({
 		    } );
     },
     showList: function(config,isSearch){
-        console.log("LLLL")
+
     	var type = config.object;
     	var self=this;
     	jQuery.ajax({

@@ -13,7 +13,11 @@ echo $this->Form->input('Descripcion',array('class'=>'input-medium','div'=>false
 									<label>Descripcion</label>
 								    <span class="field">',
 									'after'=>'</span></p>'));
+<<<<<<< HEAD
+echo $this->Form->input('FechaFin',array('empty'=>false,'class'=>'datepicker','div'=>false,'label'=>false,'before'=>'<p><label>Fecha Fin</label><span class="field">','after'=>'</span></p>'));
+=======
 echo $this->Form->input('FechaFin',array('empty'=>true,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p><label>Fecha Fin</label><span class="field">','after'=>'</span></p>'));
+>>>>>>> 7ad169e41625c9ccb7603704a23293e26b19a4c0
 //echo $this->Form->end('Guardar');
 echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</button><button type="reset" class="btn">Limpiar Formulario</button></p>';
 ?>
