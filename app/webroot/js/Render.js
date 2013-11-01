@@ -142,19 +142,7 @@ var Render = new Class({
                                   },
                             //Este CallBack se ejecuta cuando esta lista la tabla
                            "fnDrawCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-							   jQuery('.edit').bind("click", function(e) {
-							       console.log("ESESES",self.getSelectedRowId(this))
-								   translator.view(self.type,self.getSelectedRowId(this));
-
-								   return false;
-								//translator.view(self.type);
-							  })
-							  //Ocultamos la columna ID
-                              jQuery("#configurationTable td:first-child").css('display','none');
-
-                               //Si la tabla es de configuraciones,hacerla editable
-                               if (self.isConfigurationTable())
-                                    self.hacerTablaEditable();
+								   self.afterDataTable();
                            }
                        });
        // oTable.fnSetColumnVis( 0, false );
@@ -168,6 +156,25 @@ var Render = new Class({
          jQuery('.activeBreadcrum').append(this.breadcrumb);
 
      },
+	 afterDataTable:function() {
+			self = this;
+		   jQuery('.edit').bind("click", function(e) {
+
+				   alert("jojo");
+			   console.log("ESESES",self.getSelectedRowId(this))
+			   translator.view(self.type,self.getSelectedRowId(this));
+
+			   return false;
+			//translator.view(self.type);
+		  })
+		  //Ocultamos la columna ID
+		  jQuery("#configurationTable td:first-child").css('display','none');
+
+		   //Si la tabla es de configuraciones,hacerla editable
+		   if (self.isConfigurationTable())
+				self.hacerTablaEditable();
+	 },
+	
      isConfigurationTable:function() {
         if (this.type=="categoria"||this.type=="material"||this.type=="estilo"||this.type=="objeto"||this.type=="dimension"||this.type=="decorado")  {
             return true;

@@ -92,8 +92,7 @@ var ServerManager = new Class({
 		    } );
     },
     showList: function(config,isSearch){
-
-    	var type = config.object;
+		var type = config.object;
     	var self=this;
     	jQuery.ajax({
 			type: 'GET',
@@ -164,6 +163,19 @@ var ServerManager = new Class({
     	jQuery.ajax( {
 		      type: "GET",
 		      url: self.services[type]["controllerName"]+"/edit/"+config.id,
+		      success: function(data) {
+		    	  config.onSuccess(data);
+				}
+		    } );
+    },
+
+    confirmarPedido: function(config){
+    	var self=this;
+    	var type = config.object;
+
+    	jQuery.ajax( {
+		      type: "GET",
+		      url: self.services[type]["controllerName"]+"/confirmarPedido/"+config.id,
 		      success: function(data) {
 		    	  config.onSuccess(data);
 				}
