@@ -3,7 +3,7 @@ var Objeto = new Class({
     initialize: function(name){
         this.name = name;
         this.type="objeto";
-        this.breadcrumb='Objeto';
+        this.breadcrumb='Objetos';
         this.descripcion="Desde aqui administre los Objetos"
     },
     onList: function(data){
