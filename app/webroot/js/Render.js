@@ -149,12 +149,7 @@ var Render = new Class({
                                     },
                             //Este CallBack se ejecuta cuando esta lista la tabla
                            "fnDrawCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-
-							  self.postDraw(nRow.aoData);
-
-                               //Si la tabla es de configuraciones,hacerla editable
-                               if (self.isConfigurationTable())
-                                    self.hacerTablaEditable();
+							   self.afterDataTable(nRow.aoData);
                            }
                        });
        // oTable.fnSetColumnVis( 0, false );
@@ -168,6 +163,7 @@ var Render = new Class({
          jQuery('.activeBreadcrum').append(this.breadcrumb);
 
      },
+
      isConfigurationTable:function() {
         if (this.type=="categoria"||this.type=="material"||this.type=="estilo"||this.type=="objeto"||this.type=="dimension"||this.type=="decorado")  {
             return true;
@@ -189,7 +185,7 @@ var Render = new Class({
       setValidationMessage:function(){
              jQuery.validator.messages.required = "El siguiente campo es necesario!";
         },
-      postDraw:function(){
+      afterDataTable:function(){
           var self=this;
             jQuery('.edit').bind("click", function(e) {
 				   translator.view(self.type,self.getSelectedRowId(this));
@@ -197,7 +193,10 @@ var Render = new Class({
 			  })
 			 //Ocultamos la columna ID
              jQuery("#configurationTable td:first-child").css('display','none');
-            },
+
+             if (self.isConfigurationTable())
+    			    self.hacerTablaEditable();
+    	},
       generateValidation:function(){
           this.getForm().validate({
                   errorLabelContainer: "#message_box", wrapper: "li"

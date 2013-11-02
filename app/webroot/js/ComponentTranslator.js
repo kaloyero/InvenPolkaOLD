@@ -89,7 +89,30 @@ var ComponentTranslator = new Class(
                             renderInstace.onView(data);
     					}
     				});
-    			}
+    		},
+			confirmarPedido : function(objectType,idObject) {
+				
+				serverManager.confirmarPedido({
+					object : objectType,
+					id : idObject,
+					onSuccess : function(data) {
+					    console.log("PASA")
+					     var renderInstace = renderTranslator.getRender(objectType);
+    					    renderInstace.onSaved(data);
+					    jQuery.jGrowl("Pedido Confirmado.", {
+					        theme : 'success'
+				        });
+						jQuery('.paginate_active').click();									
+					},
+					onError : function(data) {
+					    jQuery.jGrowl("El Pedido no se pudo confirmar.", {
+					        theme : 'success'
+				        });
+						jQuery('.paginate_active').click();									
+					}
+
+				});
+    		}
 
 		});
 

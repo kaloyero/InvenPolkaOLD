@@ -1,7 +1,7 @@
 <?php
 	App::import('Model','ConsultasSelect');
+	App::import('Model','ConsultasPaginado');	
 	App::import('Model','PedidoDetalle');	
-	App::import('Model','Proyecto');
 	
 class PedidosController extends AppController {
 	public $helpers = array('Html','Form');
@@ -9,27 +9,16 @@ class PedidosController extends AppController {
 	public $findResult;
 
     function index() {
-		//Si la session tiene cargada la variable articulos,viene de un redireccionamiento,si no,se pidio el listado completo
-		if ($this->Session->check("pedidos")){
-			$this->paginate = array(
-				 'conditions' => $this->Session->read("pedidos"),
-				 'order' => array('Result.created ASC'),
-				 'limit' => 5
-			 );
-			$this->set("pedidos",$this->paginate('Pedido'));
-			$this->Session->delete("pedidos");
-		}else{
-				//paginate as normal
-				$this->paginate = array(
-					'order' => array('Result.created ASC'),
-					 'limit' => 10
-				 );
-			//$this->set("articulos",$this->Articulo->find('all'));
-			$this->set("pedidos",	$this->paginate('Pedido'));
-
-		}
 
     }
+
+	function ajaxData() {
+			$paginado =new ConsultasPaginado();
+	        $this->autoRender = false;
+			$output = $paginado->getDataPedidos();
+	        echo json_encode($output);
+	}
+
 
 	function getEstilos() {
 		$estilo=new Estilo();

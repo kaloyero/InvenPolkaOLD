@@ -111,7 +111,7 @@ var Articulo = new Class({
              this.parent();
              translator.show(this.type);
     },
-    postDraw:function(data){
+    afterDataTable:function(data){
         var self=this;
         jQuery("tr").remove();
         jQuery(".infoShow").remove();
