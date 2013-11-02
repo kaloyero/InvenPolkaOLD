@@ -218,7 +218,7 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumnsFilter,$order
 			$fila=array();
         	array_push($fila, array($j[$tabla]['id']));
 	        array_push($fila, array($j[$tabla]['CodigoArticulo']));
-			array_push($fila, '<img src="/InvenPolka/app/webroot/files/articulo/IdFoto/'.$j[$tabla]['dir'].'/'.$j[$tabla]['idFoto'].'" alt="CakePHP" width="200px">');
+			array_push($fila, '<img src="/InvenPolka/app/webroot/files/articulo/IdFoto/'.$j[$tabla]['dir'].'/'.$j[$tabla]['idFoto'].'" alt="CakePHP" width="150px" height="150px">');
 //	        array_push($fila, array($titi));
 			array_push($fila, array($j[$tabla]['categoria']));
 			array_push($fila, array($j[$tabla]['objeto']));
@@ -322,7 +322,7 @@ private function getArrayDataWithEditLink($tabla,$rows,$aColumns,$titi) {
 				} else {
 					//Si es foto
 					if ($column == "idFoto"){
-						array_push($fila, '<img src="/InvenPolka/app/webroot/files/articulo/IdFoto/'.$j[$tabla]['dir'].'/'.$j[$tabla]['idFoto'].'" alt="CakePHP" width="200px">');						
+						array_push($fila, '<img src="/InvenPolka/app/webroot/files/articulo/IdFoto/'.$j[$tabla]['dir'].'/'.$j[$tabla]['idFoto'].'" alt="CakePHP" width="200px">');
 					}
 				}
 			}

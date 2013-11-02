@@ -168,7 +168,7 @@ var ServerManager = new Class({
 		    	  config.onSuccess(data);
 				}
 		    } );
-    },
+    }
 
 });
 

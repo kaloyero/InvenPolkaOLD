@@ -48,7 +48,7 @@ var Render = new Class({
         //jQuery("#DepositoAddForm").validate();
         // Transform upload file
         jQuery('.uniform-file').uniform();
-    	//Inicializo calendario 
+    	//Inicializo calendario
      	jQuery('.datepicker').datepicker({ dateFormat: 'dd-mm-yy' });
         this.bindAddEvents();
          },
@@ -140,17 +140,17 @@ var Render = new Class({
 
                                           }
                                   },
+                                  "fnPreDrawCallback": function( nRow, aData, iDisplayIndex ) {
+                                      console.log("s",arguments)
+                                  },
+                                   "fnCreatedRow": function( nRow, aData, iDisplayIndex ) {
+                                        //jQuery("tr").remove();
+                                        jQuery('td').html( '<b>A</b>' )
+                                    },
                             //Este CallBack se ejecuta cuando esta lista la tabla
                            "fnDrawCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-							   jQuery('.edit').bind("click", function(e) {
-							       console.log("ESESES",self.getSelectedRowId(this))
-								   translator.view(self.type,self.getSelectedRowId(this));
 
-								   return false;
-								//translator.view(self.type);
-							  })
-							  //Ocultamos la columna ID
-                              jQuery("#configurationTable td:first-child").css('display','none');
+							  self.postDraw(nRow.aoData);
 
                                //Si la tabla es de configuraciones,hacerla editable
                                if (self.isConfigurationTable())
@@ -189,6 +189,15 @@ var Render = new Class({
       setValidationMessage:function(){
              jQuery.validator.messages.required = "El siguiente campo es necesario!";
         },
+      postDraw:function(){
+          var self=this;
+            jQuery('.edit').bind("click", function(e) {
+				   translator.view(self.type,self.getSelectedRowId(this));
+				   return false;
+			  })
+			 //Ocultamos la columna ID
+             jQuery("#configurationTable td:first-child").css('display','none');
+            },
       generateValidation:function(){
           this.getForm().validate({
                   errorLabelContainer: "#message_box", wrapper: "li"
