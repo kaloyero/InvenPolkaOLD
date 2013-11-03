@@ -15,12 +15,13 @@ echo $this->Form->input('idFoto', array('type' => 'file', 'accept' =>'image/*','
 echo $this->Form->input('dir', array('type' => 'hidden','value' => ''));
 //echo $this->Form->input('CodigoArticulo',array('class'=>'input-medium'));
 echo $this->Form->input('CodigoArticulo',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
-                                <label>Codigo Articulo</label>
-                                <span class="field">',
-								'after'=>'</span></p>'));
-echo $this->Form->input('Descripcion',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
-								                                <label>Descripcion</label>
-								                                <span class="field">',
+                                <label style="float: left;">Codigo Articulo</label>
+                                <span class="field float">',
+								'after'=>'</span>'));
+
+echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5','div'=>false,'label'=>false,'before'=>'
+								                                <label style="float: left;">Descripcion</label>
+								                                <span class="field float">',
 																'after'=>'</span></p>'));
 //echo $this->Form->input('Descripcion',array('class'=>'input-medium'));
 //Acceder al wrapper del Input array('div'=>array('class'=>'selector focus') Poner antes del input 'before'=>'<span>Decorado</span>'

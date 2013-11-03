@@ -19,13 +19,13 @@ echo '<span class="field"><img src="/invenPolka/app/webroot/files/articulo/IdFot
 echo $this->Form->input('dir', array('type' => 'hidden','value' => ''));
 //echo $this->Form->input('CodigoArticulo',array('class'=>'input-medium'));
 echo $this->Form->input('CodigoArticulo',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
-                                <label>Codigo Articulo</label>
-                                <span class="field">',
-								'after'=>'</span></p>'));
+                                <label style="float: left;">Codigo Articulo</label>
+                                <span class="field float">',
+								'after'=>'</span>'));
 
-echo $this->Form->input('Descripcion',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
-								                                <label>Descripcion</label>
-								                                <span class="field">',
+echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5','div'=>false,'label'=>false,'before'=>'
+								                                <label style="float: left;">Descripcion</label>
+								                                <span class="field float">',
 																'after'=>'</span></p>'));
 
 echo $this->Form->input('Articulo.IdCategoria',array('type'=>'select','options'=>$categorias,'empty'=>false,'class'=>'uniformselect'															,'div'=>false,'label'=>false,'before'=>'<p><label>Configuraciones</label><span class="field"> Categoria :'));
