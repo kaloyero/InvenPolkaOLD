@@ -63,6 +63,7 @@ var Render = new Class({
             this.removeLoader();
        },
     onSaved: function(data){
+			console.log("Saved");
              this.checkContinue();
              this.removeLoader();
       },
@@ -118,6 +119,7 @@ var Render = new Class({
 
       },
       removeLoader:function() {
+		  console.log("mensajito");
           jQuery('.loader').remove();
        },
        makeDatatable:function() {
@@ -169,7 +171,6 @@ var Render = new Class({
          jQuery('.activeBreadcrum').append(this.breadcrumb);
 
      },
-
      isConfigurationTable:function() {
         if (this.type=="categoria"||this.type=="material"||this.type=="estilo"||this.type=="objeto"||this.type=="dimension"||this.type=="decorado")  {
             return true;

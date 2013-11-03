@@ -6,6 +6,7 @@
 	App::import('Model','Deposito');
 	App::import('Model','Inventario');
 	App::import('Model','Pedido');
+	App::import('Model','MovimientoInventario');
 
 class ConsultasPaginado extends AppModel {
 	public $name = 'ConsultasPaginado';
@@ -110,6 +111,28 @@ class ConsultasPaginado extends AppModel {
 		}
 
 ////////////////////////////// {FIN} Inventario -> DATATABLE //////////////////////////////
+
+/********************************************************************************\
+****************************** {INICIO} Movimiento -> DATATABLE ***************
+\********************************************************************************/
+
+		/*   */
+		function getDataMovimientos() {
+				$model=new MovimientoInventario();
+				$tabla="movimientos_vista";
+				//Columnas que voy a mostrar
+			    $aColumns = array( 'id','Numero','Fecha','TipoMovimiento','deposito_orig','deposito_dest','pedido','proyecto','Estudio');
+		        //Columnas por las que se va a filtrar
+			    $aColumnsFilter = array( 'Numero','Fecha','Descripcion','TipoMovimiento','deposito_orig','deposito_dest','pedido','proyecto','Estudio' );
+				//Columna por la cual se va ordenar
+				$orderByfield = 'Fecha,deposito_orig,proyecto,estudio,TipoMovimiento,Numero';
+				
+				$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,true);
+				return $output;
+		}
+
+////////////////////////////// {FIN} PROYECTO -> DATATABLE //////////////////////////////
+
 
 /*************************************************************************************\
 ****************************** {INICIO} Pedidos -> DATATABLE *************************

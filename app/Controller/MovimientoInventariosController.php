@@ -1,6 +1,7 @@
 <?php
 
 	App::import('Model','ConsultasSelect');
+	App::import('Model','ConsultasPaginado');	
 	App::import('Model','MovimientoDetalleInventario');
 
 class MovimientoInventariosController extends AppController {
@@ -50,6 +51,13 @@ class MovimientoInventariosController extends AppController {
 		}
 
     }
+
+	function ajaxData() {
+			$paginado =new ConsultasPaginado();
+	        $this->autoRender = false;
+			$output = $paginado->getDataMovimientos();
+	        echo json_encode($output);
+	}
 
 	function edit($id = null) {
 		$this->MovimientoInventario->id = $id;

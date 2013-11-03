@@ -41,7 +41,7 @@ class DecoradosController extends AppController {
 			if ($this->Decorado->save($this->request->data)) {
 				$this->Session->setFlash('Cambios guardados');
 				echo "Ok";
-				//$this->redirect(array('action' => 'index'));
+				$this->redirect(array('action' => 'index'));
 			}
 		}
 	}

@@ -1,8 +1,7 @@
-<p><a id="add">Agregar</a></p>
 <table  id="configurationTable" class ="table table-bordered" width="100%"  style="width: 100%;">
 	<thead>
 	     <tr>
-		                <th style="display:none;">Id</th>
+						<th style="display:none;">Id</th>
 		                <th>Numero</th>
                         <th>Fecha</th>
                         <th>Proyecto</th>

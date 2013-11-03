@@ -22,23 +22,19 @@ echo $this->Form->input('Pedido.IdEstudio',array('type'=>'select','options'=>$es
                                 <span class="field">',
 								'after'=>'</span></p>'));
 ?>
-<?php 	
-//Agregar Articulos al pedido (detalle pedido)
-echo $this->Form->input('ArtArticulo',array('id'=>'ArtArticulo','type'=>'select','options'=>$articulos,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p>
-                                <label>Articulo</label>
-                                <span class="field">',
-								'after'=>'</span></p>'));
-echo $this->Form->input('ArtCantidad',array('id'=>'ArtCantidad','label'=>'Cantidad','min'=>'0','value'=>'0','type'=>'number')); 
-?>
+<table  id="listaArticulos" class ="table table-bordered" width="100%"  style="width: 100%;">
+	<thead>
+					<tr>
+						<th style="display:none;">Id</th>
+                        <th>Articulo</th>
+                        <th>Cantidad</th>
+		            </tr>
+	</thead>
+	<tbody>
+	</tbody>
+</table>
 
-<a id="agregarArticulo" class="btn btn-info" href="#">Agregar Campo</a>
-<BR>
-<div id="contenedor">
-    <div class="added">
-	</div>
-</div>
-<BR>
-<?php 	
+<?php
 echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</button><button type="reset" class="btn">Limpiar Formulario</button></p>';
 ?>
 </div>

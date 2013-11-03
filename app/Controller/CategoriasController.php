@@ -28,8 +28,7 @@ class CategoriasController extends AppController {
         if ($this->request->is('post')) {
             if ($this->Categoria->save($this->request->data)) {
                 $this->Session->setFlash('Categoria Guardada con Exito.');
-				echo "OK";
-				//$this->addRedirect('Categoria');
+				$this->addRedirect('Categoria');
             }else{
 			echo "Rp[oblema]";
 }
@@ -60,7 +59,7 @@ class CategoriasController extends AppController {
 				//$this->Session->setFlash('Cambios guardados');
 				//$this->Session->write("ajaxRequest",true);
 				//$this->redirect(array('action' => 'index'));
-				echo "Ok";
+				$this->redirect(array('action' => 'index'));
 			}
 		}
 	}

@@ -6,6 +6,17 @@ var Articulo = new Class({
         this.breadcrumb='Articulos';
         this.descripcion="Desde aqui administre los Articulos"
     },
+    bindListEvents:function() {
+			this.parent();
+          jQuery('.crearPedido').bind("click", function(e) {
+			  	alert("Andale andale creando pedido manito");
+				translator.add("pedido");
+
+               	return false;
+       	    	//translator.view(self.type);
+          })
+        },
+
      bindAddEvents:function() {
          var self=this;
          this.styleForm();
