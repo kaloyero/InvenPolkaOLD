@@ -17,6 +17,7 @@ class DepositosController extends AppController {
    public function view($id = null) {
 
    }
+
 	function ajaxData() {
 			$paginado =new ConsultasPaginado();
 	        $this->autoRender = false;
@@ -26,10 +27,10 @@ class DepositosController extends AppController {
     public function add() {
 	    if ($this->request->is('post')) {
     		if ($this->Deposito->save($this->request->data)) {
-
-				$this->Session->setFlash('Deposito Guardada con Exito.');
-            	$this->redirect(array('action' => 'index'));
-        	}
+				$this->render('/General/Success');
+        	}else{
+				$this->render('/General/Error');
+			}
 		}
     }
 
@@ -39,9 +40,10 @@ class DepositosController extends AppController {
 		        $this->request->data = $this->Deposito->read();
 		    } else {
 		        if ($this->Deposito->save($this->request->data)) {
-		            $this->Session->setFlash('Your post has been updated.');
-		            $this->redirect(array('action' => 'index'));
-		        }
+		          	$this->render('/General/Success');
+	        	}else{
+					$this->render('/General/Error');
+				}
 		    }
 	}
 

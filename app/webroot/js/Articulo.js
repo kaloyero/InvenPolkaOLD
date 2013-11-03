@@ -11,9 +11,7 @@ var Articulo = new Class({
           jQuery('.crearPedido').bind("click", function(e) {
 			  	alert("Andale andale creando pedido manito");
 				translator.add("pedido");
-
                	return false;
-       	    	//translator.view(self.type);
           })
         },
 
@@ -31,18 +29,14 @@ var Articulo = new Class({
                                         alert("Seleccione una Foto del ARticulooo")
                                         return false;
                                     }else{
-                                        console.log("Else")
                                         self.addLoader();
                                         return true;
                                     }
                                 }
                 },
-                 success: function () {
-                     self.checkContinue();
-                     self.removeLoader();
-                     jQuery.jGrowl("Creado con exito.", {
-					        theme : 'success'
-				        });
+                 success: function (data) {
+                     self.onSaved();
+                     messageRender.createMessage(data);
                  }
 
            });
@@ -59,11 +53,9 @@ var Articulo = new Class({
                      return true;
                 }
              },
-             success: function () {
+             success: function (data) {
                  self.onUpdated();
-                 jQuery.jGrowl("Actualizado con exito.", {
-				        theme : 'success'
-			        });
+                 messageRender.createMessage(data);
              }
         })
     },

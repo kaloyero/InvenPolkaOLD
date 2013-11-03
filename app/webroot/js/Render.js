@@ -63,7 +63,6 @@ var Render = new Class({
             this.removeLoader();
        },
     onSaved: function(data){
-			console.log("Saved");
              this.checkContinue();
              this.removeLoader();
       },
@@ -119,7 +118,6 @@ var Render = new Class({
 
       },
       removeLoader:function() {
-		  console.log("mensajito");
           jQuery('.loader').remove();
        },
        makeDatatable:function() {

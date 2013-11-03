@@ -20,9 +20,10 @@ class EstilosController extends AppController {
     public function add() {
         if ($this->request->is('post')) {
             if ($this->Estilo->save($this->request->data)) {
-                $this->Session->setFlash('Estilo Guardada con Exito.');
-				$this->addRedirect('Estilo');
-            }
+                $this->render('/General/Success');
+        	}else{
+				$this->render('/General/Error');
+			}
         }
     }
 
@@ -39,9 +40,9 @@ class EstilosController extends AppController {
 			$this->request->data = $this->Estilo->read();
 		} else {
 			if ($this->Estilo->save($this->request->data)) {
-				$this->Session->setFlash('Cambios guardados');
-				$this->redirect(array('action' => 'index'));
-				echo "Ok";
+				$this->render('/General/Success');
+        	}else{
+				$this->render('/General/Error');
 			}
 		}
 	}

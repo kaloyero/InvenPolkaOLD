@@ -16,22 +16,7 @@ class ArticulosController extends AppController {
     public $helpers = array ('Html','Form');
 	public $findResult;
     function index() {
-/*				if ($this->Session->check("articulos")){
-					$this->paginate = array(
-					     'conditions' => $this->Session->read("articulos"),
-					     'order' => array('Result.created ASC'),
-					     'limit' => 5
-					 );
-					$this->set("articulos",$this->paginate('Articulo'));
-					$this->Session->delete("articulos");
-				}else{
-					//paginate as normal
-					$this->paginate = array(
-						'order' => array('Result.created ASC'),
-						 'limit' => 10
-					 );
-					$this->set("articulos",	$this->paginate('Articulo'));
-				}*/
+
     }
 
    public function view($id = null) {
@@ -42,11 +27,10 @@ class ArticulosController extends AppController {
         if ($this->request->is('post')) {
 				$this->removeSpecialCharactersFromImage();
             if ($this->Articulo->save($this->request->data)) {
-                $this->Session->setFlash('Articulo Guardada con Exito.');
-                $this->redirect(array('action' => 'index'));
-            }	else{
-					$this->setViewData();
-				}
+               	$this->render('/General/Success');
+        	}else{
+				$this->render('/General/Error');
+			}
         } else {
 			$this->setViewData();
 			}
@@ -162,8 +146,8 @@ class ArticulosController extends AppController {
 				//$_SESSION['prueba']="puti";
 				$this->Session->write("articulos",$conditions);
 
-				
-				
+
+
 				// $this->set("articulos",$results);
 				//$this->redirect(array('action' => 'index'));
 	 }else{

@@ -20,9 +20,10 @@ class ObjetosController extends AppController {
     public function add() {
         if ($this->request->is('post')) {
             if ($this->Objeto->save($this->request->data)) {
-                $this->Session->setFlash('Tipo de objeto Guardado con Exito.');
-				$this->addRedirect('Objeto');
-            }
+                $this->render('/General/Success');
+        	}else{
+				$this->render('/General/Error');
+			}
         }
 
     }
