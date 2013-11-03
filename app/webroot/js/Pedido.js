@@ -12,27 +12,13 @@ var Pedido = new Class({
     },
 	 afterDataTable:function() {
 		self = this;
-		jQuery('.edit').bind("click", function(e) {
-			console.log("ESESES",self.getSelectedRowId(this))
-			translator.view(self.type,self.getSelectedRowId(this));
-	
-			return false;
-			//translator.view(self.type);
-		})
+	    this.parent();
+
 		jQuery('.confirm').bind("click", function(e) {
-			console.log("ESESES",self.getSelectedRowId(this))
 			translator.confirmarPedido(self.type,self.getSelectedRowId(this));
 			return false;
-			//translator.view(self.type);
 		})
 
-		
-		//Ocultamos la columna ID
-		jQuery("#configurationTable td:first-child").css('display','none');
-		
-		//Si la tabla es de configuraciones,hacerla editable
-		if (self.isConfigurationTable())
-			self.hacerTablaEditable();
 	 },
 
      bindAddEvents:function() {
