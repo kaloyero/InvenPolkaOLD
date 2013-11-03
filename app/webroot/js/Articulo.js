@@ -37,7 +37,11 @@ var Articulo = new Class({
                  success: function (data) {
                      self.onSaved();
                      messageRender.createMessage(data);
-                 }
+                 },
+ 			     error: function(data) {
+ 			         self.onSaved();
+ 			         messageRender.createMessage(data);
+ 			     }
 
            });
        },
@@ -56,7 +60,11 @@ var Articulo = new Class({
              success: function (data) {
                  self.onUpdated();
                  messageRender.createMessage(data);
-             }
+             },
+  			error: function(data) {
+  			    self.onUpdated();
+  			    messageRender.createMessage(data);
+  			}
         })
     },
 

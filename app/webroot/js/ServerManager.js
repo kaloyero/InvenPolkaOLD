@@ -152,12 +152,8 @@ var ServerManager = new Class({
 		      url: self.services[type]["controllerName"]+"/add",
 		      data: config.data.serialize(),
 		      success: function(data) {
-		          console.log("OJO")
 		    	  config.onSuccess(data);
-				},
-			 error: function(data) {
-			    console.log("OJO2")
-			 }
+				}
 		    } );
     },
     view: function(config){
