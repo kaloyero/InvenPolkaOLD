@@ -2,28 +2,10 @@ var MovimientoInventario = new Class({
     Extends: Render,
     initialize: function(name){
         this.name = name;
+        this.type='movimientoInventario';
+        this.breadcrumb='movimientoInventarios';
+        this.descripcion="Desde aqui administre los Movimientos"
     },
-    hacerTablaEditable: function(){
-
-    },
-    onList: function(data){
-        this.cleanCanvas();
-        jQuery(".contentinner").append(data);
-        this.bindListEvents();
-     },
-     onAdd: function(data){
-         this.cleanCanvas();
-         jQuery(".contentinner").append(data);
-         // Transform upload file
-     	jQuery('.uniform-file').uniform();
-         this.bindAddEvents();
-      },
-     bindListEvents:function() {
-
-     	jQuery('#add').bind("click", function(e) {
-     	    translator.add("movimientoInventario")
-        })
-     },
      bindAddEvents:function() {
         var self=this;
 		//AGREGAR ITEMS A LISTA DE ARTICULOS
@@ -93,9 +75,6 @@ var MovimientoInventario = new Class({
 			return false;
        	});
    	}
-	
-		
-		
 	
 });
 

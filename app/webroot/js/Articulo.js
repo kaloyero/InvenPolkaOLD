@@ -6,6 +6,17 @@ var Articulo = new Class({
         this.breadcrumb='Articulos';
         this.descripcion="Desde aqui administre los Articulos"
     },
+    bindListEvents:function() {
+			this.parent();
+          jQuery('.crearPedido').bind("click", function(e) {
+			  	alert("Andale andale creando pedido manito");
+				translator.add("pedido");
+
+               	return false;
+       	    	//translator.view(self.type);
+          })
+        },
+
      bindAddEvents:function() {
          var self=this;
          this.styleForm();
@@ -110,7 +121,22 @@ var Articulo = new Class({
      onUpdated: function(){
              this.parent();
              translator.show(this.type);
-    }
+    },
+    afterDataTable:function(data){
+        var self=this;
+        jQuery("tr").remove();
+        jQuery(".infoShow").remove();
+	    for(i=0; i< data.length; i++) {
+		    jQuery("#configurationTable").before('<div  class="infoShow">'+data[i]["_aData"][2]+'<input type="checkbox" name="option3"><a href="#" id='+data[i]["_aData"][0][0]+' class="edit"><img style="width:20px;height:20;display:inline" src="/InvenPolka/app/webroot/files/gif/edit.jpg"></a><img style="width:20px;height:20px;display:inline" src="/InvenPolka/app/webroot/files/gif/desactivar.png"></div>')
+        }
+        jQuery('.edit').bind("click", function(e) {
+				   translator.view(self.type,self.getSelectedRowId(this));
+				   return false;
+		})
+},
+    getSelectedRowId:function(selectedRow) {
+        return jQuery(selectedRow).attr('id');
+  }
 });
 
 articuloRender=new Articulo();

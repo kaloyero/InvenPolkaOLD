@@ -48,7 +48,7 @@ var Render = new Class({
         //jQuery("#DepositoAddForm").validate();
         // Transform upload file
         jQuery('.uniform-file').uniform();
-    	//Inicializo calendario 
+    	//Inicializo calendario
      	jQuery('.datepicker').datepicker({ dateFormat: 'dd-mm-yy' });
         this.bindAddEvents();
          },
@@ -142,9 +142,16 @@ var Render = new Class({
 
                                           }
                                   },
+                                  "fnPreDrawCallback": function( nRow, aData, iDisplayIndex ) {
+                                      console.log("s",arguments)
+                                  },
+                                   "fnCreatedRow": function( nRow, aData, iDisplayIndex ) {
+                                        //jQuery("tr").remove();
+                                        jQuery('td').html( '<b>A</b>' )
+                                    },
                             //Este CallBack se ejecuta cuando esta lista la tabla
                            "fnDrawCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-								   self.afterDataTable();
+							   self.afterDataTable(nRow.aoData);
                            }
                        });
        // oTable.fnSetColumnVis( 0, false );
@@ -158,23 +165,6 @@ var Render = new Class({
          jQuery('.activeBreadcrum').append(this.breadcrumb);
 
      },
-	 afterDataTable:function() {
-			self = this;
-		   jQuery('.edit').bind("click", function(e) {
-			   console.log("ESESES",self.getSelectedRowId(this))
-			   translator.view(self.type,self.getSelectedRowId(this));
-
-			   return false;
-			//translator.view(self.type);
-		  })
-		  //Ocultamos la columna ID
-		  jQuery("#configurationTable td:first-child").css('display','none');
-
-		   //Si la tabla es de configuraciones,hacerla editable
-		   if (self.isConfigurationTable())
-				self.hacerTablaEditable();
-	 },
-	
      isConfigurationTable:function() {
         if (this.type=="categoria"||this.type=="material"||this.type=="estilo"||this.type=="objeto"||this.type=="dimension"||this.type=="decorado")  {
             return true;
@@ -196,6 +186,18 @@ var Render = new Class({
       setValidationMessage:function(){
              jQuery.validator.messages.required = "El siguiente campo es necesario!";
         },
+      afterDataTable:function(){
+          var self=this;
+            jQuery('.edit').bind("click", function(e) {
+				   translator.view(self.type,self.getSelectedRowId(this));
+				   return false;
+			  })
+			 //Ocultamos la columna ID
+             jQuery("#configurationTable td:first-child").css('display','none');
+
+             if (self.isConfigurationTable())
+    			    self.hacerTablaEditable();
+    	},
       generateValidation:function(){
           this.getForm().validate({
                   errorLabelContainer: "#message_box", wrapper: "li"

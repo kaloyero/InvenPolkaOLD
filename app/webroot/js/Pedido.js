@@ -38,12 +38,6 @@ var Pedido = new Class({
      bindAddEvents:function() {
 		this.parent();
 		var self=this;
- 		var contenedor        		= jQuery('#contenedor'); //ID del contenedor
-		var AddArticuloBtn			= jQuery('#agregarArticulo');
-		var ArtCantidad       		= jQuery('#ArtCantidad'); //Articulo cantidad
-		var ArtArticulo       		= jQuery('#ArtArticulo option:selected'); //Articulo seleccionado
-		var x = jQuery('#contenedor div').length ;		//var x = número de campos existentes en el contenedor
-		var FieldCount = x-1; //para el seguimiento de los campos
 
 		//TODO ver de sacar
       	jQuery('.save').bind("click", function(e) {
@@ -52,24 +46,6 @@ var Pedido = new Class({
       	    return false;
         });
 
-		//Agregar articulos en la tabla
-		AddArticuloBtn.bind("click", function(e) {
-			FieldCount++;
-			//validar que el articulo no exista
-			
-			
-
-				//agregar campo
-				contenedor.append('' +
-					' <div>' +
-					'	Articulo: <input name="nomArticulo" type="text" value="' + ArtArticulo.text() + '" readonly="readonly" />' +
-					'	Cantidad: <input name="data[Detalle]['+FieldCount+'][Cantidad]" id="data[Detalle]['+FieldCount+'][Cantidad]" type="text" value="' + ArtCantidad.val() + '" readonly="readonly" />' +
-					'  <input name="data[Detalle]['+FieldCount+'][IdArticulo]" type="hidden" value="' + ArtArticulo.val() + '" readonly="readonly" />' +
-					'<a href="#" class="eliminar">&times;</a>' +
-				'</div>');
-				x++;
-
-        });
 
   	}
 });

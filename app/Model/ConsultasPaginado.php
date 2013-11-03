@@ -5,7 +5,8 @@
 	App::import('Model','Estudio');
 	App::import('Model','Deposito');
 	App::import('Model','Inventario');
-	App::import('Model','Pedido');	
+	App::import('Model','Pedido');
+	App::import('Model','MovimientoInventario');
 
 class ConsultasPaginado extends AppModel {
 	public $name = 'ConsultasPaginado';
@@ -49,7 +50,7 @@ class ConsultasPaginado extends AppModel {
 				$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,true);
 				return $output;
 		}
-		
+
 ////////////////////////////// {FIN} PROYECTO -> DATATABLE //////////////////////////////
 
 /********************************************************************************\
@@ -111,6 +112,28 @@ class ConsultasPaginado extends AppModel {
 
 ////////////////////////////// {FIN} Inventario -> DATATABLE //////////////////////////////
 
+/********************************************************************************\
+****************************** {INICIO} Movimiento -> DATATABLE ***************
+\********************************************************************************/
+
+		/*   */
+		function getDataMovimientos() {
+				$model=new MovimientoInventario();
+				$tabla="movimientos_vista";
+				//Columnas que voy a mostrar
+			    $aColumns = array( 'id','Numero','Fecha','TipoMovimiento','deposito_orig','deposito_dest','pedido','proyecto','Estudio');
+		        //Columnas por las que se va a filtrar
+			    $aColumnsFilter = array( 'Numero','Fecha','Descripcion','TipoMovimiento','deposito_orig','deposito_dest','pedido','proyecto','Estudio' );
+				//Columna por la cual se va ordenar
+				$orderByfield = 'Fecha,deposito_orig,proyecto,estudio,TipoMovimiento,Numero';
+				
+				$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,true);
+				return $output;
+		}
+
+////////////////////////////// {FIN} PROYECTO -> DATATABLE //////////////////////////////
+
+
 /*************************************************************************************\
 ****************************** {INICIO} Pedidos -> DATATABLE *************************
 \*************************************************************************************/
@@ -125,7 +148,7 @@ class ConsultasPaginado extends AppModel {
 			$aColumnsFilter = array(  'Numero' ,'proyecto',  'estudio'  );
 			//Columna por la cual se va ordenar
 			$orderByfield = 'Fecha, proyecto, estudio, Numero';
-			
+
 			//CREATE TABLE
 			//Consigue el query que se va ejecutar
 			$query=$this->getDataDefaultQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield,"");
@@ -151,7 +174,7 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi) {
 	        foreach($aColumns as $column){
 					array_push($fila, array($j[$tabla][$column]));
 			}
-			
+
 			//Botonera
 			$botonera = " <div>";
 			if ($j[$tabla]["estado"] == "abierto"){
@@ -162,7 +185,7 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi) {
 			} else {
 				$botonConfirmar = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/confirmarOff.png' /></div>";
 				$botonEditar = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/editOff.jpg' /></div>";
-				
+
 				$botonera = $botonera.$botonConfirmar.$botonEditar ;
 			}
 			$botonVer ="<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/pedidos/view/".$j[$tabla]['id']."' class='view'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/view.png' /></a></div>";
@@ -288,7 +311,7 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumnsFilter,$order
 			$fila=array();
         	array_push($fila, array($j[$tabla]['id']));
 	        array_push($fila, array($j[$tabla]['CodigoArticulo']));
-			array_push($fila, '<img src="/InvenPolka/app/webroot/files/articulo/IdFoto/'.$j[$tabla]['dir'].'/'.$j[$tabla]['idFoto'].'" alt="CakePHP" width="200px">');
+			array_push($fila, '<img style="width:250px; height:150px;border-style:solid;border-width:3px;" src="/InvenPolka/app/webroot/files/articulo/IdFoto/'.$j[$tabla]['dir'].'/'.$j[$tabla]['idFoto'].'" alt="CakePHP" >');
 //	        array_push($fila, array($titi));
 			array_push($fila, array($j[$tabla]['categoria']));
 			array_push($fila, array($j[$tabla]['objeto']));
@@ -296,8 +319,6 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumnsFilter,$order
 			array_push($fila, array($j[$tabla]['material']));
 			array_push($fila, array($j[$tabla]['dimension']));
 			array_push($fila, array($j[$tabla]['estilo']));
-				array_push($fila, " <div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/articulos/edit/".$j[$tabla]['id']."' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>");
-
 			array_push($arrayDt, $fila);
       }
 //*/
@@ -392,7 +413,7 @@ private function getArrayDataWithEditLink($tabla,$rows,$aColumns,$titi) {
 				} else {
 					//Si es foto
 					if ($column == "idFoto"){
-						array_push($fila, '<img src="/InvenPolka/app/webroot/files/articulo/IdFoto/'.$j[$tabla]['dir'].'/'.$j[$tabla]['idFoto'].'" alt="CakePHP" width="200px">');						
+						array_push($fila, '<img src="/InvenPolka/app/webroot/files/articulo/IdFoto/'.$j[$tabla]['dir'].'/'.$j[$tabla]['idFoto'].'" alt="CakePHP" width="200px">');
 					}
 				}
 			}

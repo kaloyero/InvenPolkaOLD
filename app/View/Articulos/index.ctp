@@ -1,19 +1,19 @@
-<p><a id="add">Agregar</a></p>
+
+
+<p class="stdformbutton">
+	<button id="add" class="btn">Agregar</button>
+	<button class="btn btn-primary crearPedido">Asignar a Deposito</button>		
+	<button class="btn btn-primary crearPedido">Dar de Baja Articulos</button>
+	<button class="btn btn-primary crearPedido">Crear Pedido</button>
+</p>
 <table  id="configurationTable" class ="table table-bordered" width="100%"  style="width: 100%;">
 	<thead>
 	     <tr>
 		                <th style="display:none;">Id</th>
-		                <th>Codigo Articulo</th>
-		                <th>Foto</th>
-		                <th>Categoria</th>
-		                <th>Objeto</th>
-						<th>Uso/Decorado</th>
-						<th>Material/Color</th>
-						<th>Tamaño</th>
-		    			<th>Estilo</th>
-		                <th>Acciones</th>
+
 		            </tr>
 	</thead>
 	<tbody>
 	</tbody>
 </table>
+

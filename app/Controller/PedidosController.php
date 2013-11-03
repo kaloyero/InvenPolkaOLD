@@ -100,7 +100,9 @@ class PedidosController extends AppController {
 				$this->Pedido->save();
 			}
 		}
-		$this->redirect(array('action' => 'index'));
+        $this->redirect(array('action' => 'add'));
+		
+//		$this->redirect(array('action' => 'index'));
 		
 //		$this->Status->id = 3; // This avoids the query performed by read()
 //		$this->Status->saveField('amount', 5000);
