@@ -10,12 +10,12 @@ var Articulo = new Class({
         this.descripcion="Desde aqui administre los Articulos"
     },
     bindListEvents:function() {
+          var self=this;
 		  this.parent();
 		  //Ponemos en 0 nuevamente el array de seleccionados
 		  this.currentSelectedArticulos={};
           jQuery('.crearPedido').bind("click", function(e) {
-			  	alert("Andale andale creando pedido manito");
-				translator.add("pedido");
+				translator.add("pedido",self.getDataToSendInJsonFormat());
                	return false;
           })
 
@@ -169,7 +169,15 @@ var Articulo = new Class({
    },
    getArticuloIdFromCheckBoxSelection:function(selectedCheck) {
        return jQuery(selectedCheck).next().attr("id");
-  }
+   },
+   getDataToSendInJsonFormat:function(data){
+       var jsonToSend={};
+
+       jQuery.each(this.currentSelectedArticulos, function(key, value) {
+            jsonToSend["id"+key] = key
+       });
+       return jsonToSend;
+   }
 });
 
 articuloRender=new Articulo();

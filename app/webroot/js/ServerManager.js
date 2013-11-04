@@ -125,16 +125,15 @@ var ServerManager = new Class({
       			data: config.data.serialize(),
       			success: function(data) {
       			    self.showList({object:type,onSuccess:config.onSuccess},true)
-                      //config.onSuccess(data);
       			}
       		});
           },
     add: function(config){
-
     	var self=this;
     	var type = config.object;
     	jQuery.ajax({
 			type: 'GET',
+			data:config.data,
 			url: self.services[type]["controllerName"]+"/add",
 			success: function(data) {
 
@@ -180,7 +179,7 @@ var ServerManager = new Class({
 		    	  config.onSuccess(data);
 				}
 		    } );
-    },
+    }
 
 });
 

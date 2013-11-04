@@ -19,9 +19,10 @@ var ComponentTranslator = new Class(
 					}
 				});
 			},
-			add : function(objectType) {
+			add : function(objectType,dataToSend) {
 				serverManager.add({
 					object : objectType,
+					data:dataToSend,
 					onSuccess : function(data) {
 					    var renderInstace = renderTranslator.getRender(objectType);
                         renderInstace.onAdd(data);
