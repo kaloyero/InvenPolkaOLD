@@ -143,8 +143,13 @@ var Articulo = new Class({
             }else{
                 delete self.currentSelectedArticulos[articuloId];
                  }
-            console.log("ArtSele",self.currentSelectedArticulos)
+            if (jQuery('input:checked').length >0){
+                 jQuery('.crearPedido').removeAttr("disabled");
+            }else{
+                jQuery('.crearPedido').attr("disabled", "disabled");
+            }
            })
+
 
 },
     checkElements:function(){

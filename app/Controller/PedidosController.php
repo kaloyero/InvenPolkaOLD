@@ -45,20 +45,24 @@ class PedidosController extends AppController {
 				$this->Pedido->updateAll(array('Numero'=>$idInsertedPedido), array('Pedido.id'=>$idInsertedPedido));
 				//hago el alta del detalle
 				$this->agregarDetalles();
-                $this->Session->setFlash('Pedido Guardado');
-                $this->redirect(array('action' => 'index'));
-            }
+	          	$this->render('/General/Success');
+            } else {
+				$this->render('/General/Error');				
+			}
         } else {
 			//CargarLista de Articulos
-			$testArray = array(18,19,20);
-			$this->getListaArticulos($testArray);
+			$this->getListaArticulos();
 			$this->setViewData();
 		}
     }
 	//Consulta a la base los datos de los articulos seleccionados
-	function getListaArticulos($array) {
+	function getListaArticulos() {
+		$arts = array();
+		foreach($_GET as $name => $value) {
+			array_push($arts,$value);
+		}
 		$consultasSelect = new ConsultasSelect();
-		$articulos = $consultasSelect->getArticulosByArrayId($array);
+		$articulos = $consultasSelect->getArticulosByArrayId($arts);
 		$this->set('articulos',$articulos);		
 	}	
 
@@ -85,8 +89,10 @@ class PedidosController extends AppController {
 				$PedidoDetalle=new PedidoDetalle();
 				$PedidoDetalle= array('IdPedido' => $idInsertedPedido,
 									  'IdArticulo' => $det['IdArticulo'],
-									  'Cantidad' => $det['Cantidad']);
-				$this->PedidoDetalle->saveall($PedidoDetalle);
+            						  'Cantidad' => $det['Cantidad']);
+				if (! $this->PedidoDetalle->saveall($PedidoDetalle)) {
+					$this->render('/General/Error');
+				}
 			}
 		}
 	}
@@ -105,12 +111,8 @@ class PedidosController extends AppController {
 	
 	function confirmarPedido($id = null) {
 		$this->confirmar($id);
+      	$this->render('/General/Success');
         $this->redirect(array('action' => 'add'));
-		
-//		$this->redirect(array('action' => 'index'));
-		
-//		$this->Status->id = 3; // This avoids the query performed by read()
-//		$this->Status->saveField('amount', 5000);
 	}	
 
 	private function confirmar($id){

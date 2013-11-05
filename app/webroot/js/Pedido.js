@@ -11,7 +11,7 @@ var Pedido = new Class({
         jQuery(".contentinner").append(data);
         this.bindAddEvents();
 		this.makeAddTable();
-
+		this.drawHeader();
     },
 
     onUpdated: function(data){
