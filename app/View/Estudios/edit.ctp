@@ -10,7 +10,7 @@ echo $this->Form->input('Nombre',array('class'=>'input-medium','div'=>false,'lab
                                 <span class="field">',
 								'after'=>'</span></p>'));
 
-echo $this->Form->input('Descripcion',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
+echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5','div'=>false,'label'=>false,'before'=>'<p>
 									<label>Descripcion</label>
 								    <span class="field">',
 									'after'=>'</span></p>'));

@@ -2,19 +2,23 @@ var Articulo = new Class({
     Extends: Render,
     initialize: function(name){
         this.name = name;
+        this.currentSelectedArticulos={};
+
+
         this.type='articulo';
         this.breadcrumb='Articulos';
         this.descripcion="Desde aqui administre los Articulos"
     },
     bindListEvents:function() {
-			this.parent();
+          var self=this;
+		  this.parent();
+		  //Ponemos en 0 nuevamente el array de seleccionados
+		  this.currentSelectedArticulos={};
           jQuery('.crearPedido').bind("click", function(e) {
-			  	alert("Andale andale creando pedido manito");
-				translator.add("pedido");
-
+				translator.add("pedido",self.getDataToSendInJsonFormat());
                	return false;
-       	    	//translator.view(self.type);
           })
+
         },
 
      bindAddEvents:function() {
@@ -31,19 +35,19 @@ var Articulo = new Class({
                                         alert("Seleccione una Foto del ARticulooo")
                                         return false;
                                     }else{
-                                        console.log("Else")
                                         self.addLoader();
                                         return true;
                                     }
                                 }
                 },
-                 success: function () {
-                     self.checkContinue();
-                     self.removeLoader();
-                     jQuery.jGrowl("Creado con exito.", {
-					        theme : 'success'
-				        });
-                 }
+                 success: function (data) {
+                     self.onSaved();
+                     messageRender.createMessage(data);
+                 },
+ 			     error: function(data) {
+ 			         self.onSaved();
+ 			         messageRender.createMessage(data);
+ 			     }
 
            });
        },
@@ -59,12 +63,14 @@ var Articulo = new Class({
                      return true;
                 }
              },
-             success: function () {
+             success: function (data) {
                  self.onUpdated();
-                 jQuery.jGrowl("Actualizado con exito.", {
-				        theme : 'success'
-			        });
-             }
+                 messageRender.createMessage(data);
+             },
+  			error: function(data) {
+  			    self.onUpdated();
+  			    messageRender.createMessage(data);
+  			}
         })
     },
 
@@ -124,19 +130,54 @@ var Articulo = new Class({
     },
     afterDataTable:function(data){
         var self=this;
-        jQuery("tr").remove();
-        jQuery(".infoShow").remove();
-	    for(i=0; i< data.length; i++) {
-		    jQuery("#configurationTable").before('<div  class="infoShow">'+data[i]["_aData"][2]+'<input type="checkbox" name="option3"><a href="#" id='+data[i]["_aData"][0][0]+' class="edit"><img style="width:20px;height:20;display:inline" src="/InvenPolka/app/webroot/files/gif/edit.jpg"></a><img style="width:20px;height:20px;display:inline" src="/InvenPolka/app/webroot/files/gif/desactivar.png"></div>')
-        }
+        this.drawTableWithThumbnails(data);
         jQuery('.edit').bind("click", function(e) {
 				   translator.view(self.type,self.getSelectedRowId(this));
 				   return false;
 		})
+		jQuery(':checkbox').bind("change", function(e) {
+		    var articuloId=self.getArticuloIdFromCheckBoxSelection(this);
+
+            if(jQuery(this).is(":checked")) {
+                self.currentSelectedArticulos[articuloId] = {}
+            }else{
+                delete self.currentSelectedArticulos[articuloId];
+                 }
+            console.log("ArtSele",self.currentSelectedArticulos)
+           })
+
 },
+    checkElements:function(){
+        for (var id in this.currentSelectedArticulos)
+        {
+            if (jQuery("#"+id).length >0){
+                jQuery("#"+id).prev().prop('checked', true);
+            }
+          console.log("IDDD",this.currentSelectedArticulos[id])
+      }
+    },
+    drawTableWithThumbnails:function(data){
+        jQuery("tr").remove();
+        jQuery(".infoShow").remove();
+        for(i=0; i< data.length; i++) {
+            jQuery("#configurationTable").before('<div  class="infoShow">'+data[i]["_aData"][2]+'<input type="checkbox" name="option3"><a href="#" id='+data[i]["_aData"][0][0]+' class="edit"><img style="width:20px;height:20;display:inline" src="/InvenPolka/app/webroot/files/gif/edit.jpg"></a><img style="width:20px;height:20px;display:inline" src="/InvenPolka/app/webroot/files/gif/desactivar.png"></div>')
+        }
+         this.checkElements();
+    },
     getSelectedRowId:function(selectedRow) {
         return jQuery(selectedRow).attr('id');
-  }
+   },
+   getArticuloIdFromCheckBoxSelection:function(selectedCheck) {
+       return jQuery(selectedCheck).next().attr("id");
+   },
+   getDataToSendInJsonFormat:function(data){
+       var jsonToSend={};
+
+       jQuery.each(this.currentSelectedArticulos, function(key, value) {
+            jsonToSend["id"+key] = key
+       });
+       return jsonToSend;
+   }
 });
 
 articuloRender=new Articulo();

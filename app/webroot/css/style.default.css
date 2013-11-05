@@ -1536,6 +1536,8 @@ body.loginbody { background: #f7f7f7 url(../img/gray_jean.png); }
 	.stdform small.desc, .dualselect, .stdform .formwrapper, .stdform .stdformbutton { margin-left: 0; }
 	.stdform2 span.field, .stdform2 div.field { border-left: 0; }
 
+    .float  { float: left; }
+
 	/* wizard */
 	#wiz1step1 p, #wiz1step2 p { margin: 15px; }
 

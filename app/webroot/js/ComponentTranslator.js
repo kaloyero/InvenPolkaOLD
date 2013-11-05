@@ -19,9 +19,10 @@ var ComponentTranslator = new Class(
 					}
 				});
 			},
-			add : function(objectType) {
+			add : function(objectType,dataToSend) {
 				serverManager.add({
 					object : objectType,
+					data:dataToSend,
 					onSuccess : function(data) {
 					    var renderInstace = renderTranslator.getRender(objectType);
                         renderInstace.onAdd(data);
@@ -33,10 +34,7 @@ var ComponentTranslator = new Class(
 					object : objectType,
 					data:formData,
 					onSuccess : function(data) {
-					    console.log("PASA")
-					    jQuery.jGrowl("Creado con exito.", {
-					        theme : 'success'
-				        });
+					    messageRender.createMessage(data);
 					     var renderInstace = renderTranslator.getRender(objectType);
     					    renderInstace.onSaved(data);
 
@@ -58,11 +56,10 @@ var ComponentTranslator = new Class(
     					object : objectType,
     					data:formData,
     					onSuccess : function(data) {
+    					    messageRender.createMessage(data);
     					    var renderInstace = renderTranslator.getRender(objectType);
     					    renderInstace.onUpdated(data);
-							jQuery.jGrowl("Actualizado Satisfactoriamente.", {
-								theme : 'success'
-							});
+
 						},
     				});
     			},
@@ -72,9 +69,7 @@ var ComponentTranslator = new Class(
         					editObject:elementIdToEdit,
         					value:newValue,
         					onSuccess : function(data) {
-        					    jQuery.jGrowl("Actualizado Satisfactoriamente.", {
-    								theme : 'success'
-    							});
+        					    messageRender.createMessage(data);
         					    var renderInstace = renderTranslator.getRender(objectType);
         					    renderInstace.onUpdated(data);
         					}
@@ -91,7 +86,7 @@ var ComponentTranslator = new Class(
     				});
     		},
 			confirmarPedido : function(objectType,idObject) {
-				
+
 				serverManager.confirmarPedido({
 					object : objectType,
 					id : idObject,
@@ -102,13 +97,13 @@ var ComponentTranslator = new Class(
 					    jQuery.jGrowl("Pedido Confirmado.", {
 					        theme : 'success'
 				        });
-						jQuery('.paginate_active').click();									
+						jQuery('.paginate_active').click();
 					},
 					onError : function(data) {
 					    jQuery.jGrowl("El Pedido no se pudo confirmar.", {
 					        theme : 'success'
 				        });
-						jQuery('.paginate_active').click();									
+						jQuery('.paginate_active').click();
 					}
 
 				});

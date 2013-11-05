@@ -63,7 +63,6 @@ var Render = new Class({
             this.removeLoader();
        },
     onSaved: function(data){
-			console.log("Saved");
              this.checkContinue();
              this.removeLoader();
       },
@@ -119,7 +118,6 @@ var Render = new Class({
 
       },
       removeLoader:function() {
-		  console.log("mensajito");
           jQuery('.loader').remove();
        },
        makeDatatable:function() {
@@ -143,12 +141,18 @@ var Render = new Class({
                                           }
                                   },
                                   "fnPreDrawCallback": function( nRow, aData, iDisplayIndex ) {
-                                      console.log("s",arguments)
+
                                   },
                                    "fnCreatedRow": function( nRow, aData, iDisplayIndex ) {
                                         //jQuery("tr").remove();
-                                        jQuery('td').html( '<b>A</b>' )
+                                        //jQuery(nRow).remove();
+                                       // nRow.
                                     },
+                                    "fnRowCallback": function( nRow, aData, iDisplayIndex ) {
+                                            //jQuery("tr").remove();
+                                            //jQuery(nRow).addClass('row_selected')
+
+                                        },
                             //Este CallBack se ejecuta cuando esta lista la tabla
                            "fnDrawCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
 							   self.afterDataTable(nRow.aoData);
@@ -176,6 +180,8 @@ var Render = new Class({
             if (jQuery('.seguir').is(':checked')) {
                 //Limpio el Form
                 jQuery('.stdform')[0].reset();
+                //Ponemos el foco en el primer input
+                jQuery(".stdform input:text").first().focus();
 
             }else{
                translator.show(this.type);

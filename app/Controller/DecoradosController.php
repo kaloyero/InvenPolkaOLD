@@ -20,9 +20,10 @@ class DecoradosController extends AppController {
     public function add() {
         if ($this->request->is('post')) {
             if ($this->Decorado->save($this->request->data)) {
-                $this->Session->setFlash('Decorado Guardado con Exito.');
-				$this->addRedirect('Decorado');
-            }
+               	$this->render('/General/Success');
+        	}else{
+				$this->render('/General/Error');
+			}
         }
     }
 
@@ -39,9 +40,9 @@ class DecoradosController extends AppController {
 			$this->request->data = $this->Decorado->read();
 		} else {
 			if ($this->Decorado->save($this->request->data)) {
-				$this->Session->setFlash('Cambios guardados');
-				echo "Ok";
-				$this->redirect(array('action' => 'index'));
+				$this->render('/General/Success');
+        	}else{
+				$this->render('/General/Error');
 			}
 		}
 	}

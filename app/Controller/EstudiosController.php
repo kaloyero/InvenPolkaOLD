@@ -24,12 +24,11 @@ class EstudiosController extends AppController {
     public function add() {
         if ($this->request->is('post')) {
             if ($this->Estudio->save($this->request->data)) {
-                $this->Session->setFlash('Estudio Guardado con Exito.');
-                $this->redirect(array('action' => 'index'));
-            }
-        } else {
-
-		}
+               	$this->render('/General/Success');
+        	}else{
+				$this->render('/General/Error');
+			}
+        }
 
     }
 	function ajaxData() {
@@ -46,8 +45,9 @@ class EstudiosController extends AppController {
 			$this->request->data = $this->Estudio->read();
 		} else {
 			if ($this->Estudio->save($this->request->data)) {
-				$this->Session->setFlash('Los cambios se han guardado con exito');
-				$this->redirect(array('action' => 'index'));
+				$this->render('/General/Success');
+        	}else{
+				$this->render('/General/Error');
 			}
 		}
 

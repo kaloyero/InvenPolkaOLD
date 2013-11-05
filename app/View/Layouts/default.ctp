@@ -29,6 +29,7 @@
 	echo $this->Html->script('Deposito');
 	echo $this->Html->script('Estudio');
 	echo $this->Html->script('Inventario');
+	echo $this->Html->script('Message');
 
 	echo $this->Html->script('ComponentTranslator');
 

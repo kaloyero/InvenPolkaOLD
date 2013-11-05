@@ -28,9 +28,10 @@ class ProyectosController extends AppController {
     public function add() {
         if ($this->request->is('post')) {
             if ($this->Proyecto->save($this->request->data)) {
-                $this->Session->setFlash('Proyecto Guardado');
-                $this->redirect(array('action' => 'index'));
-            }
+                $this->render('/General/Success');
+        	}else{
+				$this->render('/General/Error');
+			}
         }
     }
 
@@ -40,8 +41,9 @@ class ProyectosController extends AppController {
 			$this->request->data = $this->Proyecto->read();
 		} else {
 			if ($this->Proyecto->save($this->request->data)) {
-				$this->Session->setFlash('Cambios guardados');
-				$this->redirect(array('action' => 'index'));
+				$this->render('/General/Success');
+        	}else{
+				$this->render('/General/Error');
 			}
 		}
 	}
