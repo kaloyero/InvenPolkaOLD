@@ -6,6 +6,14 @@ var Pedido = new Class({
         this.breadcrumb='Pedidos';
         this.descripcion="Desde aqui administre los Pedidos"
     },
+    onAdd: function(data){
+        this.cleanCanvas();
+        jQuery(".contentinner").append(data);
+        this.bindAddEvents();
+		this.makeAddTable();
+
+    },
+	
     onUpdated: function(data){
             this.parent();
             translator.show(this.type);
@@ -47,7 +55,36 @@ var Pedido = new Class({
         });
 
 
-  	}
+  	},
+	
+    makeAddTable: function(data){
+//		jQuery('#listaArticulos').dataTable();
+            var oTable=   jQuery('#listaArticulos').dataTable({
+                           "bPaginate": true,
+                           "sPaginationType": "full_numbers",
+                           "oLanguage": {
+                                    "sSearch": "Busqueda:",
+                                    "sInfo": "Mostrando _START_ hasta _END_ de un total de  _TOTAL_ registros",
+                                    "sInfoFiltered": " - (Filtrando de un maximo de _MAX_ registros)",
+                                    "oPaginate": {
+                                            "sNext": "Proxima",
+                                            "sFirst": "Primera",
+                                            "sLast": "Ultima",
+                                            "sPrevious": "Previo"
+
+                                          }
+                                  },
+                                  "fnPreDrawCallback": function( nRow, aData, iDisplayIndex ) {
+                                      console.log("s",arguments)
+                                  },
+                            //Este CallBack se ejecuta cuando esta lista la tabla
+                           "fnDrawCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+
+                           }
+                       });
+		
+    },
+	
 });
 
 pedidoRender=new Pedido();

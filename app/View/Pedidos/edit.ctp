@@ -1,12 +1,51 @@
-<h1>Editar Pedido</h1>
-<?php
-    echo $this->Form->create('Pedido', array('action' => 'edit'));
-	echo $this->Form->input('Numero');
-	echo $this->Form->input('Descripcion');
-	echo $this->Form->input('Fecha');
-	echo $this->Form->input('Pedido.IdProyecto',array('type'=>'select','options'=>$proyectos,'empty'=>false,'label'=>'Proyecto'));
-    echo $this->Form->input('id', array('type' => 'hidden'));
+<?php 
+echo $this->Form->create('Pedido',array('class' => 'stdform stdform2','inputDefaults' => array(
+        'div' => array('class' => 'field') )));
 
-	echo $this->Form->submit('Guardar');
-	echo $this->Form->end();
+foreach ($Pedido as $Pe){
 ?>
+		<label>Numero Pedido</label>
+		<span class="field"><input name="Numero" value="<?php echo $Pe['pedidos_vista']['Numero'];?>" class="input-medium" readonly="readonly" type="number"  required="required"/></span>
+		<label>Fecha</label>
+		<span class="field"><input name="fecha" value="<?php echo $Pe['pedidos_vista']['Fecha'];?>" class="input-medium" readonly="readonly" maxlength="100" type="text" required="required"></span>
+		<label>Descripcion</label>
+		<span class="field"><input name="descripcion" value="<?php echo $Pe['pedidos_vista']['Descripcion'];?>" class="input-medium" readonly="readonly" maxlength="100" type="text" required="required"></span>
+		<label>Proyecto</label>
+		<span class="field"><input name="Proyecto" value="<?php echo $Pe['pedidos_vista']['proyecto'];?>" class="input-medium" readonly="readonly" type="text"  required="required"/></span>
+		<label>Estudio</label>
+		<span class="field"><input name="Estudio" value="<?php echo $Pe['pedidos_vista']['estudio'];?>" class="input-medium" readonly="readonly" type="text" required="required"/></span>
+                
+<?php
+		if ($Pe['pedidos_vista']['estado'] == 'abierto'){
+				echo '<p class="stdformbutton"><button class="btn btn-primary save">Confirmar</button></p>';
+		}
+
+}
+
+?>
+LISTA DE ARTICULOS
+<table  id="listaArticulos" class ="table table-bordered" width="100%"  style="width: 100%;">
+	<thead>
+					<tr>
+                        <th>Codigo Articulo</th>
+                        <th>Cantidad</th>
+                        <th>Descripcion</th>
+                        <th>Imagen</th>
+		            </tr>
+	</thead>
+	<tbody>
+<?php		foreach ($Detalles as $De){
+
+?>			<tr>	
+				<td>1</td>
+				<td>2</td>
+				<td>3</td>
+   				<td>4</td>
+            </tr>    
+<?php			
+			}
+?>
+
+	</tbody>
+</table>
+

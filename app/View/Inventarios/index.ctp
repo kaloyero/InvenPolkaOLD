@@ -1,4 +1,9 @@
 <p><a id="add">Agregar</a></p>
+<p class="stdformbutton">
+	<button id="add" class="btn">Agregar</button>
+	<button class="btn btn-primary crearPedido">Dar de Baja Articulos</button>
+</p>
+
 <table  id="configurationTable" class ="table table-bordered" width="100%"  style="width: 100%;">
 	<thead>
 	     <tr>

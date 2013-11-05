@@ -2,6 +2,7 @@
 	App::import('Model','ConsultasSelect');
 	App::import('Model','ConsultasPaginado');	
 	App::import('Model','PedidoDetalle');	
+	App::import('Model','Articulo');		
 	
 class PedidosController extends AppController {
 	public $helpers = array('Html','Form');
@@ -38,47 +39,47 @@ class PedidosController extends AppController {
    
     public function add() {
         if ($this->request->is('post')) {
+			$this->request->data['Pedido']['Numero'] = 0;
             if ($this->Pedido->save($this->request->data)) {
+				$idInsertedPedido = $this->Pedido->getInsertID();				
+				$this->Pedido->updateAll(array('Numero'=>$idInsertedPedido), array('Pedido.id'=>$idInsertedPedido));
+				//hago el alta del detalle
 				$this->agregarDetalles();
                 $this->Session->setFlash('Pedido Guardado');
                 $this->redirect(array('action' => 'index'));
             }
         } else {
+			//CargarLista de Articulos
+			$testArray = array(18,19,20);
+			$this->getListaArticulos($testArray);
 			$this->setViewData();
 		}
     }
-
-	function edit($id = null) {
-		$this->Pedido->id = $id;
-		if ($this->request->is('get')) {
-			$this->request->data = $this->Pedido->read();
-			$this->setViewData();			
-		} else {
-			if ($this->Pedido->save($this->request->data)) {
-				$this->Session->setFlash('Cambios guardados');
-				$this->redirect(array('action' => 'index'));
-			}else{
-				$this->setViewData();
-			}
-		}		
+	//Consulta a la base los datos de los articulos seleccionados
+	function getListaArticulos($array) {
+		$consultasSelect = new ConsultasSelect();
+		$articulos = $consultasSelect->getArticulosByArrayId($array);
+		$this->set('articulos',$articulos);		
 	}	
 
-
-	function delete($id) {
-
-	}
-	
-	private function setViewData() {
-		$consultasSelect = new ConsultasSelect();
-		$this->set('proyectos',$consultasSelect ->getProyectos());
-		$this->set('estudios',$consultasSelect ->getEstudios());		
-		$this->set('articulos',$consultasSelect ->getArticulos());		
-	}
-	
+	function edit($id = null) {
+		$model = new ConsultasSelect();
+		$this->Pedido->id = $id;
+		if ($this->request->is('get')) {
+			$pedido = $model->getPedidoById($id);
+			$detalles = $model->getDetallesPedidoByIdPedido($id);
+			print_r($detalles);			
+			$this->set('Pedido',$pedido);
+			$this->set('Detalles',$pedido);			
+		} else {
+			$this->confirmar($id);
+		}		
+	}	
 
 	private function agregarDetalles() {
 		$idInsertedPedido = $this->Pedido->getInsertID();
 		$listDetalle = array ($this->request->data['Detalle']);
+		$cont=0;
 		foreach ($listDetalle as &$detalle) {
 			foreach ($detalle as &$det) {
 				$PedidoDetalle=new PedidoDetalle();
@@ -90,7 +91,29 @@ class PedidosController extends AppController {
 		}
 	}
 
+
+	function delete($id) {
+
+	}
+	
+	private function setViewData() {
+		$consultasSelect = new ConsultasSelect();
+		$this->set('proyectos',$consultasSelect ->getProyectos());
+		$this->set('estudios',$consultasSelect ->getEstudios());		
+//		$this->set('articulos',$consultasSelect ->getArticulos());		
+	}
+	
 	function confirmarPedido($id = null) {
+		$this->confirmar($id);
+        $this->redirect(array('action' => 'add'));
+		
+//		$this->redirect(array('action' => 'index'));
+		
+//		$this->Status->id = 3; // This avoids the query performed by read()
+//		$this->Status->saveField('amount', 5000);
+	}	
+
+	private function confirmar($id){
 		$pedido = $this->Pedido->read(null, $id);
         if (!$this->Pedido->exists()) {
 //            throw new NotFoundException(__('Invalid model'));
@@ -100,13 +123,7 @@ class PedidosController extends AppController {
 				$this->Pedido->save();
 			}
 		}
-        $this->redirect(array('action' => 'add'));
-		
-//		$this->redirect(array('action' => 'index'));
-		
-//		$this->Status->id = 3; // This avoids the query performed by read()
-//		$this->Status->saveField('amount', 5000);
-	}	
+	}
 
 }
 ?>
