@@ -32,15 +32,6 @@ var Pedido = new Class({
      bindAddEvents:function() {
 		this.parent();
 		var self=this;
-
-		//TODO ver de sacar
-      	jQuery('.save').bind("click", function(e) {
-            translator.save("pedido", self.getForm());
-      	    //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
-      	    return false;
-        });
-
-
   	},
 	
     makeAddTable: function(data){

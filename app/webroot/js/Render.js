@@ -87,6 +87,7 @@ var Render = new Class({
           jQuery('.save').bind("click", function(e) {
               //Si pasa la validacion,salvamos
               if (self.getForm().valid()){
+
                    translator.save(self.type, self.getForm());
                     self.addLoader();
               }
