@@ -145,6 +145,7 @@ var Articulo = new Class({
     afterDataTable:function(data){
         var self=this;
         this.drawTableWithThumbnails(data);
+        this.toogleCrearPedidoButton();
         jQuery('.edit').bind("click", function(e) {
 				   translator.view(self.type,self.getSelectedRowId(this));
 				   return false;
@@ -157,11 +158,7 @@ var Articulo = new Class({
             }else{
                 delete self.currentSelectedArticulos[articuloId];
                  }
-            if (jQuery('input:checked').length >0){
-                 jQuery('.crearPedido').removeAttr("disabled");
-            }else{
-                jQuery('.crearPedido').attr("disabled", "disabled");
-            }
+              self.toogleCrearPedidoButton();
            })
 
 
@@ -187,6 +184,13 @@ var Articulo = new Class({
    },
    getArticuloIdFromCheckBoxSelection:function(selectedCheck) {
        return jQuery(selectedCheck).next().attr("id");
+   },
+   toogleCrearPedidoButton:function() {
+        if (jQuery('input:checked').length >0){
+                jQuery('.crearPedido').removeAttr("disabled");
+           }else{
+               jQuery('.crearPedido').attr("disabled", "disabled");
+           }
    },
    getDataToSendInJsonFormat:function(data){
        var jsonToSend={};

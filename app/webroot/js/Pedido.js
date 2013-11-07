@@ -46,7 +46,7 @@ var Pedido = new Class({
 			translator.confirmarPedido(self.type,self.getSelectedRowId(this));
 			return false;
 		})
-        this.checkElements();
+        this.setQuantitiesonSelectedElementes();
 	 },
 
     makeAddTable: function(data){
@@ -77,7 +77,7 @@ var Pedido = new Class({
                        });
 
     },
-    checkElements:function(){
+    setQuantitiesonSelectedElementes:function(){
         for (var id in articuloRender.currentSelectedArticulos){
             if ( articuloRender.currentSelectedArticulos[id] != 0 ){
                         if (jQuery("#"+id).length >0){
