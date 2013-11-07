@@ -13,6 +13,26 @@ var Pedido = new Class({
 		this.makeAddTable();
 		this.drawHeader();
     },
+     bindAddEvents:function() {
+         var self=this;
+         this.parent();
+         jQuery('.agregarOtro').bind("click", function(e) {
+             articuloRender.setContext("pedidos");
+             translator.show('articulo');
+     		return false;
+     	})
+
+
+     	jQuery('input[type=number]').bind("change", function(e) {
+            articuloRender.currentSelectedArticulos[self.getIdFromSelectedNumberType(this)]=jQuery(this).val();
+            console.log("VALORES ARRAY",articuloRender.currentSelectedArticulos)
+
+     	})
+
+     },
+     getIdFromSelectedNumberType: function(selectedNumberType){
+            return jQuery(selectedNumberType).parent().parent().find(":first" ).find("input").val()
+        },
 
     onUpdated: function(data){
             this.parent();
@@ -26,10 +46,11 @@ var Pedido = new Class({
 			translator.confirmarPedido(self.type,self.getSelectedRowId(this));
 			return false;
 		})
-
+        this.checkElements();
 	 },
 
     makeAddTable: function(data){
+        var self=this;
 //		jQuery('#listaArticulos').dataTable();
             var oTable=   jQuery('#listaArticulos').dataTable({
                            "bPaginate": true,
@@ -51,12 +72,20 @@ var Pedido = new Class({
                                   },
                             //Este CallBack se ejecuta cuando esta lista la tabla
                            "fnDrawCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-
+                               self.afterDataTable();
                            }
                        });
 
     },
-
+    checkElements:function(){
+        for (var id in articuloRender.currentSelectedArticulos){
+            if ( articuloRender.currentSelectedArticulos[id] != 0 ){
+                        if (jQuery("#"+id).length >0){
+                            jQuery("#"+id).find('input[type=number]').val(articuloRender.currentSelectedArticulos[id])
+                        }
+                }
+            }
+     }
 });
 
 pedidoRender=new Pedido();

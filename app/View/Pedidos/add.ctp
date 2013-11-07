@@ -32,33 +32,34 @@ LISTA DE ARTICULOS
 		            </tr>
 	</thead>
 	<tbody>
-		<?php 
+		<?php
 		//Cuenta las filas
 		$cont = 0;
 		//Itera la lista de articulos recibida
-		foreach ($articulos as $articulo): 
+		foreach ($articulos as $articulo):
 			$cont= $cont + 1;
-			
+
 		?>
-        <tr>
+        <tr id ="<?php echo $articulo['articulos']['id']?>">
             <td>
 	            <input name="data[Detalle][<?php echo $cont ?>][IdArticulo]" type="hidden" value="<?php echo $articulo['articulos']['id']; ?>" readonly="readonly" />
 				<?php echo $articulo['articulos']['CodigoArticulo']; ?>
             </td>
             <td><?php echo $articulo['articulos']['Descripcion']; ?></td>
-			<td><input name="data[Detalle][<?php echo $cont ?>][Cantidad]" class="input-medium valid" value="0" min="0" type="number" /></td>
+			<td><input name="data[Detalle][<?php echo $cont ?>][Cantidad]"  class="input-medium valid" value="0" min="0" type="number" /></td>
             <td><img style="width:250px; height:150px;border-style:solid;border-width:3px;" src="/InvenPolka/app/webroot/files/articulo/IdFoto/<?php echo $articulo['articulos']['dir']; ?>/<?php echo $articulo['articulos']['idFoto']; ?>" alt="CakePHP" ></td>
         </tr>
         <?php endforeach; ?>
-    
+
 	</tbody>
 </table>
 
 <?php
+echo '<p class="stdformbutton"><button class="btn btn-primary agregarOtro">Agregar Otro Articulo</button></p>';
+
 echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</button></p>';
 ?>
 
-<input type="checkbox"class='seguir' name="check2" readonly="readonly" style="visibility: hidden;">
 
 <?php echo $this->Form->end();?>
 </div>

@@ -4,22 +4,36 @@ var Articulo = new Class({
         this.name = name;
         this.currentSelectedArticulos={};
 
-
+        this.context="articulo";
         this.type='articulo';
         this.breadcrumb='Articulos';
         this.descripcion="Desde aqui administre los Articulos"
     },
+    setContext:function(context) {
+        this.context=context;
+    },
+    getContext:function() {
+        return this.context;
+    },
     bindListEvents:function() {
           var self=this;
 		  this.parent();
-		  //Ponemos en 0 nuevamente el array de seleccionados
-		  this.currentSelectedArticulos={};
           jQuery('.crearPedido').bind("click", function(e) {
 				translator.add("pedido",self.getDataToSendInJsonFormat());
                	return false;
           })
-
+          this.deleteSelectedArticlesArray();
         },
+
+     deleteSelectedArticlesArray:function(){
+         //Ponemos en 0 nuevamente el array de seleccionados si el contexto no es Pedidos
+       		  if (this.getContext()!='pedidos'){
+       		      this.currentSelectedArticulos={};
+       		  }else{
+       		      //Vuelvo el contexto a articulos
+       		      this.setContext('articulo')
+       		  }
+     },
 
      bindAddEvents:function() {
          var self=this;
@@ -139,7 +153,7 @@ var Articulo = new Class({
 		    var articuloId=self.getArticuloIdFromCheckBoxSelection(this);
 
             if(jQuery(this).is(":checked")) {
-                self.currentSelectedArticulos[articuloId] = {}
+                self.currentSelectedArticulos[articuloId] = 0
             }else{
                 delete self.currentSelectedArticulos[articuloId];
                  }
@@ -158,7 +172,6 @@ var Articulo = new Class({
             if (jQuery("#"+id).length >0){
                 jQuery("#"+id).prev().prop('checked', true);
             }
-          console.log("IDDD",this.currentSelectedArticulos[id])
       }
     },
     drawTableWithThumbnails:function(data){
