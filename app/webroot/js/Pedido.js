@@ -21,6 +21,14 @@ var Pedido = new Class({
              translator.show('articulo');
      		return false;
      	})
+     	jQuery('.desactiva').bind("click", function(e) {
+     	    var rowIndex=jQuery(this).index();
+     	    var idArticuloToRemove=jQuery(this).parent().parent().attr("id");
+     	    //remuevo el articulo del array de articulos seleccionados
+     	    delete articuloRender.currentSelectedArticulos[idArticuloToRemove];
+            //Remuevo la fila del datatable
+     	    self.oTable.fnDeleteRow(rowIndex);
+     	});
 
 
      	jQuery('input[type=number]').bind("change", function(e) {
@@ -50,7 +58,7 @@ var Pedido = new Class({
     makeAddTable: function(data){
         var self=this;
 //		jQuery('#listaArticulos').dataTable();
-            var oTable=   jQuery('#listaArticulos').dataTable({
+          this.oTable=   jQuery('#listaArticulos').dataTable({
                            "bPaginate": true,
                            "sPaginationType": "full_numbers",
                            "oLanguage": {
@@ -71,10 +79,10 @@ var Pedido = new Class({
                                   "fnPreDrawCallback": function( nRow, aData, iDisplayIndex ) {
                                       console.log("s",arguments)
                                   },
-                            //Este CallBack se ejecuta cuando esta lista la tabla
-                           "fnDrawCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-                               self.afterDataTable();
-                           }
+                                  //Este CallBack se ejecuta cuando esta lista la tabla
+                                  "fnDrawCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+                                      self.afterDataTable();
+                                  }
                        });
 
     },
