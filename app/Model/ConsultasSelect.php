@@ -3,14 +3,14 @@
 	App::import('Model','Articulo');
 	App::import('Model','Deposito');
 	App::import('Model','Ubicacione');
-	App::import('Model','Estudio');	
-	App::import('Model','Categoria');	
+	App::import('Model','Estudio');
+	App::import('Model','Categoria');
    	App::import('Model','Materiale');
 	App::import('Model','Dimensione');
 	App::import('Model','Decorado');
 	App::import('Model','Estilo');
 	App::import('Model','Objeto');
-	App::import('Model','Pedido');	
+	App::import('Model','Pedido');
 
 class ConsultasSelect extends AppModel {
 	public $name = 'ConsultasSelect';
@@ -26,14 +26,14 @@ class ConsultasSelect extends AppModel {
 ////////////////////////////// {FIN} PROYECTOS //////////////////////////////
 
 /********************************************************************************\
-****************************** {INICIO} UBICACIONES ****************************** 
+****************************** {INICIO} UBICACIONES ******************************
 \********************************************************************************/
 	function getUbicaciones() {
 		$ubicacione=new Ubicacione();
 		$ubicaciones=$ubicacione->find('list',array('fields'=>array('Ubicacione.id','Ubicacione.CodigoUbicacion','Ubicacione.Descripcion')));
 		return $ubicaciones;
 	}
-	
+
 
     function getUbicacionesByDeposito($id = null) {
 		$model=new Ubicacione();
@@ -61,7 +61,7 @@ class ConsultasSelect extends AppModel {
 		$articulos=$articulo->find('list',array('fields'=>array('Articulo.id','Articulo.Codigoarticulo')));
 		return $articulos;
 	}
-	
+
 	function getArticulosByArrayId($ids) {
 		$articulo=new Articulo();
 		$condiciones = array("Articulo.id" => $ids);
@@ -73,12 +73,12 @@ class ConsultasSelect extends AppModel {
 		$inCondition = substr_replace( $inCondition, "", -1 );
 		$articulos =$articulo->query("Select * from `articulos`  WHERE `id` IN (".$inCondition.");");
 //		$articulos=$articulo->find('all');
-		
-		
-	//	$articulos=$articulo->find($condiciones);		
+
+
+	//	$articulos=$articulo->find($condiciones);
 		return $articulos;
 	}
-	
+
 ////////////////////////////// {FIN} ARTICULOS //////////////////////////////
 
 /********************************************************************************\
@@ -90,7 +90,7 @@ class ConsultasSelect extends AppModel {
 		return $estudios;
 	}
 
-////////////////////////////// {FIN} ESTUDIOS //////////////////////////////	
+////////////////////////////// {FIN} ESTUDIOS //////////////////////////////
 
 /********************************************************************************\
 ****************************** {INICIO} CATEGORIAS ********************************
@@ -163,14 +163,14 @@ class ConsultasSelect extends AppModel {
 
 	function getDetallesPedidoByIdPedido($id) {
 		$model=new Proyecto();
-		$query="SELECT  `det`.`IdArticulo` AS  `idArticulo` ,  `det`.`Cantidad` AS  `Cantidad` ,  `art`.`Descripcion` AS  `Descripcion` ,  `art`.`dir` AS  `dir` , `art`.`idFoto` AS  `idFoto` 
-FROM  `pedido_detalles` AS  `det` 
-LEFT JOIN  `articulos`  `art` ON (  `det`.`IdArticulo` =  `art`.`id` ) 
+		$query="SELECT  `det`.`IdArticulo` AS  `idArticulo` ,  `det`.`Cantidad` AS  `Cantidad` ,  `art`.`Descripcion` AS  `Descripcion` ,  `art`.`dir` AS  `dir` , `art`.`idFoto` AS  `idFoto` ,`art`.`CodigoArticulo` AS  `codigo`
+FROM  `pedido_detalles` AS  `det`
+LEFT JOIN  `articulos`  `art` ON (  `det`.`IdArticulo` =  `art`.`id` )
 WHERE  `det`.`IdPedido` ='".$id."';";
 		$pedidos=$model->query($query);
 		return $pedidos;
 	}
-	
+
 ////////////////////////////// {FIN} PEDIDOS //////////////////////////////
 
 
