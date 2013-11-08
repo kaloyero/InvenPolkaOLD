@@ -29,6 +29,7 @@ LISTA DE ARTICULOS
                         <th>Descripcion</th>
                         <th>Cantidad</th>
                         <th>Imagen</th>
+						<th>Acciones</th>
 		            </tr>
 	</thead>
 	<tbody>
@@ -48,6 +49,7 @@ LISTA DE ARTICULOS
             <td><?php echo $articulo['articulos']['Descripcion']; ?></td>
 			<td><input name="data[Detalle][<?php echo $cont ?>][Cantidad]"  class="input-medium valid" value="0" min="0" type="number" /></td>
             <td><img style="width:250px; height:150px;border-style:solid;border-width:3px;" src="/InvenPolka/app/webroot/files/articulo/IdFoto/<?php echo $articulo['articulos']['dir']; ?>/<?php echo $articulo['articulos']['idFoto']; ?>" alt="CakePHP" ></td>
+<td><img style="width:20px;height:20px;display:inline" src="/InvenPolka/app/webroot/files/gif/desactivar.png"></td>
         </tr>
         <?php endforeach; ?>
 

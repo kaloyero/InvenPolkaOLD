@@ -25,8 +25,6 @@ var Pedido = new Class({
 
      	jQuery('input[type=number]').bind("change", function(e) {
             articuloRender.currentSelectedArticulos[self.getIdFromSelectedNumberType(this)]=jQuery(this).val();
-            console.log("VALORES ARRAY",articuloRender.currentSelectedArticulos)
-
      	})
 
      },
@@ -66,6 +64,9 @@ var Pedido = new Class({
                                             "sPrevious": "Previo"
 
                                           }
+                                  },
+                                  "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+                                      //jQuery(nRow).append( "<td class='tdMiddleCells'>second</td>" );
                                   },
                                   "fnPreDrawCallback": function( nRow, aData, iDisplayIndex ) {
                                       console.log("s",arguments)
