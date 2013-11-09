@@ -44,6 +44,13 @@ var Pedido = new Class({
             this.parent();
             translator.show(this.type);
     },
+    onView: function(data){
+        this.parent(data);
+        jQuery('.confirm').bind("click", function(e) {
+			alert("CON")
+			return false;
+		})
+    },
 	 afterDataTable:function() {
 		self = this;
 	    this.parent();

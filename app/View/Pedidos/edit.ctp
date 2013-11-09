@@ -17,7 +17,7 @@ foreach ($Pedido as $Pe){
 
 <?php
 		if ($Pe['pedidos_vista']['estado'] == 'abierto'){
-				echo '<p class="stdformbutton"><button class="btn btn-primary save">Confirmar</button></p>';
+				echo '<p class="stdformbutton"><button class="btn btn-primary save confirm">Confirmar</button></p>';
 		}
 
 }
