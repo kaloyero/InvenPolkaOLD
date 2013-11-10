@@ -39,6 +39,7 @@ class ProyectosController extends AppController {
 		$this->Proyecto->id = $id;
 		if ($this->request->is('get')) {
 			$this->request->data = $this->Proyecto->read();
+			print_r ($this->request->data);
 		} else {
 			if ($this->Proyecto->save($this->request->data)) {
 				$this->render('/General/Success');

@@ -5,7 +5,7 @@ echo $this->Form->create('Deposito',array('class' => 'stdform stdform2','inputDe
         'div' => array('class' => 'field'))));
 echo $this->Form->input('Nombre');
 echo $this->Form->input('id', array('type' => 'hidden'));
-echo $this->Form->input('FechaFin',array('empty'=>true,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p><label>Fecha Fin</label><span class="field">','after'=>'</span></p>'));
+echo $this->Form->input('FechaFin',array('empty'=>true,'class'=>'uniformselect fecha','div'=>false,'label'=>false,'before'=>'<p><label>Fecha Fin</label><span class="field">','after'=>'</span></p>','type' => 'text'));
 //echo $this->Form->submit('Guardar');
 /* Seguir agregando*/
 /* FIn Seguir agregando*/

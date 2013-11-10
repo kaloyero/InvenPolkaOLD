@@ -13,7 +13,9 @@ echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5
 									<label>Descripcion</label>
 								    <span class="field">',
 									'after'=>'</span></p>'));
-echo $this->Form->input('FechaFin',array('empty'=>true,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p><label>Fecha Fin</label><span class="field">','after'=>'</span></p>'));
+
+echo '<p><label>Fecha Fin</label><span class="field"><input class="input-small fecha" type="text" name="data[Estudio][FechaFin]" required="required" /></span><small><em>mm / dd / yyyy</em></small></p>';
+
 //echo $this->Form->end('Guardar');
 echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</button><button type="reset" class="btn">Limpiar Formulario</button></p>';
 ?>

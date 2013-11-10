@@ -9,9 +9,9 @@ echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5
 
 echo $this->Form->input('Director',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p><label>Director</label><span 			class="field">','after'=>'</span></p>'));
 
-echo $this->Form->input('FechaIni',array('empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p><label>Fecha Ini</label><span class="field">','after'=>'</span></p>'));
+echo $this->Form->input('FechaIni',array('class'=>'input-medium fecha','div'=>false,'label'=>false,'before'=>'<p><label>Fecha Inicial</label><span 			class="field">','after'=>'</span></p>','type' => 'text'));
 
-echo $this->Form->input('FechaFin',array('empty'=>true,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p><label>Fecha Fin</label><span class="field">','after'=>'</span></p>'));
+echo $this->Form->input('FechaFin',array('class'=>'input-medium fecha','div'=>false,'label'=>false,'before'=>'<p><label>Fecha Fin</label><span 			class="field">','after'=>'</span></p>','type' => 'text'));
 
 echo $this->Form->input('id', array('type' => 'hidden'));
 

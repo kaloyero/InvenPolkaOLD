@@ -49,9 +49,6 @@ class Proyecto extends AppModel {
 				'ruleName' => array(
 					'rule' => 'notEmpty',
 					'message' => 'El campo no puede estar vacio'
-				),
-				'ruleName2' => array(
-					'rule' => 'date'
 				)
 			)
 		);
