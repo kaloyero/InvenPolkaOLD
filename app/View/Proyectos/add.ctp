@@ -9,9 +9,9 @@ echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5
 
 echo $this->Form->input('Director',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p><label>Director</label><span 			class="field">','after'=>'</span></p>'));
 
-echo $this->Form->input('FechaFin',array('empty'=>true,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p><label>Fecha Fin</label><span class="field">','after'=>'</span></p>'));
+echo '<p><label>Fecha Ini</label><span class="field"><input class="input-small fecha" type="text" name="data[Proyecto][FechaIni]" required="required" /><small class="field"><em> yyyy / mm / dd</em></small></span></p>';
 
-echo '<p><label>Fecha Ini</label><span class="field"><input class="input-small fecha" type="text" name="data[Proyecto][FechaIni]" required="required" /></span><small><em>mm / dd / yyyy</em></small></p>';
+echo '<p><label>Fecha Ini</label><span class="field"><input class="input-small fecha" type="text" name="data[Proyecto][Fechafin]" required="required" /><small class="field"><em>   yyyy / mm / dd</em></small></span></p>';
 
 echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</button><button type="reset" class="btn">Limpiar Formulario</button></p>';
 

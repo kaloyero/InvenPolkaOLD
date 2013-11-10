@@ -5,7 +5,7 @@ echo $this->Form->create('Deposito',array('class' => 'stdform stdform2','inputDe
         'div' => array('class' => 'field'))));
 echo $this->Form->input('Nombre');
 
-echo '<p><label>Fecha Fin</label><span class="field"><input class="input-small fecha" type="text" name="data[Deposito][FechaFin]" required="required" /></span><small><em>mm / dd / yyyy</em></small></p>';
+echo '<p><label>Fecha Fin</label><span class="field"><input class="input-small fecha" type="text" name="data[Deposito][FechaFin]" required="required" /><small class="field"><em> yyyy / mm / dd</em></small></span></p>';
 /* FIn Seguir agregando*/
 //echo $this->Html->link('Cancelar', '/categorias');
 
