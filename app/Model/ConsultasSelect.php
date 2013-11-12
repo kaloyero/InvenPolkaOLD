@@ -180,73 +180,93 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 
 	//Suma (inserta/modifica) en inventario para deposito
 	function sumaInventarioEnDeposito($articulo,$deposito,$cantidad) {
-		if ($this->getExisteArticuloEnDeposito($articulo,$deposito)){
+		if ($this->getExisteArticulo($articulo,$deposito,NULL)){
 			//Si existe le sumo la cantidad
-			
+			$this->sumaInventario($articulo,$deposito,NULL,$cantidad);
+			print_r("--   SUMO CANTIDAD  ".$articulo." --");
 		} else {
+			print_r("--   INSERTO   ".$articulo." --");
 			//Sino existe inserto el registro	
 			$this->insertarInventario($articulo,$deposito,NULL,$cantidad);
 		}
 	}
 
-	//Suma (inserta/modifica) en inventario para deposito
-	function sumaInventarioEnProyecto($articulo,$deposito,$cantidad) {
-		if ($this->getExisteArticuloEnDeposito($articulo,$deposito)){
+	//Suma (inserta/modifica) en inventario para Proyecto
+	function sumaInventarioEnProyecto($articulo,$deposito,$proyecto,$cantidad) {
+		if ($this->getExisteArticulo($articulo,$deposito,$proyecto)){
 			//Si existe le sumo la cantidad
-			
+			$this->sumaInventario($articulo,$deposito,$proyecto,$cantidad);
 		} else {
 			//Sino existe inserto el registro	
-			$this->insertarInventario($articulo,$deposito,$cantidad);
+			$this->insertarInventario($articulo,$deposito,$proyecto,$cantidad);
+		}
+	}
+
+	//Resta (modifica) en inventario para deposito
+	function restaInventarioEnDeposito($articulo,$deposito,$cantidad) {
+		if ($this->getExisteArticulo($articulo,$deposito,NULL)){
+			//Si existe le resto la cantidad
+			$this->restaInventario($articulo,$deposito,NULL,$cantidad);
+		}
+	}
+
+	//Resta (modifica) en inventario para proyecto
+	function restaInventarioEnProyecto($articulo,$deposito,$proyecto,$cantidad) {
+		if ($this->getExisteArticulo($articulo,$deposito,$proyecto)){
+			//Si existe le resto la cantidad
+			$this->restaInventario($articulo,$deposito,$proyecto,$cantidad);
 		}
 	}
 
 	//Verifica si el articulo existe en el deposito
-	function getExisteArticuloEnDeposito($articulo,$deposito) {
+	function getExisteArticulo($articulo,$deposito,$proyecto) {
 		$model=new Inventario();
 		$conditions = array(
-			'Inventario.IdArticulo' => $articulo,
-			'Inventario.IdDeposito' => $deposito,
-			'Inventario.IdProyecto' => NULL
+			'IdArticulo' => $articulo,
+			'IdDeposito' => $deposito,
+			'IdProyecto' => $proyecto
 		);
-		if ($this->$model->hasAny($conditions)){
+		if ($model->hasAny($conditions)){
 			return true;
 		} else {
 			return false;
 		}
-	}
-	
-	//Verifica si el articulo existe en el proyecto
-	function getExisteArticuloEnProyecto($articulo,$proyecto,$deposito) {
-		$model=new Inventario();
-		$conditions = array(
-			'Inventario.IdArticulo' => $articulo,
-			'Inventario.IdProyecto' => $proyecto
-		);
-		if ($this->$model->hasAny($conditions)){
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	function insertarInventario($articulo,$deposito,$proyecto,$cantidad) {
-		$model=new Inventario();		
-		$this->$model->save(array('IdArticulo' => $articulo,'IdDeposito' => $deposito,'IdProyecto' => $proyecto,'Disponibilidad' => $cantidad));
 	}
 
-	function sumaInventarioParaDeposito($articulo,$deposito,$proyecto,$cantidad) {
+	function insertarInventario($articulo,$deposito,$proyecto,$cantidad) {
+		$model=new Inventario();		
+		$model->save(array('IdArticulo' => $articulo,'IdDeposito' => $deposito,'IdProyecto' => $proyecto,'Disponibilidad' => $cantidad));
+	}
+
+	function sumaInventario($articulo,$deposito,$proyecto,$cantidad) {
 		$model=new Inventario();
 		$conditions = array(
 			'Inventario.IdArticulo' => $articulo,
 			'Inventario.IdDeposito' => $deposito,
 			'Inventario.IdProyecto' => $proyecto
 		);
-		//busco la cantidad
-		$inventario = $this->$model->find($conditions);
+		//Tomo el inventario
+		$inventario = $model->find('first',array('conditions' => $conditions));
 		//Sumo
-		$total = $inventario['Disponibilidad'] + $cantidad;
+		$total = $inventario['Inventario']['Disponibilidad'] + $cantidad;
 		//Actualizo
-		$this->$model->updateAll(array('Disponibilidad'=>$total), $conditions);
+		$model->updateAll(array('Disponibilidad'=>$total), $conditions);
+	}
+
+	function restaInventario($articulo,$deposito,$proyecto,$cantidad) {
+		$model=new Inventario();
+		
+		$conditions = array(
+			'Inventario.IdArticulo' => $articulo,
+			'Inventario.IdDeposito' => $deposito,
+			'Inventario.IdProyecto' => $proyecto
+		);
+		//Tomo el inventario
+		$inventario = $model->find('first',array('conditions' => $conditions));
+		//resto
+		$total = $inventario['Inventario']['Disponibilidad'] - $cantidad;
+		//Actualizo
+		$model->updateAll(array('Disponibilidad'=>$total), $conditions);
 	}
 	
 ////////////////////////////// {FIN} INVENTARIOS //////////////////////////////

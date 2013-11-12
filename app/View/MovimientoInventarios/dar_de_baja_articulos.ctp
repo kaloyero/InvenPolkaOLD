@@ -1,5 +1,5 @@
 <?php
-echo '<h4 class="widgettitle nomargin shadowed">Articulo</h4>';
+echo '<h4 class="widgettitle nomargin shadowed">Dar de baja Articulos</h4>';
 echo $this->Form->create('MovimientoInventario',array('class' => 'stdform stdform2','inputDefaults' => array(
         'div' => array('class' => 'field') )));
 
@@ -57,7 +57,7 @@ LISTA DE ARTICULOS
 </table>
 
 <?php
-echo '<p class="stdformbutton"><button class="btn btn-primary save">Asignar</button><button type="reset" class="btn">Limpiar Formulario</button></p>';
+echo '<p class="stdformbutton"><button class="btn btn-primary save">Asignar</button></p>';
 ?>
 <?php echo $this->Form->end();?>
 

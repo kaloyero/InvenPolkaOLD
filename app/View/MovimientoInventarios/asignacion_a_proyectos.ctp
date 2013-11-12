@@ -28,7 +28,7 @@ echo $this->Form->create('MovimientoInventario',array('class' => 'stdform stdfor
 <p>
     <label style="float: left;">Proyecto</label>
 	<span class="field float">
-    	<input class="input-medium" maxlength="100" type="text" value="<?php echo $pe['pedidos_vista']['estudio'] ?>" required="required">
+    	<input class="input-medium" maxlength="100" type="text" value="<?php echo $pe['pedidos_vista']['proyecto'] ?>" required="required">
     </span>
 </p>								
 <p>

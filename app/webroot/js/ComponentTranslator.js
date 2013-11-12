@@ -20,9 +20,6 @@ var ComponentTranslator = new Class(
 				});
 			},
 			add : function(objectType,dataToSend) {
-				alert("add :");
-				alert("objectType :"+objectType);
-				alert("formData :"+formData);
 				serverManager.add({
 					object : objectType,
 					data:dataToSend,
@@ -43,9 +40,6 @@ var ComponentTranslator = new Class(
 				},funcion);
 			},
 			save : function(objectType,formData) {
-				alert("save:");				
-				alert("objectType :"+objectType);
-				alert("formData :"+formData);
 				serverManager.save({
 					object : objectType,
 					data:formData,

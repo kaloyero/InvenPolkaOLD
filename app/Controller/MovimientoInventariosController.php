@@ -59,8 +59,8 @@ class MovimientoInventariosController extends AppController {
         if ($this->request->is('post')) {
 			//Inserto el movimiento y los detalles			
 			$this->insertMovimiento();		
-			//Inserto/modifico para el deposito X cantidad de articulos
-			
+          	//Sale por success
+			$this->render('/General/Success');			
 		} else {
 			//Cargo Lista de Articulos
 			$this->getListaArticulos();
@@ -75,8 +75,8 @@ class MovimientoInventariosController extends AppController {
         if ($this->request->is('post')) {
 			//Inserto el movimiento y los detalles			
 			$this->insertMovimiento();		
-			//Resto X cantidad de articulo al deposito seleccionado
-			
+
+          	$this->render('/General/Success');			
 		} else {
 			//CargarLista de Articulos
 			$this->getListaArticulos();
@@ -88,10 +88,7 @@ class MovimientoInventariosController extends AppController {
         if ($this->request->is('post')) {
 			//Inserto el movimiento y los detalles
 			$this->insertMovimiento();		
-			//Resto para el deposito Origen, X cantidad de articulos
-
-			//Inserto/modifico para el deposito Destino, X cantidad de articulos
-			
+          	$this->render('/General/Success');			
 		} else {
 			//CargarLista de Articulos
 			$this->getListaArticulos();
@@ -105,14 +102,10 @@ class MovimientoInventariosController extends AppController {
 	}
 
 	public function asignacionAProyectos($id = null){
-		$id = 93;
         if ($this->request->is('post')) {
 			//Inserto el movimiento y los detalles
 			$this->insertMovimiento();
-			//Descuento del deposito la cantidad del articulo
-			
-			//Inserto/modifico al inventario que el proyecto tiene X cantidad de ese articulo
-			
+          	$this->render('/General/Success');			
 		} else {
 			$this->asignacionAProyectosGET($id);
 		}
@@ -127,6 +120,7 @@ class MovimientoInventariosController extends AppController {
 			$this->getListaArticulosDePedidos($id);
 			//Cargo la lista de depositos		
 			$this->set('depositos',$consultas->getDepositos());
+			
 	}
 
 	//Hace el insert en la Tabla de Movimientos
@@ -141,7 +135,7 @@ class MovimientoInventariosController extends AppController {
 				//hago el alta del detalle
 				$this->agregarDetalles();
 	          	$this->render('/General/Success'); 
-           } else {
+           	} else {
 				$this->render('/General/Error');
 			}
 	}
@@ -154,7 +148,7 @@ class MovimientoInventariosController extends AppController {
 			foreach ($detalle as &$det) {
 				$MovDetalle=new MovimientoDetalleInventario();
 					if ($det['Cantidad'] !=0){
-						if ($tipoMov == 'I'){
+						if ($tipoMov == 'P'){
 							$MovDetalle= array('IdMovimientoInventario' => $idInsertedMovimiento,
 										   'IdArticulo' => $det['IdArticulo'],
 										   'Cantidad' => $det['Cantidad'],
@@ -166,11 +160,46 @@ class MovimientoInventariosController extends AppController {
 						}
 					}
 				$this->MovimientoDetalleInventario->saveall($MovDetalle);
+				$this->balanceInventario($tipoMov,$MovDetalle);
 			}
 		}
 	}
 
-   
+    public function balanceInventario($tipoMov,$MovDetalle){
+			$consultas = new ConsultasSelect();
+			$articulo = $MovDetalle['IdArticulo'];
+			$deposito = $this->request->data['MovimientoInventario']['IdDepositoOrig'];
+			$cantidad = $MovDetalle['Cantidad'];
+
+			switch ($tipoMov) {
+				case 'P':
+					$proyecto = $this->request->$data['MovimientoInventario']['IdProyecto'];
+					//Descuento del deposito la cantidad del articulo
+					$consultas ->restaInventarioEnDeposito($articulo,$deposito,$cantidad);
+					//Inserto/modifico al inventario que el proyecto tiene X cantidad de ese articulo
+					$consultas ->sumaInventarioEnProyecto($articulo,$deposito,$proyecto,$cantidad);
+					break;
+				case 'D':
+					$this->devolucionDeArticulos();
+					break;
+				case 'I':
+					//Inserto/modifico para el deposito X cantidad de articulos
+					$consultas ->sumaInventarioEnDeposito($articulo,$deposito,$cantidad);
+					break;
+				case 'B':
+					//Resto X cantidad de articulo al deposito seleccionado
+					$consultas ->restaInventarioEnDeposito($articulo,$deposito,$cantidad);
+					break;
+				case 'T':
+					$depositoDest = $this->request->data['MovimientoInventario']['IdDepositoDest'];
+					//Resto para el deposito Origen, X cantidad de articulos
+					$consultas ->restaInventarioEnDeposito($articulo,$deposito,$cantidad);
+					//Inserto/modifico para el deposito Destino, X cantidad de articulos
+					$consultas ->sumaInventarioEnDeposito($articulo,$depositoDest,$cantidad);
+					break;
+			}
+	}
+
     public function add() {
 		
         if ($this->request->is('post')) {
