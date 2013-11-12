@@ -35,6 +35,8 @@ echo $this->Form->input('Articulo.IdMaterial',array('type'=>'select','options'=>
 
 echo $this->Form->input('Articulo.IdEstilo',array('type'=>'select','options'=>$estilos,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Estilo : '));
 
+//echo $this->Form->select('field', $estilos, array( 'multiple' => 'checkbox'));
+
 echo $this->Form->input('Articulo.IdObjeto',array('type'=>'select','options'=>$objetos,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Objeto : '));
 
 echo $this->Form->input('Articulo.IdDimension',array('type'=>'select','options'=>$dimensiones,'empty'=>false,'class'=>'uniformselect'																								,'div'=>false,'label'=>false,'before'=>' Dimension : '));
