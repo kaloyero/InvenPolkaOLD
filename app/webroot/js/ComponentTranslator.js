@@ -40,9 +40,6 @@ var ComponentTranslator = new Class(
 				},funcion);
 			},
 			save : function(objectType,formData) {
-				alert("save:");
-				alert("objectType :"+objectType);
-				alert("formData :"+formData);
 				serverManager.save({
 					object : objectType,
 					data:formData,

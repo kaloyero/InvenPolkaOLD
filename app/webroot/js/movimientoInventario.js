@@ -28,7 +28,7 @@ var MovimientoInventario = new Class({
               //Si pasa la validacion,salvamos
 
 //              if (self.getForm().valid()){
-				  alert(self.getForm());
+
                    translator.save(self.type, self.getForm());
                    self.addLoader();
 //              }

@@ -60,7 +60,7 @@ var Pedido = new Class({
 			return false;
 		})
 		jQuery('.asignarAProyecto').bind("click", function(e) {
-			translator.addMovimiento("movimientoInventario",null,"asignacionAProyectos");
+			translator.addMovimiento("movimientoInventario",null,"asignacionAProyectos/"+self.getSelectedRowId(this));
 			return false;
 		})
 
