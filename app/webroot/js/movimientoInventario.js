@@ -8,7 +8,7 @@ var MovimientoInventario = new Class({
     },
     onAdd: function(data){
 		  this.parent();
-          this.makeAddTable();	  
+//          this.makeAddTable();	  
     },
 
     makeAddTable: function(data){
@@ -17,7 +17,6 @@ var MovimientoInventario = new Class({
           this.oTable=   jQuery('#listaArticulos').dataTable({
                            "bPaginate": true,
                            "sPaginationType": "full_numbers",
-						   "bFilter": false,"bInfo": false,
                            "oLanguage": {
                                     "sSearch": "Busqueda:",
                                     "sInfo": "Mostrando _START_ hasta _END_ de un total de  _TOTAL_ registros",
@@ -38,7 +37,7 @@ var MovimientoInventario = new Class({
                                   },
                                   //Este CallBack se ejecuta cuando esta lista la tabla
                                   "fnDrawCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-                                      self.afterAddDataTable();
+                                      self.afterDataTable();
                                   }
                        });
 
