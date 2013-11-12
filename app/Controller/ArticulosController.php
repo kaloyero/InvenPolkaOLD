@@ -31,10 +31,10 @@ class ArticulosController extends AppController {
         if ($this->request->is('post')) {
 				$this->removeSpecialCharactersFromImage();
             if ($this->Articulo->save($this->request->data)) {
-                $this->Session->setFlash('Articulo Guardada con Exito.');
-                $this->redirect(array('action' => 'index'));
-            }	else{
-					$this->setViewData();
+					print_r($this->request->data["Articulo"]["field"]);
+              	    $this->render('/General/Success');
+	        	}else{
+					$this->render('/General/Error');
 				}
         } else {
 			$this->setViewData();

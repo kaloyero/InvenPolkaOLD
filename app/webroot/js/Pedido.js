@@ -63,7 +63,7 @@ var Pedido = new Class({
 			translator.addMovimiento("movimientoInventario",null,"asignacionAProyectos");
 			return false;
 		})
-		
+
         this.setQuantitiesonSelectedElementes();
 	 },
 

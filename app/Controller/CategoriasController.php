@@ -27,20 +27,11 @@ class CategoriasController extends AppController {
     public function add() {
         if ($this->request->is('post')) {
             if ($this->Categoria->save($this->request->data)) {
-                $this->Session->setFlash('Categoria Guardada con Exito.');
-				$this->addRedirect('Categoria');
-            }else{
-			echo "Rp[oblema]";
-}
-        } else {
-
-/*			if ($this->params['check'] = 1){
-				$this->set('check',1);
-			} else {
-				$this->set('check',0);
-			}*/
-
-		}
+              	    $this->render('/General/Success');
+	        	}else{
+					$this->render('/General/Error');
+				}
+        }
     }
 
 	function ajaxData() {

@@ -332,8 +332,8 @@ class UploadBehavior extends ModelBehavior {
 			// Replaces all spaces with hyphens.
 			$model->data[$model->alias][$field] = str_replace(' ', '-', $model->data[$model->alias][$field]);
 			// Removes special chars.
-			$strreplaced = preg_replace("/[&']/","_",$strfile);
-			$value = preg_replace(" /[&'#]/","",$value);
+			//TODO $strreplaced = preg_replace("/[&']/","_",$strfile);
+ 			//TODO $value = preg_replace(" /[&'#]/","",$value);
 			$model->data[$model->alias][$field]= preg_replace(" /[&'#]/", "", 	$model->data[$model->alias][$field]);
 
 			$filePath = $path . $model->data[$model->alias][$field];
