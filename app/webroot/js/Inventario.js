@@ -6,6 +6,15 @@ var Inventario = new Class({
         this.breadcrumb='Inventarios';
         this.descripcion="Desde aqui administre el Inventario"
     },
+    bindListEvents:function() {
+          var self=this;
+		  this.parent();
+
+          jQuery('.deleteArt').bind("click", function(e) {
+				translator.addMovimiento("movimientoInventario",self.getDataToSendInJsonFormat(),"darDeBajaArticulos");
+               	return false;
+          })
+        },
     onUpdated: function(data){
             this.parent();
             translator.show(this.type);

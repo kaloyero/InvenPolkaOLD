@@ -20,6 +20,9 @@ var ComponentTranslator = new Class(
 				});
 			},
 			add : function(objectType,dataToSend) {
+				alert("add :");
+				alert("objectType :"+objectType);
+				alert("formData :"+formData);
 				serverManager.add({
 					object : objectType,
 					data:dataToSend,
@@ -29,7 +32,20 @@ var ComponentTranslator = new Class(
 					}
 				});
 			},
+			addMovimiento : function(objectType,dataToSend,funcion) {
+				serverManager.addMovimiento({
+					object : objectType,
+					data:dataToSend,
+					onSuccess : function(data) {
+					    var renderInstace = renderTranslator.getRender(objectType);
+                        renderInstace.onAdd(data);
+					}
+				},funcion);
+			},
 			save : function(objectType,formData) {
+				alert("save:");				
+				alert("objectType :"+objectType);
+				alert("formData :"+formData);
 				serverManager.save({
 					object : objectType,
 					data:formData,

@@ -1,6 +1,5 @@
 <p class="stdformbutton">
-	<button id="add" class="btn ">Devolucion de articulos</button>
-	<button class="btn btn-primary">Transferir a Deposito</button>
+	<button class="btn devolucion">Devolucion de articulos</button>
 </p>
 
 <table  id="configurationTable" class ="table table-bordered" width="100%"  style="width: 100%;">

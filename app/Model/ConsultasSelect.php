@@ -11,7 +11,7 @@
 	App::import('Model','Estilo');
 	App::import('Model','Objeto');
 	App::import('Model','Pedido');
-
+	App::import('Model','Inventario');
 class ConsultasSelect extends AppModel {
 	public $name = 'ConsultasSelect';
 
@@ -158,12 +158,13 @@ class ConsultasSelect extends AppModel {
 	function getPedidoById($id) {
 		$model=new Proyecto();
 		$pedidos=$model->query("SELECT * FROM `pedidos_vista` WHERE id = '".$id."';");
+		
 		return $pedidos;
 	}
 
 	function getDetallesPedidoByIdPedido($id) {
 		$model=new Proyecto();
-		$query="SELECT  `det`.`IdArticulo` AS  `idArticulo` ,  `det`.`Cantidad` AS  `Cantidad` ,  `art`.`Descripcion` AS  `Descripcion` ,  `art`.`dir` AS  `dir` , `art`.`idFoto` AS  `idFoto` ,`art`.`CodigoArticulo` AS  `codigo`
+		$query="SELECT  `det`.`id` AS  `IdDetalle`, `det`.`IdArticulo` AS  `IdArticulo` ,  `det`.`Cantidad` AS  `Cantidad` ,  `art`.`Descripcion` AS  `Descripcion` ,  `art`.`dir` AS  `dir` , `art`.`idFoto` AS  `idFoto` ,`art`.`CodigoArticulo` AS  `codigo`
 FROM  `pedido_detalles` AS  `det`
 LEFT JOIN  `articulos`  `art` ON (  `det`.`IdArticulo` =  `art`.`id` )
 WHERE  `det`.`IdPedido` ='".$id."';";
@@ -173,6 +174,82 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 
 ////////////////////////////// {FIN} PEDIDOS //////////////////////////////
 
+/********************************************************************************\
+****************************** {INICIO} INVENTARIOS ********************************
+\********************************************************************************/
+
+	//Suma (inserta/modifica) en inventario para deposito
+	function sumaInventarioEnDeposito($articulo,$deposito,$cantidad) {
+		if ($this->getExisteArticuloEnDeposito($articulo,$deposito)){
+			//Si existe le sumo la cantidad
+			
+		} else {
+			//Sino existe inserto el registro	
+			$this->insertarInventario($articulo,$deposito,NULL,$cantidad);
+		}
+	}
+
+	//Suma (inserta/modifica) en inventario para deposito
+	function sumaInventarioEnProyecto($articulo,$deposito,$cantidad) {
+		if ($this->getExisteArticuloEnDeposito($articulo,$deposito)){
+			//Si existe le sumo la cantidad
+			
+		} else {
+			//Sino existe inserto el registro	
+			$this->insertarInventario($articulo,$deposito,$cantidad);
+		}
+	}
+
+	//Verifica si el articulo existe en el deposito
+	function getExisteArticuloEnDeposito($articulo,$deposito) {
+		$model=new Inventario();
+		$conditions = array(
+			'Inventario.IdArticulo' => $articulo,
+			'Inventario.IdDeposito' => $deposito,
+			'Inventario.IdProyecto' => NULL
+		);
+		if ($this->$model->hasAny($conditions)){
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	//Verifica si el articulo existe en el proyecto
+	function getExisteArticuloEnProyecto($articulo,$proyecto,$deposito) {
+		$model=new Inventario();
+		$conditions = array(
+			'Inventario.IdArticulo' => $articulo,
+			'Inventario.IdProyecto' => $proyecto
+		);
+		if ($this->$model->hasAny($conditions)){
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	function insertarInventario($articulo,$deposito,$proyecto,$cantidad) {
+		$model=new Inventario();		
+		$this->$model->save(array('IdArticulo' => $articulo,'IdDeposito' => $deposito,'IdProyecto' => $proyecto,'Disponibilidad' => $cantidad));
+	}
+
+	function sumaInventarioParaDeposito($articulo,$deposito,$proyecto,$cantidad) {
+		$model=new Inventario();
+		$conditions = array(
+			'Inventario.IdArticulo' => $articulo,
+			'Inventario.IdDeposito' => $deposito,
+			'Inventario.IdProyecto' => $proyecto
+		);
+		//busco la cantidad
+		$inventario = $this->$model->find($conditions);
+		//Sumo
+		$total = $inventario['Disponibilidad'] + $cantidad;
+		//Actualizo
+		$this->$model->updateAll(array('Disponibilidad'=>$total), $conditions);
+	}
+	
+////////////////////////////// {FIN} INVENTARIOS //////////////////////////////
 
 }
 ?>

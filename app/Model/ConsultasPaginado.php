@@ -182,11 +182,13 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi) {
 				//Si el estado es abierto agrego el boton de "confirmar pedido"
 				$botonConfirmar = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/pedidos/confirmarPedido/".$j[$tabla]['id']."' class='confirm'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/confirmar.png' /></a></div>";
 //				$botonEditar ="<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/pedidos/edit/".$j[$tabla]['id']."' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div>";
-				$botonera = $botonera.$botonConfirmar.$botonEditar ;
+				$botonArmarPedido = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/armarOff.png' /></div>";
+				$botonera = $botonera.$botonConfirmar.$botonEditar.$botonArmarPedido ;
 			} else {
 				$botonConfirmar = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/confirmarOff.png' /></div>";
 //				$botonEditar = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/editOff.jpg' /></div>";
-				$botonera = $botonera.$botonConfirmar.$botonEditar ;
+				$botonArmarPedido = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/movimientoInventarios/asignacionAProyectos/".$j[$tabla]['id']."' class='asignarAProyecto'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/armar.png' /></a></div>";
+				$botonera = $botonera.$botonConfirmar.$botonEditar.$botonArmarPedido ;
 			}
 //			$botonVer ="<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/pedidos/view/".$j[$tabla]['id']."' class='view'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/view.png' /></a></div>";
 			$botonEliminar = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>";

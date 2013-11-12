@@ -10,11 +10,11 @@ echo $this->Form->input('Descripcion');
 <div class="input text">
 <label for="comboInventario">Tipo de Movimiento</label>
 <select name="data[MovimientoInventario][TipoMovimiento]" id="comboInventario" >
-  <option value="I">Ingreso de Articulos</option>
-  <option value="B">Baja de Articulos</option>
+  <option value="I">Ingreso de Articulos</option>LISTO
+  <option value="B">Baja de Articulos</option>LISTO
   <option value="P">Asignacion de Articulos a proyectos</option>
   <option value="D">Devolucion de Articulos de proyectos</option>
-  <option value="T">Transferencia de Articulos entre depósitos</option>
+  <option value="T">Transferencia de Articulos entre depósitos</option>LISTO
 </select>
 
 </div>

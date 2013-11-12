@@ -14,9 +14,9 @@ var Pedido = new Class({
 		this.drawHeader();
     },
      bindAddEvents:function() {
-         var self=this;
-         this.parent();
-         jQuery('.agregarOtro').bind("click", function(e) {
+        var self=this;
+        this.parent();
+        jQuery('.agregarOtro').bind("click", function(e) {
              articuloRender.setContext("pedidos");
              translator.show('articulo');
      		return false;
@@ -59,6 +59,11 @@ var Pedido = new Class({
 			translator.confirmarPedido(self.type,self.getSelectedRowId(this));
 			return false;
 		})
+		jQuery('.asignarAProyecto').bind("click", function(e) {
+			translator.addMovimiento("movimientoInventario",null,"asignacionAProyectos");
+			return false;
+		})
+		
         this.setQuantitiesonSelectedElementes();
 	 },
 

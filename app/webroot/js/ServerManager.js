@@ -141,6 +141,19 @@ var ServerManager = new Class({
 			}
 		});
     },
+    addMovimiento: function(config,funcion){
+    	var self=this;
+    	var type = config.object;
+    	jQuery.ajax({
+			type: 'GET',
+			data:config.data,
+			url: self.services[type]["controllerName"]+"/"+funcion,
+			success: function(data) {
+
+				config.onSuccess(data);
+			}
+		});
+    },	
     save: function(config){
     	var self=this;
     	var type = config.object;

@@ -22,6 +22,18 @@ var Articulo = new Class({
 				translator.add("pedido",self.getDataToSendInJsonFormat());
                	return false;
           })
+          jQuery('.asignarDepo').bind("click", function(e) {
+				translator.addMovimiento("movimientoInventario",self.getDataToSendInJsonFormat(),"ingresoDeArticulos");
+               	return false;
+          })
+          jQuery('.deleteArt').bind("click", function(e) {
+				translator.addMovimiento("movimientoInventario",self.getDataToSendInJsonFormat(),"darDeBajaArticulos");
+               	return false;
+          })
+          jQuery('.transferir').bind("click", function(e) {
+				translator.addMovimiento("movimientoInventario",self.getDataToSendInJsonFormat(),"transferirADeposito");
+               	return false;
+          })
           this.deleteSelectedArticlesArray();
         },
 
