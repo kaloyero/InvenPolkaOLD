@@ -72,6 +72,7 @@ var Pedido = new Class({
 //		jQuery('#listaArticulos').dataTable();
           this.oTable=   jQuery('#listaArticulos').dataTable({
                            "bPaginate": true,
+                           "sPaginationType": "full_numbers",
                            "oLanguage": {
                                     "sSearch": "Busqueda:",
                                     "sInfo": "Mostrando _START_ hasta _END_ de un total de  _TOTAL_ registros",
