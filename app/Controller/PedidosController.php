@@ -38,7 +38,7 @@ class PedidosController extends AppController {
    }
 
     public function add() {
-		
+
         if ($this->request->is('post')) {
 			$this->request->data['Pedido']['Numero'] = 0;
             if ($this->Pedido->save($this->request->data)) {
