@@ -4,7 +4,8 @@ echo '<div class="widgetcontent bordered shadowed nopadding">';
 echo $this->Form->create('Deposito',array('class' => 'stdform stdform2','inputDefaults' => array(
         'div' => array('class' => 'field'))));
 echo $this->Form->input('Nombre');
-echo $this->Form->input('FechaFin',array('empty'=>true,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p><label>Fecha Fin</label><span class="field">','after'=>'</span></p>'));
+
+echo '<p><label>Fecha Fin</label><span class="field"><input class="input-small fecha" type="text" name="data[Deposito][FechaFin]" required="required" /><small class="field"><em> yyyy / mm / dd</em></small></span></p>';
 /* FIn Seguir agregando*/
 //echo $this->Html->link('Cancelar', '/categorias');
 

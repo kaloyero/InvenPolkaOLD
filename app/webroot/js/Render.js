@@ -94,7 +94,12 @@ var Render = new Class({
               //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
               return false;
          });
+
+         //Agregamos los calendar
+         console.log("VAL",jQuery('.hasDatepicker'))
+          jQuery('.fecha').datepicker({ dateFormat: 'yy-mm-dd' });
      },
+
      bindEditEvents:function() {
          var self=this;
          this.styleForm();
@@ -104,9 +109,11 @@ var Render = new Class({
                  translator.update(self.type, self.getForm());
                  self.addLoader();
             }
-             //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
+            //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
             return false;
              });
+          //Agregamos los Calendar
+         jQuery('.fecha').datepicker({ dateFormat: 'yy-mm-dd' });
          },
       getSelectedRowId:function(selectedRow) {
           return jQuery(selectedRow).parent().parent().parent().parent().find(":first" ).text()
