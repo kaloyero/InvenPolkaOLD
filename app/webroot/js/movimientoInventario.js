@@ -6,6 +6,7 @@ var MovimientoInventario = new Class({
         this.breadcrumb='movimientoInventarios';
         this.descripcion="Desde aqui administre los Movimientos"
     },
+
     bindListEvents:function() {
           var self=this;
 		  this.parent();
@@ -26,7 +27,6 @@ var MovimientoInventario = new Class({
 
           jQuery('.save').bind("click", function(e) {
               //Si pasa la validacion,salvamos
-			  
 //              if (self.getForm().valid()){
 
                    translator.save(self.type, self.getForm());
