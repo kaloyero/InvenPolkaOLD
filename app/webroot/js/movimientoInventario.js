@@ -20,21 +20,15 @@ var MovimientoInventario = new Class({
 
         },
      bindAddEvents:function() {
-         console.log("SE")
         var self=this;
           this.styleForm();
           this.generateValidation();
           jQuery('.save').bind("click", function(e) {
-              //Si pasa la validacion,salvamos
-
-//              if (self.getForm().valid()){
-
-                   translator.save(self.type, self.getForm());
-                   self.addLoader();
-//              }
-              //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
+                    translator.save(self.type, self.getForm());
+                    self.addLoader();
               return false;
          });
+
          jQuery('.desactiva').bind("click", function(e) {
              jQuery(this).parent().parent().remove();
          })
