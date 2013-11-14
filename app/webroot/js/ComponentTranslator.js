@@ -39,6 +39,16 @@ var ComponentTranslator = new Class(
 					}
 				},funcion);
 			},
+			getConfiguraciones : function(objectType,idObject) {
+				serverManager.getConfiguraciones({
+					object : "configuracion",
+				    id : idObject,
+					onSuccess : function(data) {
+					    var renderInstace = renderTranslator.getRender(objectType);
+                        renderInstace.onRetrievedConfiguraciones(data);
+					}
+				});
+			},
 			save : function(objectType,formData) {
 				serverManager.save({
 					object : objectType,

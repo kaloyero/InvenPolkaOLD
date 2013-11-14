@@ -31,7 +31,6 @@ class ArticulosController extends AppController {
         if ($this->request->is('post')) {
 				$this->removeSpecialCharactersFromImage();
             if ($this->Articulo->save($this->request->data)) {
-					print_r($this->request->data["Articulo"]["field"]);
               	    $this->render('/General/Success');
 	        	}else{
 					$this->render('/General/Error');
@@ -67,22 +66,22 @@ class ArticulosController extends AppController {
 
 				}
 		        if ($this->Articulo->save($this->request->data,array('fieldList' => $fieldsToEdit ))){
-					 $this->Session->setFlash('Your post has been updated.');
-					 $this->redirect(array('action' => 'index'));
-				}else{
-						$this->setViewData();
+					  $this->render('/General/Success');
+		        	}else{
+						$this->render('/General/Error');
 					}
 	    }
 
 	}
 	function setViewData() {
 		$consultas = new ConsultasSelect();
-		$this->set('materiales',$consultas->getMateriales());
 		$this->set('categorias',$consultas->getCategorias());
-		$this->set('decorados',$consultas->getDecorados());
-		$this->set('dimensiones',$consultas->getDimensiones());
-		$this->set('estilos',$consultas->getEstilos());
-		$this->set('objetos',$consultas->getObjetos());
+		$firstKey = key($consultas->getCategorias());
+		$this->set('materiales',$consultas->getMaterialesByCategoria($firstKey));
+		$this->set('decorados',$consultas->getDecoradosByCategoria($firstKey));
+		$this->set('dimensiones',$consultas->getDimensionesByCategoria($firstKey));
+		$this->set('estilos',$consultas->getEstilosByCategoria($firstKey));
+		$this->set('objetos',$consultas->getObjetosByCategoria($firstKey));
 	}
 	//Si el usuario esta editando un articulo,y el idFoto viene vacio,quiere decir que no la cambio,entonces,editamos todos los campos,menos
 	//el de la foto,porque sino lo pone vacio.Si cambio la foto,hacer el update normal
@@ -102,6 +101,7 @@ class ArticulosController extends AppController {
 	}
 	function removeSpecialCharactersFromImage() {
 		// Replaces all spaces with hyphens.
+
 		$this->request->data['Articulo']['idFoto'] = str_replace(' ', '-', $this->request->data['Articulo']['idFoto']);
 		// Removes special chars.
 		$this->request->data['Articulo']['idFoto']= preg_replace(" /[&'#]/", "",$this->request->data['Articulo']['idFoto']);
@@ -130,7 +130,6 @@ class ArticulosController extends AppController {
 						$conditions= $conditions."id_material LIKE '".$this->passedArgs["IdMaterial"]."' AND ";
 					}
 					if(!empty($this->passedArgs["IdEstilo"])){
-						echo"SI";
 						$conditions= $conditions."id_estilo LIKE '".$this->passedArgs["IdEstilo"]."' AND ";
 					}
 					if(!empty($this->passedArgs["IdCategoria"])){

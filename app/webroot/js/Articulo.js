@@ -58,7 +58,7 @@ var Articulo = new Class({
                      //Si pasa la validacion del Form(Excepto la de la imagen que la preguntamos luego)
                            if (self.getForm().valid()){
                                if (!self.validateImage()){
-                                        alert("Seleccione una Foto del ARticulooo")
+                                        alert("Seleccione una Foto del Articulooo")
                                         return false;
                                     }else{
                                         self.addLoader();
@@ -76,6 +76,9 @@ var Articulo = new Class({
  			     }
 
            });
+           jQuery('.categoria').bind("change", function(e) {
+               	translator.getConfiguraciones(self.type,this.value);
+             })
        },
      bindEditEvents:function() {
          var self=this;
@@ -97,6 +100,9 @@ var Articulo = new Class({
   			    self.onUpdated();
   			    messageRender.createMessage(data);
   			}
+        })
+        jQuery('.categoria').bind("change", function(e) {
+            translator.getConfiguraciones(self.type,this.value);
         })
     },
 
@@ -153,6 +159,75 @@ var Articulo = new Class({
      onUpdated: function(){
              this.parent();
              translator.show(this.type);
+    },
+    onRetrievedConfiguraciones: function(data){
+        //Removemos lo que habia antes
+        jQuery('#ArticuloIdDecorado').find('option').remove()
+        jQuery("#ArticuloIdDecorado").prev().empty();
+
+        jQuery.each(data.decorados, function (index, value) {
+            jQuery("#ArticuloIdDecorado").append('<option value="'+value["decorado"]["id"]+'">'+value["decorado"]["Nombre"]+'</option>');
+        });
+        //Si el combo no esta vacio,tengo que escribir en el span que se encuentra arriba el nombre al menos del primer seleccionado(El disenio template,pide eso)
+        if( jQuery('#ArticuloIdDecorado').has('option').length > 0 ) {
+            var primerOpcionValor=jQuery('#ArticuloIdDecorado option:first-child').text();
+            jQuery("#ArticuloIdDecorado").prev().text(primerOpcionValor);
+        }
+        //Removemos lo que habia antes
+        jQuery('#ArticuloIdMaterial').find('option').remove()
+        jQuery("#ArticuloIdMaterial").prev().empty();
+
+        jQuery.each(data.materiales, function (index, value) {
+            jQuery("#ArticuloIdMaterial").append('<option value="'+value["material"]["id"]+'">'+value["material"]["Nombre"]+'</option>');
+        });
+
+         //Si el combo no esta vacio,tengo que escribir en el span que se encuentra arriba el nombre al menos del primer seleccionado(El disenio template,pide eso)
+         if( jQuery('#ArticuloIdMaterial').has('option').length > 0 ) {
+             var primerOpcionValor=jQuery('#ArticuloIdMaterial option:first-child').text();
+             jQuery("#ArticuloIdMaterial").prev().text(primerOpcionValor);
+         }
+
+         //Removemos lo que habia antes
+        jQuery('#ArticuloIdDimension').find('option').remove()
+        jQuery("#ArticuloIdDimension").prev().empty();
+
+
+        jQuery.each(data.dimensiones, function (index, value) {
+            jQuery("#ArticuloIdDimension").append('<option value="'+value["dimension"]["id"]+'">'+value["dimension"]["Nombre"]+'</option>');
+        });
+        //Si el combo no esta vacio,tengo que escribir en el span que se encuentra arriba el nombre al menos del primer seleccionado(El disenio template,pide eso)
+         if( jQuery('#ArticuloIdDimension').has('option').length > 0 ) {
+             var primerOpcionValor=jQuery('#ArticuloIdDimension option:first-child').text();
+             jQuery("#ArticuloIdDimension").prev().text(primerOpcionValor);
+         }
+
+         //Removemos lo que habia antes
+        jQuery('#ArticuloIdObjeto').find('option').remove()
+        jQuery("#ArticuloIdObjeto").prev().empty();
+
+
+        jQuery.each(data.objetos, function (index, value) {
+            jQuery("#ArticuloIdObjeto").append('<option value="'+value["objeto"]["id"]+'">'+value["objeto"]["Nombre"]+'</option>');
+        });
+        //Si el combo no esta vacio,tengo que escribir en el span que se encuentra arriba el nombre al menos del primer seleccionado(El disenio template,pide eso)
+         if( jQuery('#ArticuloIdObjeto').has('option').length > 0 ) {
+             var primerOpcionValor=jQuery('#ArticuloIdObjeto option:first-child').text();
+             jQuery("#ArticuloIdObjeto").prev().text(primerOpcionValor);
+         }
+
+         //Removemos lo que habia antes
+        jQuery('#ArticuloIdEstilo').find('option').remove()
+        jQuery("#ArticuloIdEstilo").prev().empty();
+
+
+        jQuery.each(data.estilos, function (index, value) {
+            jQuery("#ArticuloIdEstilo").append('<option value="'+value["estilo"]["id"]+'">'+value["estilo"]["Nombre"]+'</option>');
+        });
+        //Si el combo no esta vacio,tengo que escribir en el span que se encuentra arriba el nombre al menos del primer seleccionado(El disenio template,pide eso)
+         if( jQuery('#ArticuloIdEstilo').has('option').length > 0 ) {
+             var primerOpcionValor=jQuery('#ArticuloIdEstilo option:first-child').text();
+             jQuery("#ArticuloIdEstilo").prev().text(primerOpcionValor);
+         }
     },
     afterDataTable:function(data){
         var self=this;

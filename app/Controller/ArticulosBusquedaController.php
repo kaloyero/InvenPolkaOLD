@@ -43,6 +43,7 @@ class ArticulosController extends AppController {
 			$output = $paginado->getDataArticulosSearch($this->Session->read("articulos"));
 	        echo json_encode($output);
 		} else {
+			//Para que??
 			$paginado =new ConsultasPaginado();
 	        $this->autoRender = false;
 //			$output = $paginado->getDataArticulos();

@@ -28,20 +28,20 @@ echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5
 								                                <span class="field float">',
 																'after'=>'</span></p>'));
 
-echo $this->Form->input('Articulo.IdCategoria',array('type'=>'select','options'=>$categorias,'empty'=>false,'class'=>'uniformselect'															,'div'=>false,'label'=>false,'before'=>'<p><label>Configuraciones</label><span class="field"> Categoria :'));
+echo $this->Form->input('Articulo.IdCategoria',array('type'=>'select','options'=>$categorias,'empty'=>false,'class'=>'uniformselect categoria'															,'div'=>false,'label'=>false,'before'=>'<p><label>Configuraciones</label><span class="field"> Categoria :'));
 
 
-echo $this->Form->input('Articulo.IdMaterial',array('type'=>'select','options'=>$materiales,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Material : '));
+echo $this->Form->input('Articulo.IdMaterial',array('type'=>'select','empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Material : '));
 
 
-echo $this->Form->input('Articulo.IdEstilo',array('type'=>'select','options'=>$estilos,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Estilo : '));
+echo $this->Form->input('Articulo.IdEstilo',array('type'=>'select','empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Estilo : '));
 
 
-$this->Form->input('Articulo.IdObjeto',array('type'=>'select','options'=>$objetos,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Objeto : '));
+echo $this->Form->input('Articulo.IdObjeto',array('type'=>'select','empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Objeto : '));
 
-echo $this->Form->input('Articulo.IdDimension',array('type'=>'select','options'=>$dimensiones,'empty'=>false,'class'=>'uniformselect'																								,'div'=>false,'label'=>false,'before'=>' Dimension : '));
+echo $this->Form->input('Articulo.IdDimension',array('type'=>'select','empty'=>false,'class'=>'uniformselect'																								,'div'=>false,'label'=>false,'before'=>' Dimension : '));
 
-																echo $this->Form->input('Articulo.IdDecorado',array('type'=>'select','options'=>$decorados,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Decorado : ','after'=>'</span></p>'));
+																echo $this->Form->input('Articulo.IdDecorado',array('type'=>'select','empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Decorado : ','after'=>'</span></p>'));
 
 
 //echo '<p class="stdformbutton">button class="btn btn-primary">Guardar</button><button type="reset" class="btn">Limpiar campos</button></p>';

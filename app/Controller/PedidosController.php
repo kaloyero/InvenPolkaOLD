@@ -20,7 +20,7 @@ class PedidosController extends AppController {
 	        echo json_encode($output);
 	}
 
-
+	//Para que?
 	function getEstilos() {
 		$estilo=new Estilo();
 		$estilos=$estilo->find('list',array('fields'=>array('Estilo.id','Estilo.Nombre')));
@@ -42,6 +42,7 @@ class PedidosController extends AppController {
         if ($this->request->is('post')) {
 			$this->request->data['Pedido']['Numero'] = 0;
             if ($this->Pedido->save($this->request->data)) {
+				//Para que?Si justo otro agrego un pedido en el medio,no seria mas el ultimo
 				$idInsertedPedido = $this->Pedido->getInsertID();
 				$this->Pedido->updateAll(array('Numero'=>$idInsertedPedido), array('Pedido.id'=>$idInsertedPedido));
 				//hago el alta del detalle

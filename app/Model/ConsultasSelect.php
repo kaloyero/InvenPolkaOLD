@@ -158,10 +158,10 @@ class ConsultasSelect extends AppModel {
 	function getPedidoById($id) {
 		$model=new Proyecto();
 		$pedidos=$model->query("SELECT * FROM `pedidos_vista` WHERE id = '".$id."';");
-		
+
 		return $pedidos;
 	}
-
+	//Para que? Porque el modelo es proyecto?
 	function getDetallesPedidoByIdPedido($id) {
 		$model=new Proyecto();
 		$query="SELECT  `det`.`id` AS  `IdDetalle`, `det`.`IdArticulo` AS  `IdArticulo` ,  `det`.`Cantidad` AS  `Cantidad` ,  `art`.`Descripcion` AS  `Descripcion` ,  `art`.`dir` AS  `dir` , `art`.`idFoto` AS  `idFoto` ,`art`.`CodigoArticulo` AS  `codigo`
@@ -170,6 +170,42 @@ LEFT JOIN  `articulos`  `art` ON (  `det`.`IdArticulo` =  `art`.`id` )
 WHERE  `det`.`IdPedido` ='".$id."';";
 		$pedidos=$model->query($query);
 		return $pedidos;
+	}
+	function getConfiguraciones($id) {
+
+
+		$decorados=$this->getDecoradosByCategoria($id);
+		$estilos=$this->getEstilosByCategoria($id);
+		$materiales=$this->getMaterialesByCategoria($id);
+		$objetos=$this->getObjetosByCategoria($id);
+
+		$dimensiones=$this->getDimensionesByCategoria($id);
+
+		$configuraciones= array("decorados"=> $decorados,"estilos"=> $estilos,"materiales"=> $materiales,"objetos"=> $objetos,"dimensiones"=> $dimensiones);
+
+		return $configuraciones;
+	}
+	function getDecoradosByCategoria($id) {
+		$model=new Categoria();
+		return	$model->query("SELECT decorado.Nombre, decorado.id FROM Decorados as decorado INNER JOIN DecoradoCategorias as decoCate	ON 	decoCate.idDecorado=decorado.id WHERE  `decoCate`.`IdCategoria` ='".$id."'");
+
+	}
+	function getEstilosByCategoria($id) {
+		$model=new Categoria();
+		return $model->query("SELECT estilo.Nombre, estilo.id FROM Estilos as estilo INNER JOIN EstiloCategorias as estiloCate	ON estiloCate.idEstilo=estilo.id WHERE  `estiloCate`.`IdCategoria` ='".$id."'");
+	}
+	function getDimensionesByCategoria($id) {
+		$model=new Categoria();
+		return $model->query("SELECT dimension.Nombre, dimension.id FROM Dimensiones as dimension INNER JOIN DimensionCategorias as dimenCate ON dimenCate.idDimension=dimension.id WHERE  `dimenCate`.`IdCategoria` ='".$id."'");
+	}
+	function getMaterialesByCategoria($id) {
+		$model=new Categoria();
+		return $model->query("SELECT material.Nombre, material.id  FROM Materiales as material INNER JOIN MaterialCategorias as mateCate	ON mateCate.idMaterial=material.id WHERE  `mateCate`.`IdCategoria` ='".$id."'");
+	}
+	function getObjetosByCategoria($id) {
+		$model=new Categoria();
+		return $model->query("SELECT objeto.Nombre, objeto.id FROM Objetos as objeto INNER JOIN ObjetoCategorias as objetoCate	ON objetoCate.idObjeto=objeto.id WHERE  `objetoCate`.`IdCategoria` ='".$id."'");
+
 	}
 
 ////////////////////////////// {FIN} PEDIDOS //////////////////////////////
@@ -186,7 +222,7 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 			print_r("--   SUMO CANTIDAD  ".$articulo." --");
 		} else {
 			print_r("--   INSERTO   ".$articulo." --");
-			//Sino existe inserto el registro	
+			//Sino existe inserto el registro
 			$this->insertarInventario($articulo,$deposito,NULL,$cantidad);
 		}
 	}
@@ -197,7 +233,7 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 			//Si existe le sumo la cantidad
 			$this->sumaInventario($articulo,$deposito,$proyecto,$cantidad);
 		} else {
-			//Sino existe inserto el registro	
+			//Sino existe inserto el registro
 			$this->insertarInventario($articulo,$deposito,$proyecto,$cantidad);
 		}
 	}
@@ -234,7 +270,7 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 	}
 
 	function insertarInventario($articulo,$deposito,$proyecto,$cantidad) {
-		$model=new Inventario();		
+		$model=new Inventario();
 		$model->save(array('IdArticulo' => $articulo,'IdDeposito' => $deposito,'IdProyecto' => $proyecto,'Disponibilidad' => $cantidad));
 	}
 
@@ -252,10 +288,10 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 		//Actualizo
 		$model->updateAll(array('Disponibilidad'=>$total), $conditions);
 	}
-
+	//Para que? Deberiamos mover los metodos que hacen transacciones a algun SaveOrUpdatephp?
 	function restaInventario($articulo,$deposito,$proyecto,$cantidad) {
 		$model=new Inventario();
-		
+
 		$conditions = array(
 			'Inventario.IdArticulo' => $articulo,
 			'Inventario.IdDeposito' => $deposito,
@@ -268,7 +304,7 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 		//Actualizo
 		$model->updateAll(array('Disponibilidad'=>$total), $conditions);
 	}
-	
+
 ////////////////////////////// {FIN} INVENTARIOS //////////////////////////////
 
 }
