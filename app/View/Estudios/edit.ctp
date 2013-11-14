@@ -17,7 +17,7 @@ echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5
 
 
 //echo $this->Form->end('Guardar');
-echo $this->Form->input('Id', array('type' => 'hidden'));
+echo $this->Form->input('id', array('type' => 'hidden'));
 echo '<p class="stdformbutton"><button class="btn btn-primary edit">Guardar</button></p>';
 
 ?>

@@ -13,7 +13,7 @@ echo $this->Form->input('FechaIni',array('class'=>'input-medium fecha','div'=>fa
 
 echo $this->Form->input('FechaFin',array('class'=>'input-medium fecha','div'=>false,'label'=>false,'before'=>'<p><label>Fecha Fin</label><span 			class="field">','after'=>'<small class="field"><em>yyyy / mm / dd</em></small></span></p>','type' => 'text'));
 
-echo $this->Form->input('Id', array('type' => 'hidden'));
+echo $this->Form->input('id', array('type' => 'hidden'));
 
 //echo $this->Form->end('Guardar');
 echo '<p class="stdformbutton"><button class="btn btn-primary edit">Guardar</button></p>';
