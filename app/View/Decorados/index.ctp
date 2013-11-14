@@ -4,7 +4,6 @@
                 <th style="display:none;">Id</th>
  				<th>Nombre</th>
                 <th>Acciones</th>
-
 		</tr>
         </thead>
         <tbody>
@@ -21,6 +20,10 @@ echo $this->Form->input('Nombre',array('class'=>'input-medium','div'=>false,'lab
 								                                <label>Nombre</label>
 								                                <span class="field">',
 																'after'=>'</span></p>'));
+echo $this->Form->input('IdCategoria',array('type'=>'select','multiple' => 'true','options'=>$categorias,'empty'=>false,'class'=>'uniformselect'															,'div'=>false,'label'=>false,'before'=>'<p>
+                                <label>Categoria</label>
+                                <span class="field">'));
+																
 echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</button><button type="reset" class="btn">Limpiar Formulario</button></p>';
 echo $this->Form->end();
 ?>

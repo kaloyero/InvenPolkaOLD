@@ -2,6 +2,7 @@
 class Decorado extends AppModel {
         public $name = 'Decorado';
 
+
 		public $validate = array(
 			'Nombre' => array(
 				'ruleName' => array(

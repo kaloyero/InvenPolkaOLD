@@ -18,13 +18,13 @@ var MovimientoInventario = new Class({
 				translator.addMovimiento("movimientoInventario",null,"asignacionAProyectos/".self.getSelectedRowId(this));
                	return false;
           })
-		  
+
         },
      bindAddEvents:function() {
+         console.log("SE")
         var self=this;
           this.styleForm();
           this.generateValidation();
-
           jQuery('.save').bind("click", function(e) {
               //Si pasa la validacion,salvamos
 //              if (self.getForm().valid()){
@@ -35,9 +35,12 @@ var MovimientoInventario = new Class({
               //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
               return false;
          });
+         jQuery('.desactiva').bind("click", function(e) {
+             jQuery(this).parent().parent().remove();
+         })
 
    	}
-	
+
 });
 
 movimientoInventarioRender=new MovimientoInventario();
