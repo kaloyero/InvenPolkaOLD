@@ -61,7 +61,7 @@ class ArticulosController extends AppController {
 		        $this->request->data = $this->Articulo->read();
 		    } else {
 			  $fieldsToEdit=$this->getFieldsToEdit();
-				if(!empty($this->request->data["Articulo"]["IdFoto"])){
+				if(!empty($this->request->data["Articulo"]["idFoto"])){
 					$this->removeSpecialCharactersFromImage();
 
 				}
@@ -75,20 +75,21 @@ class ArticulosController extends AppController {
 	}
 	function setViewData() {
 		$consultas = new ConsultasSelect();
-		$this->set('materiales',$consultas->getMateriales());
 		$this->set('categorias',$consultas->getCategorias());
-		$this->set('decorados',$consultas->getDecorados());
-		$this->set('dimensiones',$consultas->getDimensiones());
-		$this->set('estilos',$consultas->getEstilos());
-		$this->set('objetos',$consultas->getObjetos());
+		$firstKey = key($consultas->getCategorias());
+		$this->set('materiales',$consultas->getMaterialesByCategoria($firstKey));
+		$this->set('decorados',$consultas->getDecoradosByCategoria($firstKey));
+		$this->set('dimensiones',$consultas->getDimensionesByCategoria($firstKey));
+		$this->set('estilos',$consultas->getEstilosByCategoria($firstKey));
+		$this->set('objetos',$consultas->getObjetosByCategoria($firstKey));
 	}
 	//Si el usuario esta editando un articulo,y el idFoto viene vacio,quiere decir que no la cambio,entonces,editamos todos los campos,menos
 	//el de la foto,porque sino lo pone vacio.Si cambio la foto,hacer el update normal
 	function getFieldsToEdit() {
 		$fieldList= array();
-		if(!empty($this->request->data["Articulo"]["IdFoto"])){
+		if(!empty($this->request->data["Articulo"]["idFoto"])){
 
-			$fieldsToEdit= array('CodigoArticulo', 'Descripcion', 'IdCategoria', 'IdObjeto', 'IdEstilo', 'IdMaterial', 'IdDecorado', 'IdDimension','IdFoto');
+			$fieldsToEdit= array('CodigoArticulo', 'Descripcion', 'IdCategoria', 'IdObjeto', 'IdEstilo', 'IdMaterial', 'IdDecorado', 'IdDimension','idFoto');
 		}else{
 			$fieldList= array('CodigoArticulo', 'Descripcion', 'IdCategoria', 'IdObjeto', 'IdEstilo', 'IdMaterial', 'IdDecorado', 'IdDimension');
 		}
@@ -101,9 +102,9 @@ class ArticulosController extends AppController {
 	function removeSpecialCharactersFromImage() {
 		// Replaces all spaces with hyphens.
 
-		$this->request->data['Articulo']['IdFoto'] = str_replace(' ', '-', $this->request->data['Articulo']['IdFoto']);
+		$this->request->data['Articulo']['idFoto'] = str_replace(' ', '-', $this->request->data['Articulo']['idFoto']);
 		// Removes special chars.
-		$this->request->data['Articulo']['IdFoto']= preg_replace(" /[&'#]/", "",$this->request->data['Articulo']['IdFoto']);
+		$this->request->data['Articulo']['idFoto']= preg_replace(" /[&'#]/", "",$this->request->data['Articulo']['idFoto']);
 	}
 	function find() {
 		$url = array('action'=>'index');

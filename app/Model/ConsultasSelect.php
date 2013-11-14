@@ -172,22 +172,40 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 		return $pedidos;
 	}
 	function getConfiguraciones($id) {
-		$model=new Categoria();
 
-		$decorados=$model->query("SELECT decorado.Nombre, decorado.id FROM Decorados as decorado INNER JOIN DecoradoCategorias as decoCate	ON decoCate.idDecorado=decorado.id WHERE  `decoCate`.`IdCategoria` ='".$id."'");
 
-		$estilos=$model->query("SELECT estilo.Nombre, estilo.id FROM Estilos as estilo INNER JOIN EstiloCategorias as estiloCate	ON estiloCate.idEstilo=estilo.id WHERE  `estiloCate`.`IdCategoria` ='".$id."'");
+		$decorados=$this->getDecoradosByCategoria($id);
+		$estilos=$this->getEstilosByCategoria($id);
+		$materiales=$this->getMaterialesByCategoria($id);
+		$objetos=$this->getObjetosByCategoria($id);
 
-		$materiales=$model->query("SELECT material.Nombre, material.id  FROM Materiales as material INNER JOIN MaterialCategorias as mateCate	ON mateCate.idMaterial=material.id WHERE  `mateCate`.`IdCategoria` ='".$id."'");
-
-		$objetos=$model->query("SELECT objeto.Nombre, objeto.id FROM Objetos as objeto INNER JOIN ObjetoCategorias as objetoCate	ON objetoCate.idObjeto=objeto.id WHERE  `objetoCate`.`IdCategoria` ='".$id."'");
-
-		$dimensiones=$model->query("SELECT dimension.Nombre, dimension.id FROM Dimensiones as dimension INNER JOIN DimensionCategorias as dimenCate ON dimenCate.idDimension=dimension.id WHERE  `dimenCate`.`IdCategoria` ='".$id."'");
+		$dimensiones=$this->getDimensionesByCategoria($id);
 
 		$configuraciones= array("decorados"=> $decorados,"estilos"=> $estilos,"materiales"=> $materiales,"objetos"=> $objetos,"dimensiones"=> $dimensiones);
 
-
 		return $configuraciones;
+	}
+	function getDecoradosByCategoria($id) {
+		$model=new Categoria();
+		return	$model->query("SELECT decorado.Nombre, decorado.id FROM Decorados as decorado INNER JOIN DecoradoCategorias as decoCate	ON 	decoCate.idDecorado=decorado.id WHERE  `decoCate`.`IdCategoria` ='".$id."'");
+
+	}
+	function getEstilosByCategoria($id) {
+		$model=new Categoria();
+		return $model->query("SELECT estilo.Nombre, estilo.id FROM Estilos as estilo INNER JOIN EstiloCategorias as estiloCate	ON estiloCate.idEstilo=estilo.id WHERE  `estiloCate`.`IdCategoria` ='".$id."'");
+	}
+	function getDimensionesByCategoria($id) {
+		$model=new Categoria();
+		return $model->query("SELECT dimension.Nombre, dimension.id FROM Dimensiones as dimension INNER JOIN DimensionCategorias as dimenCate ON dimenCate.idDimension=dimension.id WHERE  `dimenCate`.`IdCategoria` ='".$id."'");
+	}
+	function getMaterialesByCategoria($id) {
+		$model=new Categoria();
+		return $model->query("SELECT material.Nombre, material.id  FROM Materiales as material INNER JOIN MaterialCategorias as mateCate	ON mateCate.idMaterial=material.id WHERE  `mateCate`.`IdCategoria` ='".$id."'");
+	}
+	function getObjetosByCategoria($id) {
+		$model=new Categoria();
+		return $model->query("SELECT objeto.Nombre, objeto.id FROM Objetos as objeto INNER JOIN ObjetoCategorias as objetoCate	ON objetoCate.idObjeto=objeto.id WHERE  `objetoCate`.`IdCategoria` ='".$id."'");
+
 	}
 
 ////////////////////////////// {FIN} PEDIDOS //////////////////////////////

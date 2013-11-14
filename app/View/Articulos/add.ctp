@@ -8,7 +8,7 @@ echo $this->Form->create('Articulo',array('type' => 'file','class' => 'stdform s
 //echo $this->Form->create('Articulo', array('type' => 'file'));
 //echo $this->Form->input('filename',array('type'=>'file'));
 
-echo $this->Form->input('IdFoto', array('type' => 'file', 'accept' =>'image/*','label' => false,'class'=>'uniform-file','div'=>array('class'=>'field uploader focus')));
+echo $this->Form->input('idFoto', array('type' => 'file', 'accept' =>'image/*','label' => false,'class'=>'uniform-file','div'=>array('class'=>'field uploader focus')));
 
 
 
