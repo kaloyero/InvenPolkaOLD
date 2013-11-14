@@ -216,6 +216,7 @@ var Render = new Class({
           this.getForm().validate({
                   errorLabelContainer: "#message_box", wrapper: "li"
               });
+
           this.setValidationMessage();
       }
 

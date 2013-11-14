@@ -7,7 +7,9 @@ var Articulo = new Class({
         this.context="articulo";
         this.type='articulo';
         this.breadcrumb='Articulos';
-        this.descripcion="Desde aqui administre los Articulos"
+        this.descripcion="Desde aqui administre los Articulos";
+        this.isActualFormValid=false;
+        this.currentStatus;
     },
     setContext:function(context) {
         this.context=context;
@@ -55,16 +57,12 @@ var Articulo = new Class({
          jQuery('form').ajaxForm({
                     // any other options,
                  beforeSubmit: function () {
-                     //Si pasa la validacion del Form(Excepto la de la imagen que la preguntamos luego)
-                           if (self.getForm().valid()){
-                               if (!self.validateImage()){
-                                        alert("Seleccione una Foto del Articulooo")
-                                        return false;
-                                    }else{
-                                        self.addLoader();
-                                        return true;
-                                    }
-                                }
+                     if (self.isActualFormValid){
+                         self.addLoader();
+                     }else{
+                         return false;
+                     }
+
                 },
                  success: function (data) {
                      self.onSaved();
@@ -76,6 +74,10 @@ var Articulo = new Class({
  			     }
 
            });
+            jQuery('.save').bind("click", function(e) {
+                self.currentStatus="Adding";
+                self.validateGeneral();
+             });
            jQuery('.categoria').bind("change", function(e) {
                	translator.getConfiguraciones(self.type,this.value);
              })
@@ -87,10 +89,11 @@ var Articulo = new Class({
 
          jQuery('form').ajaxForm({
              beforeSubmit: function () {
-                 if (self.getForm().valid()){
+                 if (self.isActualFormValid){
                      self.addLoader();
-                     return true;
-                }
+                 }else{
+                     return false;
+                 }
              },
              success: function (data) {
                  self.onUpdated();
@@ -104,6 +107,10 @@ var Articulo = new Class({
         jQuery('.categoria').bind("change", function(e) {
             translator.getConfiguraciones(self.type,this.value);
         })
+        jQuery('.save').bind("click", function(e) {
+            self.currentStatus="Editing";
+            self.validateGeneral();
+         });
     },
 
     onFinder:function(data) {
@@ -128,9 +135,9 @@ var Articulo = new Class({
          var self=this;
          this.styleForm();
          jQuery('.save').bind("click", function(e) {
-         translator.search(self.type, self.getForm());
-          //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
-          return false;
+             translator.search(self.type, self.getForm());
+             //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
+             return false;
           });
     },
      validateImage:function() {
@@ -141,6 +148,41 @@ var Articulo = new Class({
                  return false;
              }
          },
+
+    validateGeneral:function() {
+           var isValid=true;
+            //Se hacen todas las validaciones aca
+              if (!this.validateConfiguraciones()){
+                    isValid=false;
+                    jQuery('.errorConfiguration').text("Complete todas las configuraciones!");
+                }else{
+                    jQuery('.errorConfiguration').empty();
+                }
+             //Se ejecutan las valdiacioens basicas con requiered
+              if (!this.getForm().valid()){
+                  isValid=false;
+              }
+              //Se valida la imagen ,pero solo en el Add,porque en el edit,al menos una hay ya agregada
+              if (this.currentStatus!='Editing'){
+               if (!this.validateImage()){
+                   jQuery('.errorFoto').text("Porfavor elija una foto para el articulo");
+                   isValid=false;
+                 }else{
+                jQuery('.errorFoto').empty();
+                 }
+             }
+            this.isActualFormValid=isValid;
+    },
+     validateConfiguraciones:function() {
+         if( jQuery('#ArticuloIdMaterial').has('option').length == 0 || jQuery('#ArticuloIdEstilo').has('option').length  == 0 ||
+                jQuery('#ArticuloIdDimension').has('option').length  == 0 || jQuery('#ArticuloIdDecorado').has('option').length  ==
+                    0 || jQuery('#ArticuloIdObjeto').has('option').length  == 0) {
+                        return false;
+            }else{
+                return true;
+            }
+      },
+
     drawSearchHeader:function() {
         jQuery('.headerBig').empty();
         jQuery('.headerBig').append("Busqueda de Articulos");
@@ -228,6 +270,8 @@ var Articulo = new Class({
              var primerOpcionValor=jQuery('#ArticuloIdEstilo option:first-child').text();
              jQuery("#ArticuloIdEstilo").prev().text(primerOpcionValor);
          }
+         //Llamo al validar,para que de ultima,me limpie el mensajito de error
+         this.validateGeneral();
     },
     afterDataTable:function(data){
         var self=this;

@@ -33,30 +33,6 @@ class Articulo extends AppModel {
 							    ),
 				        ),*/
 
-						'IdCategoria' => array(
-				            'rule' => 'notEmpty',
-							'message' => 'Completa el campo'
-				        ),
-						'IdObjeto' => array(
-				            'rule' => 'notEmpty',
-							'message' => 'Completa el campo'
-				        ),
-						'IdEstilo' => array(
-				            'rule' => 'notEmpty',
-							'message' => 'Completa el campo'
-				        ),
-						'IdMaterial' => array(
-				            'rule' => 'notEmpty',
-							'message' => 'Completa el campo'
-				        ),
-						'IdDecorado' => array(
-				            'rule' => 'notEmpty',
-							'message' => 'Completa el campo'
-				        ),
-						'IdDimension' => array(
-				            'rule' => 'notEmpty',
-							'message' => 'Completa el campo'
-				        )
 	);
 
 /**		var $hasOne = array(

@@ -17,6 +17,8 @@ echo '<span class="field"><img src="/invenPolka/app/webroot/files/articulo/IdFot
 
 
 echo $this->Form->input('dir', array('type' => 'hidden','value' => ''));
+echo "<label class='errorFoto' style='display: block;color:red'></label>";
+
 //echo $this->Form->input('CodigoArticulo',array('class'=>'input-medium'));
 echo $this->Form->input('CodigoArticulo',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
                                 <label style="float: left;">Codigo Articulo</label>
@@ -41,7 +43,7 @@ echo $this->Form->input('Articulo.IdObjeto',array('type'=>'select','empty'=>fals
 
 echo $this->Form->input('Articulo.IdDimension',array('type'=>'select','empty'=>false,'class'=>'uniformselect'																								,'div'=>false,'label'=>false,'before'=>' Dimension : '));
 
-																echo $this->Form->input('Articulo.IdDecorado',array('type'=>'select','empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Decorado : ','after'=>'</span></p>'));
+																echo $this->Form->input('Articulo.IdDecorado',array('type'=>'select','empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Decorado : ','after'=>'</span><label class ="errorConfiguration" style="display: block;color:red"></label></p>'));
 
 
 //echo '<p class="stdformbutton">button class="btn btn-primary">Guardar</button><button type="reset" class="btn">Limpiar campos</button></p>';

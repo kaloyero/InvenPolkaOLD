@@ -13,6 +13,8 @@ echo $this->Form->input('idFoto', array('type' => 'file', 'accept' =>'image/*','
 
 
 echo $this->Form->input('dir', array('type' => 'hidden','value' => ''));
+echo "<label class='errorFoto' style='display: block;color:red'></label>";
+
 //echo $this->Form->input('CodigoArticulo',array('class'=>'input-medium'));
 echo $this->Form->input('CodigoArticulo',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
                                 <label style="float: left;">Codigo Articulo</label>
@@ -27,9 +29,9 @@ echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5
 //Acceder al wrapper del Input array('div'=>array('class'=>'selector focus') Poner antes del input 'before'=>'<span>Decorado</span>'
 
 
-echo $this->Form->input('Articulo.IdCategoria',array('type'=>'select','options'=>$categorias,'empty'=>false,'class'=>'uniformselect categoria'															,'div'=>false,'label'=>false,'before'=>'<p>
+echo $this->Form->input('Articulo.IdCategoria',array('type'=>'select','options'=>$categorias,'empty'=>true,'class'=>'uniformselect categoria'															,'div'=>false,'label'=>false,'before'=>'<p>
                                 <label>Configuraciones</label>
-                                <span class="field"> Categoria : '));
+                                <span class="field categorias"> Categoria : '));
 
 echo $this->Form->input('Articulo.IdMaterial',array('type'=>'select','empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Material : '));
 
@@ -43,7 +45,7 @@ echo $this->Form->input('Articulo.IdDimension',array('type'=>'select','empty'=>f
 
 
 echo
-$this->Form->input('Articulo.IdDecorado',array('type'=>'select','empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Decorado : ','after'=>'</span></p>'));
+$this->Form->input('Articulo.IdDecorado',array('type'=>'select','empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Decorado : ','after'=>'</span><label class ="errorConfiguration" style="display: block;color:red"></label></p>'));
 
 
 echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</button><button type="reset" class="btn">Limpiar Formulario</button></p>';
