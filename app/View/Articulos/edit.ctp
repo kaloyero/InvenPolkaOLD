@@ -11,7 +11,7 @@ echo $this->Form->create('Articulo',array('type' => 'file','class' => 'stdform s
 echo $this->Form->input('IdFoto', array('type' => 'file', 'accept' =>'image/*', 'label' => false,'class'=>'uniform-file','div'=>array('class'=>'field uploader focus')));
 echo $this->Form->input('idFoto', array('type' => 'hidden','value' => ''),array('id' => 'preview'));
 echo $this->Form->input('id', array('type' => 'hidden'));
-echo '<span class="field"><img src="/invenPolka/app/webroot/files/articulo/IdFoto/'.$this->data['Articulo']['dir'].'/'.$this->data['Articulo']['idFoto'] .' "alt="CakePHP" height="500px" width="500px"></span>';
+echo '<span class="field"><img src="/invenPolka/app/webroot/files/articulo/IdFoto/'.$this->data['Articulo']['dir'].'/'.$this->data['Articulo']['IdFoto'] .' "alt="CakePHP" height="500px" width="500px"></span>';
 
 
 
@@ -37,7 +37,7 @@ echo $this->Form->input('Articulo.IdMaterial',array('type'=>'select','options'=>
 echo $this->Form->input('Articulo.IdEstilo',array('type'=>'select','options'=>$estilos,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Estilo : '));
 
 
-$this->Form->input('Articulo.IdObjeto',array('type'=>'select','options'=>$objetos,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Objeto : '));
+echo $this->Form->input('Articulo.IdObjeto',array('type'=>'select','options'=>$objetos,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Objeto : '));
 
 echo $this->Form->input('Articulo.IdDimension',array('type'=>'select','options'=>$dimensiones,'empty'=>false,'class'=>'uniformselect'																								,'div'=>false,'label'=>false,'before'=>' Dimension : '));
 

@@ -189,7 +189,7 @@ var ServerManager = new Class({
        	jQuery.ajax( {
    		      type: "GET",
    		      dataType: 'json',
-   		      url: self.services[type]["controllerName"]+"/configuraciones/",
+   		      url: self.services[type]["controllerName"]+"/configuraciones/"+config.id,
    		      success: function(data) {
    		    	  config.onSuccess(data);
    				}

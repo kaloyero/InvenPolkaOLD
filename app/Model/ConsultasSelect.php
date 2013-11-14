@@ -171,18 +171,18 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 		$pedidos=$model->query($query);
 		return $pedidos;
 	}
-	function getConfiguraciones() {
+	function getConfiguraciones($id) {
 		$model=new Categoria();
 
-		$decorados=$model->query("SELECT decorado.Nombre, decorado.id FROM Decorados as decorado INNER JOIN DecoradoCategorias	ON DecoradoCategorias.idDecorado=decorado.id");
+		$decorados=$model->query("SELECT decorado.Nombre, decorado.id FROM Decorados as decorado INNER JOIN DecoradoCategorias as decoCate	ON decoCate.idDecorado=decorado.id WHERE  `decoCate`.`IdCategoria` ='".$id."'");
 
-		$estilos=$model->query("SELECT estilo.Nombre, estilo.id FROM Estilos as estilo INNER JOIN EstiloCategorias	ON EstiloCategorias.idEstilo=estilo.id");
+		$estilos=$model->query("SELECT estilo.Nombre, estilo.id FROM Estilos as estilo INNER JOIN EstiloCategorias as estiloCate	ON estiloCate.idEstilo=estilo.id WHERE  `estiloCate`.`IdCategoria` ='".$id."'");
 
-		$materiales=$model->query("SELECT material.Nombre, material.id  FROM Materiales as material INNER JOIN MaterialCategorias	ON MaterialCategorias.idMaterial=material.id");
+		$materiales=$model->query("SELECT material.Nombre, material.id  FROM Materiales as material INNER JOIN MaterialCategorias as mateCate	ON mateCate.idMaterial=material.id WHERE  `mateCate`.`IdCategoria` ='".$id."'");
 
-		$objetos=$model->query("SELECT objeto.Nombre, objeto.id FROM Objetos as objeto INNER JOIN ObjetoCategorias	ON ObjetoCategorias.idObjeto=objeto.id");
+		$objetos=$model->query("SELECT objeto.Nombre, objeto.id FROM Objetos as objeto INNER JOIN ObjetoCategorias as objetoCate	ON objetoCate.idObjeto=objeto.id WHERE  `objetoCate`.`IdCategoria` ='".$id."'");
 
-		$dimensiones=$model->query("SELECT dimension.Nombre, dimension.id FROM Dimensiones as dimension INNER JOIN DimensionCategorias	ON DimensionCategorias.idDimension=dimension.id");
+		$dimensiones=$model->query("SELECT dimension.Nombre, dimension.id FROM Dimensiones as dimension INNER JOIN DimensionCategorias as dimenCate ON dimenCate.idDimension=dimension.id WHERE  `dimenCate`.`IdCategoria` ='".$id."'");
 
 		$configuraciones= array("decorados"=> $decorados,"estilos"=> $estilos,"materiales"=> $materiales,"objetos"=> $objetos,"dimensiones"=> $dimensiones);
 

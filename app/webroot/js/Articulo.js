@@ -77,7 +77,7 @@ var Articulo = new Class({
 
            });
            jQuery('.categoria').bind("change", function(e) {
-               	translator.getConfiguraciones(self.type);
+               	translator.getConfiguraciones(self.type,this.value);
              })
        },
      bindEditEvents:function() {
@@ -102,7 +102,7 @@ var Articulo = new Class({
   			}
         })
         jQuery('.categoria').bind("change", function(e) {
-            translator.getConfiguraciones(self.type);
+            translator.getConfiguraciones(self.type,this.value);
         })
     },
 
@@ -163,6 +163,7 @@ var Articulo = new Class({
     onRetrievedConfiguraciones: function(data){
         //Removemos lo que habia antes
         jQuery('#ArticuloIdDecorado').find('option').remove()
+        jQuery("#ArticuloIdDecorado").prev().empty();
 
         jQuery.each(data.decorados, function (index, value) {
             jQuery("#ArticuloIdDecorado").append('<option value="'+value["decorado"]["id"]+'">'+value["decorado"]["Nombre"]+'</option>');
@@ -174,6 +175,7 @@ var Articulo = new Class({
         }
         //Removemos lo que habia antes
         jQuery('#ArticuloIdMaterial').find('option').remove()
+        jQuery("#ArticuloIdMaterial").prev().empty();
 
         jQuery.each(data.materiales, function (index, value) {
             jQuery("#ArticuloIdMaterial").append('<option value="'+value["material"]["id"]+'">'+value["material"]["Nombre"]+'</option>');
@@ -187,6 +189,8 @@ var Articulo = new Class({
 
          //Removemos lo que habia antes
         jQuery('#ArticuloIdDimension').find('option').remove()
+        jQuery("#ArticuloIdDimension").prev().empty();
+
 
         jQuery.each(data.dimensiones, function (index, value) {
             jQuery("#ArticuloIdDimension").append('<option value="'+value["dimension"]["id"]+'">'+value["dimension"]["Nombre"]+'</option>');
@@ -199,6 +203,8 @@ var Articulo = new Class({
 
          //Removemos lo que habia antes
         jQuery('#ArticuloIdObjeto').find('option').remove()
+        jQuery("#ArticuloIdObjeto").prev().empty();
+
 
         jQuery.each(data.objetos, function (index, value) {
             jQuery("#ArticuloIdObjeto").append('<option value="'+value["objeto"]["id"]+'">'+value["objeto"]["Nombre"]+'</option>');
@@ -211,6 +217,8 @@ var Articulo = new Class({
 
          //Removemos lo que habia antes
         jQuery('#ArticuloIdEstilo').find('option').remove()
+        jQuery("#ArticuloIdEstilo").prev().empty();
+
 
         jQuery.each(data.estilos, function (index, value) {
             jQuery("#ArticuloIdEstilo").append('<option value="'+value["estilo"]["id"]+'">'+value["estilo"]["Nombre"]+'</option>');

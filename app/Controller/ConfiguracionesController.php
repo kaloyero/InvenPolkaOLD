@@ -18,9 +18,9 @@ class ConfiguracionesController extends AppController {
 
     }
 
-	function configuraciones() {
+	function configuraciones($id = null) {
 		$consultasSelect = new ConsultasSelect();
-		$this->set('data', $consultasSelect ->getConfiguraciones());
+		$this->set('data', $consultasSelect ->getConfiguraciones($id));
 		//echo json_encode($consultasSelect ->getConfiguraciones());
 	}
 
