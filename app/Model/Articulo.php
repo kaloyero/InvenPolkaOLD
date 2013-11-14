@@ -3,7 +3,7 @@ class Articulo extends AppModel {
         public $name = 'Articulo';
 		public $actsAs = array(
 			'Upload.Upload' => array(
-				'idFoto' => array(
+				'IdFoto' => array(
 					'fields' => array(
 						'dir' => 'dir'
 					)

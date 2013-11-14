@@ -14,7 +14,6 @@ echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5
 								    <span class="field">',
 									'after'=>'</span></p>'));
 
-echo '<p><label>Fecha Fin</label><span class="field"><input class="input-small fecha" type="text" name="data[Estudio][FechaFin]" required="required" /><small class="field"><em> yyyy / mm / dd</em></small></span></p>';
 
 //echo $this->Form->end('Guardar');
 echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</button><button type="reset" class="btn">Limpiar Formulario</button></p>';

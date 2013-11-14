@@ -20,6 +20,7 @@ var ServerManager = new Class({
         this.services['estudio']={};
         this.services['inventario']={};
         this.services['buscadorArticulo']={};
+        this.services['configuracion']={};
 
 
         this.services['articulo']["controllerName"]="articulos";
@@ -58,6 +59,7 @@ var ServerManager = new Class({
         this.services['inventario']["model"]="Inventario"
         this.services['buscadorArticulo']["controllerName"]="articulos";
         this.services['buscadorArticulo']["model"]="Inventario"
+        this.services['configuracion']["controllerName"]="configuraciones";
 
     },
 
@@ -153,7 +155,7 @@ var ServerManager = new Class({
 				config.onSuccess(data);
 			}
 		});
-    },	
+    },
     save: function(config){
     	var self=this;
     	var type = config.object;
@@ -180,6 +182,19 @@ var ServerManager = new Class({
 				}
 		    } );
     },
+    getConfiguraciones: function(config){
+       	var self=this;
+       	var type = config.object;
+
+       	jQuery.ajax( {
+   		      type: "GET",
+   		      dataType: 'json',
+   		      url: self.services[type]["controllerName"]+"/configuraciones/",
+   		      success: function(data) {
+   		    	  config.onSuccess(data);
+   				}
+   		    } );
+       },
 
     confirmarPedido: function(config){
     	var self=this;

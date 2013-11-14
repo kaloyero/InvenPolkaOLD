@@ -14,7 +14,8 @@ echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5
 									<label>Descripcion</label>
 								    <span class="field">',
 									'after'=>'</span></p>'));
-echo $this->Form->input('FechaFin',array('empty'=>true,'class'=>'uniformselect fecha','div'=>false,'label'=>false,'before'=>'<p><label>Fecha Fin</label><span class="field">','after'=>'<small class="field"><em> yyyy / mm / dd</em></small></span></p>','type' => 'text'));
+
+
 //echo $this->Form->end('Guardar');
 echo $this->Form->input('id', array('type' => 'hidden'));
 echo '<p class="stdformbutton"><button class="btn btn-primary edit">Guardar</button></p>';
