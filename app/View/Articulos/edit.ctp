@@ -23,12 +23,12 @@ echo "<label class='errorFoto' style='display: block;color:red'></label>";
 echo $this->Form->input('CodigoArticulo',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
                                 <label style="float: left;">Codigo Articulo</label>
                                 <span class="field float">',
-								'after'=>'</span>'));
+								'after'=>'</span>','pattern' => '.*\S+.*'));
 
 echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5','div'=>false,'label'=>false,'before'=>'
 								                                <label style="float: left;">Descripcion</label>
 								                                <span class="field float">',
-																'after'=>'</span></p>'));
+																'after'=>'</span></p>','pattern' => '.*\S+.*'));
 
 echo $this->Form->input('Articulo.IdCategoria',array('type'=>'select','options'=>$categorias,'empty'=>false,'class'=>'uniformselect categoria'															,'div'=>false,'label'=>false,'before'=>'<p><label>Configuraciones</label><span class="field"> Categoria :'));
 
