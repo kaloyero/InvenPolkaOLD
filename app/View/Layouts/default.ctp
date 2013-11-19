@@ -13,8 +13,9 @@
 	echo $this->Html->script('RenderTranslator');
 	echo $this->Html->script('Articulo');
 	echo $this->Html->script('Pedido');
+	echo $this->Html->script('PedidoSalida');
+	echo $this->Html->script('PedidoHisto');		
 	echo $this->Html->script('Deposito');
-	echo $this->Html->script('Estudio');
 	echo $this->Html->script('MovimientoInventario');
 	echo $this->Html->script('Inventario');
 	echo $this->Html->script('Proyecto');
@@ -27,7 +28,6 @@
 	echo $this->Html->script('Dimension');
 	echo $this->Html->script('Proyecto');
 	echo $this->Html->script('Deposito');
-	echo $this->Html->script('Estudio');
 	echo $this->Html->script('Inventario');
 	echo $this->Html->script('Message');
 
@@ -116,10 +116,11 @@
                 </li>
 				<li class="active  animate8 fadeInUp"><a id="proyecto" class="option"><span class="icon-th-list"></span> Proyectos</a>
 				<li class="active  animate8 fadeInUp"><a id="deposito" class="option"><span class="icon-th-list"></span> Deposito</a>
-				<li class="active  animate8 fadeInUp"><a id="estudio" class="option"><span class="icon-th-list"></span> Estudio</a>
 				<li class="active  animate8 fadeInUp"><a id="inventario" class="option"><span class="icon-th-list"></span>Inventario</a>
-				<li class="active  animate8 fadeInUp"><a id="pedido" class="option"><span class="icon-th-list"></span>Pedidos</a>
-				<li class="active  animate8 fadeInUp"><a id="movimientoInventario" class="option"><span 		  class="icon-th-list"></span>Movimientos</a>
+				<li class="active  animate8 fadeInUp"><a id="pedido" class="option"><span class="icon-th-list"></span>Pedidos - Entrada</a>
+				<li class="active  animate8 fadeInUp"><a id="pedidoSalida" class="option"><span class="icon-th-list"></span>Pedidos - Salida</a>
+				<li class="active  animate8 fadeInUp"><a id="pedidoHistorico" class="option"><span class="icon-th-list"></span>Pedidos - Historico</a>                                
+				<li class="active  animate8 fadeInUp"><a id="movimientoInventario" class="option"><span class="icon-th-list"></span>Movimientos</a>
                 <li class="dropdown animate13 fadeInUp"><a href=""><span class="icon-pencil"></span> Configuraciones</a>
                 	<ul>
                     	<li><a id="categoria" class="option">Categorias</a></li>

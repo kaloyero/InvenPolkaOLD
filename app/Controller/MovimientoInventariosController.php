@@ -231,6 +231,29 @@ class MovimientoInventariosController extends AppController {
 			$paginado =new ConsultasPaginado();
 	        $this->autoRender = false;
 			$output = $paginado->getDataMovimientos();
+
+/*			foreach ($output as $row) {
+				$tipoMov = $row[0];
+				switch ($tipoMov) {
+					case 'P':
+						$row[0] = "Asignacion de Articulo(s) a Proyecto" ;
+						break;
+					case 'D':
+						$row[0] = "Devolucion de Articulo(s)" ;
+						break;
+					case 'I':
+						$row[0] = "Ingreso de Articulo(s)" ;
+						break;
+					case 'B':
+						$row[0] = "Baja de Articulo(s)" ;
+						break;
+					case 'T':
+						$row[0] = "Transferencia entre Proyectos" ;
+						break;
+				}
+				array_push($outputFilter,$row);
+			}//*/
+			
 	        echo json_encode($output);
 	}
 
@@ -258,7 +281,6 @@ class MovimientoInventariosController extends AppController {
 		$consultasSelect = new ConsultasSelect();
 		$this->set('proyectos',$consultasSelect->getProyectos());
 		$this->set('depositos',$consultasSelect->getDepositos());
-		$this->set('estudios',$consultasSelect->getEstudios());		
 	}
 
    function getUbicacionesByDeposito($id = null) {

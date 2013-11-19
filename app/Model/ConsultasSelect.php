@@ -366,6 +366,11 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 		}
 	}
 
+	function insertarInventarioEntidad($inventario) {
+		
+		$this->insertarInventario($inventario['IdArticulo'], $inventario['IdDeposito'], $inventario['IdProyecto'], $inventario['Disponibilidad']);
+	}
+
 	function insertarInventario($articulo,$deposito,$proyecto,$cantidad) {
 		$model=new Inventario();
 		$model->save(array('IdArticulo' => $articulo,'IdDeposito' => $deposito,'IdProyecto' => $proyecto,'Disponibilidad' => $cantidad));

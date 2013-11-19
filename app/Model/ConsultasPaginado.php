@@ -101,11 +101,11 @@ class ConsultasPaginado extends AppModel {
 			$tabla="inventarios_vista";
 			//Columnas que voy a mostrar
 
-			$aColumns = array( 'id' ,'articulo', 'dir' ,'idFoto',  'Disponibilidad'  , 'deposito' ,  'proyecto');
+			$aColumns = array( 'id' ,'articulo', 'dir' ,'idFoto',  'Disponibilidad'   ,  'proyecto');
 			//Columnas por las que se va a filtrar
-			$aColumnsFilter = array(  'Disponibilidad' ,'articulo' ,  'proyecto' ,  'deposito' ,  'ubicacion' );
+			$aColumnsFilter = array(  'Disponibilidad' ,'articulo' ,  'proyecto'  ,  'ubicacion' );
 			//Columna por la cual se va ordenar
-			$orderByfield = 'deposito,ubicacion,proyecto,articulo';
+			$orderByfield = 'articulo,proyecto';
 			$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,true);
 			return $output;
 		}
@@ -121,11 +121,11 @@ class ConsultasPaginado extends AppModel {
 				$model=new MovimientoInventario();
 				$tabla="movimientos_vista";
 				//Columnas que voy a mostrar
-			    $aColumns = array( 'id','Numero','Fecha','TipoMovimiento','deposito_orig','deposito_dest','pedido','proyecto','Estudio');
+			    $aColumns = array( 'id','Numero','Fecha','TipoMovimiento','deposito_orig','deposito_dest','pedido','proyecto');
 		        //Columnas por las que se va a filtrar
-			    $aColumnsFilter = array( 'Numero','Fecha','Descripcion','TipoMovimiento','deposito_orig','deposito_dest','pedido','proyecto','Estudio' );
+			    $aColumnsFilter = array( 'Numero','Fecha','Descripcion','TipoMovimiento','deposito_orig','deposito_dest','pedido','proyecto' );
 				//Columna por la cual se va ordenar
-				$orderByfield = 'Fecha,deposito_orig,proyecto,estudio,TipoMovimiento,Numero';
+				$orderByfield = 'Fecha,deposito_orig,proyecto,TipoMovimiento,Numero';
 				
 				$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,true);
 				return $output;
@@ -138,16 +138,24 @@ class ConsultasPaginado extends AppModel {
 ****************************** {INICIO} Pedidos -> DATATABLE *************************
 \*************************************************************************************/
 
-		function getDataPedidos() {
+		function getDataPedidos($tipoLista) {
+			/*
+			tipoLista
+			E -> pedidos que entraron
+			S -> pedidos de Salida
+			H -> historico de pedidos
+			
+			*/
+			
 			$model=new Pedido();
 			$tabla="pedidos_vista";
 			//Columnas que voy a mostrar
 
-			$aColumns = array( 'id' ,'Numero', 'Fecha' ,'proyecto',  'estudio' ,  'estado'  );
+			$aColumns = array( 'id' ,'Numero', 'Fecha' ,'proyecto', 'estado'  );
 			//Columnas por las que se va a filtrar
-			$aColumnsFilter = array(  'Numero' ,'proyecto',  'estudio'  );
+			$aColumnsFilter = array(  'Numero' ,'proyecto'  );
 			//Columna por la cual se va ordenar
-			$orderByfield = 'Fecha, proyecto, estudio, Numero';
+			$orderByfield = 'Fecha, proyecto, Numero';
 
 			//CREATE TABLE
 			//Consigue el query que se va ejecutar
@@ -214,7 +222,7 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi) {
 		$tabla="articulos_vista";
 		$model=new Articulo();
 		//Columnas que voy a mostrar
-	    $aColumns = array( 'id','CodigoArticulo','dir','idFoto','descripcion','categoria','decorado','objeto','estilo','material','dimension' );
+	    $aColumns = array( 'id','CodigoArticulo','dir','idFoto','descripcion','categoria','decorado','objeto','estilo','material','dimension','stock_total','stock_dispo' );
         //Columnas por las que se va a filtrar
 	    $aColumnsFilter = array( 'CodigoArticulo','descripcion','categoria','decorado','objeto','estilo','material','dimension' );
 		//Columna por la cual se va ordenar
@@ -242,7 +250,7 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi) {
 		$tabla="articulos_vista";
 		$model=new Articulo();
 		//Columnas que voy a mostrar
-	    $aColumns = array( 'id','CodigoArticulo','dir','idFoto','descripcion','categoria','decorado','objeto','estilo','material','dimension' ,'id_categoria','id_decorado','id_objeto','id_estilo','id_material','id_dimension');
+	    $aColumns = array( 'id','CodigoArticulo','dir','idFoto','descripcion','categoria','decorado','objeto','estilo','material','dimension' ,'id_categoria','id_decorado','id_objeto','id_estilo','id_material','id_dimension','stock_total','stock_dispo');
         //Columnas por las que se va a filtrar
 	    $aColumnsFilter = array(  );
 		//Columna por la cual se va ordenar
@@ -322,6 +330,8 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumnsFilter,$order
 			array_push($fila, array($j[$tabla]['material']));
 			array_push($fila, array($j[$tabla]['dimension']));
 			array_push($fila, array($j[$tabla]['estilo']));
+			array_push($fila, array($j[$tabla]['stock_total']));			
+			array_push($fila, array($j[$tabla]['stock_dispo']));
 			array_push($arrayDt, $fila);
       }
 //*/

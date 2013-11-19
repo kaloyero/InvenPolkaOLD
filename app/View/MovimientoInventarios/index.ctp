@@ -9,11 +9,11 @@
                         <th>Numero</th>
                         <th>Fecha</th>
                         <th>TipoMovimiento</th>
-                        <th>deposito_orig</th>
-                        <th>deposito_dest</th>
-                        <th>pedido</th>
+                        <th>Deposito</th>
+                        <th>Deposito</th>
+                        <th>Nro. Pedido</th>
                         <th>proyecto</th>
-                        <th>Estudio</th>
+                        <th></th>
 		            </tr>
 	</thead>
 	<tbody>

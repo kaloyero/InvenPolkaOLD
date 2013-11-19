@@ -12,6 +12,12 @@ var RenderTranslator = new Class({
 		case "pedido":
 			return pedidoRender;
 			break;
+		case "pedidoSalida":
+			return pedidoSalidaRender;
+			break;
+		case "pedidoHisto":
+			return pedidoHistoRender;
+			break;
 		case "estudio":
 			return estudioRender;
 			break;

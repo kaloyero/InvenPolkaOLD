@@ -16,12 +16,8 @@ echo $this->Form->input('dir', array('type' => 'hidden','value' => ''));
 echo "<label class='errorFoto' style='display: block;color:red'></label>";
 
 //echo $this->Form->input('CodigoArticulo',array('class'=>'input-medium'));
-echo $this->Form->input('CodigoArticulo',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
-                                <label style="float: left;">Codigo Articulo</label>
-                                <span class="field float">',
-								'after'=>'</span>'));
 
-echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5','div'=>false,'label'=>false,'before'=>'
+echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5','div'=>false,'label'=>false,'before'=>'<p>
 								                                <label style="float: left;">Descripcion</label>
 								                                <span class="field float">',
 																'after'=>'</span></p>'));
@@ -37,6 +33,7 @@ echo $this->Form->input('Articulo.IdMaterial',array('type'=>'select','empty'=>fa
 
 echo $this->Form->input('Articulo.IdEstilo',array('type'=>'select','empty'=>false,'options'=>$estilos,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Estilo : '));
 
+echo "<BR>";
 //echo $this->Form->select('field', $estilos, array( 'multiple' => 'checkbox'));
 
 echo $this->Form->input('Articulo.IdObjeto',array('type'=>'select','empty'=>false,'options'=>$objetos,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Objeto : '));
@@ -46,6 +43,18 @@ echo $this->Form->input('Articulo.IdDimension',array('type'=>'select','empty'=>f
 
 echo
 $this->Form->input('Articulo.IdDecorado',array('type'=>'select','empty'=>false,'options'=>$decorados,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Decorado : ','after'=>'</span><label class ="errorConfiguration" style="display: block;color:red"></label></p>'));
+
+echo "Inventario";
+echo $this->Form->input('Inventario.Disponibilidad',array('class'=>'input-medium','type' => 'number','required','value'=>'0','min'=>'0','div'=>false,'label'=>false,'before'=>'<p>
+								                                <label>Stock Inicial</label>
+								                                <span class="field">',
+																'after'=>'</span></p>'));
+
+
+echo $this->Form->input('Inventario.IdDeposito',array('type'=>'select','options'=>$depositos,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<label>Deposito</label><span class="field">','after'=>'</span>'));
+//echo $this->Form->input('Inventario.IdUbicacion',array('type'=>'select','options'=>$ubicaciones,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p><label>Ubicacion</label><span class="field">','after'=>'</span></p>'));
+echo $this->Form->input('Inventario.IdProyecto',array('type'=>'select','options'=>$proyectos,'empty'=>true,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<label>Proyecto</label><span class="field">','after'=>'</span></p>'));
+
 
 
 echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</button><button type="reset" class="btn">Limpiar Formulario</button></p>';

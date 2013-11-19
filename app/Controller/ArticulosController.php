@@ -29,8 +29,12 @@ class ArticulosController extends AppController {
 
     public function add() {
         if ($this->request->is('post')) {
-				$this->removeSpecialCharactersFromImage();
+			$this->preSave();
             if ($this->Articulo->save($this->request->data)) {
+					//Actualizo el id de articulo
+					$this->request->data['Inventario']['IdArticulo'] = $this->Articulo->getInsertID();
+					//Guardo en la tabla inventario
+					$this->GuardarInventario($this->request->data['Inventario']);
               	    $this->render('/General/Success');
 	        	}else{
 					$this->render('/General/Error');
@@ -39,6 +43,31 @@ class ArticulosController extends AppController {
 			$this->setViewData("add");
 			}
     }
+	
+	private function GuardarInventario($inventario){
+		$consultas = new ConsultasSelect();
+		//Guardo el invetario correspondiente
+		$consultas->insertarInventarioEntidad($inventario);
+		//Si se le asigna al proyecto agrego un registro para el stock del deposito en cero
+		if (! empty($inventario["IdProyecto"])){
+			$inventario["IdProyecto"] = NULL;
+			$inventario["Disponibilidad"] = 0;
+			$consultas->insertarInventarioEntidad($inventario);
+		}
+		
+	}
+	
+	private function preSave() {
+				//Seteo el codigo del articulo con el nombre de la foto.
+				$codigoArt = $this->request->data['Articulo']['idFoto']['name'];
+		        $codigoArt  = substr_replace( $codigoArt , "", -4 );
+				$this->request->data['Articulo']['CodigoArticulo'] = $codigoArt ;
+				//Valido que lel nombre no exista en la base
+
+				//Remuevo caracteres especiales
+				$this->removeSpecialCharactersFromImage();
+	}
+	
 
 	function ajaxData() {
 		if ($this->Session->check("articulos")){
@@ -82,6 +111,8 @@ class ArticulosController extends AppController {
 				$firstKey = $this->request->data["Articulo"]["IdCategoria"];
 			}else{
 				$firstKey = key($consultas->getCategorias());
+				$this->set('depositos',$consultas->getDepositos());
+				$this->set('proyectos',$consultas->getProyectos());
 			}
 
 		$this->set('categorias',$consultas->getCategorias());

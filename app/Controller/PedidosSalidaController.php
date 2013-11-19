@@ -4,7 +4,7 @@
 	App::import('Model','PedidoDetalle');
 	App::import('Model','Articulo');
 
-class PedidosController extends AppController {
+class PedidosSalidaController extends AppController {
 	public $helpers = array('Html','Form');
 	var $uses = array('Pedido','PedidoDetalle');
 	public $findResult;
@@ -19,6 +19,18 @@ class PedidosController extends AppController {
 			$output = $paginado->getDataPedidos();
 	        echo json_encode($output);
 	}
+
+	//Para que?
+	function getEstilos() {
+		$estilo=new Estilo();
+		$estilos=$estilo->find('list',array('fields'=>array('Estilo.id','Estilo.Nombre')));
+		return $estilos;
+	}
+
+
+//    function index() {
+//        $this->set('pedidos', $this->Pedido->find('all'));
+//    }
 
    public function view($id = null) {
         $this->Pedido->id = $id;

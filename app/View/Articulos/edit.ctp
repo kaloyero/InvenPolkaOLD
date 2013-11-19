@@ -8,16 +8,6 @@ echo $this->Form->create('Articulo',array('type' => 'file','class' => 'stdform s
 //echo $this->Form->create('Articulo', array('type' => 'file'));
 //echo $this->Form->input('filename',array('type'=>'file'));
 
-echo $this->Form->input('idFoto', array('type' => 'file', 'accept' =>'image/*', 'label' => false,'class'=>'uniform-file','div'=>array('class'=>'field uploader focus')));
-echo $this->Form->input('idFoto', array('type' => 'hidden','value' => ''),array('id' => 'preview'));
-echo $this->Form->input('id', array('type' => 'hidden'));
-echo '<span class="field"><img src="/invenPolka/app/webroot/files/articulo/IdFoto/'.$this->data['Articulo']['dir'].'/'.$this->data['Articulo']['idFoto'] .' "alt="CakePHP" height="500px" width="500px"></span>';
-
-
-
-
-echo $this->Form->input('dir', array('type' => 'hidden','value' => ''));
-echo "<label class='errorFoto' style='display: block;color:red'></label>";
 
 //echo $this->Form->input('CodigoArticulo',array('class'=>'input-medium'));
 echo $this->Form->input('CodigoArticulo',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
@@ -44,6 +34,14 @@ echo $this->Form->input('Articulo.IdObjeto',array('type'=>'select','empty'=>fals
 echo $this->Form->input('Articulo.IdDimension',array('type'=>'select','options'=>$dimensiones,'empty'=>false,'class'=>'uniformselect'																								,'div'=>false,'label'=>false,'before'=>' Dimension : '));
 
 echo $this->Form->input('Articulo.IdDecorado',array('type'=>'select','options'=>$decorados,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Decorado : ','after'=>'</span><label class ="errorConfiguration" style="display: block;color:red"></label></p>'));
+
+//Selector de imagen
+echo $this->Form->input('idFoto', array('type' => 'file', 'accept' =>'image/*', 'label' => false,'class'=>'uniform-file','div'=>array('class'=>'field uploader focus')));
+echo $this->Form->input('idFoto', array('type' => 'hidden','value' => ''),array('id' => 'preview'));
+echo $this->Form->input('id', array('type' => 'hidden'));
+echo '<span class="field"><img src="/invenPolka/app/webroot/files/articulo/IdFoto/'.$this->data['Articulo']['dir'].'/'.$this->data['Articulo']['idFoto'] .' "alt="CakePHP" height="500px" width="500px"></span>';
+echo $this->Form->input('dir', array('type' => 'hidden','value' => ''));
+echo "<label class='errorFoto' style='display: block;color:red'></label>";
 
 
 //echo '<p class="stdformbutton">button class="btn btn-primary">Guardar</button><button type="reset" class="btn">Limpiar campos</button></p>';

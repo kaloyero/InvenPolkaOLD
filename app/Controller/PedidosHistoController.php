@@ -4,7 +4,7 @@
 	App::import('Model','PedidoDetalle');
 	App::import('Model','Articulo');
 
-class PedidosController extends AppController {
+class PedidosHistoController extends AppController {
 	public $helpers = array('Html','Form');
 	var $uses = array('Pedido','PedidoDetalle');
 	public $findResult;
