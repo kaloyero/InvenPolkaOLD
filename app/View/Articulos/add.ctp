@@ -15,12 +15,10 @@ echo $this->Form->input('idFoto', array('type' => 'file', 'accept' =>'image/*','
 echo $this->Form->input('dir', array('type' => 'hidden','value' => ''));
 echo "<label class='errorFoto' style='display: block;color:red'></label>";
 
-//echo $this->Form->input('CodigoArticulo',array('class'=>'input-medium'));
-
 echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5','div'=>false,'label'=>false,'before'=>'<p>
 								                                <label style="float: left;">Descripcion</label>
 								                                <span class="field float">',
-																'after'=>'</span></p>'));
+																'after'=>'</span></p>','pattern' => '.*\S+.*'));
 //echo $this->Form->input('Descripcion',array('class'=>'input-medium'));
 //Acceder al wrapper del Input array('div'=>array('class'=>'selector focus') Poner antes del input 'before'=>'<span>Decorado</span>'
 
