@@ -154,9 +154,6 @@ var Articulo = new Class({
             //Se hacen todas las validaciones aca
               if (!this.validateConfiguraciones()){
                     isValid=false;
-                    jQuery('.errorConfiguration').text("Complete todas las configuraciones!");
-                }else{
-                    jQuery('.errorConfiguration').empty();
                 }
              //Se ejecutan las valdiacioens basicas con requiered
               if (!this.getForm().valid()){
@@ -177,8 +174,10 @@ var Articulo = new Class({
          if( jQuery('#ArticuloIdMaterial').has('option').length == 0 || jQuery('#ArticuloIdEstilo').has('option').length  == 0 ||
                 jQuery('#ArticuloIdDimension').has('option').length  == 0 || jQuery('#ArticuloIdDecorado').has('option').length  ==
                     0 || jQuery('#ArticuloIdObjeto').has('option').length  == 0) {
+                        jQuery('.errorConfiguration').text("Complete todas las configuraciones!");
                         return false;
             }else{
+                jQuery('.errorConfiguration').empty();
                 return true;
             }
       },
@@ -271,7 +270,7 @@ var Articulo = new Class({
              jQuery("#ArticuloIdEstilo").prev().text(primerOpcionValor);
          }
          //Llamo al validar,para que de ultima,me limpie el mensajito de error
-         this.validateGeneral();
+         this.validateConfiguraciones();
     },
     afterDataTable:function(data){
         var self=this;

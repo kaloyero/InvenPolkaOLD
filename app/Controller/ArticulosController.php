@@ -36,7 +36,7 @@ class ArticulosController extends AppController {
 					$this->render('/General/Error');
 				}
         } else {
-			$this->setViewData();
+			$this->setViewData("add");
 			}
     }
 
@@ -57,8 +57,8 @@ class ArticulosController extends AppController {
 	function edit($id = null) {
 		    $this->Articulo->id = $id;
 		    if ($this->request->is('get')) {
-				$this->setViewData();
 		        $this->request->data = $this->Articulo->read();
+				$this->setViewData("edit");
 		    } else {
 			  $fieldsToEdit=$this->getFieldsToEdit();
 				if(!empty($this->request->data["Articulo"]["idFoto"])){
@@ -73,15 +73,24 @@ class ArticulosController extends AppController {
 	    }
 
 	}
-	function setViewData() {
+	function setViewData($currentStatus) {
 		$consultas = new ConsultasSelect();
+		//Si se esta editando,que me traiga las configuraciones en base a la categoria que eligio el articulo,si es alta o busqueda,que me traiga
+		//las configuraciones en base a la primer categoria de la lista
+
+		if ($currentStatus=="edit") {
+				$firstKey = $this->request->data["Articulo"]["IdCategoria"];
+			}else{
+				$firstKey = key($consultas->getCategorias());
+			}
+
 		$this->set('categorias',$consultas->getCategorias());
-		$firstKey = key($consultas->getCategorias());
-		$this->set('materiales',$consultas->getMaterialesByCategoria($firstKey));
-		$this->set('decorados',$consultas->getDecoradosByCategoria($firstKey));
-		$this->set('dimensiones',$consultas->getDimensionesByCategoria($firstKey));
-		$this->set('estilos',$consultas->getEstilosByCategoria($firstKey));
-		$this->set('objetos',$consultas->getObjetosByCategoria($firstKey));
+		$this->set('materiales',$consultas->getMaterialesByCategoriaTest($firstKey));
+		$this->set('decorados',$consultas->getDecoradosByCategoriaTest($firstKey));
+
+		$this->set('dimensiones',$consultas->getDimensionesByCategoriaTest($firstKey));
+		$this->set('estilos',$consultas->getEstilosByCategoriaTest($firstKey));
+		$this->set('objetos',$consultas->getObjetosByCategoriaTest($firstKey));
 	}
 	//Si el usuario esta editando un articulo,y el idFoto viene vacio,quiere decir que no la cambio,entonces,editamos todos los campos,menos
 	//el de la foto,porque sino lo pone vacio.Si cambio la foto,hacer el update normal
@@ -154,7 +163,7 @@ class ArticulosController extends AppController {
 				// $this->set("articulos",$results);
 				//$this->redirect(array('action' => 'index'));
 	 }else{
-			$this->setViewData();
+			$this->setViewData("find");
 		}
 	}
 }
