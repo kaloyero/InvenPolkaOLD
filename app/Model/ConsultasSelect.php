@@ -187,24 +187,24 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 	}
 	function getDecoradosByCategoria($id) {
 		$model=new Categoria();
-		return	$model->query("SELECT decorado.Nombre, decorado.id FROM Decorados as decorado INNER JOIN DecoradoCategorias as decoCate	ON 	decoCate.idDecorado=decorado.id WHERE  `decoCate`.`IdCategoria` ='".$id."'");
+		return	$model->query("SELECT decorado.Nombre, decorado.id FROM Decorados as decorado INNER JOIN Decorado_Categorias as decoCate	ON 	decoCate.idDecorado=decorado.id WHERE  `decoCate`.`IdCategoria` ='".$id."'");
 
 	}
 	function getEstilosByCategoria($id) {
 		$model=new Categoria();
-		return $model->query("SELECT estilo.Nombre, estilo.id FROM Estilos as estilo INNER JOIN EstiloCategorias as estiloCate	ON estiloCate.idEstilo=estilo.id WHERE  `estiloCate`.`IdCategoria` ='".$id."'");
+		return $model->query("SELECT estilo.Nombre, estilo.id FROM Estilos as estilo INNER JOIN Estilo_Categorias as estiloCate	ON estiloCate.idEstilo=estilo.id WHERE  `estiloCate`.`IdCategoria` ='".$id."'");
 	}
 	function getDimensionesByCategoria($id) {
 		$model=new Categoria();
-		return $model->query("SELECT dimension.Nombre, dimension.id FROM Dimensiones as dimension INNER JOIN DimensionCategorias as dimenCate ON dimenCate.idDimension=dimension.id WHERE  `dimenCate`.`IdCategoria` ='".$id."'");
+		return $model->query("SELECT dimension.Nombre, dimension.id FROM Dimensiones as dimension INNER JOIN Dimension_Categorias as dimenCate ON dimenCate.idDimension=dimension.id WHERE  `dimenCate`.`IdCategoria` ='".$id."'");
 	}
 	function getMaterialesByCategoria($id) {
 		$model=new Categoria();
-		return $model->query("SELECT material.Nombre, material.id  FROM Materiales as material INNER JOIN MaterialCategorias as mateCate	ON mateCate.idMaterial=material.id WHERE  `mateCate`.`IdCategoria` ='".$id."'");
+		return $model->query("SELECT material.Nombre, material.id  FROM Materiales as material INNER JOIN Material_Categorias as mateCate	ON mateCate.idMaterial=material.id WHERE  `mateCate`.`IdCategoria` ='".$id."'");
 	}
 	function getObjetosByCategoria($id) {
 		$model=new Categoria();
-		return $model->query("SELECT objeto.Nombre, objeto.id FROM Objetos as objeto INNER JOIN ObjetoCategorias as objetoCate	ON objetoCate.idObjeto=objeto.id WHERE  `objetoCate`.`IdCategoria` ='".$id."'");
+		return $model->query("SELECT objeto.Nombre, objeto.id FROM Objetos as objeto INNER JOIN Objeto_Categorias as objetoCate	ON objetoCate.idObjeto=objeto.id WHERE  `objetoCate`.`IdCategoria` ='".$id."'");
 
 	}
 
