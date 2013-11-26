@@ -99,6 +99,16 @@ class MovimientoInventariosController extends AppController {
 	}
 
 	public function devolucionDeArticulos(){
+        if ($this->request->is('post')) {
+			//Inserto el movimiento y los detalles
+			$this->insertMovimiento();
+          	$this->render('/General/Success');			
+		} else {
+			$this->setViewData();
+			//CargarLista de Articulos
+			$this->getListaArticulos();
+		}
+
 	}
 
 	public function asignacionAProyectos($id = null){
@@ -173,14 +183,18 @@ class MovimientoInventariosController extends AppController {
 
 			switch ($tipoMov) {
 				case 'P':
-					$proyecto = $this->request->$data['MovimientoInventario']['IdProyecto'];
+					$proyecto = $this->request->data['MovimientoInventario']['IdProyecto'];
 					//Descuento del deposito la cantidad del articulo
 					$consultas ->restaInventarioEnDeposito($articulo,$deposito,$cantidad);
 					//Inserto/modifico al inventario que el proyecto tiene X cantidad de ese articulo
 					$consultas ->sumaInventarioEnProyecto($articulo,$deposito,$proyecto,$cantidad);
 					break;
 				case 'D':
-					$this->devolucionDeArticulos();
+					$proyecto = $this->request->data['MovimientoInventario']['IdProyecto'];
+					//Inserto/modifico para el deposito X cantidad de articulos
+					$consultas ->sumaInventarioEnDeposito($articulo,$deposito,$cantidad);
+					//Resto X cantidad de articulo al proyecto seleccionado
+					$consultas ->restaInventarioEnProyecto($articulo,$deposito,$proyecto,$cantidad);
 					break;
 				case 'I':
 					//Inserto/modifico para el deposito X cantidad de articulos

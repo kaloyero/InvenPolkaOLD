@@ -14,9 +14,10 @@ class PedidosHistoController extends AppController {
     }
 
 	function ajaxData() {
+			
 			$paginado =new ConsultasPaginado();
 	        $this->autoRender = false;
-			$output = $paginado->getDataPedidos();
+			$output = $paginado->getDataPedidos("H");
 	        echo json_encode($output);
 	}
 

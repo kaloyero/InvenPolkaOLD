@@ -188,6 +188,18 @@ var ServerManager = new Class({
 				}
 		    } );
     },
+    viewDetail: function(config){
+    	var self=this;
+    	var type = config.object;
+
+    	jQuery.ajax( {
+		      type: "GET",
+		      url: self.services[type]["controllerName"]+"/view/"+config.id,
+		      success: function(data) {
+		    	  config.onSuccess(data);
+				}
+		    } );
+    },
     getConfiguraciones: function(config){
        	var self=this;
        	var type = config.object;

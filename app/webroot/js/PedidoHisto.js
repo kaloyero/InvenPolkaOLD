@@ -2,7 +2,7 @@ var PedidoHisto = new Class({
     Extends: Render,
     initialize: function(name){
         this.name = name;
-        this.type='pedido';
+        this.type='pedidoHisto';
         this.breadcrumb='PedidosHisto';
         this.descripcion="Historico de pedido"
     },

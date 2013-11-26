@@ -165,14 +165,14 @@ class ConsultasPaginado extends AppModel {
 			//Obtengo los totales
 			$totales = $this->getTotales($model,$query);
 			//Proceso los campos para llenar la tabla
-			$arrayData=$this->getArrayDataPedido($tabla,$rows,$aColumns,$query['select']);
+			$arrayData=$this->getArrayDataPedido($tabla,$rows,$aColumns,$query['select'],$tipoLista);
 			//Obtengo la tabla
 			$output = $this->createConfigTable($arrayData,$totales["total"],$totales["tDisplay"]);
 
 			return $output;
 		}
 
-private function getArrayDataPedido($tabla,$rows,$aColumns,$titi) {
+private function getArrayDataPedido($tabla,$rows,$aColumns,$titi,$tipoLista) {
       $arrayDt=array();
 
   //    array_push($arrayDt, array($titi));
@@ -183,26 +183,29 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi) {
 					array_push($fila, array($j[$tabla][$column]));
 			}
 
-			//Botonera
 			$botonera = " <div>";
-			$botonEditar ="<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/pedidos/edit/".$j[$tabla]['id']."' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/view.png' /></a></div>";
-			if ($j[$tabla]["estado"] == "abierto"){
-				//Si el estado es abierto agrego el boton de "confirmar pedido"
-				$botonConfirmar = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/pedidos/confirmarPedido/".$j[$tabla]['id']."' class='confirm'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/confirmar.png' /></a></div>";
-//				$botonEditar ="<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/pedidos/edit/".$j[$tabla]['id']."' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div>";
-				$botonArmarPedido = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/armarOff.png' /></div>";
-				$botonera = $botonera.$botonConfirmar.$botonEditar.$botonArmarPedido ;
-			} else {
-				$botonConfirmar = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/confirmarOff.png' /></div>";
-//				$botonEditar = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/editOff.jpg' /></div>";
-				$botonArmarPedido = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/movimientoInventarios/asignacionAProyectos/".$j[$tabla]['id']."' class='asignarAProyecto'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/armar.png' /></a></div>";
-				$botonera = $botonera.$botonConfirmar.$botonEditar.$botonArmarPedido ;
+			$btnVer ="<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/pedidos/edit/".$j[$tabla]['id']."' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/view.png' /></a></div>";
+			$btnAccion = "";
+			$btnPrintPedido = "";
+			$btnPrintComanda = "";
+			switch ($tipoLista) {
+				case 'E':
+					$btnAccion= "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/pedidos/confirmarPedido/".$j[$tabla]['id']."' class='confirm'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/confirmar.png' /></a></div>";
+					$btnPrintPedido = "";
+				break;
+				case 'S':
+					$btnAccion = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/movimientoInventarios/asignacionAProyectos/".$j[$tabla]['id']."' class='asignarAProyecto'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/armar.png' /></a></div>";
+					$btnPrintComanda = "";
+					break;
+				case 'H':
+					$btnPrintPedido = "";
+					if ($j[$tabla]["estado"] == "confirmado"){
+						$btnPrintComanda = "";
+					}
+					break;
 			}
-//			$botonVer ="<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/pedidos/view/".$j[$tabla]['id']."' class='view'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/view.png' /></a></div>";
-			$botonEliminar = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>";
+			$botonera = $botonera.$btnVer.$btnAccion.$btnPrintPedido.$btnPrintComanda ;
 
-//			$botonera = $botonera.$botonVer.$botonEliminar;
-			$botonera = $botonera.$botonEliminar;
 			array_push($fila, $botonera );
 
 			array_push($arrayDt, $fila);

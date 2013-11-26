@@ -2,7 +2,7 @@ var PedidoSalida = new Class({
     Extends: Render,
     initialize: function(name){
         this.name = name;
-        this.type='pedido';
+        this.type='pedidoSalida';
         this.breadcrumb='PedidosSalida';
         this.descripcion="Pedidos a enviar"
     },

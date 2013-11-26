@@ -16,24 +16,23 @@ echo $this->Form->input('CodigoArticulo',array('class'=>'input-medium','div'=>fa
 								'after'=>'</span>','pattern' => '.*\S+.*'));
 
 echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5','div'=>false,'label'=>false,'before'=>'
-								                                <label style="float: left;">Descripcion</label>
+								                                <label style="float: left;">Comentarios</label>
 								                                <span class="field float">',
 																'after'=>'</span></p>','pattern' => '.*\S+.*'));
 
-echo $this->Form->input('Articulo.IdCategoria',array('type'=>'select','options'=>$categorias,'empty'=>false,'class'=>'uniformselect categoria'															,'div'=>false,'label'=>false,'before'=>'<p><label>Configuraciones</label><span class="field"> Categoria :'));
-
-
-echo $this->Form->input('Articulo.IdMaterial',array('type'=>'select','empty'=>false,'options'=>$materiales,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Material : '));
-
-
-echo $this->Form->input('Articulo.IdEstilo',array('type'=>'select','empty'=>false,'options'=>$estilos,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Estilo : '));
-
+echo $this->Form->input('Articulo.IdCategoria',array('type'=>'select','options'=>$categorias,'empty'=>false,'class'=>'uniformselect categoria'															,'div'=>false,'label'=>false,'before'=>'<p><label>Descripcion</label><span class="field"> Categoria :'));
 
 echo $this->Form->input('Articulo.IdObjeto',array('type'=>'select','empty'=>false,'options'=>$objetos,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Objeto : '));
 
+echo $this->Form->input('Articulo.IdDecorado',array('type'=>'select','options'=>$decorados,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Decorado : '));
+
+echo "<BR>";
+
+echo $this->Form->input('Articulo.IdMaterial',array('type'=>'select','empty'=>false,'options'=>$materiales,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Material : '));
+
 echo $this->Form->input('Articulo.IdDimension',array('type'=>'select','options'=>$dimensiones,'empty'=>false,'class'=>'uniformselect'																								,'div'=>false,'label'=>false,'before'=>' Dimension : '));
 
-echo $this->Form->input('Articulo.IdDecorado',array('type'=>'select','options'=>$decorados,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Decorado : ','after'=>'</span><label class ="errorConfiguration" style="display: block;color:red"></label></p>'));
+echo $this->Form->input('Articulo.IdEstilo',array('type'=>'select','empty'=>false,'options'=>$estilos,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Estilo : ','after'=>'</span><label class ="errorConfiguration" style="display: block;color:red"></label></p>'));
 
 //Selector de imagen
 echo $this->Form->input('idFoto', array('type' => 'file', 'accept' =>'image/*', 'label' => false,'class'=>'uniform-file','div'=>array('class'=>'field uploader focus')));

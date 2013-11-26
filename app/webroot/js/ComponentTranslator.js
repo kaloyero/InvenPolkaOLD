@@ -105,6 +105,16 @@ var ComponentTranslator = new Class(
     					}
     				});
     		},
+			 viewDetail : function(objectType,idObject) {
+    				serverManager.viewDetail({
+    					object : objectType,
+    					id : idObject,
+    					onSuccess : function(data) {
+    					    var renderInstace = renderTranslator.getRender(objectType);
+                            renderInstace.onView(data);
+    					}
+    				});
+    		},
 			confirmarPedido : function(objectType,idObject) {
 
 				serverManager.confirmarPedido({

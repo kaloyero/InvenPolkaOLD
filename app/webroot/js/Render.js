@@ -136,10 +136,20 @@ var Render = new Class({
                            "bPaginate": true,
                            "sPaginationType": "full_numbers",
                            "sAjaxSource": serverManager.services[this.type]["controllerName"]+"/ajaxData",
+/*							"oLanguage": {
+								"sUrl": "dataTables.german.txt"
+							},
+*/
                            "oLanguage": {
-                                    "sSearch": "Busqueda:",
-                                    "sInfo": "Mostrando _START_ hasta _END_ de un total de  _TOTAL_ registros",
-                                    "sInfoFiltered": " - (Filtrando de un maximo de _MAX_ registros)",
+									"sProcessing":     	"Procesando...",
+                                    "sSearch": 			"Busqueda:",
+									"sLengthMenu":     	"Mostrar _MENU_ registros",
+									"sZeroRecords":    	"No se encontraron resultados",
+									"sEmptyTable":     	"Ningún dato disponible en esta tabla",
+									"sInfo": 			"Mostrando _START_ hasta _END_ de un total de  _TOTAL_ registros",
+									"sInfoEmpty":      	"Mostrando registros del 0 al 0 de un total de 0 registros",
+									"sInfoFiltered":   	"(filtrado de un total de _MAX_ registros)",
+									"sLoadingRecords": "Cargando...",
                                     "oPaginate": {
                                             "sNext": "Proxima",
                                             "sFirst": "Primera",
@@ -148,6 +158,7 @@ var Render = new Class({
 
                                           }
                                   },
+								  
                                   "fnPreDrawCallback": function( nRow, aData, iDisplayIndex ) {
 
                                   },

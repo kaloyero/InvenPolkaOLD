@@ -16,7 +16,7 @@ class PedidosController extends AppController {
 	function ajaxData() {
 			$paginado =new ConsultasPaginado();
 	        $this->autoRender = false;
-			$output = $paginado->getDataPedidos();
+			$output = $paginado->getDataPedidos("E");
 	        echo json_encode($output);
 	}
 

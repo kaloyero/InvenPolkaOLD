@@ -1,7 +1,3 @@
-<p class="stdformbutton">
-	<button class="btn devolucion">Devolucion de articulos</button>
-</p>
-
 <table  id="configurationTable" class ="table table-bordered" width="100%"  style="width: 100%;">
 	<thead>
 					<tr>

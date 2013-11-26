@@ -17,6 +17,7 @@
 	App::import('Model','DimensionCategoria');
 	App::import('Model','MaterialCategoria');
 	App::import('Model','ObjetoCategoria');
+	App::import('Model','MovimientoInventario');
 
 
 class ConsultasSelect extends AppModel {
@@ -69,6 +70,17 @@ class ConsultasSelect extends AppModel {
 		return $articulos;
 	}
 
+	function getArticuloById($id) {
+		$model=new Articulo();
+		$articulos=$model->query("SELECT * FROM `articulos_vista` WHERE id = '".$id."';");
+		$articulo = array();
+		foreach ($articulos as $art){
+			$articulo= $art;
+		}
+
+		return $articulo;
+	}
+
 	function getArticulosByArrayId($ids) {
 		$articulo=new Articulo();
 		$condiciones = array("Articulo.id" => $ids);
@@ -79,12 +91,35 @@ class ConsultasSelect extends AppModel {
 		//Borro la ultima coma
 		$inCondition = substr_replace( $inCondition, "", -1 );
 		$articulos =$articulo->query("Select * from `articulos`  WHERE `id` IN (".$inCondition.");");
-//		$articulos=$articulo->find('all');
+		//$articulos=$articulo->find('all');
 
 
-	//	$articulos=$articulo->find($condiciones);
+		//$articulos=$articulo->find($condiciones);
 		return $articulos;
 	}
+	
+	//Devuelve TRUE si el Codigo de articulo existe
+	//Devuelve FALSE si el Codigo de articulo NO existe
+	//Si idEdit es null no valida que el id de articulo sea distinto de el mismo
+	function existeCodigoArticulo($codigo,$idEdit) {
+		$model=new Articulo();
+		$valido = false;
+		if (is_null($idEdit)){
+			$conditions = array(
+				'CodigoArticulo' => $codigo
+			);
+		} else {
+			$conditions = array(
+				'CodigoArticulo' => $codigo,
+				'id <>' => $idEdit				
+			);
+		}
+			
+		if ($model->hasAny($conditions)){
+			$valido = true;
+		}
+		return $valido;
+	}	
 
 ////////////////////////////// {FIN} ARTICULOS //////////////////////////////
 
@@ -311,14 +346,19 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 ****************************** {INICIO} INVENTARIOS ********************************
 \********************************************************************************/
 
+	//
+	function getDataInventarioByIdArticulo($idArticulo) {
+		$model=new Inventario();
+		$inventario=$model->query("SELECT * FROM `inventarios_vista` WHERE id_articulo = '".$idArticulo."' order by 'Disponibilidad','deposito','proyecto' asc;");
+		return $inventario;
+	}
+
 	//Suma (inserta/modifica) en inventario para deposito
 	function sumaInventarioEnDeposito($articulo,$deposito,$cantidad) {
 		if ($this->getExisteArticulo($articulo,$deposito,NULL)){
 			//Si existe le sumo la cantidad
 			$this->sumaInventario($articulo,$deposito,NULL,$cantidad);
-			print_r("--   SUMO CANTIDAD  ".$articulo." --");
 		} else {
-			print_r("--   INSERTO   ".$articulo." --");
 			//Sino existe inserto el registro
 			$this->insertarInventario($articulo,$deposito,NULL,$cantidad);
 		}
@@ -403,11 +443,25 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 		$inventario = $model->find('first',array('conditions' => $conditions));
 		//resto
 		$total = $inventario['Inventario']['Disponibilidad'] - $cantidad;
-		//Actualizo
-		$model->updateAll(array('Disponibilidad'=>$total), $conditions);
+
+		if ( (!empty($proyecto)) && $total < 1){
+			//Si no tengo stock en el proyecto lo borro			
+			$model->deleteAll($conditions);
+		} else {
+			//Actualizo el stock
+			$model->updateAll(array('Disponibilidad'=>$total), $conditions);
+		}
 	}
 
 ////////////////////////////// {FIN} INVENTARIOS //////////////////////////////
+
+/********************************************************************************\
+****************************** {INICIO} MOVIMIENTOS ********************************
+\********************************************************************************/
+
+
+
+////////////////////////////// {FIN} MOVIMIENTOS //////////////////////////////
 
 }
 ?>
