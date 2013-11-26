@@ -16,21 +16,9 @@ class PedidosController extends AppController {
 	function ajaxData() {
 			$paginado =new ConsultasPaginado();
 	        $this->autoRender = false;
-			$output = $paginado->getDataPedidos();
+			$output = $paginado->getDataPedidos("E");
 	        echo json_encode($output);
 	}
-
-	//Para que?
-	function getEstilos() {
-		$estilo=new Estilo();
-		$estilos=$estilo->find('list',array('fields'=>array('Estilo.id','Estilo.Nombre')));
-		return $estilos;
-	}
-
-
-//    function index() {
-//        $this->set('pedidos', $this->Pedido->find('all'));
-//    }
 
    public function view($id = null) {
         $this->Pedido->id = $id;
@@ -107,8 +95,6 @@ class PedidosController extends AppController {
 	private function setViewData() {
 		$consultasSelect = new ConsultasSelect();
 		$this->set('proyectos',$consultasSelect ->getProyectos());
-		$this->set('estudios',$consultasSelect ->getEstudios());
-//		$this->set('articulos',$consultasSelect ->getArticulos());
 	}
 
 	function confirmarPedido($id = null) {

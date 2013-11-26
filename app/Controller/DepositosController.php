@@ -6,12 +6,12 @@ class DepositosController extends AppController {
     public $helpers = array ('Html','Form');
 
     function index() {
-		$this->paginate = array(
-				'order' => array('Result.created ASC'),
-			     'limit' => 10
-		 );
-        $this->set('depositos', $this->paginate('Deposito'));
-
+		$depositos = $this->Deposito->find('list');
+		foreach ($depositos as &$depo) {
+			$id = $depo['id'];
+		}
+		$this->redirect(array('action' => 'edit/'.$id));
+		
     }
 
    public function view($id = null) {
@@ -41,6 +41,7 @@ class DepositosController extends AppController {
 		    } else {
 		        if ($this->Deposito->save($this->request->data)) {
 		          	$this->render('/General/Success');
+
 	        	}else{
 					$this->render('/General/Error');
 				}

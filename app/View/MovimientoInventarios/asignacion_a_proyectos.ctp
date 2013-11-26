@@ -31,15 +31,9 @@ echo $this->Form->create('MovimientoInventario',array('class' => 'stdform stdfor
     	<input class="input-medium" maxlength="100" type="text" value="<?php echo $pe['pedidos_vista']['proyecto'] ?>" required="required">
     </span>
 </p>								
-<p>
-    <label style="float: left;">Estudio</label>
-	<span class="field float">
-    	<input class="input-medium" maxlength="100" type="text" value="<?php echo $pe['pedidos_vista']['estudio'] ?>" required="required">
-    </span>
-</p>								
 <input type="hidden" value="<?php echo $pe['pedidos_vista']['id'] ?>" name="data[MovimientoInventario][IdPedido]"/>
 <input type="hidden" value="<?php echo $pe['pedidos_vista']['id_proyecto'] ?>" name="data[MovimientoInventario][IdProyecto]"/>
-<input type="hidden" value="<?php echo $pe['pedidos_vista']['id_estudio'] ?>" name="data[MovimientoInventario][IdEstudio]"/>
+
 <?php endforeach; ?>
 <?php 
 echo $this->Form->input('Fecha',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
@@ -87,7 +81,7 @@ LISTA DE ARTICULOS
             </td>
             <td><?php echo $articulo['art']['Descripcion']; ?></td>
             <td><?php echo $articulo['det']['Cantidad']; ?></td>
-			<td><input name="data[Detalle][<?php echo $cont ?>][Cantidad]"  class="input-medium valid" value="0" min="0" type="number" /></td>            
+			<td><input name="data[Detalle][<?php echo $cont ?>][Cantidad]"  class="input-medium valid" value="0" min="0" max="<?php echo $cont ?>" type="number" /></td>            
             <td><img style="width:250px; height:150px;border-style:solid;border-width:3px;" src="/InvenPolka/app/webroot/files/articulo/IdFoto/<?php echo $articulo['art']['dir']; ?>/<?php echo $articulo['art']['idFoto']; ?>" alt="CakePHP" ></td>
 <td><img class="desactiva" src="/InvenPolka/app/webroot/files/gif/desactivar.png"></td>
         </tr>

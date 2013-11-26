@@ -47,7 +47,6 @@ var Pedido = new Class({
     onView: function(data){
         this.parent(data);
         jQuery('.confirm').bind("click", function(e) {
-			alert("CON")
 			return false;
 		})
     },

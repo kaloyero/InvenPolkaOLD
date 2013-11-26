@@ -11,7 +11,8 @@ echo $this->Form->input('Director',array('class'=>'input-medium','div'=>false,'l
 
 echo '<label style="float: left;">Fecha Ini</label><span class="field float"><input class="input-small fecha" type="text" name="data[Proyecto][FechaIni]" required="required" /><small><em> yyyy / mm / dd</em></small></span>';
 
-echo '<label style="float: left;">Fecha Ini</label><span class="field float"><input class="input-small fecha" type="text" name="data[Proyecto][Fechafin]" required="required" /><small><em>   yyyy / mm / dd</em></small></span></p>';
+echo '<label style="float: left;">Fecha Fin</label><span class="field float"><input class="input-small fecha" type="text" name="data[Proyecto][Fechafin]" required="required" /><small><em>   yyyy / mm / dd</em></small></span></p>';
+
 
 echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</button><button type="reset" class="btn">Limpiar Formulario</button></p>';
 

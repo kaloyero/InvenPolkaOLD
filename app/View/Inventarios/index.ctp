@@ -1,16 +1,10 @@
-<p><a id="add">Agregar</a></p>
-<p class="stdformbutton">
-	<button id="add" class="btn">Agregar</button>
-</p>
-
 <table  id="configurationTable" class ="table table-bordered" width="100%"  style="width: 100%;">
 	<thead>
 	     <tr>
 		                <th style="display:none;">Id</th>
 		                <th>Codigo Articulo</th>
                         <th>Foto</th>
-                        <th>Disponibilidad</th>
-                        <th>Deposito</th>
+                        <th>Stock</th>
                         <th>Proyecto</th>
                         <th>Acciones</th>
 		            </tr>

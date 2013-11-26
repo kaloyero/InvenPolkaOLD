@@ -1,13 +1,14 @@
 <?php
 //TODO session_start(); le habia puesto esto para que ande las sesiones,pero tras mucho tiempo de busqueda,le agregue algo al core.php y no hay necesidad de usar esto
 
-
     App::import('Model','Materiale');
 	App::import('Model','Categoria');
 	App::import('Model','Dimensione');
 	App::import('Model','Decorado');
 	App::import('Model','Estilo');
 	App::import('Model','Objeto');
+	App::import('Model','MovimientoInventario');
+	App::import('Model','MovimientoDetalleInventario');
 	App::import('Model','ConsultasSelect');
 	App::import('Model','ConsultasPaginado');
 
@@ -24,13 +25,30 @@ class ArticulosController extends AppController {
     }
 
    public function view($id = null) {
-
+			$this->Articulo->id = $id;
+		    if ($this->request->is('get')) {
+				$consultas = new ConsultasSelect();				
+				$articulo = $consultas->getArticuloById($id);
+				$inventario = $consultas->getDataInventarioByIdArticulo($id);
+		        $this->set('articulo', $articulo);
+		        $this->set('inventario', $inventario);
+				$this->setViewData("view");
+		    } else {
+				$this->redirect(array('action' => 'index'));
+			}
    }
 
     public function add() {
         if ($this->request->is('post')) {
-				$this->removeSpecialCharactersFromImage();
+			$this->preSave();
             if ($this->Articulo->save($this->request->data)) {
+					//Actualizo el id de articulo
+					$this->request->data['Inventario']['IdArticulo'] = $this->Articulo->getInsertID();
+					//Guardo en la tabla inventario
+					$this->GuardarInventario($this->request->data['Inventario']);
+					//Guardo el movimiento
+					$this->insertMovimiento();
+					
               	    $this->render('/General/Success');
 	        	}else{
 					$this->render('/General/Error');
@@ -39,7 +57,75 @@ class ArticulosController extends AppController {
 			$this->setViewData("add");
 			}
     }
+	
+	private function GuardarInventario($inventario){
+		$consultas = new ConsultasSelect();
+		//Guardo el invetario correspondiente
+		$consultas->insertarInventarioEntidad($inventario);
+		//Si se le asigna al proyecto agrego un registro para el stock del deposito en cero
+		if (! empty($inventario["IdProyecto"])){
+			$inventario["IdProyecto"] = NULL;
+			$inventario["Disponibilidad"] = 0;
+			$consultas->insertarInventarioEntidad($inventario);
+		}
+		
+	}
 
+	//Hace el insert en la Tabla de Movimientos
+	private function insertMovimiento(){
+			$model = new MovimientoInventario();
+			$model2 = new MovimientoDetalleInventario();
+		
+			//Agrego el detalle para la alta de Articulo
+			$res= $model->save(array('Numero' => 0,'Fecha' => '2013-11-15','TipoMovimiento' => 'A','IdDepositoOrig' => $this->request->data['Inventario']['IdDeposito']));
+			if ($res) {
+				$idInserted = $model->getInsertID();
+				//Actualizo el Numero del Movimiento/
+				$model->updateAll(array('Numero'=>$idInserted), array('MovimientoInventario.id'=>$idInserted));
+				//hago el alta del detalle
+	            $detalle = $this->getMovimientoDetalle($idInserted);
+				$model2->save($detalle);
+           	} else {
+				$this->render('/General/Error');
+			}
+	}
+
+	private function getMovimientoDetalle($idMov) {
+			$detalle['Cantidad'] = $this->request->data['Inventario']['Disponibilidad'];
+			$detalle['IdMovimientoInventario'] = $idMov;
+			$detalle['IdArticulo'] = $this->request->data['Inventario']['IdArticulo'];
+			
+			return $detalle;
+	}
+	
+	private function preSave() {
+				//Seteo el codigo del articulo con el nombre de la foto.
+				$codigoArt = $this->request->data['Articulo']['idFoto']['name'];
+		        $codigoArt  = substr_replace( $codigoArt , "", -4 );
+				//Valido que el codigo de articulo no exista en la base
+				$codigoArt = $this->validaCodigoArticuloRepetido($codigoArt,null);
+				//Le asigno el valor al codigo de Articulo
+				$this->request->data['Articulo']['CodigoArticulo'] = $codigoArt ;
+				//Remuevo caracteres especiales
+				$this->removeSpecialCharactersFromImage();
+	}
+	
+	private function validaCodigoArticuloRepetido($codigoArt,$idEdit) {
+			$consultas =new ConsultasSelect();
+			$codArtReturn = $codigoArt;
+
+			$codigoRepetido = $consultas->existeCodigoArticulo($codigoArt,$idEdit);
+			$cont = 1;
+			while ($codigoRepetido) {
+				//Si existe le cambio el nombre
+				$codArtReturn = $codigoArt." (".$cont.")";
+				$codigoRepetido = $consultas->existeCodigoArticulo($codArtReturn,$idEdit);
+				$cont++;
+			} 
+			
+			return	$codArtReturn;
+	}
+	
 	function ajaxData() {
 		if ($this->Session->check("articulos")){
 			$paginado =new ConsultasPaginado();
@@ -62,9 +148,17 @@ class ArticulosController extends AppController {
 		    } else {
 			  $fieldsToEdit=$this->getFieldsToEdit();
 				if(!empty($this->request->data["Articulo"]["idFoto"])){
+					//Remuevo caracteres especiales
 					$this->removeSpecialCharactersFromImage();
 
 				}
+				//Obtengo el codigo de articulo
+				$codigoArt = $this->request->data['Articulo']['CodigoArticulo'];
+				//Valido que el codigo de articulo no exista en la base
+				$codigoArt = $this->validaCodigoArticuloRepetido($codigoArt,$id);
+				//Le asigno el valor al codigo de Articulo
+				$this->request->data['Articulo']['CodigoArticulo'] = $codigoArt ;
+				
 		        if ($this->Articulo->save($this->request->data,array('fieldList' => $fieldsToEdit ))){
 					  $this->render('/General/Success');
 		        	}else{
@@ -82,6 +176,8 @@ class ArticulosController extends AppController {
 				$firstKey = $this->request->data["Articulo"]["IdCategoria"];
 			}else{
 				$firstKey = key($consultas->getCategorias());
+				$this->set('depositos',$consultas->getDepositos());
+				$this->set('proyectos',$consultas->getProyectos());
 			}
 
 		$this->set('categorias',$consultas->getCategorias());

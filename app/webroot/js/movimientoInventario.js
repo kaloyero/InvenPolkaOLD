@@ -18,6 +18,8 @@ var MovimientoInventario = new Class({
 				translator.addMovimiento("movimientoInventario",null,"asignacionAProyectos/".self.getSelectedRowId(this));
                	return false;
           })
+		  
+          jQuery('.fecha').datepicker({ dateFormat: 'yy-mm-dd' });
 
         },
      bindAddEvents:function() {
@@ -35,6 +37,8 @@ var MovimientoInventario = new Class({
          jQuery('.desactiva').bind("click", function(e) {
              jQuery(this).parent().parent().remove();
          })
+		 
+          jQuery('.fecha').datepicker({ dateFormat: 'yy-mm-dd' });
 
    	}
 

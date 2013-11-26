@@ -101,11 +101,11 @@ class ConsultasPaginado extends AppModel {
 			$tabla="inventarios_vista";
 			//Columnas que voy a mostrar
 
-			$aColumns = array( 'id' ,'articulo', 'dir' ,'idFoto',  'Disponibilidad'  , 'deposito' ,  'proyecto');
+			$aColumns = array( 'id' ,'articulo', 'dir' ,'idFoto',  'Disponibilidad'   ,  'proyecto');
 			//Columnas por las que se va a filtrar
-			$aColumnsFilter = array(  'Disponibilidad' ,'articulo' ,  'proyecto' ,  'deposito' ,  'ubicacion' );
+			$aColumnsFilter = array(  'Disponibilidad' ,'articulo' ,  'proyecto'  ,  'ubicacion' );
 			//Columna por la cual se va ordenar
-			$orderByfield = 'deposito,ubicacion,proyecto,articulo';
+			$orderByfield = 'articulo,proyecto';
 			$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,true);
 			return $output;
 		}
@@ -121,11 +121,12 @@ class ConsultasPaginado extends AppModel {
 				$model=new MovimientoInventario();
 				$tabla="movimientos_vista";
 				//Columnas que voy a mostrar
-			    $aColumns = array( 'id','Numero','Fecha','TipoMovimiento','deposito_orig','deposito_dest','pedido','proyecto','Estudio');
+			    $aColumns = array( 'id','Numero','Fecha','TipoMovimiento','deposito_orig','deposito_dest','pedido','proyecto');
 		        //Columnas por las que se va a filtrar
-			    $aColumnsFilter = array( 'Numero','Fecha','Descripcion','TipoMovimiento','deposito_orig','deposito_dest','pedido','proyecto','Estudio' );
+			    $aColumnsFilter = array( 'Numero','Fecha','Descripcion','TipoMovimiento','deposito_orig','deposito_dest','pedido','proyecto' );
 				//Columna por la cual se va ordenar
-				$orderByfield = 'Fecha,deposito_orig,proyecto,estudio,TipoMovimiento,Numero';
+
+				$orderByfield = 'Fecha,deposito_orig,proyecto,TipoMovimiento,Numero';
 
 				$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,true);
 				return $output;
@@ -138,16 +139,24 @@ class ConsultasPaginado extends AppModel {
 ****************************** {INICIO} Pedidos -> DATATABLE *************************
 \*************************************************************************************/
 
-		function getDataPedidos() {
+		function getDataPedidos($tipoLista) {
+			/*
+			tipoLista
+			E -> pedidos que entraron
+			S -> pedidos de Salida
+			H -> historico de pedidos
+
+			*/
+
 			$model=new Pedido();
 			$tabla="pedidos_vista";
 			//Columnas que voy a mostrar
 
-			$aColumns = array( 'id' ,'Numero', 'Fecha' ,'proyecto',  'estudio' ,  'estado'  );
+			$aColumns = array( 'id' ,'Numero', 'Fecha' ,'proyecto', 'estado'  );
 			//Columnas por las que se va a filtrar
-			$aColumnsFilter = array(  'Numero' ,'proyecto',  'estudio'  );
+			$aColumnsFilter = array(  'Numero' ,'proyecto'  );
 			//Columna por la cual se va ordenar
-			$orderByfield = 'Fecha, proyecto, estudio, Numero';
+			$orderByfield = 'Fecha, proyecto, Numero';
 
 			//CREATE TABLE
 			//Consigue el query que se va ejecutar
@@ -157,14 +166,14 @@ class ConsultasPaginado extends AppModel {
 			//Obtengo los totales
 			$totales = $this->getTotales($model,$query);
 			//Proceso los campos para llenar la tabla
-			$arrayData=$this->getArrayDataPedido($tabla,$rows,$aColumns,$query['select']);
+			$arrayData=$this->getArrayDataPedido($tabla,$rows,$aColumns,$query['select'],$tipoLista);
 			//Obtengo la tabla
 			$output = $this->createConfigTable($arrayData,$totales["total"],$totales["tDisplay"]);
 
 			return $output;
 		}
 
-private function getArrayDataPedido($tabla,$rows,$aColumns,$titi) {
+private function getArrayDataPedido($tabla,$rows,$aColumns,$titi,$tipoLista) {
       $arrayDt=array();
 
   //    array_push($arrayDt, array($titi));
@@ -175,26 +184,30 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi) {
 					array_push($fila, array($j[$tabla][$column]));
 			}
 
-			//Botonera
 			$botonera = " <div>";
-			$botonEditar ="<div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <a href='/InvenPolka/pedidos/edit/".$j[$tabla]['id']."' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/view.png' /></a></div>";
-			if ($j[$tabla]["estado"] == "abierto"){
-				//Si el estado es abierto agrego el boton de "confirmar pedido"
-				$botonConfirmar = "<div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <a href='/InvenPolka/pedidos/confirmarPedido/".$j[$tabla]['id']."' class='confirm'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/confirmar.png' /></a></div>";
-//				$botonEditar ="<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/pedidos/edit/".$j[$tabla]['id']."' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div>";
-				$botonArmarPedido = "<div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/armarOff.png' /></div>";
-				$botonera = $botonera.$botonConfirmar.$botonEditar.$botonArmarPedido ;
-			} else {
-				$botonConfirmar = "<div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/confirmarOff.png' /></div>";
-//				$botonEditar = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/editOff.jpg' /></div>";
-				$botonArmarPedido = "<div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <a href='/InvenPolka/movimientoInventarios/asignacionAProyectos/".$j[$tabla]['id']."' class='asignarAProyecto'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/armar.png' /></a></div>";
-				$botonera = $botonera.$botonConfirmar.$botonEditar.$botonArmarPedido ;
-			}
-//			$botonVer ="<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/pedidos/view/".$j[$tabla]['id']."' class='view'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/view.png' /></a></div>";
-			$botonEliminar = "<div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <a><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>";
 
-//			$botonera = $botonera.$botonVer.$botonEliminar;
-			$botonera = $botonera.$botonEliminar;
+			$btnVer ="<div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <a href='/InvenPolka/pedidos/edit/".$j[$tabla]['id']."' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/view.png' /></a></div>";
+			$btnAccion = "";
+			$btnPrintPedido = "";
+			$btnPrintComanda = "";
+			switch ($tipoLista) {
+				case 'E':
+					$btnAccion= "<div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <a href='/InvenPolka/pedidos/confirmarPedido/".$j[$tabla]['id']."' class='confirm'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/confirmar.png' /></a></div>";
+					$btnPrintPedido = "";
+				break;
+				case 'S':
+					$btnAccion = "<div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <a href='/InvenPolka/movimientoInventarios/asignacionAProyectos/".$j[$tabla]['id']."' class='asignarAProyecto'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/armar.png' /></a></div>";
+					$btnPrintComanda = "";
+					break;
+				case 'H':
+					$btnPrintPedido = "";
+					if ($j[$tabla]["estado"] == "confirmado"){
+						$btnPrintComanda = "";
+					}
+					break;
+			}
+			$botonera = $botonera.$btnVer.$btnAccion.$btnPrintPedido.$btnPrintComanda ;
+
 			array_push($fila, $botonera );
 
 			array_push($arrayDt, $fila);
@@ -214,7 +227,7 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi) {
 		$tabla="articulos_vista";
 		$model=new Articulo();
 		//Columnas que voy a mostrar
-	    $aColumns = array( 'id','CodigoArticulo','dir','idFoto','descripcion','categoria','decorado','objeto','estilo','material','dimension' );
+	    $aColumns = array( 'id','CodigoArticulo','dir','idFoto','descripcion','categoria','decorado','objeto','estilo','material','dimension','stock_total','stock_dispo' );
         //Columnas por las que se va a filtrar
 	    $aColumnsFilter = array( 'CodigoArticulo','descripcion','categoria','decorado','objeto','estilo','material','dimension' );
 		//Columna por la cual se va ordenar
@@ -242,7 +255,7 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi) {
 		$tabla="articulos_vista";
 		$model=new Articulo();
 		//Columnas que voy a mostrar
-	    $aColumns = array( 'id','CodigoArticulo','dir','idFoto','descripcion','categoria','decorado','objeto','estilo','material','dimension' ,'id_categoria','id_decorado','id_objeto','id_estilo','id_material','id_dimension');
+	    $aColumns = array( 'id','CodigoArticulo','dir','idFoto','descripcion','categoria','decorado','objeto','estilo','material','dimension' ,'id_categoria','id_decorado','id_objeto','id_estilo','id_material','id_dimension','stock_total','stock_dispo');
         //Columnas por las que se va a filtrar
 	    $aColumnsFilter = array(  );
 		//Columna por la cual se va ordenar
@@ -322,6 +335,8 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumnsFilter,$order
 			array_push($fila, array($j[$tabla]['material']));
 			array_push($fila, array($j[$tabla]['dimension']));
 			array_push($fila, array($j[$tabla]['estilo']));
+			array_push($fila, array($j[$tabla]['stock_total']));
+			array_push($fila, array($j[$tabla]['stock_dispo']));
 			array_push($arrayDt, $fila);
       }
 //*/

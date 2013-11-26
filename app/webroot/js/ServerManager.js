@@ -4,6 +4,8 @@ var ServerManager = new Class({
         this.services={};
         this.services['articulo']={};
         this.services['pedido']={};
+        this.services['pedidoSalida']={};
+        this.services['pedidoHisto']={};				
         this.services['inventario']={};
         this.services['proyecto']={};
         this.services['estudio']={};
@@ -27,6 +29,10 @@ var ServerManager = new Class({
         this.services['articulo']["model"]="Articulo";
         this.services['pedido']["controllerName"]="pedidos";
         this.services['pedido']["model"]="Pedido";
+        this.services['pedidoSalida']["controllerName"]="pedidosSalida";
+        this.services['pedidoSalida']["model"]="PedidoSalida";
+        this.services['pedidoHisto']["controllerName"]="pedidosHisto";
+        this.services['pedidoHisto']["model"]="PedidoHisto";
         this.services['inventario']["controllerName"]="inventarios";
         this.services['inventario']["model"]="Inventario";
         this.services['estudio']["controllerName"]="estudios";
@@ -177,6 +183,18 @@ var ServerManager = new Class({
     	jQuery.ajax( {
 		      type: "GET",
 		      url: self.services[type]["controllerName"]+"/edit/"+config.id,
+		      success: function(data) {
+		    	  config.onSuccess(data);
+				}
+		    } );
+    },
+    viewDetail: function(config){
+    	var self=this;
+    	var type = config.object;
+
+    	jQuery.ajax( {
+		      type: "GET",
+		      url: self.services[type]["controllerName"]+"/view/"+config.id,
 		      success: function(data) {
 		    	  config.onSuccess(data);
 				}

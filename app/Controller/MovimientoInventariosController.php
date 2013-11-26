@@ -99,6 +99,16 @@ class MovimientoInventariosController extends AppController {
 	}
 
 	public function devolucionDeArticulos(){
+        if ($this->request->is('post')) {
+			//Inserto el movimiento y los detalles
+			$this->insertMovimiento();
+          	$this->render('/General/Success');			
+		} else {
+			$this->setViewData();
+			//CargarLista de Articulos
+			$this->getListaArticulos();
+		}
+
 	}
 
 	public function asignacionAProyectos($id = null){
@@ -173,14 +183,18 @@ class MovimientoInventariosController extends AppController {
 
 			switch ($tipoMov) {
 				case 'P':
-					$proyecto = $this->request->$data['MovimientoInventario']['IdProyecto'];
+					$proyecto = $this->request->data['MovimientoInventario']['IdProyecto'];
 					//Descuento del deposito la cantidad del articulo
 					$consultas ->restaInventarioEnDeposito($articulo,$deposito,$cantidad);
 					//Inserto/modifico al inventario que el proyecto tiene X cantidad de ese articulo
 					$consultas ->sumaInventarioEnProyecto($articulo,$deposito,$proyecto,$cantidad);
 					break;
 				case 'D':
-					$this->devolucionDeArticulos();
+					$proyecto = $this->request->data['MovimientoInventario']['IdProyecto'];
+					//Inserto/modifico para el deposito X cantidad de articulos
+					$consultas ->sumaInventarioEnDeposito($articulo,$deposito,$cantidad);
+					//Resto X cantidad de articulo al proyecto seleccionado
+					$consultas ->restaInventarioEnProyecto($articulo,$deposito,$proyecto,$cantidad);
 					break;
 				case 'I':
 					//Inserto/modifico para el deposito X cantidad de articulos
@@ -231,6 +245,29 @@ class MovimientoInventariosController extends AppController {
 			$paginado =new ConsultasPaginado();
 	        $this->autoRender = false;
 			$output = $paginado->getDataMovimientos();
+
+/*			foreach ($output as $row) {
+				$tipoMov = $row[0];
+				switch ($tipoMov) {
+					case 'P':
+						$row[0] = "Asignacion de Articulo(s) a Proyecto" ;
+						break;
+					case 'D':
+						$row[0] = "Devolucion de Articulo(s)" ;
+						break;
+					case 'I':
+						$row[0] = "Ingreso de Articulo(s)" ;
+						break;
+					case 'B':
+						$row[0] = "Baja de Articulo(s)" ;
+						break;
+					case 'T':
+						$row[0] = "Transferencia entre Proyectos" ;
+						break;
+				}
+				array_push($outputFilter,$row);
+			}//*/
+			
 	        echo json_encode($output);
 	}
 
@@ -258,7 +295,6 @@ class MovimientoInventariosController extends AppController {
 		$consultasSelect = new ConsultasSelect();
 		$this->set('proyectos',$consultasSelect->getProyectos());
 		$this->set('depositos',$consultasSelect->getDepositos());
-		$this->set('estudios',$consultasSelect->getEstudios());		
 	}
 
    function getUbicacionesByDeposito($id = null) {

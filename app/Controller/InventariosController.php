@@ -60,7 +60,6 @@ class InventariosController extends AppController {
 		$consultas = new ConsultasSelect();
 		$this->set('articulos',$consultas->getArticulos());
 		$this->set('depositos',$consultas->getDepositos());
-		$this->set('ubicaciones',$consultas->getUbicaciones());
 		$this->set('proyectos',$consultas->getProyectos());
 	}
 

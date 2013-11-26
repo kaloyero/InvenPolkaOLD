@@ -4,6 +4,7 @@
 	<button id="add" class="btn">Agregar</button>
 	<button class="btn btn-primary crearPedido " disabled="true">Crear Pedido</button>
 	<button class="btn btn-primary asignarDepo">Asignar a Deposito</button>	
+	<button class="btn btn-primary devolucionArt">Devolucion de Articulos</button>		
 	<button class="btn btn-primary deleteArt">Dar de Baja Articulos</button>	
 	<button class="btn btn-primary transferir">Transferir a Deposito</button>	
 </p>
