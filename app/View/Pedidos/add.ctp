@@ -5,23 +5,26 @@ echo '<div class="widgetcontent bordered shadowed nopadding">';
 echo $this->Form->create('Pedido',array('class' => 'stdform stdform2','inputDefaults' => array(
         'div' => array('class' => 'field') )));
 echo $this->Form->input('Descripcion',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
-								                                <label>Descripcion</label>
-								                                <span class="field">',
+								                                <label style="float: left;">Descripcion</label>
+								                                <span class="field float">',
 																'after'=>'</span></p>'));
-echo $this->Form->input('Fecha',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
+/*echo $this->Form->input('Fecha',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
 								                                <label>Fecha</label>
 								                                <span class="field">',
-																'after'=>'</span></p>'));
-echo $this->Form->input('Pedido.IdProyecto',array('type'=>'select','options'=>$proyectos,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p>
-                                <label>Proyecto</label>
-                                <span class="field">',
-								'after'=>'</span></p>'));
-echo $this->Form->input('Pedido.IdEstudio',array('type'=>'select','options'=>$estudios,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p>
-                                <label>Estudio</label>
-                                <span class="field">',
+																'after'=>'</span></p>'));*/
+
+echo '<label style="float: left;">Fecha</label><span class="field float"><input class="input-small fecha" type="text" name="data[Pedido][Fecha]" required="required" /><small><em> yyyy / mm / dd</em></small></span>';
+
+
+echo $this->Form->input('Pedido.IdProyecto',array('type'=>'select','options'=>$proyectos,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<label style="float: left;" >Proyecto</label>
+                                <span class="field float">',
+								'after'=>'</span>'));
+echo $this->Form->input('Pedido.IdEstudio',array('type'=>'select','options'=>$estudios,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<label style="float: left;">Estudio</label>
+                                <span class="field float">',
 								'after'=>'</span></p>'));
 ?>
-LISTA DE ARTICULOS
+<span style="padding-left:1em;">LISTA DE ARTICULOS
+</span>
 <table  id="listaArticulos" class ="table table-bordered" width="100%"  style="width: 100%;">
 	<thead>
 					<tr>

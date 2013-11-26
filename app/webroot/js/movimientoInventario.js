@@ -21,14 +21,14 @@ var MovimientoInventario = new Class({
 
         },
      bindAddEvents:function() {
-        var self=this;
+         var self=this;
           this.styleForm();
           this.generateValidation();
+          jQuery('.fecha').datepicker({ dateFormat: 'yy-mm-dd' });
+
           jQuery('.save').bind("click", function(e) {
-
-                    translator.save(self.type, self.getForm());
-                    self.addLoader();
-
+              translator.save(self.type, self.getForm());
+              self.addLoader();
               return false;
          });
 

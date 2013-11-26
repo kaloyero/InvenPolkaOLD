@@ -96,7 +96,6 @@ var Render = new Class({
          });
 
          //Agregamos los calendar
-         console.log("VAL",jQuery('.hasDatepicker'))
           jQuery('.fecha').datepicker({ dateFormat: 'yy-mm-dd' });
      },
 
