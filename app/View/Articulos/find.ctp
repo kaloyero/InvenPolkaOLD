@@ -13,8 +13,6 @@ echo $this->Form->input('ArticuloSearch.IdObjeto',array('type'=>'select','option
 
 echo $this->Form->input('ArticuloSearch.IdDecorado',array('type'=>'select','options'=>$decorados,'empty'=>true,'class'=>'uniformselect'																								,'div'=>false,'label'=>false,'before'=>' Decorado : '));
 
-echo "<BR>";
-
 echo $this->Form->input('ArticuloSearch.IdMaterial',array('type'=>'select','options'=>$materiales,'empty'=>true,'class'=>'uniformselect'																								,'div'=>false,'label'=>false,'before'=>' Material : '));
 
 echo $this->Form->input('ArticuloSearch.IdDimension',array('type'=>'select','options'=>$dimensiones,'empty'=>true,'class'=>'uniformselect'																								,'div'=>false,'label'=>false,'before'=>' Dimension : '));

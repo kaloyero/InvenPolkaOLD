@@ -39,7 +39,9 @@ echo $this->Form->input('Articulo.IdDimension',array('type'=>'select','empty'=>f
 echo $this->Form->input('Articulo.IdEstilo',array('type'=>'select','empty'=>false,'options'=>$estilos,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Estilo : ','after'=>'</span><label class ="errorConfiguration" style="display: block;color:red"></label></p>'));
 //echo $this->Form->select('field', $estilos, array( 'multiple' => 'checkbox'));
 
-echo $this->Form->input('Inventario.Disponibilidad',array('class'=>'input-medium','type' => 'number','required','value'=>'0','min'=>'0','div'=>false,'label'=>false,'before'=>'Inventario<p>
+echo "<p><label style='float: left;'>Inventario :</label></p>";
+
+echo $this->Form->input('Inventario.Disponibilidad',array('class'=>'input-medium','type' => 'number','required','value'=>'0','min'=>'0','div'=>false,'label'=>false,'before'=>'<p>
 								                                <label  style="float: left;">Stock Inicial</label>
 								                                <span class="field float">',
 																'after'=>'</span>'));
