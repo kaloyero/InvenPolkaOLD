@@ -20,7 +20,8 @@ echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5
 								                                <span class="field float">',
 																'after'=>'</span></p>','pattern' => '.*\S+.*'));
 
-echo $this->Form->input('Articulo.IdCategoria',array('type'=>'select','options'=>$categorias,'empty'=>false,'class'=>'uniformselect categoria'															,'div'=>false,'label'=>false,'before'=>'<p><label>Descripcion</label><span class="field"> Categoria :'));
+
+echo $this->Form->input('Articulo.IdCategoria',array('type'=>'select','options'=>$categorias,'empty'=>false,'class'=>'uniformselect categoria'															,'div'=>false,'label'=>false,'before'=>'<p><label>Configuraciones : </label><span class="field"> Categoria :'));
 
 echo $this->Form->input('Articulo.IdObjeto',array('type'=>'select','empty'=>false,'options'=>$objetos,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Objeto : '));
 
