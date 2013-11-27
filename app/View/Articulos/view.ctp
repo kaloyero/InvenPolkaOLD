@@ -16,9 +16,6 @@ echo $this->Form->create('Articulo',array('type' => 'file','class' => 'stdform s
     </span>
 </p>
 <p>
-    <label style="float: left;">Descripcion:</label>
-</p>
-<p>
     <label style="float: left;"></label>
     	<table class="field float">
         	<tr>
@@ -38,20 +35,22 @@ echo $this->Form->create('Articulo',array('type' => 'file','class' => 'stdform s
                 <td><?php echo $articulo['articulos_vista']['estilo'] ?></td>
             </tr>
 		</table>
-	<span class="field float">
-	    <?php echo $articulo['articulos_vista']['Descripcion'] ?>
-   	</span>
+
+
 </p>
 <p>
-	<label style="float: left;">Inventario</label>
+    <label style="float: left;">Descripcion:</label>
+</p>
+<p>
+    <span class="field float">
+	    <?php echo $articulo['articulos_vista']['Descripcion'] ?>
+   	</span>
 </p>
 <p>
 	<label style="float: left;">Stock Total</label>
 	<span class="field float">
 	    <?php echo $articulo['articulos_vista']['stock_total'] ?>
    	</span>
-</p>
-<p>
 	<label style="float: left;">Stock Disponible</label>
 	<span class="field float">
 	    <?php echo $articulo['articulos_vista']['stock_dispo'] ?>
@@ -60,7 +59,7 @@ echo $this->Form->create('Articulo',array('type' => 'file','class' => 'stdform s
 <p>
     <label style="float: left;"></label>
     	<table class="field float">
-            <tr> 
+            <tr>
                 <th align="left"><b>Ubicacion</b></th>
                 <th><b>Cantidad</b></th>
             </tr>
@@ -71,7 +70,7 @@ echo $this->Form->create('Articulo',array('type' => 'file','class' => 'stdform s
                     <?php } else { ?>
 	                    <td align="left" width="150px"><?php echo $inv['inventarios_vista']['proyecto'] ?></td>
                     <?php } ?>
-                    <td align="center"width="80px"><?php echo $inv['inventarios_vista']['Disponibilidad'] ?></td>                    
+                    <td align="center"width="80px"><?php echo $inv['inventarios_vista']['Disponibilidad'] ?></td>
                 </tr>
 <?php		} ?>
 
