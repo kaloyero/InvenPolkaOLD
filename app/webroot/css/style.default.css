@@ -292,7 +292,8 @@ ul.list-nostyle li span, ol.list-nostyle li span { vertical-align: top; }
 
 
 /*** ANOTHER FORM STYLE ***/
-.stdform2 p, .stdform2 div.par { border-top: 1px solid #ddd; background: #fcfcfc; margin: 0; clear: both; }
+/*** TOCADO ***/
+.stdform2 p, .stdform2 div.par {/** border-top: 1px solid #ddd; **/ background: #fcfcfc; margin: 0; clear: both; }
 .stdform2 div.terms { border: 0; background: none; }
 .stdform2 p:first-child, .stdform2 div.par:first-child { border-top: 0; }
 .stdform2 label { display: inline-block; padding: 15px 0 0 15px; vertical-align: top; text-align: left; font-weight: bold; }

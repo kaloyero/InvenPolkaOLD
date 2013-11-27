@@ -4,10 +4,19 @@ class Articulo extends AppModel {
 		public $actsAs = array(
 			'Upload.Upload' => array(
 				'idFoto' => array(
-					'fields' => array(
-						'dir' => 'dir'
-					)
+							'fields' => array(
+							'dir' => 'dir'
+							),
+
+						  'thumbnailSizes' => array(
+						                    'big' => '600x600',
+						                    'small' => '200x200',
+						                    'thumb' => '80x80'
+
+						            ),
+						'thumbnailMethod'	=> 'php'
 				)
+
 			)
 			);
 		public $validate = array(

@@ -5,11 +5,15 @@ echo '<div class="widgetcontent bordered shadowed nopadding">';
 echo $this->Form->create('MovimientoInventario',array('class' => 'stdform stdform2','inputDefaults' => array(
         'div' => array('class' => 'field') )));
 
-echo $this->Form->input('Fecha',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
-                                <label style="float: left;">Fecha Empaquetado</label>
-                                <span class="field float">',
-								'after'=>'</span>'));
-echo $this->Form->input('Descripcion',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
+/*echo $this->Form->input('Fecha',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
+		                                <label style="float: left;">Fecha Empaquetado</label>
+		                                <span class="field float">',
+										'after'=>'</span>'));*/
+
+
+echo '<p><label style="float: left;">Fecha Empaquetado</label><span class="field float"><input class="input-small fecha" type="text" 	name="data[MovimientoInventario][Fecha]" required="required" /><small><em> yyyy / mm / dd</em></small></span>';
+
+echo $this->Form->input('Descripcion',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'
                                 <label style="float: left;">Comentarios</label>
                                 <span class="field float">',
 								'after'=>'</span>'));
@@ -18,14 +22,13 @@ echo $this->Form->input('Descripcion',array('class'=>'input-medium','div'=>false
 <input type="hidden" value="I" name="data[MovimientoInventario][TipoMovimiento]"/>
 </div>
 <?php
-echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depositoOriginal','type'=>'select','options'=>$depositos,'empty'=>true,'class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
+echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depositoOriginal','type'=>'select','options'=>$depositos,'empty'=>true,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'
                                 <label style="float: left;">Deposito</label>
                                 <span class="field float">',
-								'after'=>'</span>'));
+								'after'=>'</span></p>'));
 ?>
 
-LISTA DE ARTICULOS
-<table  id="listaArticulos" class ="table table-bordered" width="100%"  style="width: 100%;">
+<h5 style="color:#3366FF;padding-left:0.5em;">Lista de Articulos</h5><table  id="listaArticulos" class ="table table-bordered" width="100%"  style="width: 100%;">
 	<thead>
 					<tr>
                         <th>Codigo Articulo</th>

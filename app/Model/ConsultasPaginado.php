@@ -126,7 +126,6 @@ class ConsultasPaginado extends AppModel {
 			    $aColumnsFilter = array( 'Numero','Fecha','Descripcion','TipoMovimiento','deposito_orig','deposito_dest','pedido','proyecto' );
 				//Columna por la cual se va ordenar
 				$orderByfield = 'Numero desc';
-				
 				$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,true);
 				return $output;
 		}
@@ -144,9 +143,9 @@ class ConsultasPaginado extends AppModel {
 			E -> pedidos que entraron
 			S -> pedidos de Salida
 			H -> historico de pedidos
-			
+
 			*/
-			
+
 			$model=new Pedido();
 			$tabla="pedidos_vista";
 			//Columnas que voy a mostrar
@@ -184,17 +183,18 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi,$tipoLista) {
 			}
 
 			$botonera = " <div>";
-			$btnVer ="<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/pedidos/edit/".$j[$tabla]['id']."' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/view.png' /></a></div>";
+
+			$btnVer ="<div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <a href='/InvenPolka/pedidos/edit/".$j[$tabla]['id']."' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/view.png' /></a></div>";
 			$btnAccion = "";
 			$btnPrintPedido = "";
 			$btnPrintComanda = "";
 			switch ($tipoLista) {
 				case 'E':
-					$btnAccion= "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/pedidos/confirmarPedido/".$j[$tabla]['id']."' class='confirm'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/confirmar.png' /></a></div>";
+					$btnAccion= "<div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <a href='/InvenPolka/pedidos/confirmarPedido/".$j[$tabla]['id']."' class='confirm'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/confirmar.png' /></a></div>";
 					$btnPrintPedido = "";
 				break;
 				case 'S':
-					$btnAccion = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/movimientoInventarios/asignacionAProyectos/".$j[$tabla]['id']."' class='asignarAProyecto'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/armar.png' /></a></div>";
+					$btnAccion = "<div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <a href='/InvenPolka/movimientoInventarios/asignacionAProyectos/".$j[$tabla]['id']."' class='asignarAProyecto'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/armar.png' /></a></div>";
 					$btnPrintComanda = "";
 					break;
 				case 'H':
@@ -325,7 +325,7 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumnsFilter,$order
 			$fila=array();
         	array_push($fila, array($j[$tabla]['id']));
 	        array_push($fila, array($j[$tabla]['CodigoArticulo']));
-			array_push($fila, '<img style="width:250px; height:150px;border-style:solid;border-width:3px;" src="/InvenPolka/app/webroot/files/articulo/IdFoto/'.$j[$tabla]['dir'].'/'.$j[$tabla]['idFoto'].'" alt="CakePHP" >');
+			array_push($fila, '<img style="width:250px; height:150px;border-style:solid;border-width:3px;" src="/InvenPolka/app/webroot/files/articulo/IdFoto/'.$j[$tabla]['dir'].'/small_'.$j[$tabla]['idFoto'].'" alt="CakePHP" >');
 //	        array_push($fila, array($titi));
 			array_push($fila, array($j[$tabla]['categoria']));
 			array_push($fila, array($j[$tabla]['objeto']));
@@ -333,7 +333,7 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumnsFilter,$order
 			array_push($fila, array($j[$tabla]['material']));
 			array_push($fila, array($j[$tabla]['dimension']));
 			array_push($fila, array($j[$tabla]['estilo']));
-			array_push($fila, array($j[$tabla]['stock_total']));			
+			array_push($fila, array($j[$tabla]['stock_total']));
 			array_push($fila, array($j[$tabla]['stock_dispo']));
 			array_push($arrayDt, $fila);
       }
