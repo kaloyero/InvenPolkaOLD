@@ -125,7 +125,7 @@ class ConsultasPaginado extends AppModel {
 		        //Columnas por las que se va a filtrar
 			    $aColumnsFilter = array( 'Numero','Fecha','Descripcion','TipoMovimiento','deposito_orig','deposito_dest','pedido','proyecto' );
 				//Columna por la cual se va ordenar
-				$orderByfield = 'Fecha,deposito_orig,proyecto,TipoMovimiento,Numero';
+				$orderByfield = 'Numero desc';
 				
 				$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,true);
 				return $output;
