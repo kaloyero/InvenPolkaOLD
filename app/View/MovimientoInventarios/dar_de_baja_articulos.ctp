@@ -26,7 +26,7 @@ echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depos
 								'after'=>'</span></p>'));
 ?>
 
-<p><span style="padding-left:1em;">LISTA DE ARTICULOS</p>
+<p><h5 style="color:#3366FF;padding-left:0.5em;">Lista de Articulos</h5></p>
 </span>
 <table  id="listaArticulos" class ="table table-bordered" width="100%"  style="width: 100%;">
 	<thead>
