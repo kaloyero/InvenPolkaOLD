@@ -85,17 +85,35 @@ class ConsultasPaginado extends AppModel {
 	}
 
 private function getArrayDataConfig($rows) {
-      $arrayDt=array();
+	  $model=new Categoria();
+	  $categoryList = $model->find('list',array('fields'=>array('Categoria.id','Categoria.Nombre')));
+      $arrayDt=array();	  
+
+	  $add = false;	
+	  $repe = 0;	
+	  $fila=array();
+  	  $icono = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>";
 
       foreach($rows as $j){
-			$fila=array();
-	        array_push($fila, array($j['tab']['id']));
-	        array_push($fila, array($j['tab']['Nombre']));
-	        array_push($fila, array($j['cat']['IdCategoria']));
-			array_push($fila, "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>");
-			array_push($arrayDt, $fila);
+			$id = array($j['tab']['id']);	
+			if ($repe == $id){
+				$fila[2] = $fila[2]."<BR>".$categoryList[$j['cat']['IdCategoria']];
+			} else {
+				if ($add) {
+					array_push($arrayDt, $fila);
+				    $fila=array();
+				}
+				$add = true;
+				$repe = array($j['tab']['id']);	
+				$fila[0] = $repe;
+				$fila[1] = array($j['tab']['Nombre']);
+				$fila[2] = $categoryList[$j['cat']['IdCategoria']];
+				$fila[3] = array($icono);
+
+			}
       }
-	 return $arrayDt;
+	  array_push($arrayDt, $fila);
+	  return $arrayDt;
 
 }
 
