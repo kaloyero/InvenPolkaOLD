@@ -56,7 +56,7 @@ class DecoradosController extends AppController {
 	function ajaxData() {
 			$consultas =new ConsultasPaginado();
 	        $this->autoRender = false;
-			$output = $consultas->getDataConfig('decorados');
+			$output = $consultas->getDataConfig('decorados','decorado','IdDecorado');
 	        echo json_encode($output);
 	}
 

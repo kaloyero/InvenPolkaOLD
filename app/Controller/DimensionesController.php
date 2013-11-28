@@ -43,7 +43,7 @@ class DimensionesController extends AppController {
 	function ajaxData() {
 			$consultas =new ConsultasPaginado();
 	        $this->autoRender = false;
-			$output = $consultas->getDataConfig('dimensiones');
+			$output = $consultas->getDataConfig('dimensiones','dimension','IdDimension');			
 	        echo json_encode($output);
 	}
 

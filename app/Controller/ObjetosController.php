@@ -43,7 +43,8 @@ class ObjetosController extends AppController {
 	function ajaxData() {
 			$consultas =new ConsultasPaginado();
 	        $this->autoRender = false;
-			$output = $consultas->getDataConfig('objetos');
+			$output = $consultas->getDataConfig('objetos','objeto','IdObjeto');
+			
 	        echo json_encode($output);
 	}
 

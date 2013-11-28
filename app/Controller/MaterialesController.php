@@ -43,7 +43,7 @@ class MaterialesController extends AppController {
 	function ajaxData() {
 			$consultas =new ConsultasPaginado();
 	        $this->autoRender = false;
-			$output = $consultas->getDataConfig('materiales');
+			$output = $consultas->getDataConfig('materiales','material','IdMaterial');						
 	        echo json_encode($output);
 	}
 

@@ -43,7 +43,8 @@ class EstilosController extends AppController {
 	function ajaxData() {
 			$consultas =new ConsultasPaginado();
 	        $this->autoRender = false;
-			$output = $consultas->getDataConfig('estilos');
+			$output = $consultas->getDataConfig('estilos','estilo','IdEstilo');			
+
 	        echo json_encode($output);
 	}
 

@@ -121,14 +121,15 @@
 				<li class="active  animate8 fadeInUp"><a id="pedidoSalida" class="option"><span class="icon-th-list"></span>Pedidos - Salida</a>
 				<li class="active  animate8 fadeInUp"><a id="pedidoHistorico" class="option"><span class="icon-th-list"></span>Pedidos - Historico</a>                                
 				<li class="active  animate8 fadeInUp"><a id="movimientoInventario" class="option"><span class="icon-th-list"></span>Movimientos</a>
+                
                 <li class="dropdown animate13 fadeInUp"><a href=""><span class="icon-pencil"></span> Configuraciones</a>
                 	<ul>
                     	<li><a id="categoria" class="option">Categorias</a></li>
+                        <li><a id="objeto" class="option">Objetos</a></li>
+                        <li><a id="decorado" class="option">Decorados</a></li>
                         <li><a id="material" class="option">Materiales</a></li>
-                        <li><a id="estilo" class="option">Estilos</a></li>
-						<li><a id="objeto" class="option">Objetos</a></li>
 						<li><a id="dimension" class="option">Dimensiones</a></li>
-						<li><a id="decorado" class="option">Decorados</a></li>
+                        <li><a id="estilo" class="option">Estilos</a></li>						
                     </ul>
                 </li>
             </ul>

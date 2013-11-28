@@ -7,6 +7,7 @@
 	<button class="btn btn-primary devolucionArt">Devolucion de Articulos</button>		
 	<button class="btn btn-primary deleteArt">Dar de Baja Articulos</button>	
 	<button class="btn btn-primary transferir">Transferir a Deposito</button>	
+
 </p>
 <table  id="configurationTable" class ="table table-bordered" width="100%"  style="width: 100%;">
 	<thead>

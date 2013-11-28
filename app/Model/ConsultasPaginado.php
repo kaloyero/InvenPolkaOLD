@@ -17,10 +17,11 @@ class ConsultasPaginado extends AppModel {
 \********************************************************************************/
 
 	/*   */
-	function getDataConfig($tabla) {
+	function getDataCategorias() {
+		$tabla = 'Categorias';
 		$model=new Categoria();
 		//Columnas que voy a mostrar
-	    $aColumns = array( 'id','Nombre' );
+	    $aColumns = array( 'id','Nombre');
         //Columnas por las que se va a filtrar
 	    $aColumnsFilter = array( 'Nombre' );
 		//Columna por la cual se va ordenar
@@ -30,6 +31,73 @@ class ConsultasPaginado extends AppModel {
 
 		return $output;
 	}
+
+	function getDataConfig($tabla,$modelo,$columnaId) {
+		$model=new Categoria();
+		$output = $this->getDataConfigExe($model,$tabla,$modelo,$columnaId);
+
+		return $output;
+	}
+
+	/* Este metodo crearía la tabla para aquellas tablas que muestren datos solamente de una tabla */
+	private function getDataConfigExe($model,$tabla,$modelo,$columnaId) {
+			//Consigue el query que se va ejecutar
+			$query=$this->getDataConfigQuery($tabla,$modelo,$columnaId);
+			//Ejecuta el query, obtengo las filas
+			$rows =$model->query("".$query['select'].";");
+			//Obtengo los totales
+			$totales = $this->getTotales($model,$query);
+			//Proceso los campos para llenar la tabla
+			$arrayData=$this->getArrayDataConfig($rows);
+			//Obtengo la tabla
+			$output = $this->createConfigTable($arrayData,$totales["total"],$totales["tDisplay"]);
+	
+			return $output;
+	}
+
+	/* Este metodo crea el query que se va ejecutar para obtener la lista de configuracion
+		Devuelve 	query['select'] -> Sentencia select
+					query['where']  -> Sentencia where
+	*/
+	private function getDataConfigQuery($tabla,$modelo,$columnaId) {
+
+		//Partes del query
+		$select = "SELECT `tab`.`id`,`tab`.`Nombre` ,`cat`.`IdCategoria`";
+		$from = " FROM `".$tabla."` `tab` LEFT JOIN  `".$modelo."_categorias`  `cat` ON (  `tab`.`id` =  `cat`.`".$columnaId."` AND  `cat`.`Inactivo` LIKE  'F' )  ";
+		$sWhere = " WHERE  `tab`.`Inactivo` LIKE  'F' ";
+		$limit = 'limit '.$_GET['iDisplayStart'].' ,'.$_GET['iDisplayLength'] ;
+		$orderBy = " order by `tab`.`Nombre`, `cat`.`IdCategoria` ";
+		
+		/*BUSQUEDA*/
+		//Si el wehre viene vacio
+		if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" )
+		{
+			$sWhere .= " AND `tab`.`Nombre` LIKE '%".( $_GET['sSearch'] )."%'";
+		}
+
+		$query['select'] = $select.$from.$sWhere.$orderBy.$limit;
+		$query['selectWOL'] = $select.$from.$sWhere;
+		$query['from'] =  $from;
+		$query['where'] = $sWhere;
+
+		return $query;
+
+	}
+
+private function getArrayDataConfig($rows) {
+      $arrayDt=array();
+
+      foreach($rows as $j){
+			$fila=array();
+	        array_push($fila, array($j['tab']['id']));
+	        array_push($fila, array($j['tab']['Nombre']));
+	        array_push($fila, array($j['cat']['IdCategoria']));
+			array_push($fila, "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>");
+			array_push($arrayDt, $fila);
+      }
+	 return $arrayDt;
+
+}
 
 	////////////////////////////// {FIN} CONFIGURACION -> DATATABLE //////////////////////////////
 
@@ -462,7 +530,7 @@ private function getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderBy
 		return $output;
 }
 
-/* Este metodo crea el query que se va ejecutar para obtener la lista de configuracion
+/* Este metodo crea el query que se va ejecutar para obtener la lista
 	Devuelve 	query['select'] -> Sentencia select
 				query['where']  -> Sentencia where
  */

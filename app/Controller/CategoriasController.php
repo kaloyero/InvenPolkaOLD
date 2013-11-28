@@ -37,7 +37,7 @@ class CategoriasController extends AppController {
 	function ajaxData() {
 			$paginado =new ConsultasPaginado();
 	        $this->autoRender = false;
-			$output = $paginado->getDataConfig('categorias');
+			$output = $paginado->getDataCategorias();
 	        echo json_encode($output);
 	}
 

@@ -3,6 +3,7 @@
                 <tr>
                 <th style="display:none;">Id</th>
  				<th>Nombre</th>
+                <th>Categorias</th>
                 <th>Acciones</th>
 
         </thead>
