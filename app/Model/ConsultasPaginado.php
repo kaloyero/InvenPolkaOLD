@@ -18,7 +18,7 @@ class ConsultasPaginado extends AppModel {
 
 	/*   */
 	function getDataCategorias() {
-		$tabla = 'Categorias';
+		$tabla = 'categorias';
 		$model=new Categoria();
 		//Columnas que voy a mostrar
 	    $aColumns = array( 'id','Nombre');
@@ -411,7 +411,7 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumnsFilter,$order
 			$fila=array();
         	array_push($fila, array($j[$tabla]['id']));
 	        array_push($fila, array($j[$tabla]['CodigoArticulo']));
-			array_push($fila, '<img style="width:250px; height:150px;border-style:solid;border-width:3px;" src="/InvenPolka/app/webroot/files/articulo/IdFoto/'.$j[$tabla]['dir'].'/small_'.$j[$tabla]['idFoto'].'" alt="CakePHP" >');
+			array_push($fila, '<img style="width:250px; height:150px;border-style:solid;border-width:3px;" src="/InvenPolka/app/webroot/files/articulo/idFoto/'.$j[$tabla]['dir'].'/small_'.$j[$tabla]['idFoto'].'" alt="CakePHP" >');
 //	        array_push($fila, array($titi));
 			array_push($fila, array($j[$tabla]['categoria']));
 			array_push($fila, array($j[$tabla]['objeto']));
@@ -515,7 +515,7 @@ private function getArrayDataWithEditLink($tabla,$rows,$aColumns,$titi) {
 				} else {
 					//Si es foto
 					if ($column == "idFoto"){
-						array_push($fila, '<img src="/InvenPolka/app/webroot/files/articulo/IdFoto/'.$j[$tabla]['dir'].'/'.$j[$tabla]['idFoto'].'" alt="CakePHP" width="200px">');
+						array_push($fila, '<img src="/InvenPolka/app/webroot/files/articulo/idFoto/'.$j[$tabla]['dir'].'/small_'.$j[$tabla]['idFoto'].'" alt="CakePHP" width="200px">');
 					}
 				}
 			}

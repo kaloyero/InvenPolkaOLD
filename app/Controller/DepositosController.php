@@ -41,7 +41,6 @@ class DepositosController extends AppController {
 		    } else {
 		        if ($this->Deposito->save($this->request->data)) {
 		          	$this->render('/General/Success');
-
 	        	}else{
 					$this->render('/General/Error');
 				}
