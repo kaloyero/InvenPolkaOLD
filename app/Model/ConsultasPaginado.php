@@ -112,7 +112,9 @@ private function getArrayDataConfig($rows) {
 
 			}
       }
-	  array_push($arrayDt, $fila);
+	  if ($add) {
+	  	array_push($arrayDt, $fila);
+	  }
 	  return $arrayDt;
 
 }
@@ -192,7 +194,7 @@ private function getArrayDataConfig($rows) {
 			$aColumnsFilter = array(  'Disponibilidad' ,'articulo' ,  'proyecto'  ,  'ubicacion' );
 			//Columna por la cual se va ordenar
 			$orderByfield = 'articulo,proyecto';
-			$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,true);
+			$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,false);
 			return $output;
 		}
 
