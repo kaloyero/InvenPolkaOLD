@@ -21,13 +21,12 @@ class ArticulosController extends AppController {
 	   	//Borramos de la sesion,las condiciones de los articulos,porque el usuario entro a el listado completo
 		$this->Session->delete("articulos");
 	}
-
     }
 
    public function view($id = null) {
 			$this->Articulo->id = $id;
 		    if ($this->request->is('get')) {
-				$consultas = new ConsultasSelect();				
+				$consultas = new ConsultasSelect();
 				$articulo = $consultas->getArticuloById($id);
 				$inventario = $consultas->getDataInventarioByIdArticulo($id);
 		        $this->set('articulo', $articulo);
@@ -48,7 +47,7 @@ class ArticulosController extends AppController {
 					$this->GuardarInventario($this->request->data['Inventario']);
 					//Guardo el movimiento
 					$this->insertMovimiento();
-					
+
               	    $this->render('/General/Success');
 	        	}else{
 					$this->render('/General/Error');
@@ -57,7 +56,7 @@ class ArticulosController extends AppController {
 			$this->setViewData("add");
 			}
     }
-	
+
 	private function GuardarInventario($inventario){
 		$consultas = new ConsultasSelect();
 		//Guardo el invetario correspondiente
@@ -68,14 +67,14 @@ class ArticulosController extends AppController {
 			$inventario["Disponibilidad"] = 0;
 			$consultas->insertarInventarioEntidad($inventario);
 		}
-		
+
 	}
 
 	//Hace el insert en la Tabla de Movimientos
 	private function insertMovimiento(){
 			$model = new MovimientoInventario();
 			$model2 = new MovimientoDetalleInventario();
-		
+
 			//Agrego el detalle para la alta de Articulo
 			$res= $model->save(array('Numero' => 0,'Fecha' => '2013-11-15','TipoMovimiento' => 'A','IdDepositoOrig' => $this->request->data['Inventario']['IdDeposito']));
 			if ($res) {
@@ -94,10 +93,10 @@ class ArticulosController extends AppController {
 			$detalle['Cantidad'] = $this->request->data['Inventario']['Disponibilidad'];
 			$detalle['IdMovimientoInventario'] = $idMov;
 			$detalle['IdArticulo'] = $this->request->data['Inventario']['IdArticulo'];
-			
+
 			return $detalle;
 	}
-	
+
 	private function preSave() {
 				//Seteo el codigo del articulo con el nombre de la foto.
 				$codigoArt = $this->request->data['Articulo']['idFoto']['name'];
@@ -109,7 +108,7 @@ class ArticulosController extends AppController {
 				//Remuevo caracteres especiales
 				$this->removeSpecialCharactersFromImage();
 	}
-	
+
 	private function validaCodigoArticuloRepetido($codigoArt,$idEdit) {
 			$consultas =new ConsultasSelect();
 			$codArtReturn = $codigoArt;
@@ -121,15 +120,16 @@ class ArticulosController extends AppController {
 				$codArtReturn = $codigoArt." (".$cont.")";
 				$codigoRepetido = $consultas->existeCodigoArticulo($codArtReturn,$idEdit);
 				$cont++;
-			} 
-			
+			}
+
 			return	$codArtReturn;
 	}
-	
+
 	function ajaxData() {
 		if ($this->Session->check("articulos")){
 			$paginado =new ConsultasPaginado();
 	        $this->autoRender = false;
+
 			$output = $paginado->getDataArticulosSearch($this->Session->read("articulos"));
 	        echo json_encode($output);
 		} else {
@@ -158,7 +158,7 @@ class ArticulosController extends AppController {
 				$codigoArt = $this->validaCodigoArticuloRepetido($codigoArt,$id);
 				//Le asigno el valor al codigo de Articulo
 				$this->request->data['Articulo']['CodigoArticulo'] = $codigoArt ;
-				
+
 		        if ($this->Articulo->save($this->request->data,array('fieldList' => $fieldsToEdit ))){
 					  $this->render('/General/Success');
 		        	}else{
