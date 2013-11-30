@@ -22,3 +22,6 @@ echo $this->Form->input('ArticuloSearch.IdEstilo',array('type'=>'select','option
 echo '<p class="stdformbutton"><button class="btn btn-primary save">Buscar</button><button type="reset" class="btn">Limpiar Formulario</button></p>';
 ?>
 </div>
+<?php 
+echo $this->Form->end();
+?>
