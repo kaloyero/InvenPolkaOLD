@@ -51,7 +51,7 @@ class ConsultasPaginado extends AppModel {
 			$arrayData=$this->getArrayDataConfig($rows);
 			//Obtengo la tabla
 			$output = $this->createConfigTable($arrayData,$totales["total"],$totales["tDisplay"]);
-	
+
 			return $output;
 	}
 
@@ -67,7 +67,7 @@ class ConsultasPaginado extends AppModel {
 		$sWhere = " WHERE  `tab`.`Inactivo` LIKE  'F' ";
 		$limit = 'limit '.$_GET['iDisplayStart'].' ,'.$_GET['iDisplayLength'] ;
 		$orderBy = " order by `tab`.`Nombre`, `cat`.`IdCategoria` ";
-		
+
 		/*BUSQUEDA*/
 		//Si el wehre viene vacio
 		if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" )
@@ -87,15 +87,15 @@ class ConsultasPaginado extends AppModel {
 private function getArrayDataConfig($rows) {
 	  $model=new Categoria();
 	  $categoryList = $model->find('list',array('fields'=>array('Categoria.id','Categoria.Nombre')));
-      $arrayDt=array();	  
+      $arrayDt=array();
 
-	  $add = false;	
-	  $repe = 0;	
+	  $add = false;
+	  $repe = 0;
 	  $fila=array();
   	  $icono = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>";
 
       foreach($rows as $j){
-			$id = array($j['tab']['id']);	
+			$id = array($j['tab']['id']);
 			if ($repe == $id){
 				$fila[2] = $fila[2]."<BR>".$categoryList[$j['cat']['IdCategoria']];
 			} else {
@@ -104,7 +104,7 @@ private function getArrayDataConfig($rows) {
 				    $fila=array();
 				}
 				$add = true;
-				$repe = array($j['tab']['id']);	
+				$repe = array($j['tab']['id']);
 				$fila[0] = $repe;
 				$fila[1] = array($j['tab']['Nombre']);
 				$fila[2] = $categoryList[$j['cat']['IdCategoria']];
