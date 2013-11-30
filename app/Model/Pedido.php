@@ -9,12 +9,6 @@ class Pedido extends AppModel {
 				'dependent' => true,
 				'foreignKey'   => 'IdProyecto'
 			),
-			'Estudio' => array(
-				'className' => 'Estudio',
-				'conditions' => '',
-				'dependent' => true,
-				'foreignKey'   => 'IdEstudio'
-			)
 		);
 
 		public $validate = array(

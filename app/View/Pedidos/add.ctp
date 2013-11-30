@@ -4,10 +4,11 @@ echo '<div class="widgetcontent bordered shadowed nopadding">';
 
 echo $this->Form->create('Pedido',array('class' => 'stdform stdform2','inputDefaults' => array(
         'div' => array('class' => 'field') )));
-echo $this->Form->input('Descripcion',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
-								                                <label style="float: left;">Descripcion</label>
+echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5','div'=>false,'label'=>false,'before'=>'<p>
+								                                <label style="float: left;">Comentarios</label>
 								                                <span class="field float">',
-																'after'=>'</span></p>'));
+																'after'=>'</span></p>','pattern' => '.*\S+.*'));
+																
 //echo $this->Form->input('Fecha',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
 //								                                <label>Fecha</label>
 
