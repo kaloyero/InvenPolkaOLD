@@ -53,9 +53,9 @@ class MaterialesController extends AppController {
 			$this->request->data = $this->Materiale->read();
 		} else {
 			if ($this->Materiale->save($this->request->data)) {
-				$this->Session->setFlash('Cambios guardados');
-				$this->redirect(array('action' => 'index'));
-				echo "Ok";
+				$this->render('/General/Success');
+			} else {
+				$this->render('/General/Error');
 			}
 		}
 	}

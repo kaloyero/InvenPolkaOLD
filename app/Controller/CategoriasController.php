@@ -47,10 +47,9 @@ class CategoriasController extends AppController {
 			$this->request->data = $this->Categoria->read();
 		} else {
 			if ($this->Categoria->save($this->request->data)) {
-				//$this->Session->setFlash('Cambios guardados');
-				//$this->Session->write("ajaxRequest",true);
-				//$this->redirect(array('action' => 'index'));
-				$this->redirect(array('action' => 'index'));
+				$this->render('/General/Success');
+			} else {
+				$this->render('/General/Error');
 			}
 		}
 	}

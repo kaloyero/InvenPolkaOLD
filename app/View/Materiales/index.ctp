@@ -10,6 +10,12 @@
         <tbody>
         </tbody>
 </table>
+
+<div class="pantalla" style="width: 100px;height: 100px;" >
+<?php echo $this->Form->input('edit.IdCategoria',array('type'=>'select','multiple' => 'true','required' => 'true','options'=>$categorias,'empty'=>false,'class'=>'uniformselect'															,'div'=>false,'label'=>false,'before'=>'<p>
+                                <label>Categoria</label>
+                                <span class="field">')); ?>
+</div>
 <p class="stdformbutton"></p>
 <?php
 echo '<h4 class="widgettitle nomargin shadowed">Materiales</h4>';
@@ -21,7 +27,7 @@ echo $this->Form->input('Nombre',array('class'=>'input-medium','div'=>false,'lab
 								                                <label>Nombre</label>
 								                                <span class="field">',
 																'after'=>'</span></p>'));
-echo $this->Form->input('IdCategoria',array('type'=>'select','multiple' => 'true','options'=>$categorias,'empty'=>false,'class'=>'uniformselect'															,'div'=>false,'label'=>false,'before'=>'<p>
+echo $this->Form->input('IdCategoria',array('type'=>'select','multiple' => 'checkbox','required' => 'true','options'=>$categorias,'empty'=>false,'class'=>'uniformselect'															,'div'=>false,'label'=>false,'before'=>'<p>
                                 <label>Categoria</label>
                                 <span class="field">'));
 																
