@@ -13,10 +13,11 @@ echo $this->Form->create('MovimientoInventario',array('class' => 'stdform stdfor
 
 echo '<p><label style="float: left;">Fecha Empaquetado</label><span class="field float"><input class="input-small fecha" type="text" 	name="data[MovimientoInventario][Fecha]" required="required" /><small><em> yyyy / mm / dd</em></small></span>';
 
-echo $this->Form->input('Descripcion',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'
-                                <label style="float: left;">Comentarios</label>
-                                <span class="field float">',
-								'after'=>'</span>'));
+echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5','div'=>false,'label'=>false,'before'=>'<p>
+								                                <label style="float: left;">Comentarios</label>
+								                                <span class="field float">',
+																'after'=>'</span></p>','pattern' => '.*\S+.*'));
+								
 ?>
 <div class="input text">
 <input type="hidden" value="I" name="data[MovimientoInventario][TipoMovimiento]"/>

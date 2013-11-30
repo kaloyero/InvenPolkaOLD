@@ -47,8 +47,15 @@ class ConsultasPaginado extends AppModel {
 			$rows =$model->query("".$query['select'].";");
 			//Obtengo los totales
 			$totales = $this->getTotales($model,$query);
+
+		$total = $this->getVarParam($model->query($this->getConfigDisplayCountQuery($query['from'],"")));
+		//Obtengo el total de registros filtrados
+		$totalDisplay = $this->getVarParam($model->query($this->getConfigDisplayCountQuery($query['from'],$query['where'])));
+		$totales["total"]=$total;
+		$totales["tDisplay"]=$totalDisplay;
+		
 			//Proceso los campos para llenar la tabla
-			$arrayData=$this->getArrayDataConfig($rows);
+			$arrayData=$this->getArrayDataConfig($rows,$query['select']);
 			//Obtengo la tabla
 			$output = $this->createConfigTable($arrayData,$totales["total"],$totales["tDisplay"]);
 	
@@ -61,13 +68,21 @@ class ConsultasPaginado extends AppModel {
 	*/
 	private function getDataConfigQuery($tabla,$modelo,$columnaId) {
 
+		$select = 	"SELECT `tab`.`id`,`tab`.`Nombre` ";
+		$from = 	" FROM `".$tabla."` `tab` ";
+		$sWhere = 	" WHERE  `tab`.`Inactivo` LIKE  'F' ";
+		$limit = 	'limit '.$_GET['iDisplayStart'].' ,'.$_GET['iDisplayLength'] ;
+		$orderBy = 	" order by `tab`.`Nombre`";
+		
+/*		$selectCategorias = "SELECT * FROM  `decorado_categorias` WHERE  `IdDecorado` = 31";
 		//Partes del query
 		$select = "SELECT `tab`.`id`,`tab`.`Nombre` ,`cat`.`IdCategoria`";
-		$from = " FROM `".$tabla."` `tab` LEFT JOIN  `".$modelo."_categorias`  `cat` ON (  `tab`.`id` =  `cat`.`".$columnaId."` AND  `cat`.`Inactivo` LIKE  'F' )  ";
+		$from = " FROM `".$tabla."` `tab` ";
+		$leftjoin = " LEFT JOIN  `".$modelo."_categorias`  `cat` ON (  `tab`.`id` =  `cat`.`".$columnaId."` AND  `cat`.`Inactivo` LIKE  'F' )  ";
 		$sWhere = " WHERE  `tab`.`Inactivo` LIKE  'F' ";
 		$limit = 'limit '.$_GET['iDisplayStart'].' ,'.$_GET['iDisplayLength'] ;
 		$orderBy = " order by `tab`.`Nombre`, `cat`.`IdCategoria` ";
-		
+*/		
 		/*BUSQUEDA*/
 		//Si el wehre viene vacio
 		if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" )
@@ -84,12 +99,12 @@ class ConsultasPaginado extends AppModel {
 
 	}
 
-private function getArrayDataConfig($rows) {
+private function getArrayDataConfig($rows,$adss) {
 	  $model=new Categoria();
 	  $categoryList = $model->find('list',array('fields'=>array('Categoria.id','Categoria.Nombre')));
       $arrayDt=array();	  
 
-	  $add = false;	
+/*	  $add = false;	
 	  $repe = 0;	
 	  $fila=array();
   	  $icono = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>";
@@ -97,7 +112,7 @@ private function getArrayDataConfig($rows) {
       foreach($rows as $j){
 			$id = array($j['tab']['id']);	
 			if ($repe == $id){
-				$fila[2] = $fila[2]."<BR>".$categoryList[$j['cat']['IdCategoria']];
+				$fila[2] = $fila[2]." - ".$categoryList[$j['cat']['IdCategoria']];
 			} else {
 				if ($add) {
 					array_push($arrayDt, $fila);
@@ -106,7 +121,8 @@ private function getArrayDataConfig($rows) {
 				$add = true;
 				$repe = array($j['tab']['id']);	
 				$fila[0] = $repe;
-				$fila[1] = array($j['tab']['Nombre']);
+$fila[1] = $adss;
+//				$fila[1] = array($j['tab']['Nombre']);
 				$fila[2] = $categoryList[$j['cat']['IdCategoria']];
 				$fila[3] = array($icono);
 
@@ -115,6 +131,24 @@ private function getArrayDataConfig($rows) {
 	  if ($add) {
 	  	array_push($arrayDt, $fila);
 	  }
+*/
+  	  $icono = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>";
+      foreach($rows as $j){
+				$fila[0] = array($j['tab']['id']);
+				$fila[1] = array($j['tab']['Nombre']);
+				$categorias =$model->query("SELECT `IdCategoria` FROM  `decorado_categorias` WHERE  `IdDecorado` = ".$j['tab']['id'].";");
+				$cates = "";
+			    foreach($categorias as $c){				
+					$idCat = $c['decorado_categorias']['IdCategoria'];
+					$categName = $categoryList[$idCat];
+					$cates = $cates."<BR>".$categName;
+				}
+				$fila[2] = $cates;
+				$fila[3] = array($icono);
+				
+				array_push($arrayDt, $fila);
+	  }
+	  
 	  return $arrayDt;
 
 }
