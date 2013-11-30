@@ -55,7 +55,7 @@ class ConsultasPaginado extends AppModel {
 		$totales["tDisplay"]=$totalDisplay;
 		
 			//Proceso los campos para llenar la tabla
-			$arrayData=$this->getArrayDataConfig($rows,$query['select']);
+			$arrayData=$this->getArrayDataConfig($rows,$modelo,$columnaId);
 			//Obtengo la tabla
 			$output = $this->createConfigTable($arrayData,$totales["total"],$totales["tDisplay"]);
 	
@@ -99,51 +99,28 @@ class ConsultasPaginado extends AppModel {
 
 	}
 
-private function getArrayDataConfig($rows,$adss) {
+private function getArrayDataConfig($rows,$modelo,$columnaId) {
 	  $model=new Categoria();
 	  $categoryList = $model->find('list',array('fields'=>array('Categoria.id','Categoria.Nombre')));
       $arrayDt=array();	  
 
-/*	  $add = false;	
-	  $repe = 0;	
-	  $fila=array();
-  	  $icono = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>";
-
-      foreach($rows as $j){
-			$id = array($j['tab']['id']);	
-			if ($repe == $id){
-				$fila[2] = $fila[2]." - ".$categoryList[$j['cat']['IdCategoria']];
-			} else {
-				if ($add) {
-					array_push($arrayDt, $fila);
-				    $fila=array();
-				}
-				$add = true;
-				$repe = array($j['tab']['id']);	
-				$fila[0] = $repe;
-$fila[1] = $adss;
-//				$fila[1] = array($j['tab']['Nombre']);
-				$fila[2] = $categoryList[$j['cat']['IdCategoria']];
-				$fila[3] = array($icono);
-
-			}
-      }
-	  if ($add) {
-	  	array_push($arrayDt, $fila);
-	  }
-*/
   	  $icono = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>";
       foreach($rows as $j){
+				//id
 				$fila[0] = array($j['tab']['id']);
+				//nombre
 				$fila[1] = array($j['tab']['Nombre']);
-				$categorias =$model->query("SELECT `IdCategoria` FROM  `decorado_categorias` WHERE  `IdDecorado` = ".$j['tab']['id'].";");
+				//Categoria
+				$categorias =$model->query("SELECT `IdCategoria` FROM  `".$modelo."_categorias` WHERE  `".$columnaId."` = ".$j['tab']['id'].";");
 				$cates = "";
 			    foreach($categorias as $c){				
-					$idCat = $c['decorado_categorias']['IdCategoria'];
+					$idCat = $c[$modelo.'_categorias']['IdCategoria'];
 					$categName = $categoryList[$idCat];
-					$cates = $cates."<BR>".$categName;
+					$cates = $cates.$categName."<BR>";
 				}
+				$cates = substr_replace( $cates, "", -4 );				
 				$fila[2] = $cates;
+				//Icono
 				$fila[3] = array($icono);
 				
 				array_push($arrayDt, $fila);
