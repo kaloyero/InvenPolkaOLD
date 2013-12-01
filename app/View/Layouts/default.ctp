@@ -119,7 +119,7 @@
 				<li class="active  animate8 fadeInUp"><a id="inventario" class="option"><span class="icon-th-list"></span>Inventario</a>
 				<li class="active  animate8 fadeInUp"><a id="pedido" class="option"><span class="icon-th-list"></span>Pedidos - Entrada</a>
 				<li class="active  animate8 fadeInUp"><a id="pedidoSalida" class="option"><span class="icon-th-list"></span>Pedidos - Salida</a>
-				<li class="active  animate8 fadeInUp"><a id="pedidoHistorico" class="option"><span class="icon-th-list"></span>Pedidos - Historico</a>
+				<li class="active  animate8 fadeInUp"><a id="pedidoHisto" class="option"><span class="icon-th-list"></span>Pedidos - Historico</a>
 				<li class="active  animate8 fadeInUp"><a id="movimientoInventario" class="option"><span class="icon-th-list"></span>Movimientos</a>
 
                 <li class="dropdown animate13 fadeInUp"><a href=""><span class="icon-pencil"></span> Configuraciones</a>

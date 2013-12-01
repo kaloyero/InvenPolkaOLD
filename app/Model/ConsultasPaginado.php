@@ -47,13 +47,6 @@ class ConsultasPaginado extends AppModel {
 			$rows =$model->query("".$query['select'].";");
 			//Obtengo los totales
 			$totales = $this->getTotales($model,$query);
-
-		$total = $this->getVarParam($model->query($this->getConfigDisplayCountQuery($query['from'],"")));
-		//Obtengo el total de registros filtrados
-		$totalDisplay = $this->getVarParam($model->query($this->getConfigDisplayCountQuery($query['from'],$query['where'])));
-		$totales["total"]=$total;
-		$totales["tDisplay"]=$totalDisplay;
-		
 			//Proceso los campos para llenar la tabla
 			$arrayData=$this->getArrayDataConfig($rows,$modelo,$columnaId);
 			//Obtengo la tabla
@@ -226,8 +219,58 @@ private function getArrayDataConfig($rows,$modelo,$columnaId) {
 			    $aColumnsFilter = array( 'Numero','Fecha','Descripcion','TipoMovimiento','deposito_orig','deposito_dest','pedido','proyecto' );
 				//Columna por la cual se va ordenar
 				$orderByfield = 'Numero desc';
-				$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,true);
+				$output = $this->getDataDefaultMovimientos($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield);
 				return $output;
+		}
+
+		/* Este metodo crearía la tabla para aquellas tablas que muestren datos solamente de una tabla */
+		private function getDataDefaultMovimientos($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield) {
+				//Consigue el query que se va ejecutar
+				$query=$this->getDataDefaultQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield,"");
+				//Ejecuta el query, obtengo las filas
+				$rows =$model->query("".$query['select'].";");
+				//Obtengo los totales
+				$totales = $this->getTotales($model,$query);
+				$arrayData=$this->getArrayDataMovimientos($tabla,$rows,$aColumns,$query['select']);
+				//Obtengo la tabla
+				$output = $this->createConfigTable($arrayData,$totales["total"],$totales["tDisplay"]);
+		
+				return $output;
+		}
+
+		private function getArrayDataMovimientos($tabla,$rows,$aColumns,$titi) {
+			  $arrayDt=array();
+			  $tiposMovs = array(	'A' =>'Alta de Articulo',
+								  	'D' =>'Devolucion de Articulo(s)',
+								  	'I' =>'Ingreso de Articulo(s)',
+								  	'P' =>'Asignacion de Articulo(s) a Proyecto',
+								  	'B' =>'Baja de Articulo(s)',
+								  	'T' =>'Transferencia de Articulo(s)',
+			  							);		
+		  //  array_push($arrayDt, array($titi));
+			  foreach($rows as $j){
+					$fila=array();
+					array_push($fila, array($j[$tabla]['id']));
+					array_push($fila, array($j[$tabla]['Numero']));
+					array_push($fila, array($j[$tabla]['Fecha']));
+					array_push($fila, array($tiposMovs[$j[$tabla]['TipoMovimiento']]));																	
+					array_push($fila, array($j[$tabla]['deposito_orig']));
+//					array_push($fila, array($j[$tabla]['deposito_dest']));					
+					array_push($fila, array($j[$tabla]['pedido']));
+					array_push($fila, array($j[$tabla]['proyecto']));																														
+
+/*					foreach($aColumns as $column){
+						if ($column == "TipoMovimiento" ){
+							array_push($fila, array($tiposMovs[$j[$tabla][$column]]));							
+						} else {
+							array_push($fila, array($j[$tabla][$column]));							
+						}
+					}
+*/
+					array_push($arrayDt, $fila);
+			  }
+			  return $arrayDt;
+		
 		}
 
 ////////////////////////////// {FIN} PROYECTO -> DATATABLE //////////////////////////////
@@ -254,11 +297,11 @@ private function getArrayDataConfig($rows,$modelo,$columnaId) {
 			//Columnas por las que se va a filtrar
 			$aColumnsFilter = array(  'Numero' ,'proyecto'  );
 			//Columna por la cual se va ordenar
-			$orderByfield = 'Fecha, proyecto, Numero';
+			$orderByfield = 'Fecha desc, proyecto,estado ';
 
 			//CREATE TABLE
 			//Consigue el query que se va ejecutar
-			$query=$this->getDataDefaultQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield,"");
+			$query=$this->getDataDefaultPedidoQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield,$tipoLista);
 			//Ejecuta el query, obtengo las filas
 			$rows =$model->query("".$query['select'].";");
 			//Obtengo los totales
@@ -270,6 +313,67 @@ private function getArrayDataConfig($rows,$modelo,$columnaId) {
 
 			return $output;
 		}
+
+private function getDataDefaultPedidoQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield,$tipoLista) {
+
+        //Columnas por las que se va a filtrar
+	    $aColumnsShow = "";
+		$firstColumn=0;
+		foreach($aColumns as $column){
+			if ($firstColumn == 0){
+				$aColumnsShow = $column;
+				$firstColumn=1;
+			} else {
+				$aColumnsShow = $aColumnsShow.','.$column;
+			}
+		}
+
+		//Partes del query
+		$select = "SELECT ".$aColumnsShow;
+		$from = " FROM ".$tabla." ";
+		$limit = 'limit '.$_GET['iDisplayStart'].' ,'.$_GET['iDisplayLength'] ;
+		$orderBy = " order by ".$orderByfield." ";
+		switch ($tipoLista) {
+			case 'E':
+				$sWhere = " WHERE `estado` like 'abierto' AND";
+				break;
+			case 'S':
+				$sWhere = " WHERE `estado` like 'confirmado' AND";
+				break;
+			case 'H':
+				$sWhere = "";
+				break;
+		}
+
+
+
+
+		/*BUSQUEDA*/
+		//Si el wehre viene vacio
+			if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" )
+			{
+				if ( $sWhere == "" ){ 
+					$sWhere = "WHERE ";
+				}
+				for ( $i=0 ; $i<count($aColumnsFilter) ; $i++ )
+				{
+					$sWhere .= " `".$aColumnsFilter[$i]."` LIKE '%".( $_GET['sSearch'] )."%' OR ";
+				}
+			}
+			//Borro del where los ultimos tres caracteres
+			if ( $sWhere != "" ){ 			
+				$sWhere = substr_replace( $sWhere, "", -3 );
+			}
+
+			$query['select'] = $select.$from.$sWhere.$orderBy.$limit;
+			$query['selectWOL'] = $select.$from.$sWhere;
+			$query['from'] =  $from;
+			$query['where'] = $sWhere;
+
+		return $query;
+
+}
+
 
 private function getArrayDataPedido($tabla,$rows,$aColumns,$titi,$tipoLista) {
       $arrayDt=array();
@@ -508,7 +612,15 @@ private function getArrayData($tabla,$rows,$aColumns,$titi) {
       foreach($rows as $j){
 			$fila=array();
 	        foreach($aColumns as $column){
-			        array_push($fila, array($j[$tabla][$column]));
+				if ($column != "dir" && $column != "idFoto"){
+					array_push($fila, array($j[$tabla][$column]));
+				} else {
+					//Si es foto
+					if ($column == "idFoto"){
+						array_push($fila, '<img src="/InvenPolka/app/webroot/files/articulo/idFoto/'.$j[$tabla]['dir'].'/small_'.$j[$tabla]['idFoto'].'" alt="CakePHP" width="200px">');
+					}
+				}
+					
 			}
 			array_push($fila, "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>");
 			array_push($arrayDt, $fila);
@@ -533,7 +645,7 @@ private function getArrayDataWithEditLink($tabla,$rows,$aColumns,$titi) {
 					}
 				}
 			}
-			array_push($fila, " <div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/articulos/edit/".$j[$tabla]['id']."' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>");
+//			array_push($fila, " <div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/articulos/edit/".$j[$tabla]['id']."' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>");
 			array_push($arrayDt, $fila);
       }
 	 return $arrayDt;
