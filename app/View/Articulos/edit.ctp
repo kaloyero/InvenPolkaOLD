@@ -26,8 +26,6 @@ echo $this->Form->input('Articulo.IdObjeto',array('type'=>'select','empty'=>fals
 
 echo $this->Form->input('Articulo.IdDecorado',array('type'=>'select','options'=>$decorados,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Decorado : '));
 
-echo '<BR>';
-
 echo $this->Form->input('Articulo.IdMaterial',array('type'=>'select','empty'=>false,'options'=>$materiales,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Material : '));
 
 echo $this->Form->input('Articulo.IdDimension',array('type'=>'select','options'=>$dimensiones,'empty'=>false,'class'=>'uniformselect'																								,'div'=>false,'label'=>false,'before'=>' Dimension : '));
