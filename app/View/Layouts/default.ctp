@@ -134,19 +134,23 @@
                 </li>
 				 <li class="dropdown animate13 fadeInUp"><a class="buscador" href=""><span class="icon-pencil"></span> Buscador</a>
 	                	<ul>
-	                    	<li style="padding-left: 1px;background:white"><form action="/InvenPolka/articulos/find" class=" formBuscador" id="ArticuloSearchFindForm" enctype="multipart/form-data" method="post" accept-charset="utf-8"><div style="display:none;"><input type="hidden" name="_method" value="POST"></div><div class="field"><label for="ArticuloSearchCodigoArticulo">Codigo Articulo</label><input name="data[ArticuloSearch][CodigoArticulo]" type="text" id="ArticuloSearchCodigoArticulo"></div><p>
-	<?php	echo $this->Form->input('ArticuloSearch.IdCategoria',array('type'=>'select','options'=>$categorias,'empty'=>true,'class'=>'uniformselect'																								,'div'=>false,'label'=>false,'before'=>'<p><label>Configuraciones</label><span class="field"> Categoria : '));?><p>
-								Objeto : <select name="data[ArticuloSearch][IdObjeto]" class="uniformselect" id="ArticuloSearchIdObjeto" style="opacity: 0;">
+	                    	<li style="padding-left: 1px;background:white"><form action="/InvenPolka/articulos/find" class=" formBuscador" id="ArticuloSearchFindForm" enctype="multipart/form-data" method="post" accept-charset="utf-8"><div style="display:none;"><input type="hidden" name="_method" value="POST"></div><div class="field" style="padding-left: 33px;"><label for="ArticuloSearchCodigoArticulo">Codigo Articulo</label><input name="data[ArticuloSearch][CodigoArticulo]" type="text" id="ArticuloSearchCodigoArticulo"></div><p>
+	<?php	echo $this->Form->input('ArticuloSearch.IdCategoria',array('type'=>'select','options'=>$categorias,'empty'=>true,'class'=>'uniformselect categoria'																								,'div'=>false,'label'=>false,'before'=>'<p><span class="field" style="padding-left: 33px;""> Categoria : '));?><p>
+								<span class="field" style="padding-left: 33px;">Objeto : <select name="data[ArticuloSearch][IdObjeto]" class="uniformselect" id="ArticuloIdObjeto" style="opacity: 0;">
 
-															</select><p></p> Decorado : <select name="data[ArticuloSearch][IdDecorado]" class="uniformselect" id="ArticuloSearchIdDecorado" style="opacity: 0;">
+															</select></span><p></p>
+															<p>	<span class="field" style="padding-left: 33px;">Decorado : <select name="data[ArticuloSearch][IdDecorado]" class="uniformselect" id="ArticuloIdDecorado" style="opacity: 0;">
 
-															</select>Material : <span></span><select name="data[ArticuloSearch][IdMaterial]" class="uniformselect" id="ArticuloSearchIdMaterial" style="opacity: 0;">
+															</select></span></p>
+														<p><span class="field" style="padding-left: 33px;">	Material : <span></span><select name="data[ArticuloSearch][IdMaterial]" class="uniformselect" id="ArticuloIdMaterial" style="opacity: 0;">
 
-															</select>Dimension :<span></span><select name="data[ArticuloSearch][IdDimension]" class="uniformselect" id="ArticuloSearchIdDimension" style="opacity: 0;">
+															</select></span></p>
+														<p><span class="field" style="padding-left: 33px;">	Dimension : <span></span><select name="data[ArticuloSearch][IdDimension]" class="uniformselect" id="ArticuloIdDimension" style="opacity: 0;">
 
-															</select> Estilo : <select name="data[ArticuloSearch][IdEstilo]" class="uniformselect" id="ArticuloSearchIdEstilo" style="opacity: 0;">
+															</select></span></p>
+														<p><span class="field" style="padding-left: 33px;">	 Estilo : <select name="data[ArticuloSearch][IdEstilo]" class="uniformselect" id="ArticuloIdEstilo" style="opacity: 0;">
 
-															</select>
+															</select></span></p>
 							</p><p class="stdformbutton"><button class="btn btn-primary saveBuscador">Buscar</button><button type="reset" class="btn">Limpiar Formulario</button></p></form></li></ul>
 
 	                </li>
@@ -247,96 +251,8 @@
 
 
 		sideBarController.bindMenuOptionsEvents();
-		// basic chart
-		var flash = [[0, 2], [1, 6], [2,3], [3, 8], [4, 5], [5, 13], [6, 8]];
-		var html5 = [[0, 5], [1, 4], [2,4], [3, 1], [4, 9], [5, 10], [6, 13]];
 
-		function showTooltip(x, y, contents) {
-			jQuery('<div id="tooltip" class="tooltipflot">' + contents + '</div>').css( {
-				position: 'absolute',
-				display: 'none',
-				top: y + 5,
-				left: x + 5
-			}).appendTo("body").fadeIn(200);
-		}
-//console.log("JAJA", jQuery.plot(jQuery("#chartplace2")) )
-if (jQuery("#chartplace2").length) {
-		console.log("SDsad",jQuery("#chartplace2"))
-		var plot = jQuery.plot(jQuery("#chartplace2"),
-			   [ { data: flash, label: "Flash(x)", color: "#fb6409"}, { data: html5, label: "HTML5(x)", color: "#096afb"} ], {
-				   series: {
-					   lines: { show: true, fill: true, fillColor: { colors: [ { opacity: 0.05 }, { opacity: 0.15 } ] } },
-					   points: { show: true }
-				   },
-				   legend: { position: 'nw'},
-				   grid: { hoverable: true, clickable: true, borderColor: '#ccc', borderWidth: 1, labelMargin: 10 },
-				   yaxis: { min: 0, max: 15 }
-				 });
-
-		var previousPoint = null;
-
-		jQuery("#chartplace2").bind("plothover", function (event, pos, item) {
-			jQuery("#x").text(pos.x.toFixed(2));
-			jQuery("#y").text(pos.y.toFixed(2));
-
-			if(item) {
-				if (previousPoint != item.dataIndex) {
-					previousPoint = item.dataIndex;
-
-					jQuery("#tooltip").remove();
-					var x = item.datapoint[0].toFixed(2),
-					y = item.datapoint[1].toFixed(2);
-
-					showTooltip(item.pageX, item.pageY,
-									item.series.label + " of " + x + " = " + y);
-				}
-
-			} else {
-			   jQuery("#tooltip").remove();
-			   previousPoint = null;
-			}
-
-		});
-
-		jQuery("#chartplace2").bind("plotclick", function (event, pos, item) {
-			if (item) {
-				jQuery("#clickdata").text("You clicked point " + item.dataIndex + " in " + item.series.label + ".");
-				plot.highlight(item.series, item.datapoint);
-			}
-		});
-
-	}
-	if (jQuery("#bargraph2").length) {
-		// bar graph
-		var d2 = [];
-		for (var i = 0; i <= 10; i += 1)
-			d2.push([i, parseInt(Math.random() * 30)]);
-
-		var stack = 0, bars = true, lines = false, steps = false;
-		jQuery.plot(jQuery("#bargraph2"), [ d2 ], {
-			series: {
-				stack: stack,
-				lines: { show: lines, fill: true, steps: steps },
-				bars: { show: bars, barWidth: 0.6 }
-			},
-			grid: { hoverable: true, clickable: true, borderColor: '#bbb', borderWidth: 1, labelMargin: 10 },
-			colors: ["#06c"]
-		});
-    }
-		// calendar
-		jQuery('#calendar').datepicker();
-
-
-		jQuery( '#fs-slider' ).imgslider();
-
-		jQuery('.saveBuscador' ).bind("click", function(e) {
-			translator.search("articulo", jQuery(".formBuscador"));
-			console.log("AJA")
-			return false;
-		})
-
-
-
+		articuloRender.bindFinderStaticEvents();
 
 /**/
 

@@ -118,7 +118,7 @@ var Render = new Class({
           return jQuery(selectedRow).parent().parent().parent().parent().find(":first" ).text()
       },
       styleForm:function() {
-          jQuery('input:checkbox, input:radio, select.uniformselect').uniform();
+          this.getForm().find('input:checkbox, input:radio, select.uniformselect').uniform();
         },
       addLoader:function() {
            jQuery('.stdformbutton').append('<img src="/invenPolka/app/webroot/files/gif/16.GIF" class ="loader" alt="CakePHP" height="50px" width="50px">');

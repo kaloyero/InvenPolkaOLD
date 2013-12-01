@@ -138,11 +138,30 @@ var Articulo = new Class({
      bindFinderEvents:function() {
          var self=this;
          this.styleForm();
+         jQuery('.categoria').bind("change", function(e) {
+                    console.log("Excutado de " ,jQuery(this).closest("form"))
+                    self.findInForm=jQuery(this).closest("form");
+                	translator.getConfiguraciones(self.type,this.value);
+              })
          jQuery('.save').bind("click", function(e) {
              translator.search(self.type, self.getForm());
              //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
              return false;
           });
+
+    },
+     bindFinderStaticEvents:function() {
+         var self=this;
+         jQuery('.categoria').bind("change", function(e) {
+                    console.log("Excutado de " ,jQuery(this).closest("form"))
+                    self.findInForm=jQuery(this).closest("form");
+                	translator.getConfiguraciones(self.type,this.value);
+              })
+          jQuery('.saveBuscador' ).bind("click", function(e) {
+              translator.search("articulo", jQuery(".formBuscador"));
+              console.log("AJA")
+              return false;
+          })
     },
      validateImage:function() {
         var fileName = jQuery("input:file").val();
@@ -206,72 +225,74 @@ var Articulo = new Class({
              translator.show(this.type);
     },
     onRetrievedConfiguraciones: function(data){
+        var self=this;
+        //FindInFOrm,guarda referencia para saber en que formulario ponemos la informacion,o en el de busqueda o en el de articuloss
         //Removemos lo que habia antes
-        jQuery('#ArticuloIdDecorado').find('option').remove()
-        jQuery("#ArticuloIdDecorado").prev().empty();
+        this.findInForm.find('#ArticuloIdDecorado').find('option').remove()
+        this.findInForm.find("#ArticuloIdDecorado").prev().empty();
 
         jQuery.each(data.decorados, function (index, value) {
-            jQuery("#ArticuloIdDecorado").append('<option value="'+value["decorado"]["id"]+'">'+value["decorado"]["Nombre"]+'</option>');
+            self.findInForm.find("#ArticuloIdDecorado").append('<option value="'+value["decorado"]["id"]+'">'+value["decorado"]["Nombre"]+'</option>');
         });
         //Si el combo no esta vacio,tengo que escribir en el span que se encuentra arriba el nombre al menos del primer seleccionado(El disenio template,pide eso)
-        if( jQuery('#ArticuloIdDecorado').has('option').length > 0 ) {
-            var primerOpcionValor=jQuery('#ArticuloIdDecorado option:first-child').text();
-            jQuery("#ArticuloIdDecorado").prev().text(primerOpcionValor);
+        if( this.findInForm.find('#ArticuloIdDecorado').has('option').length > 0 ) {
+            var primerOpcionValor=this.findInForm.find('#ArticuloIdDecorado option:first-child').text();
+            self.findInForm.find("#ArticuloIdDecorado").prev().text(primerOpcionValor);
         }
         //Removemos lo que habia antes
-        jQuery('#ArticuloIdMaterial').find('option').remove()
-        jQuery("#ArticuloIdMaterial").prev().empty();
+        this.findInForm.find('#ArticuloIdMaterial').find('option').remove()
+        this.findInForm.find("#ArticuloIdMaterial").prev().empty();
 
         jQuery.each(data.materiales, function (index, value) {
-            jQuery("#ArticuloIdMaterial").append('<option value="'+value["material"]["id"]+'">'+value["material"]["Nombre"]+'</option>');
+            self.findInForm.find("#ArticuloIdMaterial").append('<option value="'+value["material"]["id"]+'">'+value["material"]["Nombre"]+'</option>');
         });
 
          //Si el combo no esta vacio,tengo que escribir en el span que se encuentra arriba el nombre al menos del primer seleccionado(El disenio template,pide eso)
-         if( jQuery('#ArticuloIdMaterial').has('option').length > 0 ) {
-             var primerOpcionValor=jQuery('#ArticuloIdMaterial option:first-child').text();
-             jQuery("#ArticuloIdMaterial").prev().text(primerOpcionValor);
+         if( this.findInForm.find('#ArticuloIdMaterial').has('option').length > 0 ) {
+             var primerOpcionValor=this.findInForm.find('#ArticuloIdMaterial option:first-child').text();
+             this.findInForm.find("#ArticuloIdMaterial").prev().text(primerOpcionValor);
          }
 
          //Removemos lo que habia antes
-        jQuery('#ArticuloIdDimension').find('option').remove()
-        jQuery("#ArticuloIdDimension").prev().empty();
+        this.findInForm.find('#ArticuloIdDimension').find('option').remove()
+        this.findInForm.find("#ArticuloIdDimension").prev().empty();
 
 
         jQuery.each(data.dimensiones, function (index, value) {
-            jQuery("#ArticuloIdDimension").append('<option value="'+value["dimension"]["id"]+'">'+value["dimension"]["Nombre"]+'</option>');
+            self.findInForm.find("#ArticuloIdDimension").append('<option value="'+value["dimension"]["id"]+'">'+value["dimension"]["Nombre"]+'</option>');
         });
         //Si el combo no esta vacio,tengo que escribir en el span que se encuentra arriba el nombre al menos del primer seleccionado(El disenio template,pide eso)
-         if( jQuery('#ArticuloIdDimension').has('option').length > 0 ) {
-             var primerOpcionValor=jQuery('#ArticuloIdDimension option:first-child').text();
-             jQuery("#ArticuloIdDimension").prev().text(primerOpcionValor);
+         if( this.findInForm.find('#ArticuloIdDimension').has('option').length > 0 ) {
+             var primerOpcionValor=this.findInForm.find('#ArticuloIdDimension option:first-child').text();
+             this.findInForm.find("#ArticuloIdDimension").prev().text(primerOpcionValor);
          }
 
          //Removemos lo que habia antes
-        jQuery('#ArticuloIdObjeto').find('option').remove()
-        jQuery("#ArticuloIdObjeto").prev().empty();
+        this.findInForm.find('#ArticuloIdObjeto').find('option').remove()
+        this.findInForm.find('#ArticuloIdObjeto').prev().empty();
 
 
         jQuery.each(data.objetos, function (index, value) {
-            jQuery("#ArticuloIdObjeto").append('<option value="'+value["objeto"]["id"]+'">'+value["objeto"]["Nombre"]+'</option>');
+            self.findInForm.find('#ArticuloIdObjeto').append('<option value="'+value["objeto"]["id"]+'">'+value["objeto"]["Nombre"]+'</option>');
         });
         //Si el combo no esta vacio,tengo que escribir en el span que se encuentra arriba el nombre al menos del primer seleccionado(El disenio template,pide eso)
-         if( jQuery('#ArticuloIdObjeto').has('option').length > 0 ) {
-             var primerOpcionValor=jQuery('#ArticuloIdObjeto option:first-child').text();
-             jQuery("#ArticuloIdObjeto").prev().text(primerOpcionValor);
+         if( this.findInForm.find('#ArticuloIdObjeto').has('option').length > 0 ) {
+             var primerOpcionValor=this.findInForm.find('#ArticuloIdObjeto option:first-child').text();
+             self.findInForm.find('#ArticuloIdObjeto').prev().text(primerOpcionValor);
          }
 
          //Removemos lo que habia antes
-        jQuery('#ArticuloIdEstilo').find('option').remove()
-        jQuery("#ArticuloIdEstilo").prev().empty();
+        this.findInForm.find('#ArticuloIdEstilo').find('option').remove()
+        this.findInForm.find("#ArticuloIdEstilo").prev().empty();
 
 
         jQuery.each(data.estilos, function (index, value) {
-            jQuery("#ArticuloIdEstilo").append('<option value="'+value["estilo"]["id"]+'">'+value["estilo"]["Nombre"]+'</option>');
+            self.findInForm.find("#ArticuloIdEstilo").append('<option value="'+value["estilo"]["id"]+'">'+value["estilo"]["Nombre"]+'</option>');
         });
         //Si el combo no esta vacio,tengo que escribir en el span que se encuentra arriba el nombre al menos del primer seleccionado(El disenio template,pide eso)
-         if( jQuery('#ArticuloIdEstilo').has('option').length > 0 ) {
-             var primerOpcionValor=jQuery('#ArticuloIdEstilo option:first-child').text();
-             jQuery("#ArticuloIdEstilo").prev().text(primerOpcionValor);
+         if( this.findInForm.find('#ArticuloIdEstilo').has('option').length > 0 ) {
+             var primerOpcionValor=this.findInForm.find('#ArticuloIdEstilo option:first-child').text();
+             self.findInForm.find("#ArticuloIdEstilo").prev().text(primerOpcionValor);
          }
          //Llamo al validar,para que de ultima,me limpie el mensajito de error
          this.validateConfiguraciones();
@@ -316,7 +337,7 @@ var Articulo = new Class({
  			jQuery("#configurationTable").before('<div  class="infoShow">'+data[i]["_aData"][2]+
 													'<input type="checkbox" name="option3"> '+data[i]["_aData"][1]+
 													'<a href="#" id='+data[i]["_aData"][0][0]+' class="edit"><img style="width:20px;height:20;display:inline;float:right;margin-top:0.1cm;" src="/InvenPolka/app/webroot/files/gif/edit.jpg"></a>'+
-													' <a href="#" id="'+data[i]["_aData"][0][0]+'" class="view"><img style="width:20px;height:20;display:inline;float:right;margin-top:0.1cm;" src="/InvenPolka/app/webroot/img/view.png"></a>' +		
+													' <a href="#" id="'+data[i]["_aData"][0][0]+'" class="view"><img style="width:20px;height:20;display:inline;float:right;margin-top:0.1cm;" src="/InvenPolka/app/webroot/img/view.png"></a>' +
 //
 													'<img style="width:20px;height:20px;display:inline;float:right;margin-top:0.1cm;" src="/InvenPolka/app/webroot/files/gif/desactivar.png">'+
 													'<B><c style="display:inline;float:right;margin-top:0.0cm;"> '+data[i]["_aData"][9]+' ('+ data[i]["_aData"][10]+') </c></B>'+
@@ -324,7 +345,7 @@ var Articulo = new Class({
 //            jQuery("#configurationTable").before('<div  class="infoShow">'+data[i]["_aData"][2]+'<input type="checkbox" name="option3"/>'+data[i]["_aData"][1]+'</c>'+
 //												'<img style="width:20px;height:20px;display:inline;float:right;margin-top:0.1cm;" src="/InvenPolka/app/webroot/files/gif/desactivar.png">'+
 //												' <a href="#" id='+data[i]["_aData"][0][0]+' class="edit"><img style="width:20px;height:20;display:inline;float:right;margin-top:0.1cm;" src="/InvenPolka/app/webroot/files/gif/edit.jpg"></a>' +
-//												' <a href="#" id='+data[i]["_aData"][0][0]+' class="view"><img style="width:20px;height:20;display:inline;float:right;margin-top:0.1cm;" src="/InvenPolka/app/webroot/img/view.png"></a>' +		
+//												' <a href="#" id='+data[i]["_aData"][0][0]+' class="view"><img style="width:20px;height:20;display:inline;float:right;margin-top:0.1cm;" src="/InvenPolka/app/webroot/img/view.png"></a>' +
 //												'<B><c style="display:inline;float:right;margin-top:0.0cm;"> '+data[i]["_aData"][9]+' ('+ data[i]["_aData"][10]+') </c></B>'+
 //												'</div>')
         }
