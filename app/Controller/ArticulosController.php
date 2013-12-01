@@ -212,11 +212,6 @@ class ArticulosController extends AppController {
 		$this->request->data['Articulo']['idFoto']= preg_replace(" /[&'#]/", "",$this->request->data['Articulo']['idFoto']);
 	}
 	//Todo mejorar este metodo
-	function findTest() {
-		$this->setViewData("find");
-
-	}
-	//Todo mejorar este metodo
 	function find() {
 		$url = array('action'=>'index');
 		if($this->request->is("post")) {
