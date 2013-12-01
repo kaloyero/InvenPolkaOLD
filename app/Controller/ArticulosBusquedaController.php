@@ -103,17 +103,37 @@ class ArticulosController extends AppController {
 		$this->request->data['Articulo']['idFoto']= preg_replace(" /[&'#]/", "",$this->request->data['Articulo']['idFoto']);
 	}
 	function find() {
+			echo"Find";
 		$url = array('action'=>'index');
 		if($this->request->is("post")) {
+				echo"Entra";
 		      $filters = $this->request->data["ArticuloSearch"];
-		      $this->passedArgs["CodigoArticulo"] = $filters["CodigoArticulo"];
-				$this->passedArgs["IdMaterial"] = $filters["IdMaterial"];
-				$this->passedArgs["IdEstilo"] = $filters["IdEstilo"];
-				$this->passedArgs["IdCategoria"] = $filters["IdCategoria"];
-				$this->passedArgs["IdObjeto"] = $filters["IdObjeto"];
-				$this->passedArgs["IdDecorado"] = $filters["IdDecorado"];
-				$this->passedArgs["IdDimension"] = $filters["IdDimension"];
-				$this->passedArgs["IdDecorado"] = $filters["IdDecorado"];
+		if(!empty($filters["CodigoArticulo"])){
+			$this->passedArgs["CodigoArticulo"] = $filters["CodigoArticulo"];
+		}
+			echo"entra2";
+		if(!empty($filters["IdMaterial"])){
+			$this->passedArgs["IdMaterial"] = $filters["IdMaterial"];
+		}
+		if(!empty($filters["IdEstilo"])){
+			$this->passedArgs["IdEstilo"] = $filters["IdEstilo"];
+		}
+		if(!empty($filters["IdCategoria"])){
+			$this->passedArgs["IdCategoria"] = $filters["IdCategoria"];
+		}
+		if(!empty($filters["IdObjeto"])){
+			$this->passedArgs["IdObjeto"] = $filters["IdObjeto"];
+		}
+		if(!empty($filters["IdDecorado"])){
+			$this->passedArgs["IdDecorado"] = $filters["IdDecorado"];
+		}
+		if(!empty($filters["IdDimension"])){
+			$this->passedArgs["IdDimension"] = $filters["IdDimension"];
+		}
+		if(!empty($filters["IdDimension"])){
+			$this->passedArgs["IdDecorado"] = $filters["IdDecorado"];
+		}
+		echo"HOla";
 
 			//echo $this->passedArgs["test"];
  			//$this->redirect(array('action' => 'index'));

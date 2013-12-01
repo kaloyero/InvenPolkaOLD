@@ -132,7 +132,24 @@
                         <li><a id="estilo" class="option">Estilos</a></li>
                     </ul>
                 </li>
+				 <li class="dropdown animate13 fadeInUp"><a class="buscador" href=""><span class="icon-pencil"></span> Buscador</a>
+	                	<ul>
+	                    	<li style="padding-left: 1px;background:white"><form action="/InvenPolka/articulos/find" class=" formBuscador" id="ArticuloSearchFindForm" enctype="multipart/form-data" method="post" accept-charset="utf-8"><div style="display:none;"><input type="hidden" name="_method" value="POST"></div><div class="field"><label for="ArticuloSearchCodigoArticulo">Codigo Articulo</label><input name="data[ArticuloSearch][CodigoArticulo]" type="text" id="ArticuloSearchCodigoArticulo"></div><p>
+	<?php	echo $this->Form->input('ArticuloSearch.IdCategoria',array('type'=>'select','options'=>$categorias,'empty'=>true,'class'=>'uniformselect'																								,'div'=>false,'label'=>false,'before'=>'<p><label>Configuraciones</label><span class="field"> Categoria : '));?><p>
+								Objeto : <select name="data[ArticuloSearch][IdObjeto]" class="uniformselect" id="ArticuloSearchIdObjeto" style="opacity: 0;">
 
+															</select><p></p> Decorado : <select name="data[ArticuloSearch][IdDecorado]" class="uniformselect" id="ArticuloSearchIdDecorado" style="opacity: 0;">
+
+															</select>Material : <span></span><select name="data[ArticuloSearch][IdMaterial]" class="uniformselect" id="ArticuloSearchIdMaterial" style="opacity: 0;">
+
+															</select>Dimension :<span></span><select name="data[ArticuloSearch][IdDimension]" class="uniformselect" id="ArticuloSearchIdDimension" style="opacity: 0;">
+
+															</select> Estilo : <select name="data[ArticuloSearch][IdEstilo]" class="uniformselect" id="ArticuloSearchIdEstilo" style="opacity: 0;">
+
+															</select>
+							</p><p class="stdformbutton"><button class="btn btn-primary saveBuscador">Buscar</button><button type="reset" class="btn">Limpiar Formulario</button></p></form></li></ul>
+
+	                </li>
 
 
 

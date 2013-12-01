@@ -157,7 +157,7 @@ var Render = new Class({
 
                                           }
                                   },
-								  
+
                                   "fnPreDrawCallback": function( nRow, aData, iDisplayIndex ) {
 
                                   },

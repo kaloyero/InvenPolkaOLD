@@ -167,10 +167,10 @@ class ArticulosController extends AppController {
 	    }
 
 	}
+	//TODO remover los Test
 	function setViewData($currentStatus) {
 		$consultas = new ConsultasSelect();
-		//Si se esta editando,que me traiga las configuraciones en base a la categoria que eligio el articulo,si es alta o busqueda,que me traiga
-		//las configuraciones en base a la primer categoria de la lista
+		//Si se esta editando,que me traiga las configuraciones en base a la categoria que eligio el articulo,si es alta o busqueda,que me traiga las configuraciones en base a la primer categoria de la lista
 
 		if ($currentStatus=="edit") {
 				$firstKey = $this->request->data["Articulo"]["IdCategoria"];
@@ -211,18 +211,42 @@ class ArticulosController extends AppController {
 		// Removes special chars.
 		$this->request->data['Articulo']['idFoto']= preg_replace(" /[&'#]/", "",$this->request->data['Articulo']['idFoto']);
 	}
+	//Todo mejorar este metodo
+	function findTest() {
+		$this->setViewData("find");
+
+	}
+	//Todo mejorar este metodo
 	function find() {
 		$url = array('action'=>'index');
 		if($this->request->is("post")) {
 		      $filters = $this->request->data["ArticuloSearch"];
-		      $this->passedArgs["CodigoArticulo"] = $filters["CodigoArticulo"];
-				$this->passedArgs["IdMaterial"] = $filters["IdMaterial"];
-				$this->passedArgs["IdEstilo"] = $filters["IdEstilo"];
-				$this->passedArgs["IdCategoria"] = $filters["IdCategoria"];
-				$this->passedArgs["IdObjeto"] = $filters["IdObjeto"];
-				$this->passedArgs["IdDecorado"] = $filters["IdDecorado"];
-				$this->passedArgs["IdDimension"] = $filters["IdDimension"];
-				$this->passedArgs["IdDecorado"] = $filters["IdDecorado"];
+
+				if(!empty($filters["CodigoArticulo"])){
+					$this->passedArgs["CodigoArticulo"] = $filters["CodigoArticulo"];
+				}
+				if(!empty($filters["IdMaterial"])){
+					$this->passedArgs["IdMaterial"] = $filters["IdMaterial"];
+				}
+				if(!empty($filters["IdEstilo"])){
+					$this->passedArgs["IdEstilo"] = $filters["IdEstilo"];
+				}
+				if(!empty($filters["IdCategoria"])){
+					$this->passedArgs["IdCategoria"] = $filters["IdCategoria"];
+				}
+				if(!empty($filters["IdObjeto"])){
+					$this->passedArgs["IdObjeto"] = $filters["IdObjeto"];
+				}
+				if(!empty($filters["IdDecorado"])){
+					$this->passedArgs["IdDecorado"] = $filters["IdDecorado"];
+				}
+				if(!empty($filters["IdDimension"])){
+					$this->passedArgs["IdDimension"] = $filters["IdDimension"];
+				}
+				if(!empty($filters["IdDimension"])){
+					$this->passedArgs["IdDecorado"] = $filters["IdDecorado"];
+				}
+
 
 			//echo $this->passedArgs["test"];
  			//$this->redirect(array('action' => 'index'));
