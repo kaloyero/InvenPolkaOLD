@@ -19,7 +19,16 @@ class MaterialesController extends AppController {
     }
 
    public function view($id = null) {
-
+	   $consultas = new ConsultasSelect();
+        if ($this->request->is('post')) {
+						
+		} else {
+			$this->set('categorias',$consultas->getCategorias());
+			$categoriasSelected = $consultas->getCategoriasByIdDescripcion($id,"material","IdMaterial");
+			$this->set('categoriasSelected',$categoriasSelected);
+			print_r($categoriasSelected);
+		}
+		
    }
 
     public function add() {
@@ -53,9 +62,9 @@ class MaterialesController extends AppController {
 			$this->request->data = $this->Materiale->read();
 		} else {
 			if ($this->Materiale->save($this->request->data)) {
-				$this->Session->setFlash('Cambios guardados');
-				$this->redirect(array('action' => 'index'));
-				echo "Ok";
+				$this->render('/General/Success');
+			} else {
+				$this->render('/General/Error');
 			}
 		}
 	}

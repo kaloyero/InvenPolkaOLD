@@ -52,9 +52,11 @@ class DimensionesController extends AppController {
 		if ($this->request->is('get')) {
 			$this->request->data = $this->Dimensione->read();
 		} else {
+			//Parche ver porque viene dimension y no dimensione
+			$this->request->data['Dimensione'] = $this->request->data['Dimension'];
 			if ($this->Dimensione->save($this->request->data)) {
 				$this->render('/General/Success');
-        	}else{
+			} else {
 				$this->render('/General/Error');
 			}
 		}

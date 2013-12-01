@@ -21,7 +21,7 @@ echo $this->Form->input('Nombre',array('class'=>'input-medium','div'=>false,'lab
 								                                <span class="field">',
 																'after'=>'</span></p>'));
 //echo $this->Form->input('IdCategoria',array('type'=>'select', 'multiple'=>'checkbox','options'=>$categorias,'empty'=>false,'class'=>'uniformselect multiple-chb','div'=>false,'label'=>false,'before'=>'<p><label>Categoria</label><span class="field">'));
-echo $this->Form->input('IdCategoria',array('type'=>'select', 'multiple'=>'true','options'=>$categorias,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p><label>Categoria</label><span class="field">'));																
+echo $this->Form->input('IdCategoria',array('type'=>'select', 'multiple'=>'true','options'=>$categorias,'required' => 'true','empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p><label>Categoria</label><span class="field">'));																
 																
 echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</button><button type="reset" class="btn">Limpiar Formulario</button></p>';
 echo $this->Form->end();

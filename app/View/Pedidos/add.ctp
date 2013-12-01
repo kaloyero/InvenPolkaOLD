@@ -54,6 +54,7 @@ echo $this->Form->input('Pedido.IdProyecto',array('type'=>'select','options'=>$p
 	</tbody>
 </table>
 
+
 <?php
 echo '<p class="stdformbutton"><button class="btn btn-primary agregarOtro">Agregar Otro Articulo</button></p>';
 
