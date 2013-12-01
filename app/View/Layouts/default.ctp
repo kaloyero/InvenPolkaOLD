@@ -151,7 +151,7 @@
 														<p><span class="field" style="padding-left: 33px;">	 Estilo : <select name="data[ArticuloSearch][IdEstilo]" class="uniformselect" id="ArticuloIdEstilo" style="opacity: 0;">
 
 															</select></span></p>
-							</p><p class="stdformbutton"><button class="btn btn-primary saveBuscador">Buscar</button><button type="reset" class="btn">Limpiar Formulario</button></p></form></li></ul>
+							</p><p class="stdformbutton"><button class="btn btn-primary saveBuscador">Buscar</button></p></form></li></ul>
 
 	                </li>
 
