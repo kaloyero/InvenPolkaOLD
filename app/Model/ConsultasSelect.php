@@ -142,6 +142,13 @@ class ConsultasSelect extends AppModel {
 		$categorias=$categoria->find('list',array('fields'=>array('Categoria.id','Categoria.Nombre')));
 		return $categorias;
 	}
+	
+	function getCategoriasByIdDescripcion($id,$modelo,$columnaId) {
+		$model=new Categoria();
+		$categorias =$model->query("SELECT `IdCategoria` FROM  `".$modelo."_categorias` WHERE  `".$columnaId."` = ".$id.";");
+		return $categorias;
+	}
+
 ////////////////////////////// {FIN} CATEGORIAS //////////////////////////////
 
 /********************************************************************************\

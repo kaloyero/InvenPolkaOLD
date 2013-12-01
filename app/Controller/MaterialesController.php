@@ -19,7 +19,16 @@ class MaterialesController extends AppController {
     }
 
    public function view($id = null) {
-
+	   $consultas = new ConsultasSelect();
+        if ($this->request->is('post')) {
+						
+		} else {
+			$this->set('categorias',$consultas->getCategorias());
+			$categoriasSelected = $consultas->getCategoriasByIdDescripcion($id,"material","IdMaterial");
+			$this->set('categoriasSelected',$categoriasSelected);
+			print_r($categoriasSelected);
+		}
+		
    }
 
     public function add() {
