@@ -28,6 +28,17 @@ var Estilo = new Class({
 				}
 			});
     },
+	afterDataTable:function(){
+	  var self=this;
+	 //Ocultamos la columna ID
+	 jQuery("#configurationTable td:first-child").css('display','none');
+	
+		jQuery('.view').bind("click", function(e) {
+			 translator.viewDetail(self.type,self.getSelectedRowId(this));
+			 return false;
+		});			
+	
+	},
      checkContinue:function() {
          //limpio el formulario
         jQuery('.stdform')[0].reset();

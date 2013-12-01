@@ -20,15 +20,22 @@ class MaterialesController extends AppController {
 
    public function view($id = null) {
 	   $consultas = new ConsultasSelect();
+			print_r("ENTRA");	   
         if ($this->request->is('post')) {
-						
+			print_r($this->request->data);
+			print_r($this->request->data['checkCat']);
+			if ($this->Materiale->save($this->request->data)) {
+				$this->render('/General/Success');
+			} else {
+				$this->render('/General/Error');
+			}
 		} else {
-			$this->set('categorias',$consultas->getCategorias());
+			$this->Materiale->id = $id;
+			$this->request->data = $this->Materiale->read();
+			$this->set('categorias',$consultas->getCategoriasIdDesc());
 			$categoriasSelected = $consultas->getCategoriasByIdDescripcion($id,"material","IdMaterial");
 			$this->set('categoriasSelected',$categoriasSelected);
-			print_r($categoriasSelected);
 		}
-		
    }
 
     public function add() {

@@ -19,7 +19,20 @@ class ObjetosController extends AppController {
     }
 
    public function view($id = null) {
-
+	   $consultas = new ConsultasSelect();
+        if ($this->request->is('post')) {
+			if ($this->Objeto->save($this->request->data)) {
+				$this->render('/General/Success');
+			} else {
+				$this->render('/General/Error');
+			}
+		} else {
+			$this->Objeto->id = $id;
+			$this->request->data = $this->Objeto->read();
+			$this->set('categorias',$consultas->getCategoriasIdDesc());
+			$categoriasSelected = $consultas->getCategoriasByIdDescripcion($id,"objeto","IdObjeto");
+			$this->set('categoriasSelected',$categoriasSelected);
+		}
    }
 
     public function add() {

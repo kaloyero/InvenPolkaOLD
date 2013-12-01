@@ -1,7 +1,7 @@
 <?php
 echo '<h4 class="widgettitle nomargin shadowed">Materiales</h4>';
 echo '<div class="widgetcontent bordered shadowed nopadding">';
-echo $this->Form->create('Materiale',array('class' => 'stdform stdform2','inputDefaults' => array('div' => array('class' => 'field'))));
+echo $this->Form->create('Dimensione',array('class' => 'stdform stdform2','inputDefaults' => array('div' => array('class' => 'field'))));
 
 echo $this->Form->input('Nombre',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
 								                                <label>Nombre</label>
@@ -14,7 +14,7 @@ echo "<span class='field'>";
 foreach ($categorias as $categoria){ 
 		$check = false;
 		foreach ($categoriasSelected as $selected){ 
-			if ($selected['material_categorias']['IdCategoria'] == $categoria['categorias']['id']){
+			if ($selected['dimension_categorias']['IdCategoria'] == $categoria['categorias']['id']){
 				$check = true;
 			}
 		}
@@ -23,6 +23,8 @@ foreach ($categorias as $categoria){
 <input id="checkCat[<?php echo $categoria['categorias']['id']?>]" checked type="checkbox" class='seguir' name="checkCat" style="opacity: 0;"><?php echo $categoria['categorias']['Nombre']?><br>
 <?php 	} else { ?>
 <input id="checkCat[<?php echo $categoria['categorias']['id']?>]" type="checkbox" class='seguir' name="checkCat" style="opacity: 0;"><?php echo $categoria['categorias']['Nombre']?><br>
+
+
 <?php 	}
 } 
 echo "</span>";

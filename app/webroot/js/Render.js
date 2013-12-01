@@ -58,6 +58,17 @@ var Render = new Class({
         // Transform upload file
         jQuery('.uniform-file').uniform();
         this.bindEditEvents();
+        jQuery('.save').bind("click", function(e) {
+              //Si pasa la validacion,salvamos
+              if (self.getForm().valid()){
+                  translator.save(self.type, self.getForm());
+                  self.addLoader();
+              }
+              //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
+              return false;
+         });
+		
+		
     },
     onUpdated: function(data){
             this.removeLoader();
@@ -87,7 +98,6 @@ var Render = new Class({
           jQuery('.save').bind("click", function(e) {
               //Si pasa la validacion,salvamos
               if (self.getForm().valid()){
-
                    translator.save(self.type, self.getForm());
                     self.addLoader();
               }

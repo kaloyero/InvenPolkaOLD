@@ -57,7 +57,6 @@ var ComponentTranslator = new Class(
 					    messageRender.createMessage(data);
 					     var renderInstace = renderTranslator.getRender(objectType);
     					    renderInstace.onSaved(data);
-
 					}
 				});
 			},

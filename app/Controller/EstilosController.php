@@ -19,7 +19,20 @@ class EstilosController extends AppController {
     }
 
    public function view($id = null) {
-
+	   $consultas = new ConsultasSelect();
+        if ($this->request->is('post')) {
+			if ($this->Estilo->save($this->request->data)) {
+				$this->render('/General/Success');
+			} else {
+				$this->render('/General/Error');
+			}
+		} else {
+			$this->Estilo->id = $id;
+			$this->request->data = $this->Estilo->read();
+			$this->set('categorias',$consultas->getCategoriasIdDesc());
+			$categoriasSelected = $consultas->getCategoriasByIdDescripcion($id,"estilo","IdEstilo");
+			$this->set('categoriasSelected',$categoriasSelected);
+		}
    }
 
     public function add() {
