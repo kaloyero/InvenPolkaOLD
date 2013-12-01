@@ -19,7 +19,21 @@ class DimensionesController extends AppController {
     }
 
    public function view($id = null) {
-
+	   $consultas = new ConsultasSelect();
+        if ($this->request->is('post')) {
+			if ($this->Dimensione->save($this->request->data)) {
+				$this->render('/General/Success');
+			} else {
+				$this->render('/General/Error');
+			}
+		} else {
+			$this->Dimensione->id = $id;
+			$this->request->data = $this->Dimensione->read();
+			$this->set('categorias',$consultas->getCategoriasIdDesc());
+			$categoriasSelected = $consultas->getCategoriasByIdDescripcion($id,"dimension","IdDimension");
+			$this->set('categoriasSelected',$categoriasSelected);
+			print_r($categoriasSelected);
+		}
    }
 
     public function add() {

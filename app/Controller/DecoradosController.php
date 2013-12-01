@@ -19,7 +19,20 @@ class DecoradosController extends AppController {
     }
 
    public function view($id = null) {
-
+	   $consultas = new ConsultasSelect();
+        if ($this->request->is('post')) {
+			if ($this->Decorado->save($this->request->data)) {
+				$this->render('/General/Success');
+			} else {
+				$this->render('/General/Error');
+			}
+		} else {
+			$this->Decorado->id = $id;
+			$this->request->data = $this->Decorado->read();
+			$this->set('categorias',$consultas->getCategoriasIdDesc());
+			$categoriasSelected = $consultas->getCategoriasByIdDescripcion($id,"decorado","IdDecorado");
+			$this->set('categoriasSelected',$categoriasSelected);
+		}
    }
 
     public function add() {
