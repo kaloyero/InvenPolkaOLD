@@ -22,12 +22,14 @@ var Pedido = new Class({
      		return false;
      	})
      	jQuery('.desactiva').bind("click", function(e) {
-     	    var rowIndex=jQuery(this).index();
+     	    var rowIndex=jQuery(this).parent().parent().index();
      	    var idArticuloToRemove=jQuery(this).parent().parent().attr("id");
+     	    console.log("ID",idArticuloToRemove,rowIndex)
+     	    console.log("TAB", self.oTable)
      	    //remuevo el articulo del array de articulos seleccionados
      	    delete articuloRender.currentSelectedArticulos[idArticuloToRemove];
             //Remuevo la fila del datatable
-     	    self.oTable.fnDeleteRow(rowIndex);
+     	    self.oTable.fnDeleteRow(3);
      	});
 
 
@@ -53,7 +55,6 @@ var Pedido = new Class({
 	 afterDataTable:function() {
 		self = this;
 	    this.parent();
-
 		jQuery('.confirm').bind("click", function(e) {
 			translator.confirmarPedido(self.type,self.getSelectedRowId(this));
 			return false;

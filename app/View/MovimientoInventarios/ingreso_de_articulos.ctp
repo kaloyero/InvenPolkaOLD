@@ -17,13 +17,13 @@ echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5
 								                                <label style="float: left;">Comentarios</label>
 								                                <span class="field float">',
 																'after'=>'</span></p>','pattern' => '.*\S+.*'));
-								
+
 ?>
 <div class="input text">
 <input type="hidden" value="I" name="data[MovimientoInventario][TipoMovimiento]"/>
 </div>
 <?php
-echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depositoOriginal','type'=>'select','options'=>$depositos,'empty'=>true,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'
+echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depositoOriginal','type'=>'select','options'=>$depositos,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'
                                 <label style="float: left;">Deposito</label>
                                 <span class="field float">',
 								'after'=>'</span></p>'));
@@ -54,7 +54,7 @@ echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depos
 				<?php echo $articulo['articulos']['CodigoArticulo']; ?>
             </td>
             <td><?php echo $articulo['articulos']['Descripcion']; ?></td>
-			<td><input name="data[Detalle][<?php echo $cont ?>][Cantidad]"  class="input-medium valid" value="0" min="0" type="number" /></td>
+			<td><input name="data[Detalle][<?php echo $cont ?>][Cantidad]"  class="input-medium valid" value="1" min="1" type="number" /></td>
             <td><img style="width:250px; height:150px;border-style:solid;border-width:3px;" src="/InvenPolka/app/webroot/files/articulo/IdFoto/<?php echo $articulo['articulos']['dir']; ?>/<?php echo $articulo['articulos']['idFoto']; ?>" alt="CakePHP" ></td>
 <td><img class="desactiva" src="/InvenPolka/app/webroot/files/gif/desactivar.png"></td>
         </tr>

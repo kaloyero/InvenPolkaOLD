@@ -18,27 +18,16 @@ var MovimientoInventario = new Class({
 				translator.addMovimiento("movimientoInventario",null,"asignacionAProyectos/".self.getSelectedRowId(this));
                	return false;
           })
-		  
+
           jQuery('.fecha').datepicker({ dateFormat: 'yy-mm-dd' });
 
         },
      bindAddEvents:function() {
-         var self=this;
-          this.styleForm();
-          this.generateValidation();
-          jQuery('.fecha').datepicker({ dateFormat: 'yy-mm-dd' });
-
-          jQuery('.save').bind("click", function(e) {
-              translator.save(self.type, self.getForm());
-              self.addLoader();
-              return false;
-         });
-
+         this.parent();
          jQuery('.desactiva').bind("click", function(e) {
              jQuery(this).parent().parent().remove();
          })
-		 
-          jQuery('.fecha').datepicker({ dateFormat: 'yy-mm-dd' });
+
 
    	}
 
