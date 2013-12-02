@@ -339,7 +339,6 @@ var Articulo = new Class({
 													'<a href="#" id='+data[i]["_aData"][0][0]+' class="edit"><img style="width:20px;height:20;display:inline;float:right;margin-top:0.1cm;" src="/InvenPolka/app/webroot/files/gif/edit.jpg"></a>'+
 													' <a href="#" id="'+data[i]["_aData"][0][0]+'" class="view"><img style="width:20px;height:20;display:inline;float:right;margin-top:0.1cm;" src="/InvenPolka/app/webroot/img/view.png"></a>' +
 //
-													'<img style="width:20px;height:20px;display:inline;float:right;margin-top:0.1cm;" src="/InvenPolka/app/webroot/files/gif/desactivar.png">'+
 													'<B><c style="display:inline;float:right;margin-top:0.0cm;"> '+data[i]["_aData"][9]+' ('+ data[i]["_aData"][10]+') </c></B>'+
 													'</div>')
 //            jQuery("#configurationTable").before('<div  class="infoShow">'+data[i]["_aData"][2]+'<input type="checkbox" name="option3"/>'+data[i]["_aData"][1]+'</c>'+

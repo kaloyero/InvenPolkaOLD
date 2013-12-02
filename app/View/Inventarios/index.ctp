@@ -6,7 +6,6 @@
                         <th>Foto</th>
                         <th>Stock</th>
                         <th>Proyecto</th>
-                        <th>Acciones</th>
 		            </tr>
 	</thead>
 	<tbody>

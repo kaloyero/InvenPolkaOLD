@@ -59,7 +59,6 @@ echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depos
             <th>Cantidad solicitada</th>
             <th>Cantidad enviada</th>
             <th>Imagen</th>
-            <th>Acciones</th>
         </tr>
 	</thead>
 	<tbody>
@@ -80,7 +79,6 @@ echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depos
             <td><?php echo $articulo['det']['Cantidad']; ?></td>
 			<td><input name="data[Detalle][<?php echo $cont ?>][Cantidad]"  class="input-medium valid" value="0" min="0" max="<?php echo $cont ?>" type="number" /></td>
             <td><img style="width:250px; height:150px;border-style:solid;border-width:3px;" src="/InvenPolka/app/webroot/files/articulo/IdFoto/<?php echo $articulo['art']['dir']; ?>/<?php echo $articulo['art']['idFoto']; ?>" alt="CakePHP" ></td>
-<td><img class="desactiva" src="/InvenPolka/app/webroot/files/gif/desactivar.png"></td>
         </tr>
         <?php endforeach; ?>
 
