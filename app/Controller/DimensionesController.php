@@ -1,7 +1,7 @@
 <?php
 	App::import('Model','ConsultasPaginado');
-	App::import('Model','ConsultasSelect');	
-	App::import('Model','DimensionCategoria');		
+	App::import('Model','ConsultasSelect');
+	App::import('Model','DimensionCategoria');
 
 class DimensionesController extends AppController {
 
@@ -10,7 +10,7 @@ class DimensionesController extends AppController {
     function index() {
 		$consultas = new ConsultasSelect();
 		$this->set('categorias',$consultas->getCategorias());
-		
+
 		$this->paginate = array(
 			'order' => array('Result.created ASC'),
 		     'limit' => 10
@@ -46,10 +46,10 @@ class DimensionesController extends AppController {
 				foreach ($categorias as $categoria):
 					$insert =array ('IdDimension' => $idInserted,'IdCategoria' => $categoria,'Inactivo' => 'F');
 					if($categoriaModel->saveAll($insert)){
-						$this->render('/General/Success');			
+						$this->render('/General/Success');
 					}
 				endforeach;
-			$this->render('/General/Success');	
+			$this->render('/General/Success');
         	}
 		}
     }
@@ -57,7 +57,7 @@ class DimensionesController extends AppController {
 	function ajaxData() {
 			$consultas =new ConsultasPaginado();
 	        $this->autoRender = false;
-			$output = $consultas->getDataConfig('dimensiones','dimension','IdDimension');			
+			$output = $consultas->getDataConfig('dimensiones','dimension','IdDimension');
 	        echo json_encode($output);
 	}
 
@@ -77,7 +77,11 @@ class DimensionesController extends AppController {
 	}
 
 	function delete($id) {
-
+		if ($this->Dimensione->delete($id)){
+			$this->render('/General/Success');
+		} else {
+			$this->render('/General/Error');
+		}
 	}
 }
 ?>

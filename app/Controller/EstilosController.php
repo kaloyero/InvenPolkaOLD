@@ -1,7 +1,7 @@
 <?php
 	App::import('Model','ConsultasPaginado');
-	App::import('Model','ConsultasSelect');	
-	App::import('Model','EstiloCategoria');		
+	App::import('Model','ConsultasSelect');
+	App::import('Model','EstiloCategoria');
 
 class EstilosController extends AppController {
 
@@ -10,7 +10,7 @@ class EstilosController extends AppController {
     function index() {
 		$consultas = new ConsultasSelect();
 		$this->set('categorias',$consultas->getCategorias());
-		
+
 		$this->paginate = array(
 			'order' => array('Result.created ASC'),
 		     'limit' => 10
@@ -45,18 +45,18 @@ class EstilosController extends AppController {
 				foreach ($categorias as $categoria):
 					$insert =array ('IdEstilo' => $idInserted,'IdCategoria' => $categoria,'Inactivo' => 'F');
 					if($categoriaModel->saveAll($insert)){
-						$this->render('/General/Success');			
+						$this->render('/General/Success');
 					}
 				endforeach;
-			$this->render('/General/Success');	
+			$this->render('/General/Success');
         	}
-		}    
+		}
 	}
 
 	function ajaxData() {
 			$consultas =new ConsultasPaginado();
 	        $this->autoRender = false;
-			$output = $consultas->getDataConfig('estilos','estilo','IdEstilo');			
+			$output = $consultas->getDataConfig('estilos','estilo','IdEstilo');
 
 	        echo json_encode($output);
 	}
@@ -75,7 +75,11 @@ class EstilosController extends AppController {
 	}
 
 	function delete($id) {
-
+		if ($this->Estilo->delete($id)){
+			$this->render('/General/Success');
+		} else {
+			$this->render('/General/Error');
+		}
 	}
 }
 ?>

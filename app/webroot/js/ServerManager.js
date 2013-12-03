@@ -200,6 +200,20 @@ var ServerManager = new Class({
 				}
 		    } );
     },
+    delete: function(config){
+    	var self=this;
+    	var type = config.object;
+
+    	jQuery.ajax( {
+		      type: "POST",
+		      url: self.services[type]["controllerName"]+"/delete/"+config.id,
+		      success: function(data) {
+		    	  config.onSuccess(data);
+				}
+		    } );
+    },
+
+
     getConfiguraciones: function(config){
        	var self=this;
        	var type = config.object;

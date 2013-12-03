@@ -1,7 +1,7 @@
 <?php
 	App::import('Model','ConsultasPaginado');
-	App::import('Model','ConsultasSelect');	
-	App::import('Model','MaterialCategoria');		
+	App::import('Model','ConsultasSelect');
+	App::import('Model','MaterialCategoria');
 
 class MaterialesController extends AppController {
 
@@ -10,7 +10,7 @@ class MaterialesController extends AppController {
     function index() {
 		$consultas = new ConsultasSelect();
 		$this->set('categorias',$consultas->getCategorias());
-		
+
 		$this->paginate = array(
 			'order' => array('Result.created ASC'),
 		     'limit' => 10
@@ -20,7 +20,7 @@ class MaterialesController extends AppController {
 
    public function view($id = null) {
 	   $consultas = new ConsultasSelect();
-			print_r("ENTRA");	   
+			print_r("ENTRA");
         if ($this->request->is('post')) {
 			print_r($this->request->data);
 			print_r($this->request->data['checkCat']);
@@ -48,18 +48,18 @@ class MaterialesController extends AppController {
 				foreach ($categorias as $categoria):
 					$insert =array ('IdMaterial' => $idInserted,'IdCategoria' => $categoria,'Inactivo' => 'F');
 					if($categoriaModel->saveAll($insert)){
-						$this->render('/General/Success');			
+						$this->render('/General/Success');
 					}
 				endforeach;
-			$this->render('/General/Success');	
+			$this->render('/General/Success');
         	}
-		}    
+		}
     }
 
 	function ajaxData() {
 			$consultas =new ConsultasPaginado();
 	        $this->autoRender = false;
-			$output = $consultas->getDataConfig('materiales','material','IdMaterial');						
+			$output = $consultas->getDataConfig('materiales','material','IdMaterial');
 	        echo json_encode($output);
 	}
 
@@ -77,7 +77,11 @@ class MaterialesController extends AppController {
 	}
 
 	function delete($id) {
-
+		if ($this->Materiale->delete($id)){
+			$this->render('/General/Success');
+		} else {
+			$this->render('/General/Error');
+		}
 	}
 }
 ?>

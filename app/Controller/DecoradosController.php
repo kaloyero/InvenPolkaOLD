@@ -1,7 +1,7 @@
 <?php
 	App::import('Model','ConsultasPaginado');
-	App::import('Model','ConsultasSelect');	
-	App::import('Model','DecoradoCategoria');		
+	App::import('Model','ConsultasSelect');
+	App::import('Model','DecoradoCategoria');
 
 class DecoradosController extends AppController {
 
@@ -10,7 +10,7 @@ class DecoradosController extends AppController {
     function index() {
 		$consultas = new ConsultasSelect();
 		$this->set('categorias',$consultas->getCategorias());
-		
+
 		$this->paginate = array(
 			'order' => array('Result.created ASC'),
 		     'limit' => 10
@@ -45,10 +45,10 @@ class DecoradosController extends AppController {
 				foreach ($categorias as $categoria):
 					$insert =array ('IdDecorado' => $idInserted,'IdCategoria' => $categoria,'Inactivo' => 'F');
 					if($categoriaModel->saveAll($insert)){
-						$this->render('/General/Success');			
+						$this->render('/General/Success');
 					}
 				endforeach;
-			$this->render('/General/Success');	
+			$this->render('/General/Success');
         }
 /*
 			$nombre = $this->request->data['Decorado']['Nombre'];
@@ -56,14 +56,14 @@ class DecoradosController extends AppController {
 			foreach ($categorias as $categoria):
 				$insert =array ('Nombre' => $nombre,'IdCategoria' => $categoria,'Inactivo' => 'F');
 				if($this->Decorado->saveAll($insert)){
-					$this->render('/General/Success');			
+					$this->render('/General/Success');
 				}
 			endforeach;
-			$this->render('/General/Success');	
+			$this->render('/General/Success');
 */
         }
-		
-		
+
+
     }
 
 	function ajaxData() {
@@ -87,7 +87,11 @@ class DecoradosController extends AppController {
 	}
 
 	function delete($id) {
-
+		if ($this->Decorado->delete($id)){
+			$this->render('/General/Success');
+		} else {
+			$this->render('/General/Error');
+		}
 	}
 }
 ?>

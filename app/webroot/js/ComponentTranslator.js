@@ -60,7 +60,16 @@ var ComponentTranslator = new Class(
 					}
 				});
 			},
-			search : function(objectType,formData) {
+            delete : function(objectType,idObject) {
+                serverManager.delete({
+                    object : objectType,
+                    id : idObject,
+                    onSuccess : function(data) {
+                        messageRender.createMessageConfiguraciones(data);
+                    }
+                });
+            },
+		search : function(objectType,formData) {
 				serverManager.search({
 					object : objectType,
 					data:formData,
