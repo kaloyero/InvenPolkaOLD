@@ -209,7 +209,10 @@ var ServerManager = new Class({
 		      url: self.services[type]["controllerName"]+"/delete/"+config.id,
 		      success: function(data) {
 		    	  config.onSuccess(data);
-				}
+				},
+                error: function(data) {
+                    config.onSuccess(data);
+        	   }
 		    } );
     },
 
@@ -238,6 +241,7 @@ var ServerManager = new Class({
 		      success: function(data) {
 		    	  config.onSuccess(data);
 				}
+
 		    } );
     }
 

@@ -97,7 +97,7 @@ private function getArrayDataConfig($rows,$modelo,$columnaId) {
 	  $categoryList = $model->find('list',array('fields'=>array('Categoria.id','Categoria.Nombre')));
       $arrayDt=array();
 
-  	  $icono = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a><img class ='desactivar' style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>";
+  	  $icono = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a class ='desactivar' ><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>";
 	  $icono2 = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/za' class='view'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div></div>";
       foreach($rows as $j){
 				//id
@@ -622,7 +622,7 @@ private function getArrayData($tabla,$rows,$aColumns,$titi) {
 				}
 
 			}
-			array_push($fila, "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>");
+			array_push($fila, "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a class ='desactivar '><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>");
 			array_push($arrayDt, $fila);
       }
 	 return $arrayDt;

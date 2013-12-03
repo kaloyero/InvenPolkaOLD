@@ -37,7 +37,7 @@ var Objeto = new Class({
 			 return false;
 		});
         jQuery('.desactivar').bind("click", function(e) {
-            translator.delete(self.type,32);
+            translator.delete(self.type,self.getSelectedRowId(this));
         })
 
 	},

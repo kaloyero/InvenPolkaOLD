@@ -14,7 +14,6 @@ var Categoria = new Class({
     bindListEvents:function() {
 			var self=this;
 			this.generateValidation();
-
           	jQuery('.save').bind("click", function(e) {
           	    if (self.getForm().valid()){
           	        self.addLoader();
@@ -26,6 +25,16 @@ var Categoria = new Class({
 				}
 			});
     },
+    afterDataTable:function(){
+	  var self=this;
+        this.parent();
+
+        jQuery('.desactivar').bind("click", function(e) {
+            translator.delete(self.type,self.getSelectedRowId(this));
+        })
+
+	},
+
     checkContinue:function() {
         jQuery('.stdform')[0].reset();
          //Actualizo la tabla en la pagina en q esta
