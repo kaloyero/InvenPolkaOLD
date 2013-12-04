@@ -19,18 +19,28 @@ class MaterialesController extends AppController {
     }
 
    public function view($id = null) {
-	   $consultas = new ConsultasSelect();
-			print_r("ENTRA");
-        if ($this->request->is('post')) {
-			print_r($this->request->data);
-			print_r($this->request->data['checkCat']);
+		$consultas = new ConsultasSelect();
+		$this->Materiale->id = $id;
+		if ($this->request->is('put') || $this->request->is('post')) {
+		   	$id = $this->request->data['Materiale']['id'];
+			$categs=$consultas->getCategoriasIdDesc();	
+			$consultas->deleteModelCategoriasById($id,'material','IdMaterial');
+			$categoriaModel = new MaterialCategoria();
+			foreach ($categs as $cat){
+				$idCat =$cat['categorias']['id'];
+				if(array_key_exists ($idCat , $this->request->data["checkCat"] )){
+					if ($this->request->data["checkCat"][$idCat] == 'on'){
+						$insert =array ('IdMaterial' => $id,'IdCategoria' => $idCat,'Inactivo' => 'F');
+						$categoriaModel->saveAll($insert);
+					}
+				}
+			}
 			if ($this->Materiale->save($this->request->data)) {
 				$this->render('/General/Success');
 			} else {
 				$this->render('/General/Error');
 			}
 		} else {
-			$this->Materiale->id = $id;
 			$this->request->data = $this->Materiale->read();
 			$this->set('categorias',$consultas->getCategoriasIdDesc());
 			$categoriasSelected = $consultas->getCategoriasByIdDescripcion($id,"material","IdMaterial");

@@ -19,8 +19,22 @@ class DecoradosController extends AppController {
     }
 
    public function view($id = null) {
-	   $consultas = new ConsultasSelect();
-        if ($this->request->is('post')) {
+		$consultas = new ConsultasSelect();
+		$this->Decorado->id = $id;
+		if ($this->request->is('put') || $this->request->is('post')) {
+		   	$id = $this->request->data['Decorado']['id'];
+			$categs=$consultas->getCategoriasIdDesc();	
+			$consultas->deleteModelCategoriasById($id,'decorado','IdDecorado');
+			$categoriaModel = new DecoradoCategoria();
+			foreach ($categs as $cat){
+				$idCat =$cat['categorias']['id'];
+				if(array_key_exists ($idCat , $this->request->data["checkCat"] )){
+					if ($this->request->data["checkCat"][$idCat] == 'on'){
+						$insert =array ('IdDecorado' => $id,'IdCategoria' => $idCat,'Inactivo' => 'F');
+						$categoriaModel->saveAll($insert);
+					}
+				}
+			}
 			if ($this->Decorado->save($this->request->data)) {
 				$this->render('/General/Success');
 			} else {

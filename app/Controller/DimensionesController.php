@@ -20,7 +20,21 @@ class DimensionesController extends AppController {
 
    public function view($id = null) {
 	   $consultas = new ConsultasSelect();
-        if ($this->request->is('post')) {
+		$this->Dimensione->id = $id;
+		if ($this->request->is('put') || $this->request->is('post')) {
+		   	$id = $this->request->data['Dimensione']['id'];
+			$categs=$consultas->getCategoriasIdDesc();	
+			$consultas->deleteModelCategoriasById($id,'dimension','IdDimension');
+			$categoriaModel = new DimensionCategoria();
+			foreach ($categs as $cat){
+				$idCat =$cat['categorias']['id'];
+				if(array_key_exists ($idCat , $this->request->data["checkCat"] )){
+					if ($this->request->data["checkCat"][$idCat] == 'on'){
+						$insert =array ('IdDimension' => $id,'IdCategoria' => $idCat,'Inactivo' => 'F');
+						$categoriaModel->saveAll($insert);
+					}
+				}
+			}
 			if ($this->Dimensione->save($this->request->data)) {
 				$this->render('/General/Success');
 			} else {

@@ -62,6 +62,7 @@ var Render = new Class({
         jQuery('.save').bind("click", function(e) {
               //Si pasa la validacion,salvamos
               if (self.getForm().valid()){
+				  console.log(self.getForm());
                   translator.save(self.type, self.getForm());
                   self.addLoader();
               }
@@ -124,6 +125,15 @@ var Render = new Class({
             //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
             return false;
              });
+
+          	jQuery('.saveConfig').bind("click", function(e) {
+          	    if (self.getForm().valid()){
+					translator.viewPost(self.type, self.getForm());
+					self.addLoader();
+				}
+				return false;				
+			});
+			 
           //Agregamos los Calendar
          jQuery('.fecha').datepicker({ dateFormat: 'yy-mm-dd' });
          },

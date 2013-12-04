@@ -155,6 +155,11 @@ class ConsultasSelect extends AppModel {
 		return $categorias;
 	}
 
+	function deleteModelCategoriasById($id,$modelo,$columnaId) {
+		$model=new Categoria();
+		$categorias = $model->query("DELETE FROM  `".$modelo."_categorias` WHERE  `".$columnaId."` =".$id.";");
+	}
+
 ////////////////////////////// {FIN} CATEGORIAS //////////////////////////////
 
 /********************************************************************************\
@@ -175,6 +180,7 @@ class ConsultasSelect extends AppModel {
 		$materiales=$material->find('list',array('fields'=>array('Materiale.id','Materiale.Nombre')));
 		return $materiales;
 	}
+	
 ////////////////////////////// {FIN} MATERIALES //////////////////////////////
 
 /********************************************************************************\

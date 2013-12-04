@@ -86,6 +86,20 @@ var ServerManager = new Class({
 				}
 		    } );
     },
+	viewPost: function(config){
+    	var self=this;
+    	var type = config.object;
+    	jQuery.ajax( {
+		      type: "POST",
+		      url: self.services[type]["controllerName"]+"/view/"+config.editObject,
+		      data: config.data.serialize(),
+		      success: function(data) {
+		    	 config.onSuccess(data);
+				}
+		    } );
+    },
+
+
     update: function(config){
     	var self=this;
     	var type = config.object;

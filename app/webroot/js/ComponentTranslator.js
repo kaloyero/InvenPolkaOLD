@@ -89,7 +89,17 @@ var ComponentTranslator = new Class(
     					    messageRender.createMessage(data);
     					    var renderInstace = renderTranslator.getRender(objectType);
     					    renderInstace.onUpdated(data);
-
+						},
+    				});
+    			},
+			viewPost : function(objectType,formData) {
+    				serverManager.viewPost({
+    					object : objectType,
+    					data:formData,
+    					onSuccess : function(data) {
+    					    messageRender.createMessage(data);
+    					    var renderInstace = renderTranslator.getRender(objectType);
+    					    renderInstace.onUpdated(data);
 						},
     				});
     			},

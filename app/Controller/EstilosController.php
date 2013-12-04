@@ -20,12 +20,26 @@ class EstilosController extends AppController {
 
    public function view($id = null) {
 	   $consultas = new ConsultasSelect();
-        if ($this->request->is('post')) {
-			if ($this->Estilo->save($this->request->data)) {
+		$this->Estilo->id = $id;
+		if ($this->request->is('put') || $this->request->is('post')) {
+		   	$id = $this->request->data['Estilo']['id'];
+			$categs=$consultas->getCategoriasIdDesc();	
+			$consultas->deleteModelCategoriasById($id,'estilo','IdEstilo');
+			$categoriaModel = new EstiloCategoria();
+			foreach ($categs as $cat){
+				$idCat =$cat['categorias']['id'];
+				if(array_key_exists ($idCat , $this->request->data["checkCat"] )){
+					if ($this->request->data["checkCat"][$idCat] == 'on'){
+						$insert =array ('IdEstilo' => $id,'IdCategoria' => $idCat,'Inactivo' => 'F');
+						$categoriaModel->saveAll($insert);
+					}
+				}
+			}if ($this->Estilo->save($this->request->data)) {
 				$this->render('/General/Success');
 			} else {
 				$this->render('/General/Error');
 			}
+
 		} else {
 			$this->Estilo->id = $id;
 			$this->request->data = $this->Estilo->read();
