@@ -1,7 +1,7 @@
 <?php
 	App::import('Model','ConsultasPaginado');
-	App::import('Model','ConsultasSelect');	
-	App::import('Model','ObjetoCategoria');		
+	App::import('Model','ConsultasSelect');
+	App::import('Model','ObjetoCategoria');
 
 class ObjetosController extends AppController {
 
@@ -10,7 +10,7 @@ class ObjetosController extends AppController {
     function index() {
 		$consultas = new ConsultasSelect();
 		$this->set('categorias',$consultas->getCategorias());
-		
+
 		$this->paginate = array(
 			'order' => array('Result.created ASC'),
 		     'limit' => 10
@@ -20,14 +20,28 @@ class ObjetosController extends AppController {
 
    public function view($id = null) {
 	   $consultas = new ConsultasSelect();
-        if ($this->request->is('post')) {
+		$this->Objeto->id = $id;
+		if ($this->request->is('put') || $this->request->is('post')) {
+		   	$id = $this->request->data['Objeto']['id'];
+			$categs=$consultas->getCategoriasIdDesc();	
+			$consultas->deleteModelCategoriasById($id,'objeto','IdObjeto');
+			$categoriaModel = new ObjetoCategoria();
+			foreach ($categs as $cat){
+				$idCat =$cat['categorias']['id'];
+				if(array_key_exists ($idCat , $this->request->data["checkCat"] )){
+					if ($this->request->data["checkCat"][$idCat] == 'on'){
+						$insert =array ('IdObjeto' => $id,'IdCategoria' => $idCat,'Inactivo' => 'F');
+						$categoriaModel->saveAll($insert);
+					}
+				}
+			}		
 			if ($this->Objeto->save($this->request->data)) {
 				$this->render('/General/Success');
 			} else {
 				$this->render('/General/Error');
 			}
+
 		} else {
-			$this->Objeto->id = $id;
 			$this->request->data = $this->Objeto->read();
 			$this->set('categorias',$consultas->getCategoriasIdDesc());
 			$categoriasSelected = $consultas->getCategoriasByIdDescripcion($id,"objeto","IdObjeto");
@@ -45,19 +59,19 @@ class ObjetosController extends AppController {
 				foreach ($categorias as $categoria):
 					$insert =array ('IdObjeto' => $idInserted,'IdCategoria' => $categoria,'Inactivo' => 'F');
 					if($categoriaModel->saveAll($insert)){
-						$this->render('/General/Success');			
+						$this->render('/General/Success');
 					}
 				endforeach;
-			$this->render('/General/Success');	
+			$this->render('/General/Success');
         	}
-		}    
+		}
     }
 
 	function ajaxData() {
 			$consultas =new ConsultasPaginado();
 	        $this->autoRender = false;
 			$output = $consultas->getDataConfig('objetos','objeto','IdObjeto');
-			
+
 	        echo json_encode($output);
 	}
 
@@ -76,7 +90,11 @@ class ObjetosController extends AppController {
 	}
 
 	function delete($id) {
-
+		if ($this->Objeto->delete($id)){
+			$this->render('/General/Success');
+		} else {
+			$this->render('/General/Error');
+		}
 	}
 }
 ?>

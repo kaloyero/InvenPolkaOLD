@@ -53,7 +53,7 @@ var Render = new Class({
         this.bindAddEvents();
          },
     onView: function(data){
-		var self=this;
+        var self=this;
         this.cleanCanvas();
         jQuery(".contentinner").append(data);
         // Transform upload file
@@ -62,14 +62,15 @@ var Render = new Class({
         jQuery('.save').bind("click", function(e) {
               //Si pasa la validacion,salvamos
               if (self.getForm().valid()){
+				  console.log(self.getForm());
                   translator.save(self.type, self.getForm());
                   self.addLoader();
               }
               //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
               return false;
          });
-		
-		
+
+
     },
     onUpdated: function(data){
             this.removeLoader();

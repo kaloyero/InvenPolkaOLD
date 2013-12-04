@@ -51,7 +51,7 @@ class ConsultasPaginado extends AppModel {
 			$arrayData=$this->getArrayDataConfig($rows,$modelo,$columnaId);
 			//Obtengo la tabla
 			$output = $this->createConfigTable($arrayData,$totales["total"],$totales["tDisplay"]);
-	
+
 			return $output;
 	}
 
@@ -66,7 +66,7 @@ class ConsultasPaginado extends AppModel {
 		$sWhere = 	" WHERE  `tab`.`Inactivo` LIKE  'F' ";
 		$limit = 	'limit '.$_GET['iDisplayStart'].' ,'.$_GET['iDisplayLength'] ;
 		$orderBy = 	" order by `tab`.`Nombre`";
-		
+
 /*		$selectCategorias = "SELECT * FROM  `decorado_categorias` WHERE  `IdDecorado` = 31";
 		//Partes del query
 		$select = "SELECT `tab`.`id`,`tab`.`Nombre` ,`cat`.`IdCategoria`";
@@ -75,7 +75,7 @@ class ConsultasPaginado extends AppModel {
 		$sWhere = " WHERE  `tab`.`Inactivo` LIKE  'F' ";
 		$limit = 'limit '.$_GET['iDisplayStart'].' ,'.$_GET['iDisplayLength'] ;
 		$orderBy = " order by `tab`.`Nombre`, `cat`.`IdCategoria` ";
-*/		
+*/
 		/*BUSQUEDA*/
 		//Si el wehre viene vacio
 		if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" )
@@ -95,10 +95,10 @@ class ConsultasPaginado extends AppModel {
 private function getArrayDataConfig($rows,$modelo,$columnaId) {
 	  $model=new Categoria();
 	  $categoryList = $model->find('list',array('fields'=>array('Categoria.id','Categoria.Nombre')));
-      $arrayDt=array();	  
+      $arrayDt=array();
 
-  	  $icono = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>";
-	  $icono2 = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/za' class='view'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div></div>";	  
+  	  $icono = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a class ='desactivar' ><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>";
+	  $icono2 = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/za' class='view'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div></div>";
       foreach($rows as $j){
 				//id
 				$fila[0] = array($j['tab']['id']);
@@ -107,19 +107,19 @@ private function getArrayDataConfig($rows,$modelo,$columnaId) {
 				//Categoria
 				$categorias =$model->query("SELECT `IdCategoria` FROM  `".$modelo."_categorias` WHERE  `".$columnaId."` = ".$j['tab']['id'].";");
 				$cates = "";
-			    foreach($categorias as $c){				
+			    foreach($categorias as $c){
 					$idCat = $c[$modelo.'_categorias']['IdCategoria'];
 					$categName = $categoryList[$idCat];
 					$cates = $cates.$categName."<BR>";
 				}
-				$cates = substr_replace( $cates, "", -4 );				
+				$cates = substr_replace( $cates, "", -4 );
 				$fila[2] = $cates;
 				//Icono
 				$fila[3] = array($icono.$icono2);
-				
+
 				array_push($arrayDt, $fila);
 	  }
-	  
+
 	  return $arrayDt;
 
 }
@@ -234,7 +234,7 @@ private function getArrayDataConfig($rows,$modelo,$columnaId) {
 				$arrayData=$this->getArrayDataMovimientos($tabla,$rows,$aColumns,$query['select']);
 				//Obtengo la tabla
 				$output = $this->createConfigTable($arrayData,$totales["total"],$totales["tDisplay"]);
-		
+
 				return $output;
 		}
 
@@ -246,31 +246,31 @@ private function getArrayDataConfig($rows,$modelo,$columnaId) {
 								  	'P' =>'Asignacion de Articulo(s) a Proyecto',
 								  	'B' =>'Baja de Articulo(s)',
 								  	'T' =>'Transferencia de Articulo(s)',
-			  							);		
+			  							);
 		  //  array_push($arrayDt, array($titi));
 			  foreach($rows as $j){
 					$fila=array();
 					array_push($fila, array($j[$tabla]['id']));
 					array_push($fila, array($j[$tabla]['Numero']));
 					array_push($fila, array($j[$tabla]['Fecha']));
-					array_push($fila, array($tiposMovs[$j[$tabla]['TipoMovimiento']]));																	
+					array_push($fila, array($tiposMovs[$j[$tabla]['TipoMovimiento']]));
 					array_push($fila, array($j[$tabla]['deposito_orig']));
-//					array_push($fila, array($j[$tabla]['deposito_dest']));					
+//					array_push($fila, array($j[$tabla]['deposito_dest']));
 					array_push($fila, array($j[$tabla]['pedido']));
-					array_push($fila, array($j[$tabla]['proyecto']));																														
+					array_push($fila, array($j[$tabla]['proyecto']));
 
 /*					foreach($aColumns as $column){
 						if ($column == "TipoMovimiento" ){
-							array_push($fila, array($tiposMovs[$j[$tabla][$column]]));							
+							array_push($fila, array($tiposMovs[$j[$tabla][$column]]));
 						} else {
-							array_push($fila, array($j[$tabla][$column]));							
+							array_push($fila, array($j[$tabla][$column]));
 						}
 					}
 */
 					array_push($arrayDt, $fila);
 			  }
 			  return $arrayDt;
-		
+
 		}
 
 ////////////////////////////// {FIN} PROYECTO -> DATATABLE //////////////////////////////
@@ -352,7 +352,7 @@ private function getDataDefaultPedidoQuery($tabla,$aColumns,$aColumnsFilter,$ord
 		//Si el wehre viene vacio
 			if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" )
 			{
-				if ( $sWhere == "" ){ 
+				if ( $sWhere == "" ){
 					$sWhere = "WHERE ";
 				}
 				for ( $i=0 ; $i<count($aColumnsFilter) ; $i++ )
@@ -361,7 +361,7 @@ private function getDataDefaultPedidoQuery($tabla,$aColumns,$aColumnsFilter,$ord
 				}
 			}
 			//Borro del where los ultimos tres caracteres
-			if ( $sWhere != "" ){ 			
+			if ( $sWhere != "" ){
 				$sWhere = substr_replace( $sWhere, "", -3 );
 			}
 
@@ -620,9 +620,9 @@ private function getArrayData($tabla,$rows,$aColumns,$titi) {
 						array_push($fila, '<img src="/InvenPolka/app/webroot/files/articulo/idFoto/'.$j[$tabla]['dir'].'/small_'.$j[$tabla]['idFoto'].'" alt="CakePHP" width="200px">');
 					}
 				}
-					
+
 			}
-			array_push($fila, "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>");
+			array_push($fila, "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a class ='desactivar '><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>");
 			array_push($arrayDt, $fila);
       }
 	 return $arrayDt;

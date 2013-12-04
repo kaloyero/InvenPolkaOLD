@@ -28,22 +28,29 @@ var Material = new Class({
 			});
     },
 	afterDataTable:function(){
-	  var self=this;
-	 //Ocultamos la columna ID
-	 jQuery("#configurationTable td:first-child").css('display','none');
-	
-		jQuery('.view').bind("click", function(e) {
-			 translator.viewDetail(self.type,self.getSelectedRowId(this));
+	    var self=this;
+	    //Ocultamos la columna ID
+        jQuery("#configurationTable td:first-child").css('display','none');
+
+        jQuery('.view').bind("click", function(e) {
+            translator.viewDetail(self.type,self.getSelectedRowId(this));
 			 return false;
-		});			
-	
+		});
+        jQuery('.desactivar').bind("click", function(e) {
+            translator.delete(self.type,self.getSelectedRowId(this));
+        })
+
 	},
     checkContinue:function() {
         //limpio el formulario
         jQuery('.stdform')[0].reset();
         //Actualizo la tabla en la pagina en q esta
     	jQuery('.paginate_active').click();
-    }
+    },
+    onDeleted:function() {
+          //Actualizo la tabla en la pagina en q esta
+     	jQuery('.paginate_active').click();
+     }
 });
 
 materialRender=new Material();

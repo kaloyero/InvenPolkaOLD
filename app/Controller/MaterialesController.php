@@ -1,7 +1,7 @@
 <?php
 	App::import('Model','ConsultasPaginado');
-	App::import('Model','ConsultasSelect');	
-	App::import('Model','MaterialCategoria');		
+	App::import('Model','ConsultasSelect');
+	App::import('Model','MaterialCategoria');
 
 class MaterialesController extends AppController {
 
@@ -10,7 +10,7 @@ class MaterialesController extends AppController {
     function index() {
 		$consultas = new ConsultasSelect();
 		$this->set('categorias',$consultas->getCategorias());
-		
+
 		$this->paginate = array(
 			'order' => array('Result.created ASC'),
 		     'limit' => 10
@@ -19,21 +19,28 @@ class MaterialesController extends AppController {
     }
 
    public function view($id = null) {
-	   print_r($id);
-	   $consultas = new ConsultasSelect();
-   	   $this->Materiale->id = $id;
-			print_r("ENTRA LOCO");	   
+		$consultas = new ConsultasSelect();
+		$this->Materiale->id = $id;
 		if ($this->request->is('put') || $this->request->is('post')) {
-			print_r("alla");
-			print_r($this->request->data['checkCat']);
-			print_r($this->request->data);
+		   	$id = $this->request->data['Materiale']['id'];
+			$categs=$consultas->getCategoriasIdDesc();	
+			$consultas->deleteModelCategoriasById($id,'material','IdMaterial');
+			$categoriaModel = new MaterialCategoria();
+			foreach ($categs as $cat){
+				$idCat =$cat['categorias']['id'];
+				if(array_key_exists ($idCat , $this->request->data["checkCat"] )){
+					if ($this->request->data["checkCat"][$idCat] == 'on'){
+						$insert =array ('IdMaterial' => $id,'IdCategoria' => $idCat,'Inactivo' => 'F');
+						$categoriaModel->saveAll($insert);
+					}
+				}
+			}
 			if ($this->Materiale->save($this->request->data)) {
 				$this->render('/General/Success');
 			} else {
 				$this->render('/General/Error');
 			}
 		} else {
-			print_r("aca");
 			$this->request->data = $this->Materiale->read();
 			$this->set('categorias',$consultas->getCategoriasIdDesc());
 			$categoriasSelected = $consultas->getCategoriasByIdDescripcion($id,"material","IdMaterial");
@@ -51,18 +58,18 @@ class MaterialesController extends AppController {
 				foreach ($categorias as $categoria):
 					$insert =array ('IdMaterial' => $idInserted,'IdCategoria' => $categoria,'Inactivo' => 'F');
 					if($categoriaModel->saveAll($insert)){
-						$this->render('/General/Success');			
+						$this->render('/General/Success');
 					}
 				endforeach;
-			$this->render('/General/Success');	
+			$this->render('/General/Success');
         	}
-		}    
+		}
     }
 
 	function ajaxData() {
 			$consultas =new ConsultasPaginado();
 	        $this->autoRender = false;
-			$output = $consultas->getDataConfig('materiales','material','IdMaterial');						
+			$output = $consultas->getDataConfig('materiales','material','IdMaterial');
 	        echo json_encode($output);
 	}
 
@@ -80,7 +87,11 @@ class MaterialesController extends AppController {
 	}
 
 	function delete($id) {
-
+		if ($this->Materiale->delete($id)){
+			$this->render('/General/Success');
+		} else {
+			$this->render('/General/Error');
+		}
 	}
 }
 ?>
