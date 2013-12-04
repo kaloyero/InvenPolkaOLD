@@ -48,7 +48,11 @@ var Estilo = new Class({
         jQuery('.stdform')[0].reset();
         //Actualizo la tabla en la pagina en q esta
 		jQuery('.paginate_active').click();
-    }
+    },
+    onDeleted:function() {
+          //Actualizo la tabla en la pagina en q esta
+     	jQuery('.paginate_active').click();
+     }
 });
 
 estiloRender=new Estilo();

@@ -65,7 +65,9 @@ var ComponentTranslator = new Class(
                     object : objectType,
                     id : idObject,
                     onSuccess : function(data) {
-                        messageRender.createMessageConfiguraciones(data);
+                        messageRender.createMessageConfiguraciones(objectType,data);
+                        var renderInstace = renderTranslator.getRender(objectType);
+    					    renderInstace.onDeleted();
                     }
                 });
             },
