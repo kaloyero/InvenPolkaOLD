@@ -113,7 +113,6 @@ var Render = new Class({
      },
 
      bindEditEvents:function() {
-         console.log("ENTRa")
          var self=this;
          this.styleForm();
          this.generateValidation();
