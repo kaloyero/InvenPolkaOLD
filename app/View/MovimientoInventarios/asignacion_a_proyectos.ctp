@@ -18,38 +18,35 @@ echo $this->Form->create('MovimientoInventario',array('class' => 'stdform stdfor
     	<input class="input-medium" maxlength="100" type="text" value="<?php echo $pe['pedidos_vista']['Fecha'] ?>" required="required">
     </span>
 
-    <label style="float: left;">Comentarios</label>
-	<span class="field float">
-    	<input class="input-medium" maxlength="100" type="text" value="<?php echo $pe['pedidos_vista']['Descripcion'] ?>" required="required">
-    </span>
-</p>
-<p>
-    <label style="float: left;">Proyecto</label>
+	<label style="float: left;">Proyecto</label>
 	<span class="field float">
     	<input class="input-medium" maxlength="100" type="text" value="<?php echo $pe['pedidos_vista']['proyecto'] ?>" required="required">
     </span>
 
+</p>
+<p>
+	<label style="float: left;">Comentarios</label>
+	<span class="field float">
+    	<textarea name="data[Articulo][Descripcion]" class="span5" pattern=".*\S+.*" cols="30" rows="6"  required="required"><?php echo $pe['pedidos_vista']['Descripcion'] ?></textarea>
+    </span>
+</p>
 <input type="hidden" value="<?php echo $pe['pedidos_vista']['id'] ?>" name="data[MovimientoInventario][IdPedido]"/>
 <input type="hidden" value="<?php echo $pe['pedidos_vista']['id_proyecto'] ?>" name="data[MovimientoInventario][IdProyecto]"/>
-
+<p>
 <?php endforeach; ?>
 <?php
-echo '<label style="float: left;">Fecha Empaquetado</label><span class="field float"><input class="input-small fecha" type="text" name="data[MovimientoInventario][Fecha]" required="required" /><small><em>   yyyy / mm / dd</em></small></span></p>';
+echo '<label style="float: left;">Fecha Empaquetado</label><span class="field float"><input class="input-small fecha" type="text" name="data[MovimientoInventario][Fecha]" required="required" /><small><em>   yyyy / mm / dd</em></small></span>';
 
-echo $this->Form->input('Descripcion',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'
-                                <label style="float: left;">Comentarios</label>
-                                <span class="field float">',
-								'after'=>'</span>'));
 ?>
-</p>
+
 <input type="hidden" value="P" name="data[MovimientoInventario][TipoMovimiento]"/>
 <?php
-echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depositoOriginal','type'=>'select','options'=>$depositos,'empty'=>true,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p>
+echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depositoOriginal','type'=>'select','options'=>$depositos,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'
                                 <label style="float: left;">Deposito</label>
                                 <span class="field float">',
 								'after'=>'</span>'));
 ?>
-
+</p>
 <p><h5 style="color:#3366FF;padding-left:0.5em;">Lista de Articulos</h5></p>
 <table  id="listaArticulos" class ="table table-bordered" width="100%"  style="width: 100%;">
 	<thead>

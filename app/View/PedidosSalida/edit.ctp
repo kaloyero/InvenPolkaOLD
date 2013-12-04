@@ -4,14 +4,18 @@ echo $this->Form->create('Pedido',array('class' => 'stdform stdform2','inputDefa
 
 foreach ($Pedido as $Pe){
 ?>
-		<label>Numero Pedido</label>
-		<span class="field"><input name="Numero" value="<?php echo $Pe['pedidos_vista']['Numero'];?>" class="input-medium" readonly="readonly"  required="required"/></span>
-		<label>Fecha</label>
-		<span class="field"><input name="fecha" value="<?php echo $Pe['pedidos_vista']['Fecha'];?>" class="input-medium" readonly="readonly" maxlength="100" type="text" required="required"></span>
-		<label>Descripcion</label>
-		<span class="field"><input name="descripcion" value="<?php echo $Pe['pedidos_vista']['Descripcion'];?>" class="input-medium" readonly="readonly" maxlength="100" type="text" required="required"></span>
-		<label>Proyecto</label>
-		<span class="field"><input name="Proyecto" value="<?php echo $Pe['pedidos_vista']['proyecto'];?>" class="input-medium" readonly="readonly" type="text"  required="required"/></span>
+<p>
+		<label style="float: left;">Numero Pedido</label>
+		<span class="field float"><input name="Numero" value="<?php echo $Pe['pedidos_vista']['Numero'];?>" class="input-medium" readonly="readonly"  required="required"/></span>
+		<label style="float: left;">Fecha</label>
+		<span class="field float"><input name="fecha" value="<?php echo $Pe['pedidos_vista']['Fecha'];?>" class="input-medium" readonly="readonly" maxlength="100" type="text" required="required"></span>
+		<label style="float: left;">Descripcion</label>
+		<span class="field float"><input name="descripcion" value="<?php echo $Pe['pedidos_vista']['Descripcion'];?>" class="input-medium" readonly="readonly" maxlength="100" type="text" required="required"></span>
+		</p>
+		<p>
+		<label style="float: left;">Proyecto</label>
+		<span class="field float"><input name="Proyecto" value="<?php echo $Pe['pedidos_vista']['proyecto'];?>" class="input-medium" readonly="readonly" type="text"  required="required"/></span>
+		</p>
 
 <?php
 		if ($Pe['pedidos_vista']['estado'] == 'abierto'){
@@ -21,7 +25,7 @@ foreach ($Pedido as $Pe){
 }
 
 ?>
-LISTA DE ARTICULOS
+<p><h5 style="color:#3366FF;padding-left:0.5em;">Lista de Articulos</h5></p>
 <table  id="listaArticulos" class ="table table-bordered" width="100%"  style="width: 100%;">
 	<thead>
 					<tr>
