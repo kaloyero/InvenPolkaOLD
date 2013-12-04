@@ -35,6 +35,7 @@ class DepositosController extends AppController {
     }
 
 	function edit($id = null) {
+			print_r($id);
 		    $this->Deposito->id = $id;
 		    if ($this->request->is('get')) {
 		        $this->request->data = $this->Deposito->read();

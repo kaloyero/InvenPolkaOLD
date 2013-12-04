@@ -27,7 +27,7 @@ foreach ($categorias as $categoria){
 } 
 echo "</span>";
 
-echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</button></p>';
+echo '<p class="stdformbutton"><button class="btn btn-primary saveConfig">Guardar</button></p>';
 echo $this->Form->end();
 ?>
 

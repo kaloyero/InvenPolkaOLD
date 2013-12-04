@@ -103,15 +103,12 @@ class ArticulosController extends AppController {
 		$this->request->data['Articulo']['idFoto']= preg_replace(" /[&'#]/", "",$this->request->data['Articulo']['idFoto']);
 	}
 	function find() {
-			echo"Find";
 		$url = array('action'=>'index');
 		if($this->request->is("post")) {
-				echo"Entra";
 		      $filters = $this->request->data["ArticuloSearch"];
 		if(!empty($filters["CodigoArticulo"])){
 			$this->passedArgs["CodigoArticulo"] = $filters["CodigoArticulo"];
 		}
-			echo"entra2";
 		if(!empty($filters["IdMaterial"])){
 			$this->passedArgs["IdMaterial"] = $filters["IdMaterial"];
 		}
@@ -133,7 +130,6 @@ class ArticulosController extends AppController {
 		if(!empty($filters["IdDimension"])){
 			$this->passedArgs["IdDecorado"] = $filters["IdDecorado"];
 		}
-		echo"HOla";
 
 			//echo $this->passedArgs["test"];
  			//$this->redirect(array('action' => 'index'));

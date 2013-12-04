@@ -53,6 +53,7 @@ var Render = new Class({
         this.bindAddEvents();
          },
     onView: function(data){
+		var self=this;
         this.cleanCanvas();
         jQuery(".contentinner").append(data);
         // Transform upload file
@@ -121,6 +122,15 @@ var Render = new Class({
             //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
             return false;
              });
+
+          	jQuery('.saveConfig').bind("click", function(e) {
+          	    if (self.getForm().valid()){
+					translator.viewPost(self.type, self.getForm());
+					self.addLoader();
+				}
+				return false;				
+			});
+			 
           //Agregamos los Calendar
          jQuery('.fecha').datepicker({ dateFormat: 'yy-mm-dd' });
          },
