@@ -92,6 +92,7 @@ var Render = new Class({
           })
         },
     bindAddEvents:function() {
+
           var self=this;
           this.styleForm();
           this.generateValidation();
@@ -111,6 +112,7 @@ var Render = new Class({
      },
 
      bindEditEvents:function() {
+         console.log("ENTRa")
          var self=this;
          this.styleForm();
          this.generateValidation();

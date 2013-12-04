@@ -57,10 +57,11 @@ var Articulo = new Class({
          var self=this;
          this.styleForm();
          this.generateValidation();
-
-         jQuery('form').ajaxForm({
+         this.getForm().ajaxForm({
                     // any other options,
                  beforeSubmit: function () {
+                     console.log("JAJA")
+
                      if (self.isActualFormValid){
                          self.addLoader();
                      }else{
@@ -73,6 +74,8 @@ var Articulo = new Class({
                      messageRender.createMessage(data);
                  },
  			     error: function(data) {
+ 			         console.log("JAsJA")
+
  			         self.onSaved();
  			         messageRender.createMessage(data);
  			     }
@@ -90,8 +93,7 @@ var Articulo = new Class({
          var self=this;
          this.styleForm();
          this.generateValidation();
-
-         jQuery('form').ajaxForm({
+         this.getForm().ajaxForm({
              beforeSubmit: function () {
                  if (self.isActualFormValid){
                      self.addLoader();
@@ -105,6 +107,7 @@ var Articulo = new Class({
              },
   			error: function(data) {
   			    self.onUpdated();
+  			    console.log("Error")
   			    messageRender.createMessage(data);
   			}
         })
@@ -159,7 +162,6 @@ var Articulo = new Class({
               })
           jQuery('.saveBuscador' ).bind("click", function(e) {
               translator.search("articulo", jQuery(".formBuscador"));
-              console.log("AJA")
               return false;
           })
     },
