@@ -24,14 +24,14 @@ echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5
 
 
 echo $this->Form->input('Articulo.IdCategoria',array('type'=>'select','options'=>$categorias,'empty'=>false,'class'=>'uniformselect categoria'															,'div'=>false,'label'=>false,'before'=>'<p>
-                                <label>Descripcion</label>
+                                <label>Configuraciones</label>
                                 <span class="field categorias"> Categoria : '));
 
 echo $this->Form->input('Articulo.IdObjeto',array('type'=>'select','empty'=>false,'options'=>$objetos,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Objeto : '));
 
 echo $this->Form->input('Articulo.IdDecorado',array('type'=>'select','empty'=>false,'options'=>$decorados,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Decorado : '));
 
-echo '<BR>';
+
 
 echo $this->Form->input('Articulo.IdMaterial',array('type'=>'select','empty'=>false,'options'=>$materiales,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>' Material : '));
 

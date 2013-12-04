@@ -60,8 +60,6 @@ var Articulo = new Class({
          this.getForm().ajaxForm({
                     // any other options,
                  beforeSubmit: function () {
-                     console.log("JAJA")
-
                      if (self.isActualFormValid){
                          self.addLoader();
                      }else{
@@ -74,8 +72,6 @@ var Articulo = new Class({
                      messageRender.createMessage(data);
                  },
  			     error: function(data) {
- 			         console.log("JAsJA")
-
  			         self.onSaved();
  			         messageRender.createMessage(data);
  			     }
@@ -86,6 +82,7 @@ var Articulo = new Class({
                 self.validateGeneral();
              });
            jQuery('.categoria').bind("change", function(e) {
+                self.findInForm=jQuery(this).closest("form");
                	translator.getConfiguraciones(self.type,this.value);
              })
        },
@@ -107,11 +104,11 @@ var Articulo = new Class({
              },
   			error: function(data) {
   			    self.onUpdated();
-  			    console.log("Error")
   			    messageRender.createMessage(data);
   			}
         })
         jQuery('.categoria').bind("change", function(e) {
+            self.findInForm=jQuery(this).closest("form");
             translator.getConfiguraciones(self.type,this.value);
         })
         jQuery('.save').bind("click", function(e) {
@@ -142,7 +139,6 @@ var Articulo = new Class({
          var self=this;
          this.styleForm();
          jQuery('.categoria').bind("change", function(e) {
-                    console.log("Excutado de " ,jQuery(this).closest("form"))
                     self.findInForm=jQuery(this).closest("form");
                 	translator.getConfiguraciones(self.type,this.value);
               })
@@ -156,7 +152,6 @@ var Articulo = new Class({
      bindFinderStaticEvents:function() {
          var self=this;
          jQuery('.categoria').bind("change", function(e) {
-                    console.log("Excutado de " ,jQuery(this).closest("form"))
                     self.findInForm=jQuery(this).closest("form");
                 	translator.getConfiguraciones(self.type,this.value);
               })
@@ -196,9 +191,9 @@ var Articulo = new Class({
             this.isActualFormValid=isValid;
     },
      validateConfiguraciones:function() {
-         if( jQuery('#ArticuloIdMaterial').has('option').length == 0 || jQuery('#ArticuloIdEstilo').has('option').length  == 0 ||
-                jQuery('#ArticuloIdDimension').has('option').length  == 0 || jQuery('#ArticuloIdDecorado').has('option').length  ==
-                    0 || jQuery('#ArticuloIdObjeto').has('option').length  == 0) {
+         if(  this.getForm().find('#ArticuloIdMaterial').has('option').length == 0 || this.getForm().find('#ArticuloIdEstilo').has('option').length  == 0 ||
+                this.getForm().find('#ArticuloIdDimension').has('option').length  == 0 || this.getForm().find('#ArticuloIdDecorado').has('option').length  ==
+                    0 || this.getForm().find('#ArticuloIdObjeto').has('option').length  == 0) {
                         jQuery('.errorConfiguration').text("Complete todas las configuraciones!");
                         return false;
             }else{

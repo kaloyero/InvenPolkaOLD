@@ -59,7 +59,7 @@ var Render = new Class({
         // Transform upload file
         jQuery('.uniform-file').uniform();
         this.bindEditEvents();
-        jQuery('.save').bind("click", function(e) {
+        /*jQuery('.save').bind("click", function(e) {
               //Si pasa la validacion,salvamos
               if (self.getForm().valid()){
 				  console.log(self.getForm());
@@ -68,7 +68,7 @@ var Render = new Class({
               }
               //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
               return false;
-         });
+         });*/
 
 
     },
@@ -131,9 +131,9 @@ var Render = new Class({
 					translator.viewPost(self.type, self.getForm());
 					self.addLoader();
 				}
-				return false;				
+				return false;
 			});
-			 
+
           //Agregamos los Calendar
          jQuery('.fecha').datepicker({ dateFormat: 'yy-mm-dd' });
          },
