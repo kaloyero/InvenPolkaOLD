@@ -79,6 +79,6 @@ echo $this->Form->create('Articulo',array('type' => 'file','class' => 'stdform s
 <label style="float: left;">Imagen</label>
 <span class="field">
 
-<img src="/InvenPolka/app/webroot/files/articulo/idFoto/<?php echo $articulo['articulos_vista']['dir'] ?>/<?php echo $articulo['articulos_vista']['idFoto'] ?>" alt="CakePHP" height="500px" width="500px">
+<img src="/InvenPolka/app/webroot/files/articulo/idFoto/<?php echo $articulo['articulos_vista']['dir'] ?>/<?php echo $articulo['articulos_vista']['idFoto'] ?>" alt="CakePHP" height="800px" width="800px">
 </span>
 </div>

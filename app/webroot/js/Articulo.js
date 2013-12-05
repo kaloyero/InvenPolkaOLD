@@ -330,6 +330,7 @@ var Articulo = new Class({
     drawTableWithThumbnails:function(data){
         jQuery("tr").remove();
         jQuery(".infoShow").remove();
+
         for(i=0; i< data.length; i++) {
  			jQuery("#configurationTable").before('<div  class="infoShow">'+data[i]["_aData"][2]+
 													'<input type="checkbox" name="option3"> '+data[i]["_aData"][1]+
