@@ -23,7 +23,7 @@ class DimensionesController extends AppController {
 		$this->Dimensione->id = $id;
 		if ($this->request->is('put') || $this->request->is('post')) {
 		   	$id = $this->request->data['Dimensione']['id'];
-			$categs=$consultas->getCategoriasIdDesc();	
+			$categs=$consultas->getCategoriasIdDesc();
 			$consultas->deleteModelCategoriasById($id,'dimension','IdDimension');
 			$categoriaModel = new DimensionCategoria();
 			foreach ($categs as $cat){
@@ -92,6 +92,8 @@ class DimensionesController extends AppController {
 
 	function delete($id) {
 		if ($this->Dimensione->delete($id)){
+			$model = new DimensionCategoria();
+			$model->deleteAll(array('DimensionCategoria.IdDimension' => $id));
 			$this->render('/General/Success');
 		} else {
 			$this->render('/General/Error');

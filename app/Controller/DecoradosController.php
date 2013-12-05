@@ -23,7 +23,7 @@ class DecoradosController extends AppController {
 		$this->Decorado->id = $id;
 		if ($this->request->is('put') || $this->request->is('post')) {
 		   	$id = $this->request->data['Decorado']['id'];
-			$categs=$consultas->getCategoriasIdDesc();	
+			$categs=$consultas->getCategoriasIdDesc();
 			$consultas->deleteModelCategoriasById($id,'decorado','IdDecorado');
 			$categoriaModel = new DecoradoCategoria();
 			foreach ($categs as $cat){
@@ -102,6 +102,8 @@ class DecoradosController extends AppController {
 
 	function delete($id) {
 		if ($this->Decorado->delete($id)){
+				$model = new DecoradoCategoria();
+				$model->deleteAll(array('DecoradoCategoria.IdDecorado' => $id));
 			$this->render('/General/Success');
 		} else {
 			$this->render('/General/Error');

@@ -23,7 +23,7 @@ class MaterialesController extends AppController {
 		$this->Materiale->id = $id;
 		if ($this->request->is('put') || $this->request->is('post')) {
 		   	$id = $this->request->data['Materiale']['id'];
-			$categs=$consultas->getCategoriasIdDesc();	
+			$categs=$consultas->getCategoriasIdDesc();
 			$consultas->deleteModelCategoriasById($id,'material','IdMaterial');
 			$categoriaModel = new MaterialCategoria();
 			foreach ($categs as $cat){
@@ -88,6 +88,9 @@ class MaterialesController extends AppController {
 
 	function delete($id) {
 		if ($this->Materiale->delete($id)){
+			//Se borro el Material,ahora borramos las relaciones que habia en Material_Controller
+			$model = new MaterialCategoria();
+			$model->deleteAll(array('MaterialCategoria.IdMaterial' => $id));
 			$this->render('/General/Success');
 		} else {
 			$this->render('/General/Error');

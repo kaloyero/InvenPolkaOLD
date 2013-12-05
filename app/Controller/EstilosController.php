@@ -23,7 +23,7 @@ class EstilosController extends AppController {
 		$this->Estilo->id = $id;
 		if ($this->request->is('put') || $this->request->is('post')) {
 		   	$id = $this->request->data['Estilo']['id'];
-			$categs=$consultas->getCategoriasIdDesc();	
+			$categs=$consultas->getCategoriasIdDesc();
 			$consultas->deleteModelCategoriasById($id,'estilo','IdEstilo');
 			$categoriaModel = new EstiloCategoria();
 			foreach ($categs as $cat){
@@ -90,6 +90,8 @@ class EstilosController extends AppController {
 
 	function delete($id) {
 		if ($this->Estilo->delete($id)){
+			$model = new EstiloCategoria();
+			$model->deleteAll(array('EstiloCategoria.IdEstilo' => $id));
 			$this->render('/General/Success');
 		} else {
 			$this->render('/General/Error');

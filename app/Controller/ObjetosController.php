@@ -23,7 +23,7 @@ class ObjetosController extends AppController {
 		$this->Objeto->id = $id;
 		if ($this->request->is('put') || $this->request->is('post')) {
 		   	$id = $this->request->data['Objeto']['id'];
-			$categs=$consultas->getCategoriasIdDesc();	
+			$categs=$consultas->getCategoriasIdDesc();
 			$consultas->deleteModelCategoriasById($id,'objeto','IdObjeto');
 			$categoriaModel = new ObjetoCategoria();
 			foreach ($categs as $cat){
@@ -34,7 +34,7 @@ class ObjetosController extends AppController {
 						$categoriaModel->saveAll($insert);
 					}
 				}
-			}		
+			}
 			if ($this->Objeto->save($this->request->data)) {
 				$this->render('/General/Success');
 			} else {
@@ -91,6 +91,8 @@ class ObjetosController extends AppController {
 
 	function delete($id) {
 		if ($this->Objeto->delete($id)){
+			$model = new ObjetoCategoria();
+			$model->deleteAll(array('ObjetoCategoria.IdObjeto' => $id));
 			$this->render('/General/Success');
 		} else {
 			$this->render('/General/Error');
