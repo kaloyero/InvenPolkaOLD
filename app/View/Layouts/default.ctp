@@ -179,21 +179,9 @@
                     	<span class="iconsweets-globe iconsweets-white"></span>
                     </a>
                     <ul class="dropdown-menu">
-                    	<li class="nav-header">Notifications</li>
+                    	<li class="nav-header">Notificaciones</li>
                         <li>
-                        	<a href="">
-                        	<strong>3 people viewed your profile</strong><br>
-						<?php echo $this->Html->image('thumbs/thumb1.png', array('alt' => 'CakePHP'));?>
-						<?php echo $this->Html->image('thumbs/thumb2.png', array('alt' => 'CakePHP'));?>
-						<?php echo $this->Html->image('thumbs/thumb3.png', array('alt' => 'CakePHP'));?>
 
-                            </a>
-                        </li>
-                        <li><a href=""><span class="icon-envelope"></span> New message from <strong>Jack</strong> <small class="muted"> - 19 hours ago</small></a></li>
-                        <li><a href=""><span class="icon-envelope"></span> New message from <strong>Daniel</strong> <small class="muted"> - 2 days ago</small></a></li>
-                        <li><a href=""><span class="icon-user"></span> <strong>Bruce</strong> is now following you <small class="muted"> - 2 days ago</small></a></li>
-                        <li class="viewmore"><a href="">View More Notifications</a></li>
-                    </ul>
                 </div><!--dropdown-->
 
     			<div class="dropdown userinfo">
