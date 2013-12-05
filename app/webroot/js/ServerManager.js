@@ -23,7 +23,7 @@ var ServerManager = new Class({
         this.services['inventario']={};
         this.services['buscadorArticulo']={};
         this.services['configuracion']={};
-
+        this.services['usuario']={};
 
         this.services['articulo']["controllerName"]="articulos";
         this.services['articulo']["model"]="Articulo";
@@ -66,6 +66,8 @@ var ServerManager = new Class({
         this.services['buscadorArticulo']["controllerName"]="articulos";
         this.services['buscadorArticulo']["model"]="Inventario"
         this.services['configuracion']["controllerName"]="configuraciones";
+        this.services['usuario']["controllerName"]="usuarios";
+        this.services['usuario']["model"]="Usuario";
 
     },
 

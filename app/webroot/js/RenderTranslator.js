@@ -60,9 +60,9 @@ var RenderTranslator = new Class({
         case "estudio":
             return estudioRender;
             break;
-        case "inventario":
-            return inventarioRender;
-            break;
+		case "usuario":
+			return usuarioRender;
+			break;
 	}
  }
 

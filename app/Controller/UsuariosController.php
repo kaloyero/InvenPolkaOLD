@@ -1,28 +1,26 @@
 <?php
-App::import('Model','ConsultasPaginado');
-
-class ProyectosController extends AppController {
+App::import('Model','Deposito');
+class UsuariosController extends AppController {
 
     public $helpers = array ('Html','Form');
 
     function index() {
     }
 
-
    public function view($id = null) {
-        $this->Proyecto->id = $id;
-        $this->set('proyecto', $this->Proyecto->read());
    }
+
 	function ajaxData() {
 			$paginado =new ConsultasPaginado();
 	        $this->autoRender = false;
-			$output = $paginado->getDataProyectos();
+			$output = $paginado->getDataUsuarios();
 	        echo json_encode($output);
 	}
 
-    public function add() {
+
+   public function add() {
         if ($this->request->is('post')) {
-            if ($this->Proyecto->save($this->request->data)) {
+            if ($this->Usuario->save($this->request->data)) {
                 $this->render('/General/Success');
         	}else{
 				$this->render('/General/Error');
@@ -31,12 +29,12 @@ class ProyectosController extends AppController {
     }
 
 	function edit($id = null) {
-		$this->Proyecto->id = $id;
+		$this->Usuario->id = $id;
 		if ($this->request->is('get')) {
-			$this->request->data = $this->Proyecto->read();
+			$this->request->data = $this->Usuario->read();
 		} else {
-			if ($this->Proyecto->save($this->request->data)) {
-				$this->render('/General/Success');
+			if ($this->Inventario->save($this->request->data)) {
+                $this->render('/General/Success');
         	}else{
 				$this->render('/General/Error');
 			}
@@ -46,5 +44,6 @@ class ProyectosController extends AppController {
 	function delete($id) {
 
 	}
+
 }
 ?>

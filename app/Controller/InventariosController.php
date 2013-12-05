@@ -19,7 +19,6 @@ class InventariosController extends AppController {
     public function add() {
         if ($this->request->is('post')) {
             if ($this->Inventario->save($this->request->data)) {
-                $this->Session->setFlash('Inventario Guardado');
                 $this->redirect(array('action' => 'index'));
             }
         } else {
