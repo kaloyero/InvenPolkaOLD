@@ -25,11 +25,16 @@ var MovimientoInventario = new Class({
      bindAddEvents:function() {
          this.parent();
          jQuery('.desactiva').bind("click", function(e) {
-             jQuery(this).parent().parent().remove();
-         })
-
-
-   	}
+             //Solo se borra si la lista tiene mas de 1 elemento para que no quede vacia
+             if (jQuery(".desactiva").length >1) {
+                 jQuery(this).parent().parent().remove();
+             }else{
+                 jQuery.jGrowl("No puede quedar el listado vacio", {
+    				theme : 'error'
+             })
+         }
+   	})
+    }
 
 });
 

@@ -141,7 +141,6 @@ var ComponentTranslator = new Class(
 					object : objectType,
 					id : idObject,
 					onSuccess : function(data) {
-					    console.log("PASA")
 					     var renderInstace = renderTranslator.getRender(objectType);
     					    renderInstace.onSaved(data);
 					    jQuery.jGrowl("Pedido Confirmado.", {
