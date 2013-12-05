@@ -10,24 +10,24 @@ echo $this->Form->create('MovimientoInventario',array('class' => 'stdform stdfor
 <p>
     <label style="float: left;">Numero de Pedido</label>
 	<span class="field float">
-    	<input class="input-medium" maxlength="100" type="text" value="<?php echo $pe['pedidos_vista']['Numero'] ?>" required="required">
+    	<input  readonly="readonly" class="input-medium" maxlength="100" type="text" value="<?php echo $pe['pedidos_vista']['Numero'] ?>" required="required">
     </span>
 
     <label style="float: left;">Fecha de Emisión</label>
 	<span class="field float">
-    	<input class="input-medium" maxlength="100" type="text" value="<?php echo $pe['pedidos_vista']['Fecha'] ?>" required="required">
+    	<input readonly="readonly" class="input-medium" maxlength="100" type="text" value="<?php echo $pe['pedidos_vista']['Fecha'] ?>" required="required">
     </span>
 
 	<label style="float: left;">Proyecto</label>
 	<span class="field float">
-    	<input class="input-medium" maxlength="100" type="text" value="<?php echo $pe['pedidos_vista']['proyecto'] ?>" required="required">
+    	<input  readonly="readonly" class="input-medium" maxlength="100" type="text" value="<?php echo $pe['pedidos_vista']['proyecto'] ?>" required="required">
     </span>
 
 </p>
 <p>
 	<label style="float: left;">Comentarios</label>
 	<span class="field float">
-    	<textarea name="data[Articulo][Descripcion]" class="span5" pattern=".*\S+.*" cols="30" rows="6"  required="required"><?php echo $pe['pedidos_vista']['Descripcion'] ?></textarea>
+    	<textarea  readonly="readonly" name="data[Articulo][Descripcion]" class="span5" pattern=".*\S+.*" cols="30" rows="6"  required="required"><?php echo $pe['pedidos_vista']['Descripcion'] ?></textarea>
     </span>
 </p>
 <input type="hidden" value="<?php echo $pe['pedidos_vista']['id'] ?>" name="data[MovimientoInventario][IdPedido]"/>

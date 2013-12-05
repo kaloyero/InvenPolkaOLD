@@ -8,7 +8,7 @@ echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5
 								                                <label style="float: left;">Comentarios</label>
 								                                <span class="field float">',
 																'after'=>'</span></p>','pattern' => '.*\S+.*'));
-																
+
 //echo $this->Form->input('Fecha',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
 //								                                <label>Fecha</label>
 
@@ -45,7 +45,7 @@ echo $this->Form->input('Pedido.IdProyecto',array('type'=>'select','options'=>$p
 				<?php echo $articulo['articulos']['CodigoArticulo']; ?>
             </td>
             <td><?php echo $articulo['articulos']['Descripcion']; ?></td>
-			<td><input name="data[Detalle][<?php echo $cont ?>][Cantidad]"  class="input-medium valid" value="0" min="0" type="number" /></td>
+			<td><input name="data[Detalle][<?php echo $cont ?>][Cantidad]"  class="input-medium valid" value="1" min="1" type="number" /></td>
             <td><img style="width:250px; height:150px;border-style:solid;border-width:3px;" src="/InvenPolka/app/webroot/files/articulo/IdFoto/<?php echo $articulo['articulos']['dir']; ?>/<?php echo $articulo['articulos']['idFoto']; ?>" alt="CakePHP" ></td>
 <td><img class="desactiva" src="/InvenPolka/app/webroot/files/gif/desactivar.png"></td>
         </tr>

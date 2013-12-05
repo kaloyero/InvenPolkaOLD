@@ -22,11 +22,18 @@ var Pedido = new Class({
      		return false;
      	})
      	jQuery('.desactiva').bind("click", function(e) {
-     	    var idArticuloToRemove=self.getSelectedRow().attr("id");
-     	    //remuevo el articulo del array de articulos seleccionados
-     	    delete articuloRender.currentSelectedArticulos[idArticuloToRemove];
-            //Remuevo la fila del datatable
-     	    self.oTable.fnDeleteRow(self.getSelectedRow()[0]);
+     	       if (jQuery(".desactiva").length >1) {
+                      var idArticuloToRemove=self.getSelectedRow(this).attr("id");
+                 	    //remuevo el articulo del array de articulos seleccionados
+                 	    delete articuloRender.currentSelectedArticulos[idArticuloToRemove];
+                        //Remuevo la fila del datatable
+                 	    self.oTable.fnDeleteRow(self.getSelectedRow(this)[0]);
+                 }else{
+                     jQuery.jGrowl("No puede quedar el listado vacio", {
+        				theme : 'error'
+                 })
+             }
+
      	});
 
 
