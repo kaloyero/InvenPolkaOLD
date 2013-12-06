@@ -32,10 +32,16 @@ echo $this->Form->create('MovimientoInventario',array('class' => 'stdform stdfor
 </p>
 <input type="hidden" value="<?php echo $pe['pedidos_vista']['id'] ?>" name="data[MovimientoInventario][IdPedido]"/>
 <input type="hidden" value="<?php echo $pe['pedidos_vista']['id_proyecto'] ?>" name="data[MovimientoInventario][IdProyecto]"/>
-<p>
+<p
+<p><h5 style="color:#3366FF;padding-left:0.5em;">Datos del Despacho</h5></p>
 <?php endforeach; ?>
 <?php
-echo '<label style="float: left;">Fecha Empaquetado</label><span class="field float"><input class="input-small fecha" type="text" name="data[MovimientoInventario][Fecha]" required="required" /><small><em>   yyyy / mm / dd</em></small></span>';
+echo '<label style="float: left;">Fecha Empaquetado</label><span class="field float"><input readonly="readonly" id ="fechaDespacho" class="input-small fecha" type="text" name="data[MovimientoInventario][Fecha]" required="required" /><small><em>   yyyy / mm / dd</em></small></span>';
+
+echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5','div'=>false,'label'=>false,'before'=>'<p>
+                                <label style="float: left;">Comentarios</label>
+                                <span class="field float">',
+                                                                'after'=>'</span>'));
 
 ?>
 

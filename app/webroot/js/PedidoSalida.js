@@ -34,7 +34,6 @@ var PedidoSalida = new Class({
      	jQuery('input[type=number]').bind("change", function(e) {
             articuloRender.currentSelectedArticulos[self.getIdFromSelectedNumberType(this)]=jQuery(this).val();
      	})
-
      },
      getIdFromSelectedNumberType: function(selectedNumberType){
             return jQuery(selectedNumberType).parent().parent().find(":first" ).find("input").val()
