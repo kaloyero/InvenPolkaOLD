@@ -153,6 +153,7 @@ var Articulo = new Class({
          var self=this;
          jQuery('.categoria').bind("change", function(e) {
                     self.findInForm=jQuery(this).closest("form");
+                    console.log("Form", self.findInForm)
                 	translator.getConfiguraciones(self.type,this.value);
               })
           jQuery('.saveBuscador' ).bind("click", function(e) {
@@ -226,7 +227,7 @@ var Articulo = new Class({
         //FindInFOrm,guarda referencia para saber en que formulario ponemos la informacion,o en el de busqueda o en el de articuloss
         //Removemos lo que habia antes
         this.findInForm.find('#ArticuloIdDecorado').find('option').remove()
-        this.findInForm.find("#ArticuloIdDecorado").prev().empty();
+        this.findInForm.find("#ArticuloIdDecorado").prev("span").empty();
 
         jQuery.each(data.decorados, function (index, value) {
             self.findInForm.find("#ArticuloIdDecorado").append('<option value="'+value["decorado"]["id"]+'">'+value["decorado"]["Nombre"]+'</option>');
@@ -234,11 +235,11 @@ var Articulo = new Class({
         //Si el combo no esta vacio,tengo que escribir en el span que se encuentra arriba el nombre al menos del primer seleccionado(El disenio template,pide eso)
         if( this.findInForm.find('#ArticuloIdDecorado').has('option').length > 0 ) {
             var primerOpcionValor=this.findInForm.find('#ArticuloIdDecorado option:first-child').text();
-            self.findInForm.find("#ArticuloIdDecorado").prev().text(primerOpcionValor);
+            self.findInForm.find("#ArticuloIdDecorado").prev("span").text(primerOpcionValor);
         }
         //Removemos lo que habia antes
         this.findInForm.find('#ArticuloIdMaterial').find('option').remove()
-        this.findInForm.find("#ArticuloIdMaterial").prev().empty();
+        this.findInForm.find("#ArticuloIdMaterial").prev("span").empty();
 
         jQuery.each(data.materiales, function (index, value) {
             self.findInForm.find("#ArticuloIdMaterial").append('<option value="'+value["material"]["id"]+'">'+value["material"]["Nombre"]+'</option>');
@@ -247,12 +248,12 @@ var Articulo = new Class({
          //Si el combo no esta vacio,tengo que escribir en el span que se encuentra arriba el nombre al menos del primer seleccionado(El disenio template,pide eso)
          if( this.findInForm.find('#ArticuloIdMaterial').has('option').length > 0 ) {
              var primerOpcionValor=this.findInForm.find('#ArticuloIdMaterial option:first-child').text();
-             this.findInForm.find("#ArticuloIdMaterial").prev().text(primerOpcionValor);
+             this.findInForm.find("#ArticuloIdMaterial").prev("span").text(primerOpcionValor);
          }
 
          //Removemos lo que habia antes
         this.findInForm.find('#ArticuloIdDimension').find('option').remove()
-        this.findInForm.find("#ArticuloIdDimension").prev().empty();
+        this.findInForm.find("#ArticuloIdDimension").prev("span").empty();
 
 
         jQuery.each(data.dimensiones, function (index, value) {
@@ -261,12 +262,12 @@ var Articulo = new Class({
         //Si el combo no esta vacio,tengo que escribir en el span que se encuentra arriba el nombre al menos del primer seleccionado(El disenio template,pide eso)
          if( this.findInForm.find('#ArticuloIdDimension').has('option').length > 0 ) {
              var primerOpcionValor=this.findInForm.find('#ArticuloIdDimension option:first-child').text();
-             this.findInForm.find("#ArticuloIdDimension").prev().text(primerOpcionValor);
+             this.findInForm.find("#ArticuloIdDimension").prev("span").text(primerOpcionValor);
          }
 
          //Removemos lo que habia antes
         this.findInForm.find('#ArticuloIdObjeto').find('option').remove()
-        this.findInForm.find('#ArticuloIdObjeto').prev().empty();
+        this.findInForm.find('#ArticuloIdObjeto').prev("span").empty();
 
 
         jQuery.each(data.objetos, function (index, value) {
@@ -275,12 +276,13 @@ var Articulo = new Class({
         //Si el combo no esta vacio,tengo que escribir en el span que se encuentra arriba el nombre al menos del primer seleccionado(El disenio template,pide eso)
          if( this.findInForm.find('#ArticuloIdObjeto').has('option').length > 0 ) {
              var primerOpcionValor=this.findInForm.find('#ArticuloIdObjeto option:first-child').text();
-             self.findInForm.find('#ArticuloIdObjeto').prev().text(primerOpcionValor);
+             console.log("SPAN",self.findInForm.find('#ArticuloIdObjeto').prev("span"))
+             self.findInForm.find('#ArticuloIdObjeto').prev("span").text(primerOpcionValor);
          }
 
          //Removemos lo que habia antes
         this.findInForm.find('#ArticuloIdEstilo').find('option').remove()
-        this.findInForm.find("#ArticuloIdEstilo").prev().empty();
+        this.findInForm.find("#ArticuloIdEstilo").prev("span").empty();
 
 
         jQuery.each(data.estilos, function (index, value) {
@@ -289,7 +291,7 @@ var Articulo = new Class({
         //Si el combo no esta vacio,tengo que escribir en el span que se encuentra arriba el nombre al menos del primer seleccionado(El disenio template,pide eso)
          if( this.findInForm.find('#ArticuloIdEstilo').has('option').length > 0 ) {
              var primerOpcionValor=this.findInForm.find('#ArticuloIdEstilo option:first-child').text();
-             self.findInForm.find("#ArticuloIdEstilo").prev().text(primerOpcionValor);
+             self.findInForm.find("#ArticuloIdEstilo").prev("span").text(primerOpcionValor);
          }
          //Llamo al validar,para que de ultima,me limpie el mensajito de error
          this.validateConfiguraciones();

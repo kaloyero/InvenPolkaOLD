@@ -134,31 +134,49 @@
                         <li><a id="estilo" class="option">Estilos</a></li>
                     </ul>
                 </li>
-				 <li class="dropdown animate13 fadeInUp"><a class="buscador" href=""><span class="icon-pencil"></span> Buscador</a>
-	                	<ul>
-	                    	<li style="padding-left: 1px;background:white"><form action="/InvenPolka/articulos/find" class=" formBuscador" id="ArticuloSearchFindForm" enctype="multipart/form-data" method="post" accept-charset="utf-8"><div style="display:none;"><input type="hidden" name="_method" value="POST"></div><div class="field" style="padding-left: 33px;"><label for="ArticuloSearchCodigoArticulo">Codigo Articulo</label><input name="data[ArticuloSearch][CodigoArticulo]" type="text" id="ArticuloSearchCodigoArticulo"></div><p>
-	<?php	echo $this->Form->input('ArticuloSearch.IdCategoria',array('type'=>'select','options'=>$categorias,'empty'=>true,'class'=>'uniformselect categoria'																								,'div'=>false,'label'=>false,'before'=>'<p><span class="field" style="padding-left: 33px;""> Categoria : '));?><p>
-								<span class="field" style="padding-left: 33px;">Objeto : <select name="data[ArticuloSearch][IdObjeto]" class="uniformselect" id="ArticuloIdObjeto" style="opacity: 0;">
-
-															</select></span><p></p>
-															<p>	<span class="field" style="padding-left: 33px;">Decorado : <select name="data[ArticuloSearch][IdDecorado]" class="uniformselect" id="ArticuloIdDecorado" style="opacity: 0;">
-
-															</select></span></p>
-														<p><span class="field" style="padding-left: 33px;">	Material : <span></span><select name="data[ArticuloSearch][IdMaterial]" class="uniformselect" id="ArticuloIdMaterial" style="opacity: 0;">
-
-															</select></span></p>
-														<p><span class="field" style="padding-left: 33px;">	Dimension : <span></span><select name="data[ArticuloSearch][IdDimension]" class="uniformselect" id="ArticuloIdDimension" style="opacity: 0;">
-
-															</select></span></p>
-														<p><span class="field" style="padding-left: 33px;">	 Estilo : <select name="data[ArticuloSearch][IdEstilo]" class="uniformselect" id="ArticuloIdEstilo" style="opacity: 0;">
-
-															</select></span></p>
-							</p><p class="stdformbutton"><button class="btn btn-primary saveBuscador">Buscar</button></p></form></li></ul>
-
-	                </li>
 
 
+					<li class="dropdown animate7 fadeInUp">
+					                    <a href="#">
+					                      <span class="icon-search"></span>Buscador
+					                    </a>
+					                    <ul style="display: block;">
+					                      <li>
+											<form action="/InvenPolka/articulos/find" class=" formBuscador" id="ArticuloSearchFindForm" enctype="multipart/form-data" method="post" accept-charset="utf-8"><div style="display:none;"><input type="hidden" name="_method" value="POST"></div><div class="field" style="margin:5px 5px 5px 20px;"><label for="ArticuloSearchCodigoArticulo">Codigo Articulo</label><input name="data[ArticuloSearch][CodigoArticulo]" type="text" id="ArticuloSearchCodigoArticulo"></div><p>
+<div class="field" style="margin:5px 5px 5px 20px;">
+<label for="ArticuloSearchIdCategoria">Categoria</label>
+						<?php	echo $this->Form->input('ArticuloSearch.IdCategoria',array('type'=>'select','options'=>$categorias,'empty'=>true,'div'=>false,'label'=>false,'class'=>'categoria'																								));?>
+						</div>
+						<div class="field" style="margin:5px 5px 5px 20px;">
+						<label for="ArticuloIdObjeto">Objeto</label>
+					                        <select name="data[ArticuloSearch][IdObjeto]" id="ArticuloIdObjeto" >
 
+					                        </select>
+					</div>						<div class="field" style="margin:5px 5px 5px 20px;">
+											<label for="ArticuloIdDecorado">Decorado</label>
+					                        <select name="data[ArticuloSearch][IdDecorado]" id="ArticuloIdDecorado">
+
+					                        </select></div>
+											<div class="field" style="margin:5px 5px 5px 20px;">
+											<label for="ArticuloIdMaterial">Material</label>
+					                        <select name="data[ArticuloSearch][IdMaterial]" id="ArticuloIdMaterial">
+
+					                        </select></div>
+											<div class="field" style="margin:5px 5px 5px 20px;">
+											<label for="ArticuloIdDimension">Dimension</label>
+					                        <select name="data[ArticuloSearch][IdDimension]" id="ArticuloIdDimension" >
+
+					                        </select></div>
+												<div class="field" style="margin:5px 5px 5px 20px;">
+												<label for="ArticuloIdEstilo">Estilo</label>
+					                        <select name="data[ArticuloSearch][IdEstilo]" id="ArticuloIdEstilo" >
+
+					                        </select></div>
+
+					                        <button class="btn btn-primary btn-block saveBuscador">Buscar</button></form>
+					                      </li>
+					                    </ul>
+					                  </li>
 
 
 
