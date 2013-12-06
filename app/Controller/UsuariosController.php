@@ -1,5 +1,7 @@
 <?php
-App::import('Model','Deposito');
+	App::import('Model','ConsultasPaginado');	
+	App::import('Model','ConsultasSelect');
+
 class UsuariosController extends AppController {
 
     public $helpers = array ('Html','Form');
@@ -25,7 +27,10 @@ class UsuariosController extends AppController {
         	}else{
 				$this->render('/General/Error');
 			}
-        }
+        } else {
+			$consultas =new ConsultasSelect();
+			$this->set('rolesList' , $consultas->getRolesUsuarios());		
+		}
     }
 
 	function edit($id = null) {

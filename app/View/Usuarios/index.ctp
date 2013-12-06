@@ -6,10 +6,13 @@
         <thead>
                 <tr>
                 <th style="display:none;">Id</th>
- 				<th>Nombre</th>
-				<th>Director</th>
+ 				<th>Usuario</th>
+				<th>Nombre</th>
+				<th>Legajo</th>
+				<th>Mail</th>
+				<th>Tipo Usuario</th>
+				<th>Estado</th>
 				<th>Acciones</th>
-
 		</tr>
         </thead>
         <tbody>
