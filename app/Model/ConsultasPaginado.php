@@ -6,7 +6,9 @@
 	App::import('Model','Deposito');
 	App::import('Model','Inventario');
 	App::import('Model','Pedido');
+	App::import('Model','Usuario');	
 	App::import('Model','MovimientoInventario');
+	App::import('Model','ConsultasSelect');
 
 class ConsultasPaginado extends AppModel {
 	public $name = 'ConsultasPaginado';
@@ -529,7 +531,8 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumnsFilter,$order
 			$fila=array();
         	array_push($fila, array($j[$tabla]['id']));
 	        array_push($fila, array($j[$tabla]['CodigoArticulo']));
-			array_push($fila, '<img style="width:150px; height:150px;border-style:solid;border-width:3px;" src="/InvenPolka/app/webroot/files/articulo/idFoto/'.$j[$tabla]['dir'].'/small_'.$j[$tabla]['idFoto'].'" alt="CakePHP" >');
+			
+			array_push($fila, $this->getImageSmall($j[$tabla]['dir'],$j[$tabla]['idFoto']));
 //	        array_push($fila, array($titi));
 			array_push($fila, array($j[$tabla]['categoria']));
 			array_push($fila, array($j[$tabla]['objeto']));
@@ -548,6 +551,88 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumnsFilter,$order
 
 
 ////////////////////////////// {FIN} ARTICULOS -> DATATABLE //////////////////////////////
+
+
+/********************************************************************************\
+**********************************************************************************
+****************************** {INICIO} USUARIOS -> DATATABLE *********************
+**********************************************************************************
+\********************************************************************************/
+
+
+	/* Este metodo crearía la tabla para aquellas tablas que muestren datos solamente de una tabla */
+	public function getDataUsuarios() {
+			$model=new Usuario();
+			//Consigue el query que se va ejecutar
+			$query=$this->getDataUsuarioQuery();
+			//Ejecuta el query, obtengo las filas
+			$rows =$model->query("".$query['select'].";");
+			//Obtengo los totales
+			$totales = $this->getTotales($model,$query);
+			//Proceso los campos para llenar la tabla
+			$arrayData=$this->getArrayUsuariosConfig($rows);
+			//Obtengo la tabla
+			$output = $this->createConfigTable($arrayData,$totales["total"],$totales["tDisplay"]);
+
+			return $output;
+	}
+
+	/* Este metodo crea el query que se va ejecutar para obtener la lista de usuarios
+		Devuelve 	query['select'] -> Sentencia select
+					query['where']  -> Sentencia where
+	*/
+	private function getDataUsuarioQuery() {
+
+		$select = 	"SELECT * ";
+		$from = 	" FROM `Usuarios` `tab` ";
+		$sWhere = 	"";
+		$limit = 	' limit '.$_GET['iDisplayStart'].' ,'.$_GET['iDisplayLength'] ;
+		$orderBy = 	" order by `tab`.`Apellido`,`tab`.`Nombre`";
+
+		/*BUSQUEDA*/
+		//Si el wehre viene vacio
+		if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" )
+		{
+			$sWhere .= " WHERE `tab`.`Nombre` LIKE '%".( $_GET['sSearch'] )."%'";
+		}
+
+		$query['select'] = $select.$from.$sWhere.$orderBy.$limit;
+		$query['selectWOL'] = $select.$from.$sWhere;
+		$query['from'] =  $from;
+		$query['where'] = $sWhere;
+
+		return $query;
+
+	}
+
+private function getArrayUsuariosConfig($rows) {
+	  $consultas = new ConsultasSelect();
+	  $rolesList = $consultas->getRolesUsuarios();
+	  $estadosList = array('F'=>'Activo','T'=>'Inactivo','S'=>'Eliminado');	  
+      $arrayDt=array();
+
+  	  $icono = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a class ='desactivar' ><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>";
+	  $icono2 = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/za' class='view'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div></div>";
+      foreach($rows as $j){
+				$fila[0] = array($j['tab']['id']);
+				$fila[1] = array($j['tab']['UsuarioNombre']);
+				$fila[2] = array($j['tab']['Apellido'].", ".$j['tab']['Nombre']);
+				$fila[3] = array($j['tab']['Legajo']);
+				$fila[4] = array($j['tab']['Email']);
+				$fila[5] = array($rolesList[$j['tab']['TipoRol']]);
+				$fila[6] = array($estadosList[$j['tab']['Inactivo']]);
+				//Icono
+				$fila[7] = array($icono.$icono2);
+
+				array_push($arrayDt, $fila);
+	  }
+
+	  return $arrayDt;
+
+}
+
+////////////////////////////// {FIN} USUARIOS -> DATATABLE //////////////////////////////
+
 
 
 /********************************************************************************\
@@ -617,7 +702,7 @@ private function getArrayData($tabla,$rows,$aColumns,$titi) {
 				} else {
 					//Si es foto
 					if ($column == "idFoto"){
-						array_push($fila, '<img src="/InvenPolka/app/webroot/files/articulo/idFoto/'.$j[$tabla]['dir'].'/small_'.$j[$tabla]['idFoto'].'" alt="CakePHP" width="200px">');
+						array_push($fila, $this->getImageSmall($j[$tabla]['dir'],$j[$tabla]['idFoto']));
 					}
 				}
 
@@ -641,7 +726,7 @@ private function getArrayDataWithEditLink($tabla,$rows,$aColumns,$titi) {
 				} else {
 					//Si es foto
 					if ($column == "idFoto"){
-						array_push($fila, '<img src="/InvenPolka/app/webroot/files/articulo/idFoto/'.$j[$tabla]['dir'].'/small_'.$j[$tabla]['idFoto'].'" alt="CakePHP" width="200px">');
+						array_push($fila, $this->getImageSmall($j[$tabla]['dir'],$j[$tabla]['idFoto']));
 					}
 				}
 			}
@@ -725,6 +810,11 @@ private function getDataDefaultQuery($tabla,$aColumns,$aColumnsFilter,$orderByfi
 		return $query;
 
 }
+
+
+	function getImageSmall($dir,$idFoto) {	
+		return '<img style="width:150px; height:150px;border-style:solid;border-width:3px;" src="/InvenPolka/app/webroot/files/articulo/idFoto/'.$dir.'/small_'.$idFoto.'" alt="CakePHP" >';
+	}
 
 }
 ?>

@@ -21,6 +21,7 @@
 	echo $this->Html->script('Proyecto');
 
 	echo $this->Html->script('Categoria');
+	echo $this->Html->script('Usuario');
 	echo $this->Html->script('Material');
 	echo $this->Html->script('Estilo');
 	echo $this->Html->script('Objeto');
@@ -106,7 +107,7 @@
             <ul class="nav nav-tabs nav-stacked">
             	<li class="nav-header animate4 fadeInUp">Navegacion</li>
                 <li class="active animate5 fadeInUp"><a href="/invenPolka"><span class="icon-align-justify"></span> Inicio</a></li>
-                <li class="active  animate8 fadeInUp"><a id="articulo" class="option"><span class="icon-th-list"></span> Articulos</a>
+                <li class="active  animate8 fadeInUp"><a id="articulo" class="option"><span class="icon-th-list"></span> Articulos</a></li>
 	            <li class="active  animate8 fadeInUp"><a id="articulo" class="search"><span class="icon-th-list"></span> Buscador Articulos</a>
 
                 	<ul>
@@ -114,13 +115,14 @@
                     </ul>
 
                 </li>
-				<li class="active  animate8 fadeInUp"><a id="proyecto" class="option"><span class="icon-th-list"></span> Proyectos</a>
-				<li class="active  animate8 fadeInUp"><a id="deposito" class="option"><span class="icon-th-list"></span> Deposito</a>
-				<li class="active  animate8 fadeInUp"><a id="inventario" class="option"><span class="icon-th-list"></span>Inventario</a>
-				<li class="active  animate8 fadeInUp"><a id="pedido" class="option"><span class="icon-th-list"></span>Pedidos - Entrada</a>
-				<li class="active  animate8 fadeInUp"><a id="pedidoSalida" class="option"><span class="icon-th-list"></span>Pedidos - Salida</a>
-				<li class="active  animate8 fadeInUp"><a id="pedidoHisto" class="option"><span class="icon-th-list"></span>Pedidos - Historico</a>
-				<li class="active  animate8 fadeInUp"><a id="movimientoInventario" class="option"><span class="icon-th-list"></span>Movimientos</a>
+				<li class="active  animate8 fadeInUp"><a id="proyecto" class="option"><span class="icon-th-list"></span> Proyectos</a></li>
+				<li class="active  animate8 fadeInUp"><a id="deposito" class="option"><span class="icon-th-list"></span> Deposito</a></li>
+				<li class="active  animate8 fadeInUp"><a id="inventario" class="option"><span class="icon-th-list"></span>Inventario</a></li>
+				<li class="active  animate8 fadeInUp"><a id="pedido" class="option"><span class="icon-th-list"></span>Pedidos - Entrada</a></li>
+				<li class="active  animate8 fadeInUp"><a id="pedidoSalida" class="option"><span class="icon-th-list"></span>Pedidos - Salida</a></li>
+				<li class="active  animate8 fadeInUp"><a id="pedidoHisto" class="option"><span class="icon-th-list"></span>Pedidos - Historico</a></li>
+				<li class="active  animate8 fadeInUp"><a id="movimientoInventario" class="option"><span class="icon-th-list"></span>Movimientos</a></li>
+				<li class="active  animate8 fadeInUp"><a id="usuario" class="option"><span class="icon-th-list"></span>Usuarios</a></li>
 
                 <li class="dropdown animate13 fadeInUp"><a href=""><span class="icon-pencil"></span> Configuraciones</a>
                 	<ul>

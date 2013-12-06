@@ -75,6 +75,7 @@ var Pedido = new Class({
         var self=this;
 //		jQuery('#listaArticulos').dataTable();
           this.oTable=   jQuery('#listaArticulos').dataTable({
+						   "bFilter": false,
                            "bPaginate": true,
                            "sPaginationType": "full_numbers",
                            "oLanguage": {
