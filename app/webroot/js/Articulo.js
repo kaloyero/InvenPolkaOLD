@@ -229,6 +229,10 @@ var Articulo = new Class({
         this.findInForm.find('#ArticuloIdDecorado').find('option').remove()
         this.findInForm.find("#ArticuloIdDecorado").prev("span").empty();
 
+        //Si estamos en el form del buscador,agregamos una opcion vacia a cada uno
+        if (self.findInForm.attr('id')=="ArticuloSearchFindForm"){
+            self.findInForm.find("#ArticuloIdDecorado").append('<option value=""></option>');
+        }
         jQuery.each(data.decorados, function (index, value) {
             self.findInForm.find("#ArticuloIdDecorado").append('<option value="'+value["decorado"]["id"]+'">'+value["decorado"]["Nombre"]+'</option>');
         });
@@ -240,6 +244,11 @@ var Articulo = new Class({
         //Removemos lo que habia antes
         this.findInForm.find('#ArticuloIdMaterial').find('option').remove()
         this.findInForm.find("#ArticuloIdMaterial").prev("span").empty();
+
+         //Si estamos en el form del buscador,agregamos una opcion vacia a cada uno
+         if (self.findInForm.attr('id')=="ArticuloSearchFindForm"){
+             self.findInForm.find("#ArticuloIdMaterial").append('<option value=""></option>');
+         }
 
         jQuery.each(data.materiales, function (index, value) {
             self.findInForm.find("#ArticuloIdMaterial").append('<option value="'+value["material"]["id"]+'">'+value["material"]["Nombre"]+'</option>');
@@ -254,7 +263,10 @@ var Articulo = new Class({
          //Removemos lo que habia antes
         this.findInForm.find('#ArticuloIdDimension').find('option').remove()
         this.findInForm.find("#ArticuloIdDimension").prev("span").empty();
-
+         //Si estamos en el form del buscador,agregamos una opcion vacia a cada uno
+         if (self.findInForm.attr('id')=="ArticuloSearchFindForm"){
+             self.findInForm.find("#ArticuloIdDimension").append('<option value=""></option>');
+         }
 
         jQuery.each(data.dimensiones, function (index, value) {
             self.findInForm.find("#ArticuloIdDimension").append('<option value="'+value["dimension"]["id"]+'">'+value["dimension"]["Nombre"]+'</option>');
@@ -269,6 +281,10 @@ var Articulo = new Class({
         this.findInForm.find('#ArticuloIdObjeto').find('option').remove()
         this.findInForm.find('#ArticuloIdObjeto').prev("span").empty();
 
+        //Si estamos en el form del buscador,agregamos una opcion vacia a cada uno
+        if (self.findInForm.attr('id')=="ArticuloSearchFindForm"){
+            self.findInForm.find("#ArticuloIdObjeto").append('<option value=""></option>');
+        }
 
         jQuery.each(data.objetos, function (index, value) {
             self.findInForm.find('#ArticuloIdObjeto').append('<option value="'+value["objeto"]["id"]+'">'+value["objeto"]["Nombre"]+'</option>');
@@ -284,6 +300,10 @@ var Articulo = new Class({
         this.findInForm.find('#ArticuloIdEstilo').find('option').remove()
         this.findInForm.find("#ArticuloIdEstilo").prev("span").empty();
 
+        //Si estamos en el form del buscador,agregamos una opcion vacia a cada uno
+        if (self.findInForm.attr('id')=="ArticuloSearchFindForm"){
+            self.findInForm.find("#ArticuloIdEstilo").append('<option value=""></option>');
+        }
 
         jQuery.each(data.estilos, function (index, value) {
             self.findInForm.find("#ArticuloIdEstilo").append('<option value="'+value["estilo"]["id"]+'">'+value["estilo"]["Nombre"]+'</option>');
