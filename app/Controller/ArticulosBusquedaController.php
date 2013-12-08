@@ -14,6 +14,8 @@
 
 class ArticulosController extends AppController {
     public $helpers = array ('Html','Form');
+	public $components = array('RequestHandler');
+
 	public $findResult;
     function index() {
 

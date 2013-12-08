@@ -32,15 +32,14 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
-
 	function beforeFilter(){
-		if ($this->params['controller']!="pages"){
-			if (!$this->request->is('ajax')){
-				$this->redirect(array('controller' => 'pages', 'action' => 'display'));
-			}else{
-				$this->layout = 'empty';
-			}
-		}
+	   if ($this->params['controller']!="pages" && $this->action!="pdfTest"){
+	                        if (!$this->request->is('ajax')){
+	                                $this->redirect(array('controller' => 'pages', 'action' => 'display'));
+	                        }else{
+	                                $this->layout = 'empty';
+	                        }
+	                }
 	}
 	function addRedirect($view) {
 		if ($this->request->data[$view]['guardaryseguir'] == '1'){

@@ -11,30 +11,30 @@ echo $this->Form->create('Articulo',array('type' => 'file','class' => 'stdform s
 ?>
 <p>
     <label style="float: left;">Codigo Articulo</label>
-	<span class="field float">
-	    <?php echo $articulo['articulos_vista']['CodigoArticulo'] ?>
+        <span class="field float">
+            <?php echo $articulo['articulos_vista']['CodigoArticulo'] ?>
     </span>
 </p>
 <p>
     <label style="float: left;"></label>
-    	<table class="field float">
-        	<tr>
-            	<td width="100px"><b>Categoria:</b></td>
+            <table class="field float">
+                <tr>
+                    <td width="100px"><b>Categoria:</b></td>
                 <td width="150px"><?php echo $articulo['articulos_vista']['categoria'] ?></td>
-            	<td width="100px"><b>Objeto:</b></td>
+                    <td width="100px"><b>Objeto:</b></td>
                 <td width="150px"><?php echo $articulo['articulos_vista']['objeto'] ?></td>
-            	<td width="100px"><b>Decorado:</b></td>
+                    <td width="100px"><b>Decorado:</b></td>
                 <td width="150px"><?php echo $articulo['articulos_vista']['decorado'] ?></td>
             </tr>
-        	<tr>
-            	<td><b>Material:</b></td>
+                <tr>
+                    <td><b>Material:</b></td>
                 <td><?php echo $articulo['articulos_vista']['material'] ?></td>
-            	<td><b>Tamaño:</b></td>
+                    <td><b>Tamaño:</b></td>
                 <td><?php echo $articulo['articulos_vista']['dimension'] ?></td>
-            	<td><b>Estilo:</b></td>
+                    <td><b>Estilo:</b></td>
                 <td><?php echo $articulo['articulos_vista']['estilo'] ?></td>
             </tr>
-		</table>
+                </table>
 
 
 </p>
@@ -43,38 +43,38 @@ echo $this->Form->create('Articulo',array('type' => 'file','class' => 'stdform s
 </p>
 <p>
     <span class="field float">
-	    <?php echo $articulo['articulos_vista']['Descripcion'] ?>
-   	</span>
+            <?php echo $articulo['articulos_vista']['Descripcion'] ?>
+           </span>
 </p>
 <p>
-	<label style="float: left;">Stock Total</label>
-	<span class="field float">
-	    <?php echo $articulo['articulos_vista']['stock_total'] ?>
-   	</span>
-	<label style="float: left;">Stock Disponible</label>
-	<span class="field float">
-	    <?php echo $articulo['articulos_vista']['stock_dispo'] ?>
-   	</span>
+        <label style="float: left;">Stock Total</label>
+        <span class="field float">
+            <?php echo $articulo['articulos_vista']['stock_total'] ?>
+           </span>
+        <label style="float: left;">Stock Disponible</label>
+        <span class="field float">
+            <?php echo $articulo['articulos_vista']['stock_dispo'] ?>
+           </span>
 </p>
 <p>
     <label style="float: left;"></label>
-    	<table class="field float">
+            <table class="field float">
             <tr>
                 <th align="left"><b>Ubicacion</b></th>
                 <th><b>Cantidad</b></th>
             </tr>
-<?php		foreach ($inventario as $inv){ ?>
+<?php                foreach ($inventario as $inv){ ?>
                 <tr>
                     <?php if (is_null($inv['inventarios_vista']['proyecto'])){ ?>
-	                    <td align="left" width="150px"><?php echo $inv['inventarios_vista']['deposito'] ?></td>
+                            <td align="left" width="150px"><?php echo $inv['inventarios_vista']['deposito'] ?></td>
                     <?php } else { ?>
-	                    <td align="left" width="150px"><?php echo $inv['inventarios_vista']['proyecto'] ?></td>
+                            <td align="left" width="150px"><?php echo $inv['inventarios_vista']['proyecto'] ?></td>
                     <?php } ?>
                     <td align="center"width="80px"><?php echo $inv['inventarios_vista']['Disponibilidad'] ?></td>
                 </tr>
-<?php		} ?>
+<?php                } ?>
 
-		</table>
+                </table>
 </p>
 <label style="float: left;">Imagen</label>
 <span class="field">
