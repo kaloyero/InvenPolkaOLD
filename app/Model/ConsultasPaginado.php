@@ -6,7 +6,7 @@
 	App::import('Model','Deposito');
 	App::import('Model','Inventario');
 	App::import('Model','Pedido');
-	App::import('Model','Usuario');	
+	App::import('Model','Usuario');
 	App::import('Model','MovimientoInventario');
 	App::import('Model','ConsultasSelect');
 
@@ -531,7 +531,7 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumnsFilter,$order
 			$fila=array();
         	array_push($fila, array($j[$tabla]['id']));
 	        array_push($fila, array($j[$tabla]['CodigoArticulo']));
-			
+
 			array_push($fila, $this->getImageSmall($j[$tabla]['dir'],$j[$tabla]['idFoto']));
 //	        array_push($fila, array($titi));
 			array_push($fila, array($j[$tabla]['categoria']));
@@ -608,7 +608,7 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumnsFilter,$order
 private function getArrayUsuariosConfig($rows) {
 	  $consultas = new ConsultasSelect();
 	  $rolesList = $consultas->getRolesUsuarios();
-	  $estadosList = array('F'=>'Activo','T'=>'Inactivo','S'=>'Eliminado');	  
+	  $estadosList = array('F'=>'Activo','T'=>'Inactivo','S'=>'Eliminado');
       $arrayDt=array();
 
   	  $icono = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a class ='desactivar' ><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>";
@@ -812,7 +812,7 @@ private function getDataDefaultQuery($tabla,$aColumns,$aColumnsFilter,$orderByfi
 }
 
 
-	function getImageSmall($dir,$idFoto) {	
+	function getImageSmall($dir,$idFoto) {
 		return '<img style="width:150px; height:150px;border-style:solid;border-width:3px;" src="/InvenPolka/app/webroot/files/articulo/idFoto/'.$dir.'/small_'.$idFoto.'" alt="CakePHP" >';
 	}
 
