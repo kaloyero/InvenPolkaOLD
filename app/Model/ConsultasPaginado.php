@@ -198,7 +198,7 @@ private function getArrayDataConfig($rows,$modelo,$columnaId) {
 
 			$aColumns = array( 'id' ,'articulo', 'dir' ,'idFoto',  'Disponibilidad'   ,  'proyecto');
 			//Columnas por las que se va a filtrar
-			$aColumnsFilter = array(  'Disponibilidad' ,'articulo' ,  'proyecto'  ,  'ubicacion' );
+			$aColumnsFilter = array(  'Disponibilidad' ,'articulo' ,  'proyecto' );
 			//Columna por la cual se va ordenar
 			$orderByfield = 'articulo,proyecto';
 			$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,false);

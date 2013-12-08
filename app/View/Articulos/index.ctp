@@ -6,7 +6,6 @@
 	<button class="btn btn-primary asignarDepo" disabled="true">Asignar a Deposito</button>
 	<button class="btn btn-primary devolucionArt" disabled="true">Devolucion de Articulos</button>
 	<button class="btn btn-primary deleteArt" disabled="true">Dar de Baja Articulos</button>
-	<button class="btn btn-primary transferir" disabled="true">Transferir a Deposito</button>
 
 </p>
 <table  id="configurationTable" class ="table table-bordered" width="100%"  style="width: 100%;">
