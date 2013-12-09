@@ -142,7 +142,7 @@ private function getArrayDataConfig($rows,$modelo,$columnaId) {
 			    $aColumnsFilter = array( 'Nombre','Director' );
 				//Columna por la cual se va ordenar
 				$orderByfield = 'Nombre';
-				$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,true);
+				$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,false);
 				return $output;
 		}
 
