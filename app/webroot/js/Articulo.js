@@ -240,6 +240,8 @@ var Articulo = new Class({
          //Limpio el campo Span donde se guarda el nombre del archivo seleccionado
          jQuery('.filename').empty();
          jQuery('.filename').append('No file selected');
+         //Sacamos la imagen
+         jQuery('#preview>img').attr('src', "");
 
      },
      onUpdated: function(){

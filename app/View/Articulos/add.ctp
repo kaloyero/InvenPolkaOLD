@@ -53,8 +53,12 @@ echo $this->Form->input('Inventario.IdDeposito',array('type'=>'select','options'
 echo $this->Form->input('Inventario.IdProyecto',array('type'=>'select','options'=>$proyectos,'empty'=>true,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<label style="float: left;" >Proyecto</label><span class="field float">','after'=>'</span></p>'));
 
 echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</button><button type="reset" class="btn">Limpiar Formulario</button>';
+
+
 ?>
+
 </div>
 
-<label>Guardar y Seguir</label>
-<span class="field"><input type="checkbox"class='seguir' name="check2" style="opacity: 0;"></span>
+<button class="btn btn-primary volver" type="button">Volver</button>
+<input type="checkbox" class="seguir" name="check2" > Guardar y Seguir
+
