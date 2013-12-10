@@ -10,7 +10,7 @@ echo $this->Form->create('Articulo',array('type' => 'file','class' => 'stdform s
 
 echo $this->Form->input('idFoto', array('type' => 'file', 'accept' =>'image/*','label' => false,'class'=>'uniform-file','div'=>array('class'=>'field uploader focus')));
 
-
+echo '<p><span id ="preview" class="field float"><img height="800px" width="800px" /></span></p>';
 
 echo $this->Form->input('dir', array('type' => 'hidden','value' => ''));
 echo "<label class='errorFoto' style='display: block;color:red'></label>";
@@ -52,10 +52,9 @@ echo $this->Form->input('Inventario.IdDeposito',array('type'=>'select','options'
 //echo $this->Form->input('Inventario.IdUbicacion',array('type'=>'select','options'=>$ubicaciones,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p><label>Ubicacion</label><span class="field">','after'=>'</span></p>'));
 echo $this->Form->input('Inventario.IdProyecto',array('type'=>'select','options'=>$proyectos,'empty'=>true,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<label style="float: left;" >Proyecto</label><span class="field float">','after'=>'</span></p>'));
 
-
-
-echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</button><button type="reset" class="btn">Limpiar Formulario</button></p>';
+echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</button><button type="reset" class="btn">Limpiar Formulario</button>';
 ?>
 </div>
+
 <label>Guardar y Seguir</label>
 <span class="field"><input type="checkbox"class='seguir' name="check2" style="opacity: 0;"></span>

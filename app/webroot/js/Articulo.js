@@ -85,6 +85,19 @@ var Articulo = new Class({
                 self.findInForm=jQuery(this).closest("form");
                	translator.getConfiguraciones(self.type,this.value);
              })
+             jQuery('#ArticuloIdFoto').bind("change", function(e) {
+                 //Ponemos la preview de la foto
+                    e.preventDefault();
+                               var f = e.target.files[0];
+                               if(f && window.FileReader)
+                               {
+                                   var reader = new FileReader();
+                                   reader.onload = function(evt) { jQuery('#preview>img').attr('src', evt.target.result); };
+                                   reader.readAsDataURL(f);
+                               }
+                  })
+
+
        },
      bindEditEvents:function() {
          var self=this;
