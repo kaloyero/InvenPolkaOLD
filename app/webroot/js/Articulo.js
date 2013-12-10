@@ -128,6 +128,17 @@ var Articulo = new Class({
             self.currentStatus="Editing";
             self.validateGeneral();
          });
+         jQuery('#ArticuloIdFoto').bind("change", function(e) {
+                  //Ponemos la preview de la foto
+                     e.preventDefault();
+                                var f = e.target.files[0];
+                                if(f && window.FileReader)
+                                {
+                                    var reader = new FileReader();
+                                    reader.onload = function(evt) { jQuery('#preview>img').attr('src', evt.target.result); };
+                                    reader.readAsDataURL(f);
+                                }
+                   })
     },
 
     onFinder:function(data) {
