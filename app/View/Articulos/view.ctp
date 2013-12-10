@@ -82,3 +82,4 @@ echo $this->Form->create('Articulo',array('type' => 'file','class' => 'stdform s
 <img src="/InvenPolka/app/webroot/files/articulo/idFoto/<?php echo $articulo['articulos_vista']['dir'] ?>/<?php echo $articulo['articulos_vista']['idFoto'] ?>" alt="CakePHP" height="800px" width="800px">
 </span>
 </div>
+<button class="btn btn-primary volver" type="button">Volver</button>

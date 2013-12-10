@@ -81,11 +81,17 @@ var Articulo = new Class({
                 self.currentStatus="Adding";
                 self.validateGeneral();
              });
+              jQuery('.volver').bind("click", function(e) {
+                    self.saveTableStatus();
+                    translator.show("articulo");
+                  });
+
            jQuery('.categoria').bind("change", function(e) {
                 self.findInForm=jQuery(this).closest("form");
                	translator.getConfiguraciones(self.type,this.value);
              })
-             jQuery('#ArticuloIdFoto').bind("change", function(e) {
+
+            jQuery('#ArticuloIdFoto').bind("change", function(e) {
                  //Ponemos la preview de la foto
                     e.preventDefault();
                                var f = e.target.files[0];
@@ -124,6 +130,10 @@ var Articulo = new Class({
             self.findInForm=jQuery(this).closest("form");
             translator.getConfiguraciones(self.type,this.value);
         })
+        jQuery('.volver').bind("click", function(e) {
+                    self.saveTableStatus();
+                    translator.show("articulo");
+                  });
         jQuery('.save').bind("click", function(e) {
             self.currentStatus="Editing";
             self.validateGeneral();

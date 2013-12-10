@@ -151,9 +151,11 @@ var Render = new Class({
        },
        makeDatatable:function() {
            var self=this;
-            var oTable=   jQuery('#configurationTable').dataTable({
+            self.oTable=   jQuery('#configurationTable').dataTable({
                            "bProcessing": true,
                            "bServerSide": true,
+                           "iDisplayStart": self.startTablein,
+                           "DisplayLength":self.showRowsByPage,
                            "bPaginate": true,
                            "sPaginationType": "full_numbers",
                            "sAjaxSource": serverManager.services[this.type]["controllerName"]+"/ajaxData",
@@ -196,6 +198,8 @@ var Render = new Class({
                             //Este CallBack se ejecuta cuando esta lista la tabla
                            "fnDrawCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
 							   self.afterDataTable(nRow.aoData);
+							   self.resetTableStatus();
+
                            }
                        });
        // oTable.fnSetColumnVis( 0, false );
@@ -250,8 +254,15 @@ var Render = new Class({
               });
 
           this.setValidationMessage();
-      }
-
+      },
+      saveTableStatus:function(){
+          this.startTablein=this.oTable.fnSettings()._iDisplayStart;
+          this.showRowsByPage=this.oTable.fnSettings()._iDisplayLength;
+        },
+      resetTableStatus:function(){
+            this.startTablein=0;
+            this.showRowsByPage=10;
+        }
 
 });
 

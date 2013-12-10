@@ -50,3 +50,6 @@ echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</but
 
 ?>
 </div>
+
+<button class="btn btn-primary volver" type="button">Volver</button>
+
