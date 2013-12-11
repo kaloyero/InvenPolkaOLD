@@ -407,7 +407,8 @@ var Articulo = new Class({
        return jQuery(selectedCheck).next().attr("id");
    },
    toogleToolbar:function() {
-        if (jQuery('input:checked').length >0){
+
+        if (!jQuery.isEmptyObject(this.currentSelectedArticulos)){
                 jQuery('.crearPedido').removeAttr("disabled");
                 jQuery('.asignarDepo').removeAttr("disabled");
                 jQuery('.devolucionArt').removeAttr("disabled");
