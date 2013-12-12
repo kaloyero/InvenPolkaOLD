@@ -6,6 +6,7 @@ var ComponentTranslator = new Class(
 					object : objectType,
 					onSuccess : function(data) {
 					    var renderInstace = renderTranslator.getRender(objectType);
+					    renderInstace.currentStatus="";
                         renderInstace.onList(data);
 					}
 				});

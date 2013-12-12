@@ -1,6 +1,7 @@
 var Render = new Class({
     initialize: function(name){
         this.name = name;
+        this.currentStatus;
     },
     hacerTablaEditable: function(){
         var self=this;

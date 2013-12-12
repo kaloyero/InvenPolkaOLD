@@ -9,7 +9,6 @@ var Articulo = new Class({
         this.breadcrumb='Articulos';
         this.descripcion="Desde aqui administre los Articulos";
         this.isActualFormValid=false;
-        this.currentStatus;
     },
     setContext:function(context) {
         this.context=context;
@@ -40,6 +39,7 @@ var Articulo = new Class({
 				translator.addMovimiento("movimientoInventario",self.getDataToSendInJsonFormat(),"transferirADeposito");
                	return false;
           })
+          console.log("JAJA")
           this.deleteSelectedArticlesArray();
         },
 
@@ -83,7 +83,12 @@ var Articulo = new Class({
              });
               jQuery('.volver').bind("click", function(e) {
                     self.saveTableStatus();
-                    translator.show("articulo");
+                    console.log("Searrr",self.currentStatus)
+                    if (self.currentStatus=="Search"){
+                        translator.search("articulo", jQuery(".formBuscador"));
+                    }else{
+                        translator.show("articulo");
+                    }
                   });
 
            jQuery('.categoria').bind("change", function(e) {
@@ -131,8 +136,14 @@ var Articulo = new Class({
             translator.getConfiguraciones(self.type,this.value);
         })
         jQuery('.volver').bind("click", function(e) {
-                    self.saveTableStatus();
-                    translator.show("articulo");
+                     self.saveTableStatus();
+
+                        if (self.currentStatus=="Search"){
+                            translator.search("articulo", jQuery(".formBuscador"));
+
+                        }else{
+                            translator.show("articulo");
+                        }
                   });
         jQuery('.save').bind("click", function(e) {
             self.currentStatus="Editing";
@@ -167,22 +178,9 @@ var Articulo = new Class({
            jQuery('.uniform-file').uniform();
            this.bindListEvents()
            this.makeDatatable();
+           this.currentStatus='Search';
        },
 
-     bindFinderEvents:function() {
-         var self=this;
-         this.styleForm();
-         jQuery('.categoria').bind("change", function(e) {
-                    self.findInForm=jQuery(this).closest("form");
-                	translator.getConfiguraciones(self.type,this.value);
-              })
-         jQuery('.save').bind("click", function(e) {
-             translator.search(self.type, self.getForm());
-             //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
-             return false;
-          });
-
-    },
      bindFinderStaticEvents:function() {
          var self=this;
          jQuery('.categoria').bind("change", function(e) {
