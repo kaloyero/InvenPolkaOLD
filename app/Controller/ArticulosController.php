@@ -255,28 +255,28 @@ class ArticulosController extends AppController {
 			//$this->redirect(array_merge($url,$filters));
 			$conditions = "";
 					if(!empty($this->passedArgs["CodigoArticulo"])){
-						$conditions= $conditions."CodigoArticulo LIKE '%".$this->passedArgs["CodigoArticulo"]."%' OR ";
+						$conditions= $conditions."CodigoArticulo LIKE '%".$this->passedArgs["CodigoArticulo"]."%' AND ";
 					}
 					if(!empty($this->passedArgs["IdMaterial"])){
-						$conditions= $conditions."id_material LIKE '".$this->passedArgs["IdMaterial"]."' OR ";
+						$conditions= $conditions."id_material LIKE '".$this->passedArgs["IdMaterial"]."' AND ";
 					}
 					if(!empty($this->passedArgs["IdEstilo"])){
-						$conditions= $conditions."id_estilo LIKE '".$this->passedArgs["IdEstilo"]."' OR ";
+						$conditions= $conditions."id_estilo LIKE '".$this->passedArgs["IdEstilo"]."' AND ";
 					}
 					if(!empty($this->passedArgs["IdCategoria"])){
-						$conditions= $conditions."id_categoria LIKE '".$this->passedArgs["IdCategoria"]."' OR ";
+						$conditions= $conditions."id_categoria LIKE '".$this->passedArgs["IdCategoria"]."' AND ";
 					}
 					if(!empty($this->passedArgs["IdObjeto"])){
-						$conditions= $conditions."id_objeto LIKE '".$this->passedArgs["IdObjeto"]."' OR ";
+						$conditions= $conditions."id_objeto LIKE '".$this->passedArgs["IdObjeto"]."' AND ";
 					}
 					if(!empty($this->passedArgs["IdDimension"])){
-						$conditions= $conditions."id_dimension LIKE '".$this->passedArgs["IdDimension"]."' OR ";
+						$conditions= $conditions."id_dimension LIKE '".$this->passedArgs["IdDimension"]."' AND ";
 					}
 					if(!empty($this->passedArgs["IdDecorado"])){
-						$conditions= $conditions."id_decorado LIKE '".$this->passedArgs["IdDecorado"]."' OR ";
+						$conditions= $conditions."id_decorado LIKE '".$this->passedArgs["IdDecorado"]."' AND ";
 					}
 				//Borramos el ultimo And
-		        $conditions = substr_replace( $conditions, "", -3 );
+		        $conditions = substr_replace( $conditions, "", -4 );
 				//$_SESSION['prueba']="puti";
 				$this->Session->write("articulos",$conditions);
 
