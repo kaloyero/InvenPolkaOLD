@@ -39,7 +39,6 @@ var Articulo = new Class({
 				translator.addMovimiento("movimientoInventario",self.getDataToSendInJsonFormat(),"transferirADeposito");
                	return false;
           })
-          console.log("JAJA")
           this.deleteSelectedArticlesArray();
         },
 
@@ -83,7 +82,6 @@ var Articulo = new Class({
              });
               jQuery('.volver').bind("click", function(e) {
                     self.saveTableStatus();
-                    console.log("Searrr",self.currentStatus)
                     if (self.currentStatus=="Search"){
                         translator.search("articulo", jQuery(".formBuscador"));
                     }else{
