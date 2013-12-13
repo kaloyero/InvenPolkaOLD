@@ -319,17 +319,7 @@ private function getArrayDataConfig($rows,$modelo,$columnaId) {
 private function getDataDefaultPedidoQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield,$tipoLista) {
 
         //Columnas por las que se va a filtrar
-	    $aColumnsShow = "";
-		$firstColumn=0;
-		foreach($aColumns as $column){
-			if ($firstColumn == 0){
-				$aColumnsShow = $column;
-				$firstColumn=1;
-			} else {
-				$aColumnsShow = $aColumnsShow.','.$column;
-			}
-		}
-
+		$aColumnsShow = $this->getColumnsToShow($aColumns);
 		//Partes del query
 		$select = "SELECT ".$aColumnsShow;
 		$from = " FROM ".$tabla." ";
@@ -436,10 +426,11 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi,$tipoLista) {
 	    $aColumnsFilter = array( 'CodigoArticulo','descripcion','categoria','decorado','objeto','estilo','material','dimension' );
 		//Columna por la cual se va ordenar
 		$orderByfield = 'CodigoArticulo';
-
+		//Validacion en el where
+		$where = " Inactivo like 'F' ";
 		//CREATE TABLE//
 		//Consigue el query que se va ejecutar
-		$query=$this->getDataDefaultQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield,"");
+		$query=$this->getDataArticulosQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield,$where);
 		//Ejecuta el query, obtengo las filas
 		$rows =$model->query("".$query['select'].";");
 		//Obtengo los totales
@@ -453,6 +444,51 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi,$tipoLista) {
 		return $output;
 
 	}
+
+/* Este metodo crea el query que se va ejecutar para obtener la lista
+	Devuelve 	query['select'] -> Sentencia select
+				query['where']  -> Sentencia where
+ */
+private function getDataArticulosQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield,$where) {
+
+        //Columnas por las que se va a filtrar
+		$aColumnsShow = $this->getColumnsToShow($aColumns);
+		//Partes del query
+		$select = "SELECT ".$aColumnsShow;
+		$from = " FROM ".$tabla." ";
+		$limit = 'limit '.$_GET['iDisplayStart'].' ,'.$_GET['iDisplayLength'] ;
+		$orderBy = " order by ".$orderByfield." ";
+		$sWhere = "WHERE ".$where;
+
+		/*BUSQUEDA*/
+		//Si el wehre viene vacio
+		if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" )
+		{
+			if ($_GET['sSearch'] != ""){
+				$arreglo = explode(' ', $_GET['sSearch']);
+
+				$sWhere += " AND ";
+				foreach($arreglo as $searchWord){
+					$sWhere .= "(";
+					for ( $i=0 ; $i<count($aColumnsFilter) ; $i++ )
+					{
+						$sWhere .= "`".$aColumnsFilter[$i]."` LIKE '%".( $searchWord )."%' OR ";
+					}
+					$sWhere = substr_replace( $sWhere, "", -3 );
+					$sWhere .= ') AND ';
+				}
+				$sWhere = substr_replace( $sWhere, "", -4 );
+			}
+		}
+
+		$query['select'] = $select.$from.$sWhere.$orderBy.$limit;
+		$query['selectWOL'] = $select.$from.$sWhere;
+		$query['from'] =  $from;
+		$query['where'] = $sWhere;
+
+		return $query;
+
+}
 
 	/* Para la funcionalidad Busqueda de Articulos */
 	function getDataArticulosSearch($whereFilter) {
@@ -469,7 +505,7 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi,$tipoLista) {
 		//Consigue el query que se va ejecutar
 		$query=$this->getDataDefaultQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield,$whereFilter);
 	    $aColumnsFilter = array('CodigoArticulo','descripcion','categoria','decorado','objeto','estilo','material','dimension');
-		$query=$this->getDataArticuloQuerySearch($tabla,$query,$aColumnsFilter,$orderByfield);
+		$query=$this->getDataArticuloQuerySearch($tabla,$query,$aColumns,$aColumnsFilter,$orderByfield);
 		//Ejecuta el query, obtengo las filas
 		$rows =$model->query("".$query['select'].";");
 		//Obtengo los totales
@@ -487,23 +523,31 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi,$tipoLista) {
 	Devuelve 	query['select'] -> Sentencia select
 				query['where']  -> Sentencia where
  */
-private function getDataArticuloQuerySearch($tabla,$query,$aColumnsFilter,$orderBy) {
+private function getDataArticuloQuerySearch($tabla,$query,$aColumns,$aColumnsFilter,$orderBy) {
 
 	if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" ){
-		$select = "SELECT id, CodigoArticulo, dir, idFoto, descripcion, categoria, decorado, objeto, estilo, material, dimension, id_categoria, id_decorado, id_objeto, id_estilo, id_material, id_dimension";
+        //Columnas por las que se va a filtrar
+		$aColumnsShow = $this->getColumnsToShow($aColumns);
+		//Partes del query
+		$select = "SELECT ".$aColumnsShow;
 		$from = " FROM (".$query['selectWOL'].") as `".$tabla."` ";
 		$sWhere = "";
-			if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" )
-			{
-				$sWhere = "WHERE (";
-							$sWhere = "WHERE (";
-				for ( $i=0 ; $i<count($aColumnsFilter) ; $i++ )
-				{
-					$sWhere .= "`".$aColumnsFilter[$i]."` LIKE '%".( $_GET['sSearch'] )."%' OR ";
+		if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" )
+		{
+				$arreglo = explode(' ', $_GET['sSearch']);
+
+				$sWhere = "WHERE ";
+				foreach($arreglo as $searchWord){
+					$sWhere .= "(";
+					for ( $i=0 ; $i<count($aColumnsFilter) ; $i++ )
+					{
+						$sWhere .= "`".$aColumnsFilter[$i]."` LIKE '%".( $searchWord )."%' OR ";
+					}
+					$sWhere = substr_replace( $sWhere, "", -3 );
+					$sWhere .= ') AND ';
 				}
-				$sWhere = substr_replace( $sWhere, "", -3 );
-				$sWhere .= ')';
-			}
+				$sWhere = substr_replace( $sWhere, "", -4 );
+		}
 
 		$limit = 'limit '.$_GET['iDisplayStart'].' ,'.$_GET['iDisplayLength'] ;
 		$orderBy = " order by ".$orderBy." ";
@@ -766,17 +810,7 @@ private function getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderBy
 private function getDataDefaultQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield,$where) {
 
         //Columnas por las que se va a filtrar
-	    $aColumnsShow = "";
-		$firstColumn=0;
-		foreach($aColumns as $column){
-			if ($firstColumn == 0){
-				$aColumnsShow = $column;
-				$firstColumn=1;
-			} else {
-				$aColumnsShow = $aColumnsShow.','.$column;
-			}
-		}
-
+		$aColumnsShow = $this->getColumnsToShow($aColumns);
 		//Partes del query
 		$select = "SELECT ".$aColumnsShow;
 		$from = " FROM ".$tabla." ";
@@ -789,14 +823,21 @@ private function getDataDefaultQuery($tabla,$aColumns,$aColumnsFilter,$orderByfi
 		if ($where == ""){
 			if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" )
 			{
-				$sWhere = "WHERE (";
-							$sWhere = "WHERE (";
-				for ( $i=0 ; $i<count($aColumnsFilter) ; $i++ )
-				{
-					$sWhere .= "`".$aColumnsFilter[$i]."` LIKE '%".( $_GET['sSearch'] )."%' OR ";
+				if ($_GET['sSearch'] != ""){
+					$arreglo = explode(' ', $_GET['sSearch']);
+
+					$sWhere = "WHERE ";
+					foreach($arreglo as $searchWord){
+						$sWhere .= "(";
+						for ( $i=0 ; $i<count($aColumnsFilter) ; $i++ )
+						{
+							$sWhere .= "`".$aColumnsFilter[$i]."` LIKE '%".( $searchWord )."%' OR ";
+						}
+						$sWhere = substr_replace( $sWhere, "", -3 );
+						$sWhere .= ') AND ';
+					}
+					$sWhere = substr_replace( $sWhere, "", -4 );
 				}
-				$sWhere = substr_replace( $sWhere, "", -3 );
-				$sWhere .= ')';
 			}
 		} else {
 			$sWhere = " WHERE (".$where.")";
@@ -815,6 +856,24 @@ private function getDataDefaultQuery($tabla,$aColumns,$aColumnsFilter,$orderByfi
 	function getImageSmall($dir,$idFoto) {
 		return '<img style="width:150px; height:150px;border-style:solid;border-width:3px;" src="/InvenPolka/app/webroot/files/articulo/idFoto/'.$dir.'/small_'.$idFoto.'" alt="CakePHP" >';
 	}
+
+	function getColumnsToShow($aColumns) {
+        //Columnas por las que se va a filtrar
+	    $aColumnsShow = "";
+		$firstColumn=0;
+		foreach($aColumns as $column){
+			if ($firstColumn == 0){
+				$aColumnsShow = $column;
+				$firstColumn=1;
+			} else {
+				$aColumnsShow = $aColumnsShow.','.$column;
+			}
+		}
+		
+		return $aColumnsShow;
+
+	}
+
 
 }
 ?>

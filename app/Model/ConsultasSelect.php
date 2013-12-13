@@ -11,6 +11,7 @@
 	App::import('Model','Estilo');
 	App::import('Model','Objeto');
 	App::import('Model','Pedido');
+	App::import('Model','PedidoDetalle');
 	App::import('Model','Inventario');
 	App::import('Model','DecoradoCategoria');
 	App::import('Model','EstiloCategoria');
@@ -18,6 +19,7 @@
 	App::import('Model','MaterialCategoria');
 	App::import('Model','ObjetoCategoria');
 	App::import('Model','MovimientoInventario');
+	App::import('Model','MovimientoDetalleInventario');
 
 
 class ConsultasSelect extends AppModel {
@@ -130,6 +132,46 @@ class ConsultasSelect extends AppModel {
 		return $valido;
 	}	
 
+	function borraInactivoArticulo($idArticulo){
+		//Pregunto si tiene stock > 0
+		$stock = $this->getStockInventarioByArticuloId($idArticulo);
+		//Si no tiene stock
+		if ( $stock < 1){
+			//Pregunto si tiene algun Movimiento. Omito el movimiento de alta.
+			$existMov = $this->existeMovimientosByArticuloId($idArticulo);
+			//Pregunto si tiene algun Pedido Detalle
+			$existPed = $this->existePedidoDetalleByArticuloId($idArticulo);
+
+			//Si no tiene detalle de movimiento ni pedido
+			if ((! $existMov) && (! $existPed)){
+				//Borro el movimiento de Alta y los detalles de la baja
+				$this->deleteMovimientosAltaBajaByArticuloId($idArticulo);			
+				//Borro el articulo	
+				$this->deleteArticulo($idArticulo);
+				
+			} else {
+				//Pongo el articulo inactivo				
+				$this->inactivoArticulo($idArticulo);
+			}
+		}
+		
+	}
+	
+	function deleteArticulo($idArticulo){
+		$model = new Articulo();
+		$model->query("DELETE FROM  `articulos` WHERE  `id` =".$idArticulo.";");
+	}
+
+	function inactivoArticulo($idArticulo){
+		$model = new Articulo();
+		$conditions = array(
+			'id' => $idArticulo
+		);
+
+		$model->updateAll(array('Inactivo'=>"'T'"), $conditions);
+	}
+
+
 ////////////////////////////// {FIN} ARTICULOS //////////////////////////////
 
 /********************************************************************************\
@@ -241,6 +283,21 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 		$pedidos=$model->query($query);
 		return $pedidos;
 	}
+
+	function existePedidoDetalleByArticuloId($idArticulo){
+		$model=new PedidoDetalle();
+		$valido = false;
+			$conditions = array(
+				'IdArticulo' => $idArticulo
+			);
+			
+		if ($model->hasAny($conditions)){
+			$valido = true;
+		}
+		return $valido;
+		
+	}
+
 	function getConfiguraciones($id) {
 
 
@@ -471,14 +528,32 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 		$inventario = $model->find('first',array('conditions' => $conditions));
 		//resto
 		$total = $inventario['Inventario']['Disponibilidad'] - $cantidad;
+		//Valida que total no sea menor a 0
+		if ($total < 0){
+			$total = 0;
+		}
 
-		if ( (!empty($proyecto)) && $total < 1){
-			//Si no tengo stock en el proyecto lo borro			
+//		if ( (!empty($proyecto)) && $total < 1){
+		if ($total < 1){
+			//Si no tengo stock en el proyecto o en el deposito lo borro			
 			$model->deleteAll($conditions);
 		} else {
 			//Actualizo el stock
 			$model->updateAll(array('Disponibilidad'=>$total), $conditions);
 		}
+	}
+	
+	function getStockInventarioByArticuloId($idArticulo){
+		$model=new Inventario();
+		$articulos=	$model->query("SELECT Disponibilidad FROM `inventarios` WHERE IdArticulo = '".$idArticulo."';");
+
+		$stock = 0;
+		foreach ($articulos as $art){
+			$stock += $art["inventarios"]["Disponibilidad"];
+		}
+		
+		return $stock;
+		
 	}
 
 ////////////////////////////// {FIN} INVENTARIOS //////////////////////////////
@@ -487,6 +562,33 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 ****************************** {INICIO} MOVIMIENTOS ********************************
 \********************************************************************************/
 
+	/* Devuleve TRUE si tiene movimientos
+		OMITE los movimientos de Alta y Baja*/
+	function existeMovimientosByArticuloId($idArticulo){
+		$model=new MovimientoDetalleInventario();
+		$valido = false;
+
+		$movimientos = $model->query("Select * from movimiento_inventarios where TipoMovimiento not like 'A' and TipoMovimiento not like 'B' and exists (Select id from movimiento_detalle_inventarios where IdArticulo = '".$idArticulo."');");
+
+		//Si el array NO esta vacio quiere decir que tiene movimientos
+		if (! empty($movimientos)){
+			$valido = true;
+		}
+
+		return $valido;
+
+	}
+
+	/* BORRA los movimientos de Alta y Baja para el articulo
+		en el caso de baja solo borra el movimiento Detalle*/
+	function deleteMovimientosAltaBajaByArticuloId($idArticulo){
+		$model=new MovimientoInventario();
+		//Primero borro los detalle inventarios
+		$model->query("delete from movimiento_detalle_inventarios where IdArticulo = '".$idArticulo."';");
+		//Luego borro el movimiento del alta
+		$model->query("delete from movimiento_inventarios where TipoMovimiento like 'A' and exists (Select id from movimiento_detalle_inventarios where IdArticulo = '".$idArticulo."');");
+
+	}
 
 
 ////////////////////////////// {FIN} MOVIMIENTOS //////////////////////////////

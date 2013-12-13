@@ -57,17 +57,16 @@
 	echo $this->Html->script('jsTemplate/forms');
 
 
-
+	echo $this->Html->css('styleTest');
+	echo $this->Html->script('jsTemplate/modernizr.custom.26887');
+	echo $this->Html->script('jsTemplate/jquery.imgslider');
+	echo $this->Html->script('jsTemplate/jquery.growl');
+	echo $this->Html->css('jquery.growl');
+	echo $this->Html->script('jsTemplate/jquery.validate');
 
 	echo $this->fetch('css');
 	echo $this->fetch('script');
 ?>
-<link rel="stylesheet" type="text/css" href="/invenPolka/css/styleTest.css">
-<script type="text/javascript" src="/invenPolka/js/jsTemplate/modernizr.custom.26887.js"></script>
-<script type="text/javascript" src="/invenPolka/js/jsTemplate/jquery.imgslider.js"></script>
-<script src="/invenPolka/js/jsTemplate/jquery.growl.js" type="text/javascript"></script>
-<link href="/invenPolka/css/jquery.growl.css" rel="stylesheet" type="text/css" />
-<script src="/invenPolka/js/jsTemplate/jquery.validate.js"></script>
 
 
 
@@ -106,12 +105,12 @@
         <div class="leftmenu">
             <ul class="nav nav-tabs nav-stacked">
             	<li class="nav-header animate4 fadeInUp">Navegacion</li>
-                <li class="active animate5 fadeInUp"><a href="/invenPolka"><span class="icon-align-justify"></span> Inicio</a></li>
+                <li class="active animate5 fadeInUp"><a href="/InvenPolka"><span class="icon-align-justify"></span> Inicio</a></li>
                 <li class="active  animate8 fadeInUp"><a id="articulo" class="option"><span class="icon-th-list"></span> Articulos</a></li>
 	            <li class="active  animate8 fadeInUp"><a id="articulo" class="search"><span class="icon-th-list"></span> Buscador Articulos</a>
 
                 	<ul>
-                    	<li><a href="/invenPolka/articulos/add">Agregar</a></li>
+                    	<li><a href="/InvenPolka/articulos/add">Agregar</a></li>
                     </ul>
 
                 </li>

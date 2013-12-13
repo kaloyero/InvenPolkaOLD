@@ -253,7 +253,7 @@ class ArticulosController extends AppController {
 			//echo $this->passedArgs["test"];
  			//$this->redirect(array('action' => 'index'));
 			//$this->redirect(array_merge($url,$filters));
-			$conditions = "";
+				$conditions = " Inactivo like 'F' AND ";
 					if(!empty($this->passedArgs["CodigoArticulo"])){
 						$conditions= $conditions."CodigoArticulo LIKE '%".$this->passedArgs["CodigoArticulo"]."%' AND ";
 					}
