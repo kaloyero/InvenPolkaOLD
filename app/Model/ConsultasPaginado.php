@@ -467,7 +467,7 @@ private function getDataArticulosQuery($tabla,$aColumns,$aColumnsFilter,$orderBy
 			if ($_GET['sSearch'] != ""){
 				$arreglo = explode(' ', $_GET['sSearch']);
 
-				$sWhere += " AND ";
+				$sWhere .= " AND ";
 				foreach($arreglo as $searchWord){
 					$sWhere .= "(";
 					for ( $i=0 ; $i<count($aColumnsFilter) ; $i++ )
