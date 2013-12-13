@@ -157,6 +157,28 @@ var ComponentTranslator = new Class(
 					}
 
 				});
+    		},
+			resetPassword: function(objectType,idObject) {
+
+				serverManager.resetPassword({
+					object : objectType,
+					id : idObject,
+					onSuccess : function(data) {
+					     var renderInstace = renderTranslator.getRender(objectType);
+    					    renderInstace.onSaved(data);
+					    jQuery.jGrowl("Se ha cambiado la contraseña.", {
+					        theme : 'success'
+				        });
+						jQuery('.paginate_active').click();
+					},
+					onError : function(data) {
+					    jQuery.jGrowl("Error al cambiar la contrseña.", {
+					        theme : 'success'
+				        });
+						jQuery('.paginate_active').click();
+					}
+
+				});
     		}
 
 		});

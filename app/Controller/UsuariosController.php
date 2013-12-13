@@ -13,10 +13,10 @@ class UsuariosController extends AppController {
    }
 
         function ajaxData() {
-                        $paginado =new ConsultasPaginado();
-                $this->autoRender = false;
-                        $output = $paginado->getDataUsuarios();
-                echo json_encode($output);
+			$paginado =new ConsultasPaginado();
+			$this->autoRender = false;
+			$output = $paginado->getDataUsuarios();
+			echo json_encode($output);
         }
 
 
@@ -24,31 +24,37 @@ class UsuariosController extends AppController {
         if ($this->request->is('post')) {
             if ($this->Usuario->save($this->request->data)) {
                 $this->render('/General/Success');
-                }else{
-                                $this->render('/General/Error');
-                        }
+            }else{
+                $this->render('/General/Error');
+			}
         } else {
-                        $consultas =new ConsultasSelect();
-                        $this->set('rolesList' , $consultas->getRolesUsuarios());                
-                }
+				$consultas =new ConsultasSelect();
+				$this->set('rolesList' , $consultas->getRolesUsuarios());                
+		}
     }
 
-        function edit($id = null) {
-                $this->Usuario->id = $id;
-                if ($this->request->is('get')) {
-                        $this->request->data = $this->Usuario->read();
-                } else {
-                        if ($this->Inventario->save($this->request->data)) {
-                $this->render('/General/Success');
-                }else{
-                                $this->render('/General/Error');
-                        }
-                }
-        }
+	function edit($id = null) {
+			$this->Usuario->id = $id;
+			if ($this->request->is('post')) {
+				if ($this->Inventario->save($this->request->data)) {
+					$this->render('/General/Success');
+				}else{
+					$this->render('/General/Error');
+				}
+			} else {
+				$consultas =new ConsultasSelect();
+				$this->set('rolesList' , $consultas->getRolesUsuarios());                
+				$this->request->data = $this->Usuario->read();
+			}
+	}
 
-        function delete($id) {
+	function resetPassword($id = null) {
 
-        }
+	}
+
+	function delete($id) {
+
+	}
 
 }
 ?>

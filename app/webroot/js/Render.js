@@ -92,13 +92,6 @@ var Render = new Class({
                return false;
        	    //translator.view(self.type);
           })
-            jQuery('.logueo').bind("click", function(e) {
-               translator.view(self.type,self.getSelectedRowId(this));
-
-               return false;
-       	    //translator.view(self.type);
-          })
-
         },
     bindAddEvents:function() {
 

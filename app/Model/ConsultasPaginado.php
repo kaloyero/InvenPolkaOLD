@@ -656,17 +656,19 @@ private function getArrayUsuariosConfig($rows) {
       $arrayDt=array();
 
   	  $icono = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a class ='desactivar' ><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>";
-	  $icono2 = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/za' class='view'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div></div>";
+	  $icono2 = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/za' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div></div>";
+	  $icono3 = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/za' class='reset'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/cambioPass.gif' /></a></div></div>";
+	  
       foreach($rows as $j){
 				$fila[0] = array($j['tab']['id']);
-				$fila[1] = array($j['tab']['UsuarioNombre']);
+				$fila[1] = array($j['tab']['username']);
 				$fila[2] = array($j['tab']['Apellido'].", ".$j['tab']['Nombre']);
 				$fila[3] = array($j['tab']['Legajo']);
 				$fila[4] = array($j['tab']['Email']);
 				$fila[5] = array($rolesList[$j['tab']['TipoRol']]);
 				$fila[6] = array($estadosList[$j['tab']['Inactivo']]);
 				//Icono
-				$fila[7] = array($icono.$icono2);
+				$fila[7] = array($icono.$icono2.$icono3);
 
 				array_push($arrayDt, $fila);
 	  }

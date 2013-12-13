@@ -13,7 +13,21 @@ var Usuario = new Class({
     getFormValidate:function(){
                 // Specify the validation rules
                 return     '{rules: {data[Usuario][Nombre]: "required",data[Usuario][Usuario]: "required"}}'
-    }
+    },
+      afterDataTable:function(){
+          var self=this;
+			jQuery('.reset').bind("click", function(e) {
+				translator.resetPassword(self.type,self.getSelectedRowId(this));
+				return false;
+			})
+
+            jQuery('.edit').bind("click", function(e) {
+				   translator.view(self.type,self.getSelectedRowId(this));
+				   return false;
+			  })
+    	},
+	
+	
 });
 
 usuarioRender=new Usuario()
