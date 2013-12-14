@@ -47,6 +47,8 @@ class ArticulosController extends AppController {
     public function add() {
         if ($this->request->is('post')) {
 			$this->preSave();
+			$datasource = $this->Articulo->getDataSource();
+			$datasource->begin();
             if ($this->Articulo->save($this->request->data)) {
 					//Actualizo el id de articulo
 					$this->request->data['Inventario']['IdArticulo'] = $this->Articulo->getInsertID();
@@ -54,7 +56,7 @@ class ArticulosController extends AppController {
 					$this->GuardarInventario($this->request->data['Inventario']);
 					//Guardo el movimiento
 					$this->insertMovimiento();
-
+					$datasource->commit();
               	    $this->render('/General/Success');
 	        	}else{
 					$this->render('/General/Error');
@@ -83,8 +85,11 @@ class ArticulosController extends AppController {
 			$model2 = new MovimientoDetalleInventario();
 
 			//Agrego el detalle para la alta de Articulo
+				$datasource = $model->getDataSource();
+				$datasource->begin();
 			$res= $model->save(array('Numero' => 0,'Fecha' => '2013-11-15','TipoMovimiento' => 'A','IdDepositoOrig' => $this->request->data['Inventario']['IdDeposito']));
 			if ($res) {
+				$datasource->commit();
 				$idInserted = $model->getInsertID();
 				//Actualizo el Numero del Movimiento/
 				$model->updateAll(array('Numero'=>$idInserted), array('MovimientoInventario.id'=>$idInserted));
@@ -92,6 +97,7 @@ class ArticulosController extends AppController {
 	            $detalle = $this->getMovimientoDetalle($idInserted);
 				$model2->save($detalle);
            	} else {
+				$datasource->rollback();
 				$this->render('/General/Error');
 			}
 	}
