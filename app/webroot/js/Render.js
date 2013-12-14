@@ -82,6 +82,7 @@ var Render = new Class({
       },
     //SIRVE ESTO?Que ahora casi todo depende de cuando termine de carga la tabla
     bindListEvents:function() {
+          console.log("TIAP",this.type)
            var self=this;
         	jQuery('#add').bind("click", function(e) {
         	    translator.add(self.type);

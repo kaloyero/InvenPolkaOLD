@@ -6,6 +6,7 @@ var Pedido = new Class({
         this.breadcrumb='Pedidos';
         this.descripcion="Desde aqui administre los Pedidos"
     },
+
     onAdd: function(data){
         this.cleanCanvas();
         jQuery(".contentinner").append(data);
