@@ -4,9 +4,9 @@ echo '<div class="widgetcontent bordered shadowed nopadding">';
 echo $this->Form->create('Usuario',array('class' => 'stdform stdform2','inputDefaults' => array(
         'div' => array('class' => 'field'))));
 
-echo $this->Form->input('UsuarioNombre',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p><label style="float: left;">Usuario</label><span  class="field float">','after'=>'</span>'));
+echo $this->Form->input('username',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p><label style="float: left;">Usuario</label><span  class="field float">','after'=>'</span>'));
 
-echo $this->Form->input('ClaveAcceso',array('class'=>'input-medium','maxlength'=>'16','div'=>false,'label'=>false,'before'=>'<p><label style="float: left;">Clave</label><span  class="field float">','after'=>'</span>'));
+echo $this->Form->input('password',array('class'=>'input-medium','maxlength'=>'16','div'=>false,'label'=>false,'before'=>'<p><label style="float: left;">Clave</label><span  class="field float">','after'=>'</span>'));
 
 echo $this->Form->input('Nombre',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p><label style="float: left;">Nombre</label><span  class="field float">','after'=>'</span>'));
 

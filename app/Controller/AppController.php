@@ -28,25 +28,25 @@ App::uses('Controller', 'Controller');
  * Add your application-wide methods in the class below, your controllers
  * will inherit them.
  *
- * @package		app.Controller
- * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
+ * @package                app.Controller
+ * @link                http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
-	function beforeFilter(){
-	   if ($this->params['controller']!="pages" && $this->action!="pdfTest"){
-	                        if (!$this->request->is('ajax')){
-	                                $this->redirect(array('controller' => 'pages', 'action' => 'display'));
-	                        }else{
-	                                $this->layout = 'empty';
-	                        }
-	                }
-	}
-	function addRedirect($view) {
-		if ($this->request->data[$view]['guardaryseguir'] == '1'){
-			$this->redirect(array('action' => 'add?check=1'));
-		} else {
-			$this->redirect(array('action' => 'index'));
-		}
-	}
+        function beforeFilter(){
+           if ($this->params['controller']!="pages" && $this->action!="pdfTest"){
+                                if (!$this->request->is('ajax')){
+                                        $this->redirect(array('controller' => 'pages', 'action' => 'display'));
+                                }else{
+                                        $this->layout = 'empty';
+                                }
+                        }
+        }
+        function addRedirect($view) {
+                if ($this->request->data[$view]['guardaryseguir'] == '1'){
+                        $this->redirect(array('action' => 'add?check=1'));
+                } else {
+                        $this->redirect(array('action' => 'index'));
+                }
+        }
 
 }

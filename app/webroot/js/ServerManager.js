@@ -259,7 +259,21 @@ var ServerManager = new Class({
 				}
 
 		    } );
+    },
+    resetPassword: function(config){
+    	var self=this;
+    	var type = config.object;
+
+    	jQuery.ajax( {
+		      type: "GET",
+		      url: self.services[type]["controllerName"]+"/resetPassword/"+config.id,
+		      success: function(data) {
+		    	  config.onSuccess(data);
+				}
+
+		    } );
     }
+
 
 });
 

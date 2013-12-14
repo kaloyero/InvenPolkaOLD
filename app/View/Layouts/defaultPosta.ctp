@@ -137,7 +137,7 @@
 
                                         <li class="dropdown animate7 fadeInUp">
                                                             <a href="#">
-                                                              <span class="icon-search"></span>Buscador de Articulos
+                                                              <span class="icon-search"></span>Buscador
                                                             </a>
                                                             <ul style="display: block;">
                                                               <li>

@@ -6,12 +6,12 @@ echo $this->Form->create('MovimientoInventario',array('class' => 'stdform stdfor
         'div' => array('class' => 'field') )));
 
 /*echo $this->Form->input('Fecha',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
-                                <label style="float: left;">Fecha Empaquetado</label>
+                                <label style="float: left;">Fecha de baja</label>
                                 <span class="field float">',
 								'after'=>'</span>'));*/
 
 
-echo '<p><label style="float: left;">Fecha Empaquetado</label><span class="field float"><input class="input-small fecha" type="text" name="data[MovimientoInventario][Fecha]" required="required" /><small><em> yyyy / mm / dd</em></small></span>';
+echo '<p><label style="float: left;">Fecha de Baja</label><span class="field float"><input class="input-small fecha" type="text" name="data[MovimientoInventario][Fecha]" required="required" /><small><em> yyyy / mm / dd</em></small></span>';
 
 echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5','div'=>false,'label'=>false,'before'=>'<p>
                                 <label style="float: left;">Comentarios</label>
@@ -24,6 +24,9 @@ echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depos
                                 <label style="float: left;">Deposito Origen</label>
                                 <span class="field float">',
 								'after'=>'</span></p>'));
+								
+echo $this->Form->input('MovimientoInventario.IdProyecto',array('type'=>'select','options'=>$proyectos,'empty'=>true,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p><label>Proyecto</label><span class="field">','after'=>'</span></p>'));
+								
 ?>
 
 <p><h5 style="color:#3366FF;padding-left:0.5em;">Lista de Articulos</h5></p>
@@ -53,7 +56,7 @@ echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depos
 				<?php echo $articulo['articulos']['CodigoArticulo']; ?>
             </td>
             <td><?php echo $articulo['articulos']['Descripcion']; ?></td>
-			<td><input name="data[Detalle][<?php echo $cont ?>][Cantidad]"  class="input-medium valid" value="1" min="1" type="number" /></td>
+			<td><input name="data[Detalle][<?php echo $cont ?>][Cantidad]"  class="input-medium valid" value="0" min="0" type="number" /></td>
             <td><img style="width:250px; height:150px;border-style:solid;border-width:3px;" src="/InvenPolka/app/webroot/files/articulo/idFoto/<?php echo $articulo['articulos']['dir'].'/small_'.$articulo['articulos']['idFoto']; ?> "alt="CakePHP" ></td>
 <td><img class="desactiva" src="/InvenPolka/app/webroot/files/gif/desactivar.png"></td>
         </tr>
@@ -63,7 +66,7 @@ echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depos
 </table>
 
 <?php
-echo '<p class="stdformbutton"><button class="btn btn-primary save">Asignar</button></p>';
+echo '<p class="stdformbutton"><button class="btn btn-primary save">Aceptar</button></p>';
 ?>
 <?php echo $this->Form->end();?>
 </div>

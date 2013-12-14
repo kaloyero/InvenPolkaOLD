@@ -157,17 +157,15 @@ class MovimientoInventariosController extends AppController {
 		foreach ($listDetalle as &$detalle) {
 			foreach ($detalle as &$det) {
 				$MovDetalle=new MovimientoDetalleInventario();
-					if ($det['Cantidad'] !=0){
-						if ($tipoMov == 'P'){
-							$MovDetalle= array('IdMovimientoInventario' => $idInsertedMovimiento,
-										   'IdArticulo' => $det['IdArticulo'],
-										   'Cantidad' => $det['Cantidad'],
-										   'IdPedidoDetalle' => $det['IdPedidoDetalle']);
-						} else {
-							$MovDetalle= array('IdMovimientoInventario' => $idInsertedMovimiento,
-										   'IdArticulo' => $det['IdArticulo'],
-										   'Cantidad' => $det['Cantidad']);
-						}
+					if ($tipoMov == 'P'){
+						$MovDetalle= array('IdMovimientoInventario' => $idInsertedMovimiento,
+									   'IdArticulo' => $det['IdArticulo'],
+									   'Cantidad' => $det['Cantidad'],
+									   'IdPedidoDetalle' => $det['IdPedidoDetalle']);
+					} else {
+						$MovDetalle= array('IdMovimientoInventario' => $idInsertedMovimiento,
+									   'IdArticulo' => $det['IdArticulo'],
+									   'Cantidad' => $det['Cantidad']);
 					}
 				$this->MovimientoDetalleInventario->saveall($MovDetalle);
 				$this->balanceInventario($tipoMov,$MovDetalle);
@@ -201,8 +199,17 @@ class MovimientoInventariosController extends AppController {
 					$consultas ->sumaInventarioEnDeposito($articulo,$deposito,$cantidad);
 					break;
 				case 'B':
-					//Resto X cantidad de articulo al deposito seleccionado
-					$consultas ->restaInventarioEnDeposito($articulo,$deposito,$cantidad);
+					$proyecto = $this->request->data['MovimientoInventario']['IdProyecto'];
+					//Si se selecciono proyecto
+					if (empty($proyecto) ){
+						//Resto X cantidad de articulo al deposito seleccionado
+						$consultas ->restaInventarioEnDeposito($articulo,$deposito,$cantidad);
+					} else {
+						//Resto X cantidad de articulo al proyecto seleccionado
+						$consultas ->restaInventarioEnProyecto($articulo,$deposito,$proyecto,$cantidad);
+					}
+					//Borro o dejo al articulo inactivo.					
+					$consultas ->borraInactivoArticulo($articulo);
 					break;
 				case 'T':
 					$depositoDest = $this->request->data['MovimientoInventario']['IdDepositoDest'];
