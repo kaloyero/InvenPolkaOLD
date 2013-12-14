@@ -36,13 +36,6 @@ class ArticulosController extends AppController {
 				$this->redirect(array('action' => 'index'));
 			}
    }
-	public function pdfTest() {
-
-		$this->response->type('application/pdf');
-		$this->layout = 'pdf'; //this will use the pdf.ctp layout
-		$this->render();
-	}
-
 
     public function add() {
         if ($this->request->is('post')) {
