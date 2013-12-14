@@ -394,6 +394,7 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi,$tipoLista) {
 					$btnPrintComanda = "";
 					break;
 				case 'H':
+				$btnAccion= "<div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <a href='/InvenPolka/pedidos/generatePedidoPdf/".$j[$tabla]['id']."'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/pdf.gif' /></a></div>";
 					$btnPrintPedido = "";
 					if ($j[$tabla]["estado"] == "confirmado"){
 						$btnPrintComanda = "";
