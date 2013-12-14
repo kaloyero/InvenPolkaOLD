@@ -10,7 +10,7 @@ var SideBarController = new Class({
     },
 
     bindMenuOptionsEvents:function() {
-
+console.log("asdff");
     	jQuery('.option').bind("click", function(e) {
     		var objectId=jQuery(this).attr("id");
     		sideBarController.onOptionSelected(objectId);

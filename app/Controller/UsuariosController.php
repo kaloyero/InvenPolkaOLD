@@ -1,6 +1,7 @@
 <?php
         App::import('Model','ConsultasPaginado');        
         App::import('Model','ConsultasSelect');
+        App::import('Model','ConsultasUsuario');		
 
 class UsuariosController extends AppController {
 
@@ -51,6 +52,33 @@ class UsuariosController extends AppController {
 	function resetPassword($id = null) {
 
 	}
+
+	function login() {
+		$consultas = new ConsultasSelect();
+		$consultasUs = new ConsultasUsuario();
+		
+		$user = $this->request->data['username'];
+		$pass = $this->request->data['password'];
+		//Valida el usuario y contrase;a ingresado
+		$usValid = $consultasUs->validateUserPass($user,$pass);
+		
+		if ($usValid) {
+			$this->set('categorias',$consultas->getCategorias());
+			//Setea los datos del usuario en la session
+			$usuario = $consultasUs->getUsuario($user,$pass);
+			$this->Session->write("usuario",$usuario);
+			//Setea en la session los provilegios del usuario
+			print_r($usuario);
+			$privilegios = $consultasUs->accionesByRol($usuario['usuarios']['TipoRol']);
+			$this->Session->write("privilegios",$privilegios);
+		
+			$this->render('/Layouts/menu2');
+		} else {
+			print_r("tele");
+			$this->render('/Layouts/default');
+		}
+	}
+
 
 	function delete($id) {
 

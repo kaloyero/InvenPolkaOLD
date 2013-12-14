@@ -4,7 +4,6 @@ var RenderTranslator = new Class({
     },
 
     getRender: function(type){
-        console.log("TYPE",type)
     	switch (type) {
 		case "articulo":
 			return articuloRender;

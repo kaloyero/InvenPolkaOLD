@@ -26,8 +26,30 @@ var Usuario = new Class({
 				   return false;
 			  })
     	},
+      validateLogin:function(){
+          var self=this;
+			jQuery('.reset').bind("click", function(e) {
+				translator.resetPassword(self.type,self.getSelectedRowId(this));
+				return false;
+			})
+
+            jQuery('.edit').bind("click", function(e) {
+				   translator.view(self.type,self.getSelectedRowId(this));
+				   return false;
+			  })
+    	},
+		onLoggedUser:function(){
+				jQuery("body").empty();
+				jQuery(data).appendTo("body");
+				sideBarController.bindMenuOptionsEvents();
+				articuloRender.bindFinderStaticEvents();;
+		}
 	
 	
 });
+
+
+
+	
 
 usuarioRender=new Usuario()
