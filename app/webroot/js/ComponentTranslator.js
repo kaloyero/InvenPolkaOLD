@@ -205,14 +205,12 @@ var ComponentTranslator = new Class(
 
 					},
 					onError : function(data) {
-					    jQuery.jGrowl("Filho da puta.", {
-					        theme : 'success'
-				        });
-						jQuery('.paginate_active').click();
+						alert(data);
+						jQuery(data).append("");
 					}
 
 				});
-    		}
+    		},
 
 		});
 

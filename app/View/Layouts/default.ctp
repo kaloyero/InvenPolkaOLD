@@ -61,8 +61,7 @@
         echo $this->Html->script('jsTemplate/jquery.growl');
         echo $this->Html->css('jquery.growl');
         echo $this->Html->script('jsTemplate/jquery.validate');
-
-
+        echo $this->Html->script('libs/md5');
 
         echo $this->fetch('css');
         echo $this->fetch('script');?>
@@ -76,14 +75,14 @@
 <div id="principal" class="loginwrapper">
 
 	<div class="loginwrap zindex100 animate2 bounceInDown">
-	<h1 class="logintitle"><span class="iconfa-lock"></span> Sign In <span class="subtitle">Hello! Sign in to get you started!</span></h1>
+	<h1 class="logintitle"><span class="iconfa-lock"></span> LOGIN <span class="subtitle">Bienvenido al sistema de inventarios de POL-KA</span></h1>
         <div class="loginwrapperinner">
 <?php echo $this->Form->create('Usuario',array('id'=>'loginform' ,'class' => 'stdform stdform2','inputDefaults' => array(
         'div' => array('class' => 'field'))));
 ?>
-                <p class="animate4 bounceIn"><input type="text" id="username" name="username" placeholder="Username" /></p>
-                <p class="animate5 bounceIn"><input type="password" id="password" name="password" placeholder="Password" /></p>
-                <p class="animate6 bounceIn"><button class="btn btn-default btn-block">Submit</button></p>
+                <p class="animate4 bounceIn"><input type="text" id="username" name="username" placeholder="Usuario" /></p>
+                <p class="animate5 bounceIn"><input type="password" id="password" name="password" placeholder="Contraseña" /></p>
+                <p class="animate6 bounceIn"><button class="btn btn-default btn-block">Entrar</button></p>
 <?php echo $this->Form->end()?>
         </div><!--loginwrapperinner-->
     </div>
