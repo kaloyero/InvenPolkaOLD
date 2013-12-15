@@ -185,27 +185,19 @@ var ComponentTranslator = new Class(
 					object : objectType,
 					data: formData,
 					onSuccess : function(data) {
-//						jQuery("html").empty()
-//						var renderInstace = renderTranslator.getRender("articulo");
-//						alert(renderInstace);
-//							renderInstance.onLoggedUser();
-				jQuery("body").empty();
-jQuery(data).appendTo("body");
-				//jQuery("body").load(data);
-				sideBarController.bindMenuOptionsEvents();
-				articuloRender.bindFinderStaticEvents();
-
-						
+						jQuery("body").empty();
+						jQuery(data).appendTo("body");
+						//jQuery("body").load(data);
+						sideBarController.bindMenuOptionsEvents();
+						articuloRender.bindFinderStaticEvents();
 					},
 					onError : function(data) {
-					    jQuery.jGrowl("Filho da puta.", {
-					        theme : 'success'
-				        });
-						jQuery('.paginate_active').click();
+						alert(data);
+						jQuery(data).append("");
 					}
 
 				});
-    		}
+    		},			
 
 		});
 

@@ -83,7 +83,20 @@ class ConsultasUsuario extends AppModel {
 		$tabla = "usuarios";
 
 		//Usuario
-		$us = $model->query("SELECT * FROM `".$tabla."` WHERE LOWER(`username`)=LOWER('".$user."') AND password like '".$pass."' AND Inactivo = 'F'");
+		$usuarios = $model->query("SELECT * FROM `".$tabla."` WHERE LOWER(`username`)=LOWER('".$user."') AND password like '".$pass."' AND Inactivo = 'F'");
+		
+		$us=array();
+		foreach ($usuarios as $usuario){
+			$us['id']=$usuario['usuarios']['id'];
+			$us['Nombre']=$usuario['usuarios']['Nombre'];
+			$us['Apellido']=$usuario['usuarios']['Apellido'];
+			$us['Legajo']=$usuario['usuarios']['Legajo'];
+			$us['Descripcion']=$usuario['usuarios']['Descripcion'];
+			$us['username']=$usuario['usuarios']['username'];
+			$us['FechaFin']=$usuario['usuarios']['FechaFin'];
+			$us['Email']=$usuario['usuarios']['Email'];
+			$us['Rol']=$usuario['usuarios']['TipoRol'];
+		}
 		
 		return $us;
 	}

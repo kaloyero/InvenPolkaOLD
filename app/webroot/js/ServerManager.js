@@ -279,14 +279,16 @@ var ServerManager = new Class({
     	jQuery.ajax( {
 		      type: "POST",
 				data: config.data.serialize(),
-		      url: "usuarios/login",
-		      success: function(data) {
-		    	  config.onSuccess(data);
+		      	url: "usuarios/login",
+		      	success: function(data) {
+		    	  	config.onSuccess(data);
+				},
+				error : function(data) {
+				  	config.onError(data)
 				}
+				
 		    } );
-    }
-
-
+    },
 });
 
 serverManager=new ServerManager();
