@@ -21,6 +21,7 @@
  */
 App::uses('AppController', 'Controller');
 App::import('Model','ConsultasSelect');
+App::import('Model','ConsultasUsuario');
 
 
 /**
@@ -49,8 +50,6 @@ class PagesController extends AppController {
  *	or MissingViewException in debug mode.
  */
 	public function display() {
-		$consultas = new ConsultasSelect();
-	    $this->set('categorias',$consultas->getCategorias());
 		$path = func_get_args();
 
 		$count = count($path);

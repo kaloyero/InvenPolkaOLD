@@ -5,67 +5,22 @@
 <title>Pol-ka</title>
 <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/excanvas.min.js"></script><![endif]-->
 <?php
-
-        echo $this->Html->script('operacionesBasicas');
         echo $this->Html->script('mootools.js');
         echo $this->Html->script('Render');
         echo $this->Html->script('RenderTranslator');
-        echo $this->Html->script('Articulo');
-        echo $this->Html->script('Pedido');
-        echo $this->Html->script('PedidoSalida');
-        echo $this->Html->script('PedidoHisto');
-        echo $this->Html->script('Deposito');
-        echo $this->Html->script('MovimientoInventario');
-        echo $this->Html->script('Inventario');
-        echo $this->Html->script('Proyecto');
-
-        echo $this->Html->script('Categoria');
-        echo $this->Html->script('Usuario');
-        echo $this->Html->script('Material');
-        echo $this->Html->script('Estilo');
-        echo $this->Html->script('Objeto');
-        echo $this->Html->script('Decorado');
-        echo $this->Html->script('Dimension');
-        echo $this->Html->script('Proyecto');
-        echo $this->Html->script('Deposito');
-        echo $this->Html->script('Inventario');
-        echo $this->Html->script('Message');
-
         echo $this->Html->script('ComponentTranslator');
-
         echo $this->Html->script('ServerManager');
-        echo $this->Html->script('SideBarController');
-        //Cargando archivos del template');
+		
+		echo $this->Html->script('Usuario');
+
         echo $this->Html->css('style.default');
         echo $this->Html->script('jsTemplate/prettify/prettify');
         echo $this->Html->script('jsTemplate/jquery-1.9.1.min');
         echo $this->Html->script('jsTemplate/jquery-migrate-1.1.1.min');
-        echo $this->Html->script('jsTemplate/jquery-ui-1.9.2.min');
-        echo $this->Html->script('jsTemplate/jquery.uniform.min');
-        echo $this->Html->script('jsTemplate/jquery.cookie');
-        echo $this->Html->script('jsTemplate/bootstrap.min');
-        echo $this->Html->script('jsTemplate/jquery.flot.min');
-        echo $this->Html->script('jsTemplate/jquery.flot.resize.min');
-        echo $this->Html->script('jsTemplate/jquery.dataTables.min');
-        echo $this->Html->script('jsTemplate/jquery.notifications');
-        //echo $this->Html->css('demo_table');
-        //echo $this->Html->css('demo_page');
-
- 		echo $this->Html->script('jsTemplate/custom');
-        echo $this->Html->script('jsTemplate/uploadForm');
-//		echo $this->Html->script('jsTemplate/forms');
-
-        echo $this->Html->css('styleTest');
-        echo $this->Html->script('jsTemplate/modernizr.custom.26887');
-        echo $this->Html->script('jsTemplate/jquery.imgslider');
-        echo $this->Html->script('jsTemplate/jquery.growl');
-        echo $this->Html->css('jquery.growl');
-        echo $this->Html->script('jsTemplate/jquery.validate');
-
-
 
         echo $this->fetch('css');
-        echo $this->fetch('script');?>
+        echo $this->fetch('script');
+?>
 
 
 

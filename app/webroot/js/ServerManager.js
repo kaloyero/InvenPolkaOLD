@@ -272,6 +272,18 @@ var ServerManager = new Class({
 				}
 
 		    } );
+    },
+    loginUser: function(config){
+    	var self=this;
+    	var type = config.object;
+    	jQuery.ajax( {
+		      type: "POST",
+				data: config.data.serialize(),
+		      url: "usuarios/login",
+		      success: function(data) {
+		    	  config.onSuccess(data);
+				}
+		    } );
     }
 
 
