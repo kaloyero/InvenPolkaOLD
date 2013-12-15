@@ -14,7 +14,7 @@ class ConsultasUsuario extends AppModel {
 		$model = new Categoria();
 		$tabla = "acciones";
 		//Acciones
-		$acciones = $model->query("SELECT * FROM `".$tabla."` WHERE id in (select id_accion from `rol_acciones` where `id_rol` = '".$idRol."')");
+		$acciones = $model->query("SELECT * FROM `".$tabla."` WHERE Inactivo like 'F' and id in (select id_accion from `rol_acciones` where `id_rol` = '".$idRol."' AND `Inactivo` like 'F')");
 		
 		$privilegios =array();
 		foreach($acciones as $accion){

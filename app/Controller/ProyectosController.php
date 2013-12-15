@@ -19,7 +19,8 @@ class ProyectosController extends AppController {
 	function ajaxData() {
 			$paginado =new ConsultasPaginado();
 	        $this->autoRender = false;
-			$output = $paginado->getDataProyectos();
+			$privilegios = $this->Session->read("privilegios");
+			$output = $paginado->getDataProyectos($privilegios);
 	        echo json_encode($output);
 	}
 

@@ -108,7 +108,6 @@ class MovimientoInventariosController extends AppController {
 			//CargarLista de Articulos
 			$this->getListaArticulos();
 		}
-
 	}
 
 	public function asignacionAProyectos($id = null){

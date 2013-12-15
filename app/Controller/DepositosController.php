@@ -21,7 +21,8 @@ class DepositosController extends AppController {
 	function ajaxData() {
 			$paginado =new ConsultasPaginado();
 	        $this->autoRender = false;
-			$output = $paginado->getDataDepositos();
+			$privilegios = $this->Session->read("privilegios");
+			$output = $paginado->getDataDepositos($privilegios);
 	        echo json_encode($output);
 	}
     public function add() {
