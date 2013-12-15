@@ -1,5 +1,8 @@
 <?php
 App::import('Model','ConsultasPaginado');
+App::import('Model','Pedido');
+App::import('Model','MovimientoInventario');
+
 
 class ProyectosController extends AppController {
 
@@ -42,9 +45,24 @@ class ProyectosController extends AppController {
 			}
 		}
 	}
-
+ //Si el proyecto se esta usando en algun lugar,se pone el campo en inactivo,sino ,se borra
 	function delete($id) {
+		$MovDetalle=new MovimientoInventario();
+		$pedido=new Pedido();
+		$resultMovimientoDetalle=$MovDetalle->find('list', array('conditions' => array('IdProyecto =' => $id)));
+		$cantidadEnMovDetall = sizeof($resultMovimientoDetalle);
+		$resultPedido=$pedido->find('list', array('conditions' => array('IdProyecto =' => $id)));
+		$cantidadEnPedido = sizeof($resultPedido);
 
+		if ($cantidadEnPedido==0 && $cantidadEnMovDetall==0){
+			$this->Proyecto->delete($id);
+		} else {
+			$this->Proyecto->id = $id;
+			$this->Proyecto->saveField('inactivo', 'V');
+
+		}
+			$this->render('/General/Success');
 	}
+
 }
 ?>

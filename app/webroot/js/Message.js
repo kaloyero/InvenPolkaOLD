@@ -28,7 +28,20 @@ var Message = new Class({
        				theme : 'error'
           	})
           }
-      }
+      },
+      createMessageProyecto: function(data){
+
+            	if (String(data)=="Ok"){
+            	    jQuery.jGrowl("Borrado Satisfactoriamente.", {
+     				theme : 'success'
+     			});
+            	}else{
+                 jQuery.jGrowl("ubo un problema con la operacion", {
+     				theme : 'error'
+     			});
+            	}
+            },
+
 });
 
 messageRender=new Message();

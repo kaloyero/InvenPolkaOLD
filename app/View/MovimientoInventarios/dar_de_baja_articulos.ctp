@@ -24,9 +24,9 @@ echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depos
                                 <label style="float: left;">Deposito Origen</label>
                                 <span class="field float">',
 								'after'=>'</span></p>'));
-								
+
 echo $this->Form->input('MovimientoInventario.IdProyecto',array('type'=>'select','options'=>$proyectos,'empty'=>true,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p><label>Proyecto</label><span class="field">','after'=>'</span></p>'));
-								
+
 ?>
 
 <p><h5 style="color:#3366FF;padding-left:0.5em;">Lista de Articulos</h5></p>
