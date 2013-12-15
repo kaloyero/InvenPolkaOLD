@@ -16,7 +16,8 @@ class UsuariosController extends AppController {
         function ajaxData() {
 			$paginado =new ConsultasPaginado();
 			$this->autoRender = false;
-			$output = $paginado->getDataUsuarios();
+			$privilegios = $this->Session->read("privilegios");
+			$output = $paginado->getDataUsuarios($privilegios);
 			echo json_encode($output);
         }
 
@@ -71,9 +72,9 @@ class UsuariosController extends AppController {
 				$privilegios = $consultasUs->accionesByRol($usuario['Rol']);
 				$this->Session->write("privilegios",$privilegios);
 			
-				$this->render('/Layouts/menu2');
+				$this->render('/Layouts/menu');
 			} else {
-				$this->set('mensaje' , "El Usuario o la Contraseña ingresada son incorrectos.");                			
+				$this->set('mensaje' , "El Usuario o la Contraseña que ha ingresado son incorrectos.");                			
 			}
 	}
 

@@ -1,5 +1,9 @@
 <p class="stdformbutton">
-	<button id="add" class="btn">Agregar</button>
+	<?php $privis = $this->Session->read("privilegios"); ?>
+
+	<?php if (! empty($privis['addProyecto'])) { ?>
+		<button id="add" class="btn">Agregar</button>
+	<?php } ?>
 </p>
 
 <table  id="configurationTable" class ="table table-bordered" width="100%"  style="width: 100%;">

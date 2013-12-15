@@ -20,7 +20,7 @@
 	App::import('Model','ObjetoCategoria');
 	App::import('Model','MovimientoInventario');
 	App::import('Model','MovimientoDetalleInventario');
-
+	App::import('Model','Role');	
 
 class ConsultasSelect extends AppModel {
 	public $name = 'ConsultasSelect';
@@ -39,8 +39,11 @@ class ConsultasSelect extends AppModel {
 ****************************** {INICIO} USUARIOS  ********************************
 \********************************************************************************/
 	function getRolesUsuarios() {
-		$rolesList = array('A'=>'Us. Administrador','D'=>'Us. Deposito','R'=>'Us. Arte');
-		return $rolesList;
+//		$rolesList = array('A'=>'Us. Administrador','D'=>'Us. Deposito','R'=>'Us. Arte');
+		$model=new Role();
+		$acciones=$model->find('list',array('fields'=>array('Role.id','Role.Nombre')));
+
+		return $acciones;
 	}
 ////////////////////////////// {FIN} USUARIOS //////////////////////////////
 

@@ -9,6 +9,7 @@
 	App::import('Model','Usuario');
 	App::import('Model','MovimientoInventario');
 	App::import('Model','ConsultasSelect');
+	App::import('Model','ConsultasUsuario');	
 
 class ConsultasPaginado extends AppModel {
 	public $name = 'ConsultasPaginado';
@@ -98,6 +99,7 @@ private function getArrayDataConfig($rows,$modelo,$columnaId) {
 	  $model=new Categoria();
 	  $categoryList = $model->find('list',array('fields'=>array('Categoria.id','Categoria.Nombre')));
       $arrayDt=array();
+
 
   	  $icono = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a class ='desactivar' ><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>";
 	  $icono2 = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/za' class='view'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div></div>";
@@ -606,7 +608,7 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumns,$aColumnsFil
 
 
 	/* Este metodo crearía la tabla para aquellas tablas que muestren datos solamente de una tabla */
-	public function getDataUsuarios() {
+	public function getDataUsuarios($privilegios) {
 			$model=new Usuario();
 			//Consigue el query que se va ejecutar
 			$query=$this->getDataUsuarioQuery();
@@ -615,7 +617,7 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumns,$aColumnsFil
 			//Obtengo los totales
 			$totales = $this->getTotales($model,$query);
 			//Proceso los campos para llenar la tabla
-			$arrayData=$this->getArrayUsuariosConfig($rows);
+			$arrayData=$this->getArrayUsuariosConfig($rows,$privilegios);
 			//Obtengo la tabla
 			$output = $this->createConfigTable($arrayData,$totales["total"],$totales["tDisplay"]);
 
@@ -650,15 +652,26 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumns,$aColumnsFil
 
 	}
 
-private function getArrayUsuariosConfig($rows) {
+private function getArrayUsuariosConfig($rows,$privilegios) {
 	  $consultas = new ConsultasSelect();
+	  $consultasUs = new ConsultasUsuario();
 	  $rolesList = $consultas->getRolesUsuarios();
 	  $estadosList = array('F'=>'Activo','T'=>'Inactivo','S'=>'Eliminado');
       $arrayDt=array();
 
-  	  $icono = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a class ='desactivar' ><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>";
-	  $icono2 = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/za' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div></div>";
-	  $icono3 = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/za' class='reset'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/cambioPass.gif' /></a></div></div>";
+   	  $icono = "";
+	  $icono2 = "";
+	  $icono3 = "";
+	  if (! empty($privilegios['btnEliminar'])) { 
+	  	  $icono = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a class ='desactivar' ><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>";
+	  }
+	  if (! empty($privilegios['btnEditar'])) { 
+		  $icono2 = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/za' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div></div>";  
+	  }
+	  if (! empty($privilegios['menuCambioPass'])) { 
+		  $icono3 = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/za' class='reset'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/cambioPass.gif' /></a></div></div>";
+	  }
+
 
       foreach($rows as $j){
 				$fila[0] = array($j['tab']['id']);

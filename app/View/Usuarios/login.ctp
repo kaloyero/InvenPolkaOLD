@@ -12,7 +12,7 @@
 <?php echo $this->Form->end()?>
         </div><!--loginwrapperinner-->
     </div>
-    <div class="loginshadow animate3 fadeInUp"><b><font color="#FE2E2E" size="2"><?php echo $mensaje ?></font></b></div>
+    <div class="loginshadow animate3 fadeInUp"><b><font color="#B40404" size="2"> <?php echo $mensaje ?></font></b></div>
 </div><!--loginwrapper-->
 
 <script type="text/javascript">
