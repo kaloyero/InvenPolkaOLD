@@ -14,6 +14,18 @@ var Proyecto = new Class({
 
                 // Specify the validation rules
                 return     '{rules: {data[Proyecto][Nombre]: "required",data[Proyecto][Descripcion]: "required"}}'
+    },
+    afterDataTable:function(){
+        this.parent();
+        var self=this;
+
+        jQuery('.desactivar').bind("click", function(e) {
+			  translator.delete(self.type,self.getSelectedRowId(this));
+		  })
+    },
+    onDeleted:function() {
+             //Actualizo la tabla en la pagina en q esta
+        	jQuery('.paginate_active').click();
     }
 });
 

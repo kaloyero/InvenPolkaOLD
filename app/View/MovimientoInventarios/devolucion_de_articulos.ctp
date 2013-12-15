@@ -3,9 +3,9 @@ echo '<h4 class="widgettitle nomargin shadowed">Devolución de Articulos</h4>';
 echo $this->Form->create('MovimientoInventario',array('class' => 'stdform stdform2','inputDefaults' => array(
         'div' => array('class' => 'field') )));
 
-echo '<p><label>Fecha</label><span class="field"><input class="input-small fecha" type="text" name="data[MovimientoInventario][Fecha]" required="required" /><small class="field"><em>   año / mes / dia</em></small></span></p>';
-								
-echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5','div'=>false,'label'=>false,'before'=>'<p>
+echo '<p><label  style="float: left;">Fecha</label><span class="field float"><input class="input-small fecha" type="text" name="data[MovimientoInventario][Fecha]" required="required" /><small class="field"><em>   año / mes / dia</em></small></span>';
+
+echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5','div'=>false,'label'=>false,'before'=>'
 								                                <label style="float: left;">Comentarios</label>
 								                                <span class="field float">',
 																'after'=>'</span></p>','pattern' => '.*\S+.*'));
@@ -14,16 +14,18 @@ echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5
 
 
 <?php
-echo $this->Form->input('MovimientoInventario.IdProyecto',array('type'=>'select','options'=>$proyectos,'empty'=>true,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p><label>Proyecto</label><span class="field">','after'=>'</span></p>'));
+echo $this->Form->input('MovimientoInventario.IdProyecto',array('type'=>'select','options'=>$proyectos,'empty'=>true,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p><label  style="float: left;">Proyecto</label><span class="field float">','after'=>'</span>'));
 
-echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depositoOriginal','type'=>'select','options'=>$depositos,'empty'=>false,'class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
+echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depositoOriginal','type'=>'select','options'=>$depositos,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'
                                 <label style="float: left;">Deposito</label>
                                 <span class="field float">',
-								'after'=>'</span>'));
+								'after'=>'</span></p>'));
 ?>
 
 
-LISTA DE ARTICULOS
+<p><h5 style="color:#3366FF;padding-left:0.5em;">Lista de Articulos</h5></p>
+
+
 <table  id="listaArticulos" class ="table table-bordered" width="100%"  style="width: 100%;">
 	<thead>
 					<tr>

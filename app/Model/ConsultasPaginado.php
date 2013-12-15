@@ -142,7 +142,7 @@ private function getArrayDataConfig($rows,$modelo,$columnaId) {
 			    $aColumnsFilter = array( 'Nombre','Director' );
 				//Columna por la cual se va ordenar
 				$orderByfield = 'Nombre';
-				$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,false);
+				$output = $this->getDataProyecto($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,false);
 				return $output;
 		}
 
@@ -805,6 +805,72 @@ private function getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderBy
 
 		return $output;
 }
+
+/* Este metodo crearía la tabla para aquellas tablas que muestren datos solamente de una tabla */
+private function getDataProyecto($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,$withEditLink) {
+		//Consigue el query que se va ejecutar
+		$query=$this->getDataProyectoQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield,"");
+		//Ejecuta el query, obtengo las filas
+		$rows =$model->query("".$query['select'].";");
+		//Obtengo los totales
+		$totales = $this->getTotales($model,$query);
+		//Proceso los campos para llenar la tabla
+		if ($withEditLink==true){
+			$arrayData=$this->getArrayDataWithEditLink($tabla,$rows,$aColumns,$query['select']);
+
+		}else{
+			$arrayData=$this->getArrayData($tabla,$rows,$aColumns,$query['select']);
+
+		}
+		//Obtengo la tabla
+		$output = $this->createConfigTable($arrayData,$totales["total"],$totales["tDisplay"]);
+
+		return $output;
+}
+
+	private function getDataProyectoQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield,$where) {
+        //Columnas por las que se va a filtrar
+		$aColumnsShow = $this->getColumnsToShow($aColumns);
+		//Partes del query
+		$select = "SELECT ".$aColumnsShow;
+		$from = " FROM ".$tabla." ";
+		$limit = 'limit '.$_GET['iDisplayStart'].' ,'.$_GET['iDisplayLength'] ;
+		$orderBy = " order by ".$orderByfield." ";
+		$sWhere = "WHERE  inactivo LIKE  'F'";
+
+		/*BUSQUEDA*/
+		//Si el wehre viene vacio
+		if ($where == ""){
+			if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" )
+			{
+				if ($_GET['sSearch'] != ""){
+					$arreglo = explode(' ', $_GET['sSearch']);
+
+					$sWhere = "WHERE ";
+					foreach($arreglo as $searchWord){
+						$sWhere .= "(";
+						for ( $i=0 ; $i<count($aColumnsFilter) ; $i++ )
+						{
+							$sWhere .= "`".$aColumnsFilter[$i]."` LIKE '%".( $searchWord )."%' OR ";
+						}
+						$sWhere = substr_replace( $sWhere, "", -3 );
+						$sWhere .= ') AND ';
+					}
+					$sWhere = substr_replace( $sWhere, "", -4 );
+				}
+			}
+		} else {
+			$sWhere = " WHERE (".$where.")";
+		}
+
+		$query['select'] = $select.$from.$sWhere.$orderBy.$limit;
+		$query['selectWOL'] = $select.$from.$sWhere;
+		$query['from'] =  $from;
+		$query['where'] = $sWhere;
+
+		return $query;
+	}
+
 
 /* Este metodo crea el query que se va ejecutar para obtener la lista
 	Devuelve 	query['select'] -> Sentencia select
