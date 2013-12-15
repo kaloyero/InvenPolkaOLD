@@ -90,8 +90,6 @@ class EstilosController extends AppController {
 
 	function delete($id) {
 		if ($this->Estilo->delete($id)){
-			$model = new EstiloCategoria();
-			$model->deleteAll(array('EstiloCategoria.IdEstilo' => $id));
 			$this->render('/General/Success');
 		} else {
 			$this->render('/General/Error');

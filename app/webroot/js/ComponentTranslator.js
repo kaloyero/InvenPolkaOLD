@@ -195,7 +195,6 @@ var ComponentTranslator = new Class(
 //						alert(renderInstace);
 //							renderInstance.onLoggedUser();
 				jQuery("body").empty();
-				console.log("DATA",data)
                 //jQuery(data).appendTo("body");
                 jQuery("body").append(data);
 				//jQuery("body").load(data);

@@ -88,9 +88,6 @@ class MaterialesController extends AppController {
 
 	function delete($id) {
 		if ($this->Materiale->delete($id)){
-			//Se borro el Material,ahora borramos las relaciones que habia en Material_Controller
-			$model = new MaterialCategoria();
-			$model->deleteAll(array('MaterialCategoria.IdMaterial' => $id));
 			$this->render('/General/Success');
 		} else {
 			$this->render('/General/Error');

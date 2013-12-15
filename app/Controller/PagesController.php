@@ -55,7 +55,7 @@ class PagesController extends AppController {
 			$this->layout = 'menu2';
 			$consultas = new ConsultasSelect();
 			$this->set('categorias',$consultas->getCategorias());
-			$this->Session->delete("usuario");
+			//$this->Session->delete("usuario");
 		}
 
 		$path = func_get_args();

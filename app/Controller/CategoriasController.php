@@ -55,7 +55,11 @@ class CategoriasController extends AppController {
 	}
 
 	function delete($id) {
-
+			if ($this->Categoria->delete($id)){
+				$this->render('/General/Success');
+			} else {
+				$this->render('/General/Error');
+			}
 	}
 }
 ?>

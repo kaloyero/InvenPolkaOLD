@@ -72,8 +72,8 @@ var $components    = array('Cookie');
 				//Setea en la session los provilegios del usuario
 				$privilegios = $consultasUs->accionesByRol($usuario['Rol']);
 				$this->Session->write("privilegios",$privilegios);
-
-				$this->render('/Layouts/menu2');
+				//Se muestra el menu sin librerias importadas
+				$this->render('/Layouts/menuSinLibs');
 			} else {
 				$this->set('mensaje' , "El Usuario o la Contraseña ingresada son incorrectos.");
 			}
