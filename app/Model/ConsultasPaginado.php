@@ -154,6 +154,7 @@ private function getArrayDataConfig($rows,$modelo,$columnaId) {
 			$query=$this->getDataProyectoQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield);
 			//Ejecuta el query, obtengo las filas
 			$rows =$model->query("".$query['select'].";");
+			//print_r($rows);
 			//Obtengo los totales
 			$totales = $this->getTotales($model,$query);
 			//Proceso los campos para llenar la tabla
@@ -172,7 +173,7 @@ private function getArrayDataConfig($rows,$modelo,$columnaId) {
 		$from = " FROM ".$tabla." ";
 		$limit = 'limit '.$_GET['iDisplayStart'].' ,'.$_GET['iDisplayLength'] ;
 		$orderBy = " order by ".$orderByfield." ";
-		$sWhere = "WHERE  inactivo LIKE  'F'";
+		$sWhere = "Where Inactivo like 'F'";
 
 		/*BUSQUEDA*/
 			if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" )
@@ -198,7 +199,7 @@ private function getArrayDataConfig($rows,$modelo,$columnaId) {
 		$query['selectWOL'] = $select.$from.$sWhere;
 		$query['from'] =  $from;
 		$query['where'] = $sWhere;
-
+	//	print_r($query);
 		return $query;
 	}
 
@@ -793,7 +794,8 @@ private function createConfigTable($arrayData,$total,$totalDisplay) {
 
 private function getTotales ($model,$query){
 		//Obtengo el total de registros en la tabla
-		$total = $this->getVarParam($model->query($this->getConfigDisplayCountQuery($query['from'],"")));
+
+		$total = $this->getVarParam($model->query($this->getConfigDisplayCountQuery($query['from'],$query['where'])));
 		//Obtengo el total de registros filtrados
 		$totalDisplay = $this->getVarParam($model->query($this->getConfigDisplayCountQuery($query['from'],$query['where'])));
 
@@ -857,7 +859,7 @@ private function getArrayDataWithEditLink($tabla,$rows,$aColumns,$titi,$privileg
 			}
 
 			array_push($fila, " <div>".$icono.$icono2."</div>");
-
+			array_push($arrayDt, $fila);
       }
 
 	 return $arrayDt;
