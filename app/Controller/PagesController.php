@@ -52,7 +52,7 @@ class PagesController extends AppController {
 	public function display() {
 
 	if 	($this->Session->check("usuario")){
-			$this->layout = 'menu2';
+			$this->layout = 'menu';
 			$consultas = new ConsultasSelect();
 			$this->set('categorias',$consultas->getCategorias());
 			$this->Session->delete("usuario");
