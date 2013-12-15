@@ -190,11 +190,19 @@ var ComponentTranslator = new Class(
 					object : objectType,
 					data: formData,
 					onSuccess : function(data) {
-						jQuery("body").empty();
-						jQuery(data).appendTo("body");
-						//jQuery("body").load(data);
-						sideBarController.bindMenuOptionsEvents();
-						articuloRender.bindFinderStaticEvents();
+//						jQuery("html").empty()
+//						var renderInstace = renderTranslator.getRender("articulo");
+//						alert(renderInstace);
+//							renderInstance.onLoggedUser();
+				jQuery("body").empty();
+				console.log("DATA",data)
+                //jQuery(data).appendTo("body");
+                jQuery("body").append(data);
+				//jQuery("body").load(data);
+				//sideBarController.bindMenuOptionsEvents();
+				//articuloRender.bindFinderStaticEvents();
+
+
 					},
 					onError : function(data) {
 						alert(data);
@@ -202,7 +210,7 @@ var ComponentTranslator = new Class(
 					}
 
 				});
-    		},			
+    		},
 
 		});
 

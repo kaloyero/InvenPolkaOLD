@@ -7,6 +7,11 @@ var MovimientoInventario = new Class({
         this.descripcion="Desde aqui administre los Movimientos"
     },
 
+     onSaved:function() {
+         this.parent();
+          translator.show("articulo");
+     },
+
     bindListEvents:function() {
           var self=this;
 		  this.parent();

@@ -53,7 +53,7 @@
 
  		echo $this->Html->script('jsTemplate/custom');
         echo $this->Html->script('jsTemplate/uploadForm');
-//		echo $this->Html->script('jsTemplate/forms');
+		//echo $this->Html->script('jsTemplate/forms');
 
         echo $this->Html->css('styleTest');
         echo $this->Html->script('jsTemplate/modernizr.custom.26887');
@@ -66,7 +66,7 @@
         echo $this->fetch('css');
         echo $this->fetch('script');?>
 
-
+<link id="skinstyle" rel="stylesheet" href="css/style.dark.css" type="text/css" />
 
 </head>
 
@@ -94,12 +94,12 @@ jQuery.noConflict();
 
 jQuery(document).ready(function(){
     this.type="usuario";
-	
+	jQuery('head').append('<link id="skinstyle" rel="stylesheet" href="css/style.dark.css" type="text/css" />');
 	var anievent = (jQuery.browser.webkit)? 'webkitAnimationEnd' : 'animationend';
 	jQuery('.loginwrap').bind(anievent,function(){
 		jQuery(this).removeClass('animate2 bounceInDown');
 	});
-	
+
 	jQuery('#username,#password').focus(function(){
 		if(jQuery(this).hasClass('error')) jQuery(this).removeClass('error');
 	});
@@ -114,7 +114,7 @@ jQuery(document).ready(function(){
 				});
 			} else {
 				jQuery('.loginwrapper').addClass('animate0 fadeOutUp').bind(anievent,function(){
-	
+
 				});
 				translator.loginUser(self.type,jQuery('#loginform'));
 			}

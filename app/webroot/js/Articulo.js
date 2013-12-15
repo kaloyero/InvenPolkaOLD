@@ -183,7 +183,6 @@ var Articulo = new Class({
          var self=this;
          jQuery('.categoria').bind("change", function(e) {
                     self.findInForm=jQuery(this).closest("form");
-                    console.log("Form", self.findInForm)
                 	translator.getConfiguraciones(self.type,this.value);
               })
           jQuery('.saveBuscador' ).bind("click", function(e) {
@@ -324,7 +323,6 @@ var Articulo = new Class({
         //Si el combo no esta vacio,tengo que escribir en el span que se encuentra arriba el nombre al menos del primer seleccionado(El disenio template,pide eso)
          if( this.findInForm.find('#ArticuloIdObjeto').has('option').length > 0 ) {
              var primerOpcionValor=this.findInForm.find('#ArticuloIdObjeto option:first-child').text();
-             console.log("SPAN",self.findInForm.find('#ArticuloIdObjeto').prev("span"))
              self.findInForm.find('#ArticuloIdObjeto').prev("span").text(primerOpcionValor);
          }
 

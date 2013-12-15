@@ -50,6 +50,14 @@ class PagesController extends AppController {
  *	or MissingViewException in debug mode.
  */
 	public function display() {
+
+	if 	($this->Session->check("usuario")){
+			$this->layout = 'menu2';
+			$consultas = new ConsultasSelect();
+			$this->set('categorias',$consultas->getCategorias());
+			$this->Session->delete("usuario");
+		}
+
 		$path = func_get_args();
 
 		$count = count($path);
