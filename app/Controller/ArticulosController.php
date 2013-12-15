@@ -41,6 +41,7 @@ class ArticulosController extends AppController {
         if ($this->request->is('post')) {
 			$this->preSave();
 			$datasource = $this->Articulo->getDataSource();
+			//Comienzo la transaccion del Articulo
 			$datasource->begin();
             if ($this->Articulo->save($this->request->data)) {
 					//Actualizo el id de articulo
@@ -49,9 +50,13 @@ class ArticulosController extends AppController {
 					$this->GuardarInventario($this->request->data['Inventario']);
 					//Guardo el movimiento
 					$this->insertMovimiento();
+
+					//Hago el commit del Articulo
 					$datasource->commit();
               	    $this->render('/General/Success');
 	        	}else{
+					//Hago el RollBack del articulo
+					$datasource->rollback();
 					$this->render('/General/Error');
 				}
         } else {
@@ -79,9 +84,11 @@ class ArticulosController extends AppController {
 
 			//Agrego el detalle para la alta de Articulo
 				$datasource = $model->getDataSource();
+				//Comienzo la transaccion del Movimientp
 				$datasource->begin();
-			$res= $model->save(array('Numero' => 0,'Fecha' => '2013-11-15','TipoMovimiento' => 'A','IdDepositoOrig' => $this->request->data['Inventario']['IdDeposito']));
+				$res= $model->save(array('Numero' => 0,'Fecha' => '2013-11-15','TipoMovimiento' => 'A','IdDepositoOrig' => 	$this->request->data['Inventario']['IdDeposito']));
 			if ($res) {
+				//Hago el commit del movimiento
 				$datasource->commit();
 				$idInserted = $model->getInsertID();
 				//Actualizo el Numero del Movimiento/
@@ -90,6 +97,7 @@ class ArticulosController extends AppController {
 	            $detalle = $this->getMovimientoDetalle($idInserted);
 				$model2->save($detalle);
            	} else {
+				//Hago el RollBack del momiento
 				$datasource->rollback();
 				$this->render('/General/Error');
 			}
