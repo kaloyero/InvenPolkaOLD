@@ -30,7 +30,7 @@ class ConsultasPaginado extends AppModel {
 		//Columna por la cual se va ordenar
 		$orderByfield = 'Nombre';
 
-		$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,false);
+		$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,false,"no tiene privilegios");
 
 		return $output;
 	}
@@ -135,7 +135,7 @@ private function getArrayDataConfig($rows,$modelo,$columnaId) {
 	\********************************************************************************/
 
 		/*   */
-		function getDataProyectos() {
+		function getDataProyectos($privilegios) {
 				$model=new Proyecto();
 				$tabla="proyectos";
 				//Columnas que voy a mostrar
@@ -144,9 +144,63 @@ private function getArrayDataConfig($rows,$modelo,$columnaId) {
 			    $aColumnsFilter = array( 'Nombre','Director' );
 				//Columna por la cual se va ordenar
 				$orderByfield = 'Nombre';
-				$output = $this->getDataProyecto($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,true);
+				$output = $this->getDataProyecto($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,$privilegios);
 				return $output;
 		}
+
+	/* Este metodo crearía la tabla para aquellas tablas que muestren datos solamente de una tabla */
+	private function getDataProyecto($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,$privilegios) {
+			//Consigue el query que se va ejecutar
+			$query=$this->getDataProyectoQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield);
+			//Ejecuta el query, obtengo las filas
+			$rows =$model->query("".$query['select'].";");
+			//Obtengo los totales
+			$totales = $this->getTotales($model,$query);
+			//Proceso los campos para llenar la tabla
+			$arrayData=$this->getArrayDataWithEditLink($tabla,$rows,$aColumns,$query['select'],$privilegios);
+			//Obtengo la tabla
+			$output = $this->createConfigTable($arrayData,$totales["total"],$totales["tDisplay"]);
+	
+			return $output;
+	}
+
+	private function getDataProyectoQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield) {
+        //Columnas por las que se va a filtrar
+		$aColumnsShow = $this->getColumnsToShow($aColumns);
+		//Partes del query
+		$select = "SELECT ".$aColumnsShow;
+		$from = " FROM ".$tabla." ";
+		$limit = 'limit '.$_GET['iDisplayStart'].' ,'.$_GET['iDisplayLength'] ;
+		$orderBy = " order by ".$orderByfield." ";
+		$sWhere = "WHERE  inactivo LIKE  'F'";
+
+		/*BUSQUEDA*/
+			if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" )
+			{
+			if ($_GET['sSearch'] != ""){
+				$arreglo = explode(' ', $_GET['sSearch']);
+
+				$sWhere = "WHERE ";
+				foreach($arreglo as $searchWord){
+					$sWhere .= "(";
+					for ( $i=0 ; $i<count($aColumnsFilter) ; $i++ )
+					{
+						$sWhere .= "`".$aColumnsFilter[$i]."` LIKE '%".( $searchWord )."%' OR ";
+					}
+					$sWhere = substr_replace( $sWhere, "", -3 );
+					$sWhere .= ') AND ';
+				}
+				$sWhere = substr_replace( $sWhere, "", -4 );
+			}
+		}
+
+		$query['select'] = $select.$from.$sWhere.$orderBy.$limit;
+		$query['selectWOL'] = $select.$from.$sWhere;
+		$query['from'] =  $from;
+		$query['where'] = $sWhere;
+
+		return $query;
+	}
 
 ////////////////////////////// {FIN} PROYECTO -> DATATABLE //////////////////////////////
 
@@ -154,7 +208,7 @@ private function getArrayDataConfig($rows,$modelo,$columnaId) {
 ****************************** {INICIO} ESTUDIOS -> DATATABLE ********************
 \********************************************************************************/
 
-			/*   */
+			/* NO SE USA MAS   
 		function getDataEstudios() {
 				$model=new Estudio();
 				$tabla="estudios";
@@ -164,16 +218,17 @@ private function getArrayDataConfig($rows,$modelo,$columnaId) {
 				$aColumnsFilter = array( 'Nombre','Descripcion' );
 				//Columna por la cual se va ordenar
 				$orderByfield = 'Nombre';
-				$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,true);
+				$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,true,);
 				return $output;
 			}
+			*/
 ////////////////////////////// {FIN} ESTUDIOS -> DATATABLE //////////////////////////////
 
 /*************************************************************************************\
 ****************************** {INICIO} DEPOSITOS -> DATATABLE *************************
 \*************************************************************************************/
 
-		function getDataDepositos() {
+		function getDataDepositos($privilegios) {
 			$model=new Estudio();
 			$tabla="depositos";
 			//Columnas que voy a mostrar
@@ -182,7 +237,7 @@ private function getArrayDataConfig($rows,$modelo,$columnaId) {
 			$aColumnsFilter = array( 'Nombre' );
 			//Columna por la cual se va ordenar
 			$orderByfield = 'Nombre';
-			$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,true);
+			$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,true,$privilegios);
 			return $output;
 		}
 
@@ -203,7 +258,7 @@ private function getArrayDataConfig($rows,$modelo,$columnaId) {
 			$aColumnsFilter = array(  'Disponibilidad' ,'articulo' ,  'proyecto' );
 			//Columna por la cual se va ordenar
 			$orderByfield = 'articulo,proyecto';
-			$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,false);
+			$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,false,"no tiene privilegios");
 			return $output;
 		}
 
@@ -773,10 +828,20 @@ private function getArrayData($tabla,$rows,$aColumns,$titi) {
 	 return $arrayDt;
 
 }
-private function getArrayDataWithEditLink($tabla,$rows,$aColumns,$titi) {
+private function getArrayDataWithEditLink($tabla,$rows,$aColumns,$titi,$privilegios) {
       $arrayDt=array();
 
   //    array_push($arrayDt, array($titi));
+	  //Iconos
+   	  $icono = "";
+	  $icono2 = "";
+	  if (! empty($privilegios['btnEliminar'])) { 
+		$icono = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/articulos/ed' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div>";
+	  }
+	  if (! empty($privilegios['btnEditar'])) { 		
+		$icono2 = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div>";
+	  }
+
 
       foreach($rows as $j){
 			$fila=array();
@@ -790,7 +855,7 @@ private function getArrayDataWithEditLink($tabla,$rows,$aColumns,$titi) {
 					}
 				}
 			}
-			array_push($fila, " <div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/articulos/edit/".$j[$tabla]['id']."' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>");
+			array_push($fila, " <div>".$icono.$icono2."</div>");
 			array_push($arrayDt, $fila);
       }
 
@@ -799,7 +864,7 @@ private function getArrayDataWithEditLink($tabla,$rows,$aColumns,$titi) {
 }
 
 /* Este metodo crearía la tabla para aquellas tablas que muestren datos solamente de una tabla */
-private function getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,$withEditLink) {
+private function getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,$withEditLink,$privilegios) {
 		//Consigue el query que se va ejecutar
 		$query=$this->getDataDefaultQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield,"");
 		//Ejecuta el query, obtengo las filas
@@ -808,7 +873,7 @@ private function getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderBy
 		$totales = $this->getTotales($model,$query);
 		//Proceso los campos para llenar la tabla
 		if ($withEditLink==true){
-			$arrayData=$this->getArrayDataWithEditLink($tabla,$rows,$aColumns,$query['select']);
+			$arrayData=$this->getArrayDataWithEditLink($tabla,$rows,$aColumns,$query['select'],$privilegios);
 
 		}else{
 			$arrayData=$this->getArrayData($tabla,$rows,$aColumns,$query['select']);
@@ -819,72 +884,6 @@ private function getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderBy
 
 		return $output;
 }
-
-/* Este metodo crearía la tabla para aquellas tablas que muestren datos solamente de una tabla */
-private function getDataProyecto($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,$withEditLink) {
-		//Consigue el query que se va ejecutar
-		$query=$this->getDataProyectoQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield,"");
-		//Ejecuta el query, obtengo las filas
-		$rows =$model->query("".$query['select'].";");
-		//Obtengo los totales
-		$totales = $this->getTotales($model,$query);
-		//Proceso los campos para llenar la tabla
-		if ($withEditLink==true){
-			$arrayData=$this->getArrayDataWithEditLink($tabla,$rows,$aColumns,$query['select']);
-
-		}else{
-			$arrayData=$this->getArrayData($tabla,$rows,$aColumns,$query['select']);
-
-		}
-		//Obtengo la tabla
-		$output = $this->createConfigTable($arrayData,$totales["total"],$totales["tDisplay"]);
-
-		return $output;
-}
-
-	private function getDataProyectoQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield,$where) {
-        //Columnas por las que se va a filtrar
-		$aColumnsShow = $this->getColumnsToShow($aColumns);
-		//Partes del query
-		$select = "SELECT ".$aColumnsShow;
-		$from = " FROM ".$tabla." ";
-		$limit = 'limit '.$_GET['iDisplayStart'].' ,'.$_GET['iDisplayLength'] ;
-		$orderBy = " order by ".$orderByfield." ";
-		$sWhere = "WHERE  inactivo LIKE  'F'";
-
-		/*BUSQUEDA*/
-		//Si el wehre viene vacio
-		if ($where == ""){
-			if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" )
-			{
-				if ($_GET['sSearch'] != ""){
-					$arreglo = explode(' ', $_GET['sSearch']);
-
-					$sWhere = "WHERE ";
-					foreach($arreglo as $searchWord){
-						$sWhere .= "(";
-						for ( $i=0 ; $i<count($aColumnsFilter) ; $i++ )
-						{
-							$sWhere .= "`".$aColumnsFilter[$i]."` LIKE '%".( $searchWord )."%' OR ";
-						}
-						$sWhere = substr_replace( $sWhere, "", -3 );
-						$sWhere .= ') AND ';
-					}
-					$sWhere = substr_replace( $sWhere, "", -4 );
-				}
-			}
-		} else {
-			$sWhere = " WHERE (".$where.")";
-		}
-
-		$query['select'] = $select.$from.$sWhere.$orderBy.$limit;
-		$query['selectWOL'] = $select.$from.$sWhere;
-		$query['from'] =  $from;
-		$query['where'] = $sWhere;
-
-		return $query;
-	}
-
 
 /* Este metodo crea el query que se va ejecutar para obtener la lista
 	Devuelve 	query['select'] -> Sentencia select
