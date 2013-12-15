@@ -142,7 +142,7 @@ private function getArrayDataConfig($rows,$modelo,$columnaId) {
 			    $aColumnsFilter = array( 'Nombre','Director' );
 				//Columna por la cual se va ordenar
 				$orderByfield = 'Nombre';
-				$output = $this->getDataProyecto($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,false);
+				$output = $this->getDataProyecto($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,true);
 				return $output;
 		}
 
@@ -777,9 +777,10 @@ private function getArrayDataWithEditLink($tabla,$rows,$aColumns,$titi) {
 					}
 				}
 			}
-//			array_push($fila, " <div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/articulos/edit/".$j[$tabla]['id']."' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>");
+			array_push($fila, " <div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/articulos/edit/".$j[$tabla]['id']."' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>");
 			array_push($arrayDt, $fila);
       }
+
 	 return $arrayDt;
 
 }
