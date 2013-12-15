@@ -1,11 +1,12 @@
 <?php
-        App::import('Model','ConsultasPaginado');        
+        App::import('Model','ConsultasPaginado');
         App::import('Model','ConsultasSelect');
-        App::import('Model','ConsultasUsuario');		
+        App::import('Model','ConsultasUsuario');
 
 class UsuariosController extends AppController {
 
     public $helpers = array ('Html','Form');
+var $components    = array('Cookie');
 
     function index() {
     }
@@ -30,7 +31,7 @@ class UsuariosController extends AppController {
 			}
         } else {
 				$consultas =new ConsultasSelect();
-				$this->set('rolesList' , $consultas->getRolesUsuarios());                
+				$this->set('rolesList' , $consultas->getRolesUsuarios());
 		}
     }
 
@@ -44,7 +45,7 @@ class UsuariosController extends AppController {
 				}
 			} else {
 				$consultas =new ConsultasSelect();
-				$this->set('rolesList' , $consultas->getRolesUsuarios());                
+				$this->set('rolesList' , $consultas->getRolesUsuarios());
 				$this->request->data = $this->Usuario->read();
 			}
 	}
@@ -56,25 +57,22 @@ class UsuariosController extends AppController {
 	function login() {
 		$consultas = new ConsultasSelect();
 		$consultasUs = new ConsultasUsuario();
-		
+
 		$user = $this->request->data['username'];
 		$pass = $this->request->data['password'];
 		//Valida el usuario y contrase;a ingresado
 		$usValid = $consultasUs->validateUserPass($user,$pass);
-		
 		if ($usValid) {
 			$this->set('categorias',$consultas->getCategorias());
 			//Setea los datos del usuario en la session
 			$usuario = $consultasUs->getUsuario($user,$pass);
 			$this->Session->write("usuario",$usuario);
+			// $this->Cookie->write('name','Larry',false, 3600);
 			//Setea en la session los provilegios del usuario
-			print_r($usuario);
-			$privilegios = $consultasUs->accionesByRol($usuario['usuarios']['TipoRol']);
-			$this->Session->write("privilegios",$privilegios);
-		
+
 			$this->render('/Layouts/menu2');
 		} else {
-			print_r("tele");
+			//print_r($this->Session->read('usuario'));
 			$this->render('/Layouts/default');
 		}
 	}

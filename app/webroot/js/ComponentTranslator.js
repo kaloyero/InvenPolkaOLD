@@ -195,12 +195,14 @@ var ComponentTranslator = new Class(
 //						alert(renderInstace);
 //							renderInstance.onLoggedUser();
 				jQuery("body").empty();
-jQuery(data).appendTo("body");
+				console.log("DATA",data)
+                //jQuery(data).appendTo("body");
+                jQuery("body").append(data);
 				//jQuery("body").load(data);
-				sideBarController.bindMenuOptionsEvents();
-				articuloRender.bindFinderStaticEvents();
+				//sideBarController.bindMenuOptionsEvents();
+				//articuloRender.bindFinderStaticEvents();
 
-						
+
 					},
 					onError : function(data) {
 					    jQuery.jGrowl("Filho da puta.", {

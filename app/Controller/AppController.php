@@ -35,6 +35,7 @@ class AppController extends Controller {
         function beforeFilter(){
 
 
+
            if ($this->params['controller']!="pages" && $this->action!="generatePedidoPdf"){
                                 if (!$this->request->is('ajax')){
                                         $this->redirect(array('controller' => 'pages', 'action' => 'display'));
