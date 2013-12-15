@@ -26,6 +26,7 @@ var $components    = array('Cookie');
    public function add() {
         if ($this->request->is('post')) {
             if ($this->Usuario->save($this->request->data)) {
+				$this->envioNotificacionNuevoUser($this->request->data['Usuario']['Nombre']." ".$this->request->data['Usuario']['Apellido'],$this->request->data['Usuario']['Email'],$this->request->data['Usuario']['username'],$this->request->data['Usuario']['password']);
                 $this->render('/General/Success');
             }else{
                 $this->render('/General/Error');
@@ -83,6 +84,24 @@ var $components    = array('Cookie');
 	function delete($id) {
 
 	}
+
+	function envioNotificacionNuevoUser($nombre,$mail,$user,$pass) {
+		@$nombre = addslashes($nombre);
+		@$email = addslashes($mail);
+		@$asunto = addslashes("Usuario Creado");
+		@$mensaje = addslashes("Estimado ".$nombre.", \n Se le ha asignado un usuario para acceder a la aplicacion de Inventarios.\n\n Usuario:".$user." \n Clave: ".$pass." ");
+		
+		//Preparamos el mensaje de contacto
+		$cabeceras = "From: info@admin.com\n"; //La persona que envia el correo
+		$asuntoMsj = "$asunto";
+		$email_to = "$email"; 
+		$contenido = "$mensaje\n";
+		
+		@mail($email_to, $asuntoMsj ,$contenido ,$cabeceras );
+
+
+	}
+
 
 }
 ?>

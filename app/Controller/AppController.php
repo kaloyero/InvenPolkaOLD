@@ -51,5 +51,4 @@ class AppController extends Controller {
                         $this->redirect(array('action' => 'index'));
                 }
         }
-
 }
