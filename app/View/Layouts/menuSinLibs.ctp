@@ -192,3 +192,11 @@
 
 <div id="ui-datepicker-div" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"></div>
 
+<script type="text/javascript">
+jQuery.noConflict();
+
+jQuery(document).ready(function(){
+	sideBarController.bindMenuOptionsEvents();
+	articuloRender.bindFinderStaticEvents();
+	});
+	</script>

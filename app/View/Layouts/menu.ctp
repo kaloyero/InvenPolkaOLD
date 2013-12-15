@@ -98,14 +98,14 @@
             <ul class="nav nav-tabs nav-stacked">
                     <li class="nav-header animate4 fadeInUp">Navegacion</li>
 					<?php $privis = $this->Session->read("privilegios"); ?>
-					
+
 						<li class="active animate5 fadeInUp"><a href="/InvenPolka"><span class="icon-align-justify"></span> Inicio</a></li>
 					<?php if (! empty($privis['menuArticulos'])) { ?>
 						<li class="active  animate8 fadeInUp"><a id="articulo" class="option"><span class="icon-th-list"></span> <?php echo $privis['menuArticulos']['nombre'] ?></a></li>
 					<?php } ?>
 					<?php if (! empty($privis['menuProyectos'])) { ?>
 						<li class="active  animate8 fadeInUp"><a id="proyecto" class="option"><span class="icon-th-list"></span>  <?php echo $privis['menuProyectos']['nombre'] ?></a></li>
-					<?php } ?>						
+					<?php } ?>
 					<?php if (! empty($privis['menuDeposito'])) { ?>
 						<li class="active  animate8 fadeInUp"><a id="deposito" class="option"><span class="icon-th-list"></span> <?php echo $privis['menuDeposito']['nombre'] ?></a></li>
 					<?php } ?>
