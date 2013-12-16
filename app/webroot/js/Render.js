@@ -119,6 +119,7 @@ var Render = new Class({
          this.generateValidation();
          jQuery('.edit').bind("click", function(e) {
              if (self.getForm().valid()){
+                 console.log("se")
                  translator.update(self.type, self.getForm());
                  self.addLoader();
             }

@@ -6,6 +6,10 @@ var Pedido = new Class({
         this.breadcrumb='Pedidos';
         this.descripcion="Desde aqui administre los Pedidos"
     },
+     onSaved:function() {
+         this.parent();
+          translator.show("articulo");
+     },
 
     onAdd: function(data){
         this.cleanCanvas();

@@ -14,9 +14,6 @@ foreach ($Pedido as $Pe){
 		<span class="field"><input name="Proyecto" value="<?php echo $Pe['pedidos_vista']['proyecto'];?>" class="input-medium" readonly="readonly" type="text"  required="required"/></span>
 
 <?php
-		if ($Pe['pedidos_vista']['estado'] == 'abierto'){
-				echo '<p class="stdformbutton"><button class="btn btn-primary save confirm">Confirmar</button></p>';
-		}
 
 }
 
