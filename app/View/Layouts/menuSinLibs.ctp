@@ -157,7 +157,7 @@
                         	<li><a href="#"><span class="icon-edit"></span> <?php echo $privis['menuCambioPass']['nombre'] ?></a></li>
 						<?php } ?>
                         <li class="divider"></li>
-                        <li><a href="#"><span class="icon-off"></span> Salir</a></li>
+                        <li><a href="#"  class="logOut"><span class="icon-off"></span> Salir</a></li>
                     </ul>
                 </div><!--dropdown-->
 
@@ -214,5 +214,11 @@ jQuery.noConflict();
 jQuery(document).ready(function(){
 	sideBarController.bindMenuOptionsEvents();
 	articuloRender.bindFinderStaticEvents();
+
+	jQuery('.logOut').click(function(){
+			translator.logOutUser(self.type);
+			return false;
 	});
-	</script>
+
+});
+</script>

@@ -294,7 +294,6 @@ var ServerManager = new Class({
     	var type = config.object;
     	jQuery.ajax( {
 		  type: "POST",
-			data: config.data.serialize(),
 			url: "usuarios/logOut",
 			success: function(data) {
 				config.onSuccess(data);

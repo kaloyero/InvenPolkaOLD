@@ -200,12 +200,12 @@ var ComponentTranslator = new Class(
 
 				});
     		},
-			logOutUser: function(objectType,formData) {
+			logOutUser: function(objectType) {
 				serverManager.logOutUser({
 					object : objectType,
-					data: formData,
 					onSuccess : function(data) {
-
+						jQuery("body").empty();
+						jQuery("body").append(data);
 					},
 					onError : function(data) {
 					}

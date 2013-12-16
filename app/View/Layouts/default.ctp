@@ -105,6 +105,12 @@ jQuery(document).ready(function(){
 	});
 	jQuery('#loginform button').click(function(){
 
+	jQuery('.logOut').click(function(){
+			translator.logOutUser(self.type);
+			return false;
+	});
+
+
 		if(!jQuery.browser.msie) {
 			if(jQuery('#username').val() == '' || jQuery('#password').val() == '') {
 				if(jQuery('#username').val() == '') jQuery('#username').addClass('error'); else jQuery('#username').removeClass('error');

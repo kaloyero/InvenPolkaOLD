@@ -4,6 +4,7 @@
 
         echo $this->Html->script('operacionesBasicas');
         echo $this->Html->script('mootools.js');
+		
         echo $this->Html->script('Render');
         echo $this->Html->script('RenderTranslator');
         echo $this->Html->script('Articulo');
@@ -210,13 +211,13 @@
 
                             <div class="dropdown userinfo">
 					<?php $usuario = $this->Session->read("usuario"); ?>
-                    <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="/page.html"> Hola! <?php echo $usuario['username'] ?><b class="caret"></b></a>
+                    <a class="dropdown-toggle " data-toggle="dropdown" data-target="#" href="/page.html"> Hola! <?php echo $usuario['username'] ?><b class="caret"></b></a>
                     <ul class="dropdown-menu">
 						<?php if (! empty($privis['menuCambioPass'])) { ?>
-                        	<li><a href="#"><span class="icon-edit logOut"></span> <?php echo $privis['menuCambioPass']['nombre'] ?></a></li>
+                        	<li><a href="#"><span class="icon-edit"></span> <?php echo $privis['menuCambioPass']['nombre'] ?></a></li>
 						<?php } ?>
                         <li class="divider"></li>
-                        <li><a href="#"><span class="icon-off"></span> Salir</a></li>
+                        <li><a href="#" class="logOut"><span class="icon-off"></span> Salir</a></li>
                     </ul>
                 </div><!--dropdown-->
 
@@ -275,26 +276,9 @@ jQuery(document).ready(function(){
 	articuloRender.bindFinderStaticEvents();
 
 	jQuery('.logOut').click(function(){
-
-		if(!jQuery.browser.msie) {
-			if(jQuery('#username').val() == '' || jQuery('#password').val() == '') {
-				if(jQuery('#username').val() == '') jQuery('#username').addClass('error'); else jQuery('#username').removeClass('error');
-				if(jQuery('#password').val() == '') jQuery('#password').addClass('error'); else jQuery('#password').removeClass('error');
-				jQuery('.loginwrap').addClass('animate0 wobble').bind(anievent,function(){
-					jQuery(this).removeClass('animate0 wobble');
-				});
-			} else {
-				jQuery('.loginwrapper').addClass('animate0 fadeOutUp').bind(anievent,function(){
-
-				});
-				translator.loginUser(self.type,jQuery('#loginform'));
-			}
+			translator.logOutUser(self.type);
 			return false;
-		}
 	});
 
-
-
-
 });
-	</script>
+</script>
