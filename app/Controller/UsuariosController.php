@@ -80,6 +80,13 @@ var $components    = array('Cookie');
 			}
 	}
 
+	function logOut() {
+			//Destruye privilegios y usuario de la session
+			$this->Session->delete("privilegios");
+			$this->Session->delete("usuario");
+			//Redirecciona a la pagina de login
+			$this->render('/Layouts/default');
+	}
 
 	function delete($id) {
 

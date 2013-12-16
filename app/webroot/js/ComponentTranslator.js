@@ -190,25 +190,26 @@ var ComponentTranslator = new Class(
 					object : objectType,
 					data: formData,
 					onSuccess : function(data) {
-//						jQuery("html").empty()
-//						var renderInstace = renderTranslator.getRender("articulo");
-//						alert(renderInstace);
-//							renderInstance.onLoggedUser();
-				jQuery("body").empty();
-				console.log("DATA",data)
-                //jQuery(data).appendTo("body");
-                jQuery("body").append(data);
-				//jQuery("body").load(data);
-				//sideBarController.bindMenuOptionsEvents();
-				//articuloRender.bindFinderStaticEvents();
-
-
+							jQuery("body").empty();
+							console.log("DATA",data)
+							jQuery("body").append(data);
 					},
 					onError : function(data) {
 						alert(data);
 						jQuery(data).append("");
 					}
 
+				});
+    		},
+			logOutUser: function(objectType,formData) {
+				serverManager.logOutUser({
+					object : objectType,
+					data: formData,
+					onSuccess : function(data) {
+
+					},
+					onError : function(data) {
+					}
 				});
     		},
 

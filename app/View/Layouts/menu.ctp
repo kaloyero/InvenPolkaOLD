@@ -93,11 +93,11 @@
             </div>
             <small><strong>38% full</strong></small>
         </div><!--plainwidget-->
-
+		<?php $privis = $this->Session->read("privilegios"); ?>
         <div class="leftmenu">
             <ul class="nav nav-tabs nav-stacked">
                     <li class="nav-header animate4 fadeInUp">Navegacion</li>
-					<?php $privis = $this->Session->read("privilegios"); ?>
+
 					
 						<li class="active animate5 fadeInUp"><a href="/InvenPolka"><span class="icon-align-justify"></span> Inicio</a></li>
 					<?php if (! empty($privis['menuArticulos'])) { ?>
@@ -213,7 +213,7 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="/page.html"> Hola! <?php echo $usuario['username'] ?><b class="caret"></b></a>
                     <ul class="dropdown-menu">
 						<?php if (! empty($privis['menuCambioPass'])) { ?>
-                        	<li><a href="#"><span class="icon-edit"></span> <?php echo $privis['menuCambioPass']['nombre'] ?></a></li>
+                        	<li><a href="#"><span class="icon-edit logOut"></span> <?php echo $privis['menuCambioPass']['nombre'] ?></a></li>
 						<?php } ?>
                         <li class="divider"></li>
                         <li><a href="#"><span class="icon-off"></span> Salir</a></li>
@@ -273,5 +273,28 @@ jQuery.noConflict();
 jQuery(document).ready(function(){
 	sideBarController.bindMenuOptionsEvents();
 	articuloRender.bindFinderStaticEvents();
+
+	jQuery('.logOut').click(function(){
+
+		if(!jQuery.browser.msie) {
+			if(jQuery('#username').val() == '' || jQuery('#password').val() == '') {
+				if(jQuery('#username').val() == '') jQuery('#username').addClass('error'); else jQuery('#username').removeClass('error');
+				if(jQuery('#password').val() == '') jQuery('#password').addClass('error'); else jQuery('#password').removeClass('error');
+				jQuery('.loginwrap').addClass('animate0 wobble').bind(anievent,function(){
+					jQuery(this).removeClass('animate0 wobble');
+				});
+			} else {
+				jQuery('.loginwrapper').addClass('animate0 fadeOutUp').bind(anievent,function(){
+
+				});
+				translator.loginUser(self.type,jQuery('#loginform'));
+			}
+			return false;
+		}
 	});
+
+
+
+
+});
 	</script>

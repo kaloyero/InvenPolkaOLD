@@ -289,6 +289,22 @@ var ServerManager = new Class({
 				
 		    } );
     },
+    logOutUser: function(config){
+    	var self=this;
+    	var type = config.object;
+    	jQuery.ajax( {
+		  type: "POST",
+			data: config.data.serialize(),
+			url: "usuarios/logOut",
+			success: function(data) {
+				config.onSuccess(data);
+			},
+			error : function(data) {
+				config.onError(data)
+			}
+			
+		} );
+    },	
 });
 
 serverManager=new ServerManager();
