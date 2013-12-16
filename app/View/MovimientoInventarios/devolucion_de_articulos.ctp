@@ -1,5 +1,7 @@
 <?php
 echo '<h4 class="widgettitle nomargin shadowed">Devolución de Articulos</h4>';
+echo '<div class="widgetcontent bordered shadowed nopadding">';
+
 echo $this->Form->create('MovimientoInventario',array('class' => 'stdform stdform2','inputDefaults' => array(
         'div' => array('class' => 'field') )));
 
