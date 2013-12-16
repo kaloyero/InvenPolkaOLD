@@ -36,7 +36,7 @@ var Message = new Class({
      				theme : 'success'
      			});
             	}else{
-                 jQuery.jGrowl("ubo un problema con la operacion", {
+                 jQuery.jGrowl("Hubo un problema con la operacion", {
      				theme : 'error'
      			});
             	}
