@@ -91,8 +91,6 @@ class ObjetosController extends AppController {
 
 	function delete($id) {
 		if ($this->Objeto->delete($id)){
-			$model = new ObjetoCategoria();
-			$model->deleteAll(array('ObjetoCategoria.IdObjeto' => $id));
 			$this->render('/General/Success');
 		} else {
 			$this->render('/General/Error');

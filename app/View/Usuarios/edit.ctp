@@ -1,5 +1,5 @@
 <?php
-echo '<h4 class="widgettitle nomargin shadowed">Proyectos</h4>';
+echo '<h4 class="widgettitle nomargin shadowed">Usuario</h4>';
 echo '<div class="widgetcontent bordered shadowed nopadding">';
 echo $this->Form->create('Usuario',array('class' => 'stdform stdform2','inputDefaults' => array(
         'div' => array('class' => 'field'))));

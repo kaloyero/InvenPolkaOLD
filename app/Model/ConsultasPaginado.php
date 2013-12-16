@@ -9,7 +9,7 @@
 	App::import('Model','Usuario');
 	App::import('Model','MovimientoInventario');
 	App::import('Model','ConsultasSelect');
-	App::import('Model','ConsultasUsuario');	
+	App::import('Model','ConsultasUsuario');
 
 class ConsultasPaginado extends AppModel {
 	public $name = 'ConsultasPaginado';
@@ -154,13 +154,14 @@ private function getArrayDataConfig($rows,$modelo,$columnaId) {
 			$query=$this->getDataProyectoQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield);
 			//Ejecuta el query, obtengo las filas
 			$rows =$model->query("".$query['select'].";");
+			//print_r($rows);
 			//Obtengo los totales
 			$totales = $this->getTotales($model,$query);
 			//Proceso los campos para llenar la tabla
 			$arrayData=$this->getArrayDataWithEditLink($tabla,$rows,$aColumns,$query['select'],$privilegios);
 			//Obtengo la tabla
 			$output = $this->createConfigTable($arrayData,$totales["total"],$totales["tDisplay"]);
-	
+
 			return $output;
 	}
 
@@ -172,7 +173,7 @@ private function getArrayDataConfig($rows,$modelo,$columnaId) {
 		$from = " FROM ".$tabla." ";
 		$limit = 'limit '.$_GET['iDisplayStart'].' ,'.$_GET['iDisplayLength'] ;
 		$orderBy = " order by ".$orderByfield." ";
-		$sWhere = "WHERE  inactivo LIKE  'F'";
+		$sWhere = "Where Inactivo like 'F'";
 
 		/*BUSQUEDA*/
 			if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" )
@@ -198,7 +199,7 @@ private function getArrayDataConfig($rows,$modelo,$columnaId) {
 		$query['selectWOL'] = $select.$from.$sWhere;
 		$query['from'] =  $from;
 		$query['where'] = $sWhere;
-
+	//	print_r($query);
 		return $query;
 	}
 
@@ -208,7 +209,7 @@ private function getArrayDataConfig($rows,$modelo,$columnaId) {
 ****************************** {INICIO} ESTUDIOS -> DATATABLE ********************
 \********************************************************************************/
 
-			/* NO SE USA MAS   
+			/* NO SE USA MAS
 		function getDataEstudios() {
 				$model=new Estudio();
 				$tabla="estudios";
@@ -717,13 +718,13 @@ private function getArrayUsuariosConfig($rows,$privilegios) {
    	  $icono = "";
 	  $icono2 = "";
 	  $icono3 = "";
-	  if (! empty($privilegios['btnEliminar'])) { 
+	  if (! empty($privilegios['btnEliminar'])) {
 	  	  $icono = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a class ='desactivar' ><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>";
 	  }
-	  if (! empty($privilegios['btnEditar'])) { 
-		  $icono2 = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/za' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div></div>";  
+	  if (! empty($privilegios['btnEditar'])) {
+		  $icono2 = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/za' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div></div>";
 	  }
-	  if (! empty($privilegios['menuCambioPass'])) { 
+	  if (! empty($privilegios['menuCambioPass'])) {
 		  $icono3 = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/za' class='reset'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/cambioPass.gif' /></a></div></div>";
 	  }
 
@@ -793,7 +794,8 @@ private function createConfigTable($arrayData,$total,$totalDisplay) {
 
 private function getTotales ($model,$query){
 		//Obtengo el total de registros en la tabla
-		$total = $this->getVarParam($model->query($this->getConfigDisplayCountQuery($query['from'],"")));
+
+		$total = $this->getVarParam($model->query($this->getConfigDisplayCountQuery($query['from'],$query['where'])));
 		//Obtengo el total de registros filtrados
 		$totalDisplay = $this->getVarParam($model->query($this->getConfigDisplayCountQuery($query['from'],$query['where'])));
 
@@ -835,11 +837,11 @@ private function getArrayDataWithEditLink($tabla,$rows,$aColumns,$titi,$privileg
 	  //Iconos
    	  $icono = "";
 	  $icono2 = "";
-	  if (! empty($privilegios['btnEliminar'])) { 
+	  if (! empty($privilegios['btnEliminar'])) {
 		$icono = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/articulos/ed' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div>";
 	  }
-	  if (! empty($privilegios['btnEditar'])) { 		
-		$icono2 = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div>";
+	  if (! empty($privilegios['btnEditar'])) {
+		$icono2 = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a class='desactivar'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div>";
 	  }
 
 
@@ -855,6 +857,7 @@ private function getArrayDataWithEditLink($tabla,$rows,$aColumns,$titi,$privileg
 					}
 				}
 			}
+
 			array_push($fila, " <div>".$icono.$icono2."</div>");
 			array_push($arrayDt, $fila);
       }

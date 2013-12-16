@@ -102,8 +102,6 @@ class DecoradosController extends AppController {
 
 	function delete($id) {
 		if ($this->Decorado->delete($id)){
-				$model = new DecoradoCategoria();
-				$model->deleteAll(array('DecoradoCategoria.IdDecorado' => $id));
 			$this->render('/General/Success');
 		} else {
 			$this->render('/General/Error');

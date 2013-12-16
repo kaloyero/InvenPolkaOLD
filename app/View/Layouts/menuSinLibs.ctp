@@ -1,71 +1,10 @@
 <!DOCTYPE html>
 <html><head>
-<?php
-
-        echo $this->Html->script('operacionesBasicas');
-        echo $this->Html->script('mootools.js');
-        echo $this->Html->script('Render');
-        echo $this->Html->script('RenderTranslator');
-        echo $this->Html->script('Articulo');
-        echo $this->Html->script('Pedido');
-        echo $this->Html->script('PedidoSalida');
-        echo $this->Html->script('PedidoHisto');
-        echo $this->Html->script('Deposito');
-        echo $this->Html->script('MovimientoInventario');
-        echo $this->Html->script('Inventario');
-        echo $this->Html->script('Proyecto');
-
-        echo $this->Html->script('Categoria');
-        echo $this->Html->script('Usuario');
-        echo $this->Html->script('Material');
-        echo $this->Html->script('Estilo');
-        echo $this->Html->script('Objeto');
-        echo $this->Html->script('Decorado');
-        echo $this->Html->script('Dimension');
-        echo $this->Html->script('Proyecto');
-        echo $this->Html->script('Deposito');
-        echo $this->Html->script('Inventario');
-        echo $this->Html->script('Message');
-
-        echo $this->Html->script('ComponentTranslator');
-
-        echo $this->Html->script('ServerManager');
-        echo $this->Html->script('SideBarController');
-        //Cargando archivos del template');
-        echo $this->Html->css('style.default');
-        echo $this->Html->script('jsTemplate/prettify/prettify');
-        echo $this->Html->script('jsTemplate/jquery-1.9.1.min');
-        echo $this->Html->script('jsTemplate/jquery-migrate-1.1.1.min');
-        echo $this->Html->script('jsTemplate/jquery-ui-1.9.2.min');
-        echo $this->Html->script('jsTemplate/jquery.uniform.min');
-        echo $this->Html->script('jsTemplate/jquery.cookie');
-        echo $this->Html->script('jsTemplate/bootstrap.min');
-        echo $this->Html->script('jsTemplate/jquery.flot.min');
-        echo $this->Html->script('jsTemplate/jquery.flot.resize.min');
-        echo $this->Html->script('jsTemplate/jquery.dataTables.min');
-        echo $this->Html->script('jsTemplate/jquery.notifications');
-        //echo $this->Html->css('demo_table');
-        //echo $this->Html->css('demo_page');
-
- 		echo $this->Html->script('jsTemplate/custom');
-        echo $this->Html->script('jsTemplate/uploadForm');
-		//echo $this->Html->script('jsTemplate/forms');
-
-        echo $this->Html->css('styleTest');
-        echo $this->Html->script('jsTemplate/modernizr.custom.26887');
-        echo $this->Html->script('jsTemplate/jquery.imgslider');
-        echo $this->Html->script('jsTemplate/jquery.growl');
-        echo $this->Html->css('jquery.growl');
-        echo $this->Html->script('jsTemplate/jquery.validate');
-
-
-
-        echo $this->fetch('css');
-        echo $this->fetch('script');?>
-
-		<link id="skinstyle" rel="stylesheet" href="css/style.dark.css" type="text/css" />
+<script type="text/javascript" src="/InvenPolka/js/jsTemplate/custom.js"></script>
+<link id="skinstyle" rel="stylesheet" href="css/style.dark.css" type="text/css" />
 
 </head>
+
 
 
 <div class="mainwrapper" style="background-position: 0px 0px;">
@@ -95,10 +34,12 @@
             </div>
             <small><strong>38% full</strong></small>
         </div><!--plainwidget-->
-		<?php $privis = $this->Session->read("privilegios"); ?>
+
         <div class="leftmenu">
             <ul class="nav nav-tabs nav-stacked">
                     <li class="nav-header animate4 fadeInUp">Navegacion</li>
+					<?php $privis = $this->Session->read("privilegios"); ?>
+
 						<li class="active animate5 fadeInUp"><a href="/InvenPolka"><span class="icon-align-justify"></span> Inicio</a></li>
 					<?php if (! empty($privis['menuArticulos'])) { ?>
 						<li class="active  animate8 fadeInUp"><a id="articulo" class="option"><span class="icon-th-list"></span> <?php echo $privis['menuArticulos']['nombre'] ?></a></li>
@@ -213,7 +154,7 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="/page.html"> Hola! <?php echo $usuario['username'] ?><b class="caret"></b></a>
                     <ul class="dropdown-menu">
 						<?php if (! empty($privis['menuCambioPass'])) { ?>
-                        	<li><a href="#"><span class="icon-edit logOut"></span> <?php echo $privis['menuCambioPass']['nombre'] ?></a></li>
+                        	<li><a href="#"><span class="icon-edit"></span> <?php echo $privis['menuCambioPass']['nombre'] ?></a></li>
 						<?php } ?>
                         <li class="divider"></li>
                         <li><a href="#"><span class="icon-off"></span> Salir</a></li>
@@ -273,28 +214,5 @@ jQuery.noConflict();
 jQuery(document).ready(function(){
 	sideBarController.bindMenuOptionsEvents();
 	articuloRender.bindFinderStaticEvents();
-
-	jQuery('.logOut').click(function(){
-
-		if(!jQuery.browser.msie) {
-			if(jQuery('#username').val() == '' || jQuery('#password').val() == '') {
-				if(jQuery('#username').val() == '') jQuery('#username').addClass('error'); else jQuery('#username').removeClass('error');
-				if(jQuery('#password').val() == '') jQuery('#password').addClass('error'); else jQuery('#password').removeClass('error');
-				jQuery('.loginwrap').addClass('animate0 wobble').bind(anievent,function(){
-					jQuery(this).removeClass('animate0 wobble');
-				});
-			} else {
-				jQuery('.loginwrapper').addClass('animate0 fadeOutUp').bind(anievent,function(){
-
-				});
-				translator.loginUser(self.type,jQuery('#loginform'));
-			}
-			return false;
-		}
 	});
-
-
-
-
-});
 	</script>

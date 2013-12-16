@@ -92,8 +92,6 @@ class DimensionesController extends AppController {
 
 	function delete($id) {
 		if ($this->Dimensione->delete($id)){
-			$model = new DimensionCategoria();
-			$model->deleteAll(array('DimensionCategoria.IdDimension' => $id));
 			$this->render('/General/Success');
 		} else {
 			$this->render('/General/Error');

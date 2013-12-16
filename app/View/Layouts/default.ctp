@@ -51,7 +51,7 @@
         //echo $this->Html->css('demo_table');
         //echo $this->Html->css('demo_page');
 
- 		echo $this->Html->script('jsTemplate/custom');
+ 		//echo $this->Html->script('jsTemplate/custom');
         echo $this->Html->script('jsTemplate/uploadForm');
 		//echo $this->Html->script('jsTemplate/forms');
 

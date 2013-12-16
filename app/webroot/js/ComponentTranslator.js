@@ -190,9 +190,8 @@ var ComponentTranslator = new Class(
 					object : objectType,
 					data: formData,
 					onSuccess : function(data) {
-							jQuery("body").empty();
-							console.log("DATA",data)
-							jQuery("body").append(data);
+						jQuery("body").empty();
+						jQuery("body").append(data);
 					},
 					onError : function(data) {
 						alert(data);

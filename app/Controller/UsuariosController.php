@@ -74,9 +74,11 @@ var $components    = array('Cookie');
 				//Setea en la session los provilegios del usuario
 				$privilegios = $consultasUs->accionesByRol($usuario['Rol']);
 				$this->Session->write("privilegios",$privilegios);
-				$this->render('/Layouts/menu');
+
+				$this->render('/Layouts/menuSinLibs');
+
 			} else {
-				$this->set('mensaje' , "El Usuario o la Contraseña que ha ingresado son incorrectos.");                			
+				$this->set('mensaje' , "El Usuario o la Contraseña que ha ingresado son incorrectos.");
 			}
 	}
 
@@ -97,13 +99,13 @@ var $components    = array('Cookie');
 		@$email = addslashes($mail);
 		@$asunto = addslashes("Usuario Creado");
 		@$mensaje = addslashes("Estimado ".$nombre.", \n Se le ha asignado un usuario para acceder a la aplicacion de Inventarios.\n\n Usuario:".$user." \n Clave: ".$pass." ");
-		
+
 		//Preparamos el mensaje de contacto
 		$cabeceras = "From: info@admin.com\n"; //La persona que envia el correo
 		$asuntoMsj = "$asunto";
-		$email_to = "$email"; 
+		$email_to = "$email";
 		$contenido = "$mensaje\n";
-		
+
 		@mail($email_to, $asuntoMsj ,$contenido ,$cabeceras );
 
 
