@@ -110,7 +110,6 @@ class PedidosController extends AppController {
 	function confirmarPedido($id = null) {
 		$this->confirmar($id);
       	$this->render('/General/Success');
-
 	}
 
 	private function confirmar($id){

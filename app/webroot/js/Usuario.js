@@ -17,9 +17,11 @@ var Usuario = new Class({
       afterDataTable:function(){
           var self=this;
 			jQuery('.reset').bind("click", function(e) {
+
 				translator.resetPassword(self.type,self.getSelectedRowId(this));
 				return false;
 			})
+            jQuery("#configurationTable td:first-child").css('display','none');
 
             jQuery('.edit').bind("click", function(e) {
 				   translator.view(self.type,self.getSelectedRowId(this));
@@ -44,12 +46,12 @@ var Usuario = new Class({
 				sideBarController.bindMenuOptionsEvents();
 				articuloRender.bindFinderStaticEvents();;
 		}
-	
-	
+
+
 });
 
 
 
-	
+
 
 usuarioRender=new Usuario()

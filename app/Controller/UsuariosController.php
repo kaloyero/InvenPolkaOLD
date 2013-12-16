@@ -39,16 +39,16 @@ var $components    = array('Cookie');
 
 	function edit($id = null) {
 			$this->Usuario->id = $id;
-			if ($this->request->is('post')) {
-				if ($this->Inventario->save($this->request->data)) {
+			if ($this->request->is('get')) {
+					$consultas =new ConsultasSelect();
+					$this->set('rolesList' , $consultas->getRolesUsuarios());
+					$this->request->data = $this->Usuario->read();
+			} else {
+				if ($this->Usuario->save($this->request->data)) {
 					$this->render('/General/Success');
 				}else{
 					$this->render('/General/Error');
 				}
-			} else {
-				$consultas =new ConsultasSelect();
-				$this->set('rolesList' , $consultas->getRolesUsuarios());
-				$this->request->data = $this->Usuario->read();
 			}
 	}
 
