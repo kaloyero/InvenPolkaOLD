@@ -20,7 +20,7 @@
 	App::import('Model','ObjetoCategoria');
 	App::import('Model','MovimientoInventario');
 	App::import('Model','MovimientoDetalleInventario');
-	App::import('Model','Role');	
+	App::import('Model','Role');
 
 class ConsultasSelect extends AppModel {
 	public $name = 'ConsultasSelect';
@@ -111,7 +111,7 @@ class ConsultasSelect extends AppModel {
 		//$articulos=$articulo->find($condiciones);
 		return $articulos;
 	}
-	
+
 	//Devuelve TRUE si el Codigo de articulo existe
 	//Devuelve FALSE si el Codigo de articulo NO existe
 	//Si idEdit es null no valida que el id de articulo sea distinto de el mismo
@@ -125,15 +125,15 @@ class ConsultasSelect extends AppModel {
 		} else {
 			$conditions = array(
 				'CodigoArticulo' => $codigo,
-				'id <>' => $idEdit				
+				'id <>' => $idEdit
 			);
 		}
-			
+
 		if ($model->hasAny($conditions)){
 			$valido = true;
 		}
 		return $valido;
-	}	
+	}
 
 	function borraInactivoArticulo($idArticulo){
 		//Pregunto si tiene stock > 0
@@ -148,18 +148,18 @@ class ConsultasSelect extends AppModel {
 			//Si no tiene detalle de movimiento ni pedido
 			if ((! $existMov) && (! $existPed)){
 				//Borro el movimiento de Alta y los detalles de la baja
-				$this->deleteMovimientosAltaBajaByArticuloId($idArticulo);			
-				//Borro el articulo	
+				$this->deleteMovimientosAltaBajaByArticuloId($idArticulo);
+				//Borro el articulo
 				$this->deleteArticulo($idArticulo);
-				
+
 			} else {
-				//Pongo el articulo inactivo				
+				//Pongo el articulo inactivo
 				$this->inactivoArticulo($idArticulo);
 			}
 		}
-		
+
 	}
-	
+
 	function deleteArticulo($idArticulo){
 		$model = new Articulo();
 		$model->query("DELETE FROM  `articulos` WHERE  `id` =".$idArticulo.";");
@@ -199,10 +199,10 @@ class ConsultasSelect extends AppModel {
 
 	function getCategoriasIdDesc() {
 		$model=new Categoria();
-		$categorias = $model->query("SELECT * FROM  `categorias` where `Inactivo` like 'F';");		
+		$categorias = $model->query("SELECT * FROM  `categorias` where `Inactivo` like 'F';");
 		return $categorias;
 	}
-	
+
 	function getCategoriasByIdDescripcion($id,$modelo,$columnaId) {
 		$model=new Categoria();
 		$categorias = $model->query("SELECT `IdCategoria` FROM  `".$modelo."_categorias` WHERE  `".$columnaId."` = ".$id.";");
@@ -234,7 +234,7 @@ class ConsultasSelect extends AppModel {
 		$materiales=$material->find('list',array('fields'=>array('Materiale.id','Materiale.Nombre')));
 		return $materiales;
 	}
-	
+
 ////////////////////////////// {FIN} MATERIALES //////////////////////////////
 
 /********************************************************************************\
@@ -276,6 +276,27 @@ class ConsultasSelect extends AppModel {
 
 		return $pedidos;
 	}
+	function getMovimientoById($id) {
+		$model=new Proyecto();
+		$movimientos=$model->query("SELECT * FROM `movimientos_vista` WHERE id = '".$id."';");
+
+		return $movimientos;
+	}
+
+	function getDetallesMovimientoByIdMovimiento($id) {
+		$model=new Proyecto();
+		$query="SELECT  `mov`.`id` AS  `IdDetalle`, `mov`.`IdArticulo` AS  `IdArticulo` ,  `mov`.`Cantidad` AS  `Cantidad` ,  `art`.`Descripcion` AS  `Descripcion` ,  `art`.`dir` AS  `dir` , `art`.`idFoto` AS  `idFoto` ,`art`.`CodigoArticulo` AS  `codigo`
+FROM  `movimiento_detalle_inventarios` AS  `mov`
+LEFT JOIN  `articulos`  `art` ON (  `mov`.`IdArticulo` =  `art`.`id` )
+WHERE  `mov`.`IdMovimientoInventario` ='".$id."';";
+		$detalleMovimiento=$model->query($query);
+		return $detalleMovimiento;
+	}
+
+
+
+
+
 	//Para que? Porque el modelo es proyecto?
 	function getDetallesPedidoByIdPedido($id) {
 		$model=new Proyecto();
@@ -293,12 +314,12 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 			$conditions = array(
 				'IdArticulo' => $idArticulo
 			);
-			
+
 		if ($model->hasAny($conditions)){
 			$valido = true;
 		}
 		return $valido;
-		
+
 	}
 
 	function getConfiguraciones($id) {
@@ -495,7 +516,7 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 	}
 
 	function insertarInventarioEntidad($inventario) {
-		
+
 		$this->insertarInventario($inventario['IdArticulo'], $inventario['IdDeposito'], $inventario['IdProyecto'], $inventario['Disponibilidad']);
 	}
 
@@ -538,14 +559,14 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 
 //		if ( (!empty($proyecto)) && $total < 1){
 		if ($total < 1){
-			//Si no tengo stock en el proyecto o en el deposito lo borro			
+			//Si no tengo stock en el proyecto o en el deposito lo borro
 			$model->deleteAll($conditions);
 		} else {
 			//Actualizo el stock
 			$model->updateAll(array('Disponibilidad'=>$total), $conditions);
 		}
 	}
-	
+
 	function getStockInventarioByArticuloId($idArticulo){
 		$model=new Inventario();
 		$articulos=	$model->query("SELECT Disponibilidad FROM `inventarios` WHERE IdArticulo = '".$idArticulo."';");
@@ -554,9 +575,9 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 		foreach ($articulos as $art){
 			$stock += $art["inventarios"]["Disponibilidad"];
 		}
-		
+
 		return $stock;
-		
+
 	}
 
 ////////////////////////////// {FIN} INVENTARIOS //////////////////////////////

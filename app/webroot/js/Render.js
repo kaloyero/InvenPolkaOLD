@@ -117,9 +117,7 @@ var Render = new Class({
                });
 
          //Agregamos los calendar
-
-
-          jQuery(".fecha").datepicker(
+         jQuery(".fecha").datepicker(
               {
                   dateFormat: 'yy-mm-dd' ,
                   //Lo que ponemos es a continuacion,es porque cuando aparece el mensaje de que el campo de date es requerido,no se va

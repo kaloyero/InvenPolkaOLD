@@ -3,7 +3,7 @@ var MovimientoInventario = new Class({
     initialize: function(name){
         this.name = name;
         this.type='movimientoInventario';
-        this.breadcrumb='movimientoInventarios';
+        this.breadcrumb='Movimientos Inventario';
         this.descripcion="Desde aqui administre los Movimientos"
     },
 
@@ -23,6 +23,7 @@ var MovimientoInventario = new Class({
 				translator.addMovimiento("movimientoInventario",null,"asignacionAProyectos/".self.getSelectedRowId(this));
                	return false;
           })
+
 
           jQuery('.fecha').datepicker({ dateFormat: 'yy-mm-dd' });
 

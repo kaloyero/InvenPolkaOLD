@@ -41,7 +41,7 @@ foreach ($Pedido as $Pe){
 				<td><?php echo $De['det']['IdArticulo'] ;?></td>
 				<td><?php echo $De['art']['Descripcion'] ;?></td>
 				<td><?php echo $De['det']['Cantidad'] ;?></td>
-   				<td><img style="width:250px; height:150px;border-style:solid;border-width:3px;" src="/InvenPolka/app/webroot/files/articulo/IdFoto/<?php echo $De['det']['IdArticulo']; ?>/<?php echo $De['art']['idFoto']; ?>"></td>
+   				<td><img style="width:250px; height:150px;border-style:solid;border-width:3px;" src="/InvenPolka/app/webroot/files/articulo/IdFoto/<?php echo $De['det']['IdArticulo']; ?>/small_<?php echo $De['art']['idFoto']; ?>"></td>
             </tr>
 <?php
 			}
