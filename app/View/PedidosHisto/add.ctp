@@ -61,3 +61,4 @@ echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</but
 
 <?php echo $this->Form->end();?>
 </div>
+<button class="btn btn-primary volver" type="button">Volver</button>

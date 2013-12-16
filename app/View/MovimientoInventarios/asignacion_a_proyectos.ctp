@@ -94,3 +94,6 @@ echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depos
 echo '<p class="stdformbutton"><button class="btn btn-primary save">Asignar</button></p>';
 ?>
 <?php echo $this->Form->end();?>
+
+</div>
+<button class="btn btn-primary volver" type="button">Volver</button>

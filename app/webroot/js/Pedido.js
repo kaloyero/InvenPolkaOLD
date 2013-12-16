@@ -8,6 +8,7 @@ var Pedido = new Class({
     },
      onSaved:function() {
          this.parent();
+         console.log("s")
           translator.show("articulo");
      },
 

@@ -4,7 +4,7 @@
 
         echo $this->Html->script('operacionesBasicas');
         echo $this->Html->script('mootools.js');
-		
+
         echo $this->Html->script('Render');
         echo $this->Html->script('RenderTranslator');
         echo $this->Html->script('Articulo');
@@ -15,6 +15,7 @@
         echo $this->Html->script('MovimientoInventario');
         echo $this->Html->script('Inventario');
         echo $this->Html->script('Proyecto');
+        echo $this->Html->script('AppStatus');
 
         echo $this->Html->script('Categoria');
         echo $this->Html->script('Usuario');

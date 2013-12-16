@@ -51,4 +51,7 @@ foreach ($Pedido as $Pe){
 
 	</tbody>
 </table>
+<br>
+<button class="btn btn-primary volver" type="button">Volver</button>
+
 
