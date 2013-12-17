@@ -189,7 +189,10 @@ var ServerManager = new Class({
 		      data: config.data.serialize(),
 		      success: function(data) {
 		    	  config.onSuccess(data);
-				}
+				},
+                error: function(data) {
+                 config.onSuccess(data);
+          	   }
 		    } );
     },
     view: function(config){
@@ -286,7 +289,7 @@ var ServerManager = new Class({
 				error : function(data) {
 				  	config.onError(data)
 				}
-				
+
 		    } );
     },
     logOutUser: function(config){
@@ -301,9 +304,9 @@ var ServerManager = new Class({
 			error : function(data) {
 				config.onError(data)
 			}
-			
+
 		} );
-    },	
+    },
     cambioPassword: function(config){
     	var self=this;
     	var type = config.object;
@@ -325,10 +328,10 @@ var ServerManager = new Class({
 		      success: function(data) {
 		    	  config.onSuccess(data);
 				}
-		    } );			
+		    } );
     },
-	
-	
+
+
 });
 
 serverManager=new ServerManager();
