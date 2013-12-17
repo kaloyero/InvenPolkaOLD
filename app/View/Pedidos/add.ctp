@@ -56,11 +56,10 @@ echo $this->Form->input('Pedido.IdProyecto',array('type'=>'select','options'=>$p
 
 
 <?php
-echo '<p class="stdformbutton"><button class="btn btn-primary agregarOtro">Agregar Otro Articulo</button></p>';
-
-echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</button></p>';
+echo '<p class="stdformbutton"><button class="btn btn-primary agregarOtro">Agregar Otro Articulo</button>&nbsp;<button class="btn btn-primary save">Guardar</button></p>';
 ?>
 
 
 <?php echo $this->Form->end();?>
 </div>
+<button class="btn btn-primary volver" type="button">Volver</button>

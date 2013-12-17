@@ -18,6 +18,8 @@
         echo $this->Html->script('MovimientoInventario');
         echo $this->Html->script('Inventario');
         echo $this->Html->script('Proyecto');
+        echo $this->Html->script('AppStatus');
+
 
         echo $this->Html->script('Categoria');
         echo $this->Html->script('Usuario');

@@ -70,4 +70,5 @@ echo '<p class="stdformbutton"><button class="btn btn-primary save">Aceptar</but
 ?>
 <?php echo $this->Form->end();?>
 </div>
+<button class="btn btn-primary volver" type="button">Volver</button>
 

@@ -3,7 +3,7 @@ var MovimientoInventario = new Class({
     initialize: function(name){
         this.name = name;
         this.type='movimientoInventario';
-        this.breadcrumb='movimientoInventarios';
+        this.breadcrumb='Movimientos Inventario';
         this.descripcion="Desde aqui administre los Movimientos"
     },
 
@@ -24,11 +24,16 @@ var MovimientoInventario = new Class({
                	return false;
           })
 
+
           jQuery('.fecha').datepicker({ dateFormat: 'yy-mm-dd' });
 
         },
      bindAddEvents:function() {
+
+         //En caso de que use el volver,a este Render,le asignamos la tabla de articulos,ya que este no usa ningun listado para volver
+         //this.oTable=articuloRender.oTable;
          this.parent();
+         var self=this;
          jQuery('.desactiva').bind("click", function(e) {
              //Solo se borra si la lista tiene mas de 1 elemento para que no quede vacia
              if (jQuery(".desactiva").length >1) {
@@ -38,6 +43,7 @@ var MovimientoInventario = new Class({
     				theme : 'error'
              })
          }
+
    	})
    	//Se setea la fecha del dia,en este caso,solo se va a setear en la pantalla de despacho,porque busca un id,que solo tiene la view de despacho
    	jQuery('#fechaDespacho').datepicker( "setDate", new Date());

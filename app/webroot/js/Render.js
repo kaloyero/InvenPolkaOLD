@@ -42,6 +42,8 @@ var Render = new Class({
            this.makeDatatable();
 		   this.bindListEvents();
            this.drawHeader();
+           //Se guarda que lista esta activa
+           appStatus.activeList=this.type;
 	},
     onAdd: function(data){
         this.cleanCanvas();
@@ -109,17 +111,34 @@ var Render = new Class({
               return false;
          });
 
+         jQuery('.volver').bind("click", function(e) {
+                 self.saveTableStatus();
+                 translator.show(appStatus.activeList);
+               });
+
          //Agregamos los calendar
-          jQuery('.fecha').datepicker({ dateFormat: 'yy-mm-dd' });
+         jQuery(".fecha").datepicker(
+              {
+                  dateFormat: 'yy-mm-dd' ,
+                  //Lo que ponemos es a continuacion,es porque cuando aparece el mensaje de que el campo de date es requerido,no se va
+                  //cuando terminamos de elegir,por un problema que debe tener Html required con este plugin,entonces lo que hago
+                  //es que cuando termina de elegir,si esta presente el label de error,lo volamos
+                  onSelect: function (){
+                      if (jQuery(this).next().is("li")){
+                          jQuery(this).next().remove();
+                      }
+                  }
+          });
+
      },
 
      bindEditEvents:function() {
          var self=this;
          this.styleForm();
          this.generateValidation();
+
          jQuery('.edit').bind("click", function(e) {
              if (self.getForm().valid()){
-                 console.log("se")
                  translator.update(self.type, self.getForm());
                  self.addLoader();
             }
@@ -134,6 +153,11 @@ var Render = new Class({
 				}
 				return false;
 			});
+
+			 jQuery('.volver').bind("click", function(e) {
+                     self.saveTableStatus();
+                     translator.show(self.type);
+                   });
 
           //Agregamos los Calendar
          jQuery('.fecha').datepicker({ dateFormat: 'yy-mm-dd' });
@@ -153,7 +177,7 @@ var Render = new Class({
        },
        makeDatatable:function() {
            var self=this;
-            self.oTable=   jQuery('#configurationTable').dataTable({
+            appStatus.oTable=   jQuery('#configurationTable').dataTable({
                            "bProcessing": true,
                            "bServerSide": true,
                            "iDisplayStart": self.startTablein,
@@ -258,8 +282,8 @@ var Render = new Class({
           this.setValidationMessage();
       },
       saveTableStatus:function(){
-          this.startTablein=this.oTable.fnSettings()._iDisplayStart;
-          this.showRowsByPage=this.oTable.fnSettings()._iDisplayLength;
+          this.startTablein=appStatus.oTable.fnSettings()._iDisplayStart;
+          this.showRowsByPage=appStatus.oTable.fnSettings()._iDisplayLength;
         },
       resetTableStatus:function(){
             this.startTablein=0;

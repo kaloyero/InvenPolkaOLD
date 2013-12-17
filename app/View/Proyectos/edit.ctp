@@ -20,3 +20,4 @@ echo '<p class="stdformbutton"><button class="btn btn-primary edit">Guardar</but
 
 ?>
 </div>
+<button class="btn btn-primary volver" type="button">Volver</button>

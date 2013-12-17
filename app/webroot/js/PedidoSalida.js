@@ -30,7 +30,6 @@ var PedidoSalida = new Class({
      	    self.oTable.fnDeleteRow(rowIndex);
      	});
 
-
      	jQuery('input[type=number]').bind("change", function(e) {
             articuloRender.currentSelectedArticulos[self.getIdFromSelectedNumberType(this)]=jQuery(this).val();
      	})
@@ -46,7 +45,6 @@ var PedidoSalida = new Class({
     onView: function(data){
         this.parent(data);
         jQuery('.confirm').bind("click", function(e) {
-			alert("CON")
 			return false;
 		})
     },

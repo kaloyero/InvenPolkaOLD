@@ -4,7 +4,7 @@
 
         echo $this->Html->script('operacionesBasicas');
         echo $this->Html->script('mootools.js');
-		
+
         echo $this->Html->script('Render');
         echo $this->Html->script('RenderTranslator');
         echo $this->Html->script('Articulo');
@@ -15,6 +15,7 @@
         echo $this->Html->script('MovimientoInventario');
         echo $this->Html->script('Inventario');
         echo $this->Html->script('Proyecto');
+        echo $this->Html->script('AppStatus');
 
         echo $this->Html->script('Categoria');
         echo $this->Html->script('Usuario');
@@ -75,7 +76,7 @@
     <div class="leftpanel" style="margin-left: 0px;">
 
         <div class="logopanel animate0 fadeInUp">
-                <h1><a href="dashboard.html">Pol-ka<span>v1.0</span></a></h1>
+                <h1><a href="dashboard.html">Pol-ka <span>v1.0</span></a></h1>
         </div><!--logopanel-->
 
         <div class="datewidget animate1 fadeInUp">Hoy es es Martes, Dec 25, 2012 5:30pm</div>

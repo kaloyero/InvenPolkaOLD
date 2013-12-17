@@ -1,5 +1,7 @@
 <?php
 echo '<h4 class="widgettitle nomargin shadowed">Devolución de Articulos</h4>';
+echo '<div class="widgetcontent bordered shadowed nopadding">';
+
 echo $this->Form->create('MovimientoInventario',array('class' => 'stdform stdform2','inputDefaults' => array(
         'div' => array('class' => 'field') )));
 
@@ -64,5 +66,5 @@ echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depos
 echo '<p class="stdformbutton"><button class="btn btn-primary save">Aceptar</button></p>';
 ?>
 <?php echo $this->Form->end();?>
-
-
+</div>
+<button class="btn btn-primary volver" type="button">Volver</button>

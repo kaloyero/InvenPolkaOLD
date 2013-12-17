@@ -99,7 +99,6 @@ var Pedido = new Class({
                                       //jQuery(nRow).append( "<td class='tdMiddleCells'>second</td>" );
                                   },
                                   "fnPreDrawCallback": function( nRow, aData, iDisplayIndex ) {
-                                      console.log("s",arguments)
                                   },
                                   //Este CallBack se ejecuta cuando esta lista la tabla
                                   "fnDrawCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {

@@ -18,5 +18,5 @@ echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</but
 
 ?>
 </div>
-<label>Guardar y Seguir</label>
-<span class="field"><input type="checkbox"class='seguir' name="check2" style="opacity: 0;"></span>
+<button class="btn btn-primary volver" type="button">Volver</button>
+<input type="checkbox" class="seguir" name="check2" > Guardar y Seguir

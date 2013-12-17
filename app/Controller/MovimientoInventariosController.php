@@ -1,12 +1,12 @@
 <?php
 
 	App::import('Model','ConsultasSelect');
-	App::import('Model','ConsultasPaginado');	
+	App::import('Model','ConsultasPaginado');
 	App::import('Model','MovimientoDetalleInventario');
-	App::import('Model','MovimientoInventario');	
+	App::import('Model','MovimientoInventario');
 
 class MovimientoInventariosController extends AppController {
-    
+
     public $helpers = array ('Html','Form');
 	var $uses = array('MovimientoInventario','MovimientoDetalleInventario');
 
@@ -30,13 +30,13 @@ class MovimientoInventariosController extends AppController {
 			$this->set("movimientos",	$this->paginate('MovimientoInventario'));
 
 		}
-	
-    }	
+
+    }
 
    	public function view($id = null) {
         $this->MovimientoInventario->id = $id;
         $this->set('movimiento', $this->MovimientoInventario->read());
-	}	
+	}
 
 	private function getListaArticulosDePedidos($idPedido){
 		$consultasSelect = new ConsultasSelect();
@@ -57,42 +57,42 @@ class MovimientoInventariosController extends AppController {
 
    	public function ingresoDeArticulos() {
         if ($this->request->is('post')) {
-			//Inserto el movimiento y los detalles			
-			$this->insertMovimiento();		
+			//Inserto el movimiento y los detalles
+			$this->insertMovimiento();
           	//Sale por success
-			$this->render('/General/Success');			
+			$this->render('/General/Success');
 		} else {
 			//Cargo Lista de Articulos
 			$this->getListaArticulos();
-			//Cargo la lista de depositos		
+			//Cargo la lista de depositos
 			$consultas = new ConsultasSelect();
 			$this->set('depositos',$consultas->getDepositos());
 		}
-		
-   	}		
+
+   	}
 
    	public function darDeBajaArticulos() {
         if ($this->request->is('post')) {
-			//Inserto el movimiento y los detalles			
-			$this->insertMovimiento();		
+			//Inserto el movimiento y los detalles
+			$this->insertMovimiento();
 
-          	$this->render('/General/Success');			
+          	$this->render('/General/Success');
 		} else {
 			//CargarLista de Articulos
 			$this->getListaArticulos();
-			$this->setViewData();			
+			$this->setViewData();
 		}
 	}
-	
+
 	public function transferirADeposito(){
         if ($this->request->is('post')) {
 			//Inserto el movimiento y los detalles
-			$this->insertMovimiento();		
-          	$this->render('/General/Success');			
+			$this->insertMovimiento();
+          	$this->render('/General/Success');
 		} else {
 			//CargarLista de Articulos
 			$this->getListaArticulos();
-			//Cargo la lista de depositos		
+			//Cargo la lista de depositos
 			$consultas = new ConsultasSelect();
 			$this->set('depositos',$consultas->getDepositos());
 		}
@@ -102,7 +102,7 @@ class MovimientoInventariosController extends AppController {
         if ($this->request->is('post')) {
 			//Inserto el movimiento y los detalles
 			$this->insertMovimiento();
-          	$this->render('/General/Success');			
+          	$this->render('/General/Success');
 		} else {
 			$this->setViewData();
 			//CargarLista de Articulos
@@ -114,22 +114,22 @@ class MovimientoInventariosController extends AppController {
         if ($this->request->is('post')) {
 			//Inserto el movimiento y los detalles
 			$this->insertMovimiento();
-          	$this->render('/General/Success');			
+          	$this->render('/General/Success');
 		} else {
 			$this->asignacionAProyectosGET($id);
 		}
 	}
-	
+
 	private function asignacionAProyectosGET($id){
 			$consultas = new ConsultasSelect();
 			//Agarro la informacion del Pedido
 			$pedido = $consultas->getPedidoById($id);
-			$this->set("pedido", $pedido);			
+			$this->set("pedido", $pedido);
 			//Cargar Lista de Articulos del Pedido
 			$this->getListaArticulosDePedidos($id);
-			//Cargo la lista de depositos		
+			//Cargo la lista de depositos
 			$this->set('depositos',$consultas->getDepositos());
-			
+
 	}
 
 	//Hace el insert en la Tabla de Movimientos
@@ -143,7 +143,7 @@ class MovimientoInventariosController extends AppController {
 				$this->MovimientoInventario->updateAll(array('Numero'=>$idInsertedPedido), array('MovimientoInventario.id'=>$idInsertedPedido));
 				//hago el alta del detalle
 				$this->agregarDetalles();
-	          	$this->render('/General/Success'); 
+	          	$this->render('/General/Success');
            	} else {
 				$this->render('/General/Error');
 			}
@@ -207,7 +207,7 @@ class MovimientoInventariosController extends AppController {
 						//Resto X cantidad de articulo al proyecto seleccionado
 						$consultas ->restaInventarioEnProyecto($articulo,$deposito,$proyecto,$cantidad);
 					}
-					//Borro o dejo al articulo inactivo.					
+					//Borro o dejo al articulo inactivo.
 					$consultas ->borraInactivoArticulo($articulo);
 					break;
 				case 'T':
@@ -221,7 +221,7 @@ class MovimientoInventariosController extends AppController {
 	}
 
     public function add() {
-		
+
         if ($this->request->is('post')) {
 			$tipoMovi = $this->request->data['MovimientoInventario']['TipoMovimiento'];
 			switch ($tipoMovi) {
@@ -235,7 +235,7 @@ class MovimientoInventariosController extends AppController {
 					$this->ingresoDeArticulos();
 					break;
 				case 'B':
-					$this->darDeBajaArticulos();		
+					$this->darDeBajaArticulos();
 					break;
 				case 'T':
 					$this->transferirADeposito();
@@ -273,15 +273,21 @@ class MovimientoInventariosController extends AppController {
 				}
 				array_push($outputFilter,$row);
 			}//*/
-			
+
 	        echo json_encode($output);
 	}
 
 	function edit($id = null) {
-		$this->MovimientoInventario->id = $id;
+
+			$model = new ConsultasSelect();
+			$this->MovimientoInventario->id = $id;
 		if ($this->request->is('get')) {
-			$this->request->data = $this->MovimientoInventario->read();
-			$this->setViewData();			
+			//$this->request->data = $this->MovimientoInventario->read();
+			$movimiento = $model->getMovimientoById($id);
+			$detalles = $model->getDetallesMovimientoByIdMovimiento($id);
+			$this->set('movimiento',$movimiento);
+			$this->set('detalles',$detalles);
+			$this->setViewData();
 		} else {
 			if ($this->MovimientoInventario->save($this->request->data)) {
 				$this->Session->setFlash('Cambios guardados');
@@ -290,8 +296,8 @@ class MovimientoInventariosController extends AppController {
 				$this->setViewData();
 			}
 
-		}		
-	}	
+		}
+	}
 
 	function delete($id) {
 
@@ -314,6 +320,6 @@ class MovimientoInventariosController extends AppController {
 		return "loco";
    }
 
-	
+
 }
 ?>

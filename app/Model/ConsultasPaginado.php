@@ -307,6 +307,11 @@ private function getArrayDataConfig($rows,$modelo,$columnaId) {
 								  	'B' =>'Baja de Articulo(s)',
 								  	'T' =>'Transferencia de Articulo(s)',
 			  							);
+			 $icono = "";
+
+		$icono = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a class ='edit' ><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/view.png' /></a></div></div>";
+
+
 		  //  array_push($arrayDt, array($titi));
 			  foreach($rows as $j){
 					$fila=array();
@@ -318,6 +323,7 @@ private function getArrayDataConfig($rows,$modelo,$columnaId) {
 //					array_push($fila, array($j[$tabla]['deposito_dest']));
 					array_push($fila, array($j[$tabla]['pedido']));
 					array_push($fila, array($j[$tabla]['proyecto']));
+					array_push($fila, $icono);
 
 /*					foreach($aColumns as $column){
 						if ($column == "TipoMovimiento" ){
