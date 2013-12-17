@@ -163,28 +163,6 @@ var ComponentTranslator = new Class(
 
 				});
     		},
-			resetPassword: function(objectType,idObject) {
-
-				serverManager.resetPassword({
-					object : objectType,
-					id : idObject,
-					onSuccess : function(data) {
-					     var renderInstace = renderTranslator.getRender(objectType);
-    					    renderInstace.onSaved(data);
-					    jQuery.jGrowl("Se ha cambiado la contraseña.", {
-					        theme : 'success'
-				        });
-						jQuery('.paginate_active').click();
-					},
-					onError : function(data) {
-					    jQuery.jGrowl("Error al cambiar la contrseña.", {
-					        theme : 'success'
-				        });
-						jQuery('.paginate_active').click();
-					}
-
-				});
-    		},
 			loginUser: function(objectType,formData) {
 				serverManager.loginUser({
 					object : objectType,
@@ -194,7 +172,6 @@ var ComponentTranslator = new Class(
 						jQuery("body").append(data);
 					},
 					onError : function(data) {
-						alert(data);
 						jQuery(data).append("");
 					}
 
@@ -211,7 +188,26 @@ var ComponentTranslator = new Class(
 					}
 				});
     		},
-
+			cambioPassword: function(objectType) {
+    				serverManager.cambioPassword({
+    					object : objectType,
+    					onSuccess : function(data) {
+    					    var renderInstace = renderTranslator.getRender(objectType);
+                            renderInstace.onChangePass(data);
+    					}
+    				});
+    		},
+			cambioPasswordPost: function(objectType,formData) {
+				serverManager.cambioPasswordPost({
+					object : objectType,
+					data:formData,
+   					onSuccess : function(data) {
+					     messageRender.createMessage(data);
+					     var renderInstace = renderTranslator.getRender(objectType);
+    					 renderInstace.onChangePass(data);
+   					}
+				});
+    		},
 		});
 
 var translator = new ComponentTranslator();

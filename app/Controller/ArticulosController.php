@@ -86,7 +86,8 @@ class ArticulosController extends AppController {
 				$datasource = $model->getDataSource();
 				//Comienzo la transaccion del Movimientp
 				$datasource->begin();
-				$res= $model->save(array('Numero' => 0,'Fecha' => '2013-11-15','TipoMovimiento' => 'A','IdDepositoOrig' => 	$this->request->data['Inventario']['IdDeposito']));
+				$fecha = date("Y-m-d");
+				$res= $model->save(array('Numero' => 0,'Fecha' => ''.$fecha.'','TipoMovimiento' => 'A','IdDepositoOrig' => 	$this->request->data['Inventario']['IdDeposito']));
 			if ($res) {
 				//Hago el commit del movimiento
 				$datasource->commit();

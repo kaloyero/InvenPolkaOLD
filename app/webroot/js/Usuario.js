@@ -26,7 +26,11 @@ var Usuario = new Class({
             jQuery('.edit').bind("click", function(e) {
 				   translator.view(self.type,self.getSelectedRowId(this));
 				   return false;
-			  })
+		  	})
+			jQuery('.desactivar').bind("click", function(e) {
+				translator.delete(self.type,self.getSelectedRowId(this));
+			})
+			  
     	},
       validateLogin:function(){
           var self=this;
@@ -39,13 +43,32 @@ var Usuario = new Class({
 				   translator.view(self.type,self.getSelectedRowId(this));
 				   return false;
 			  })
+			  			  
     	},
 		onLoggedUser:function(){
 				jQuery("body").empty();
 				jQuery(data).appendTo("body");
 				sideBarController.bindMenuOptionsEvents();
 				articuloRender.bindFinderStaticEvents();;
-		}
+		},
+		onChangePass: function(data){
+			var self=this;
+			this.cleanCanvas();
+			jQuery(".contentinner").append(data);
+			// Transform upload file
+			jQuery('.uniform-file').uniform();
+
+			 jQuery('.cambioClave').bind("click", function(e) {
+				  //Si pasa la validacion,salvamos
+				  if (self.getForm().valid()){
+					    translator.cambioPasswordPost(self.type, self.getForm());
+						self.addLoader();
+				  }
+				  //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
+				  return false;
+			 });
+		},
+		
 
 
 });

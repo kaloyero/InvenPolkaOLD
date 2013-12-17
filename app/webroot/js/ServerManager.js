@@ -304,6 +304,31 @@ var ServerManager = new Class({
 			
 		} );
     },	
+    cambioPassword: function(config){
+    	var self=this;
+    	var type = config.object;
+    	jQuery.ajax( {
+		      type: "GET",
+		      url: "usuarios/cambioClave",
+		      success: function(data) {
+		    	  config.onSuccess(data);
+				}
+		    } );
+    },
+    cambioPasswordPost: function(config){
+    	var self=this;
+    	var type = config.object;
+    	jQuery.ajax( {
+		      type: "POST",
+		      url: "usuarios/cambioClave",
+		      data: config.data.serialize(),
+		      success: function(data) {
+		    	  config.onSuccess(data);
+				}
+		    } );			
+    },
+	
+	
 });
 
 serverManager=new ServerManager();

@@ -35,6 +35,8 @@ class PedidosController extends AppController {
 				$this->Pedido->updateAll(array('Numero'=>$idInsertedPedido), array('Pedido.id'=>$idInsertedPedido));
 				//hago el alta del detalle
 				$this->agregarDetalles();
+				//Envio la notificacion
+				$this->envioNotificacionPedidoNuevo($idInsertedPedido);
 	          	$this->render('/General/Success');
             } else {
 				$this->render('/General/Error');
@@ -45,6 +47,25 @@ class PedidosController extends AppController {
 			$this->setViewData();
 		}
     }
+
+	function envioNotificacionPedidoNuevo($nroPedido) {
+		@$nombre = addslashes("Deposito");
+		@$email = addslashes("kaloye_ale@hotmail.com");
+		@$asunto = addslashes("Nuevo Pedido");
+		@$mensaje = addslashes("Notificación a Deposito: \n Se ha creado el pedido numero ".$nroPedido.". El mismo se encuentra en su bandeja de entrada de pedidos.");
+
+		//Preparamos el mensaje de contacto
+		$cabeceras = "From: info@admin.com\n"; //La persona que envia el correo
+		$asuntoMsj = "$asunto";
+		$email_to = "$email";
+		$contenido = "$mensaje\n";
+
+		@mail($email_to, $asuntoMsj ,$contenido ,$cabeceras );
+
+
+	}
+	
+	
 	//Consulta a la base los datos de los articulos seleccionados
 	function getListaArticulos() {
 		$arts = array();

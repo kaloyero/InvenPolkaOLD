@@ -101,6 +101,16 @@ class ConsultasUsuario extends AppModel {
 		return $us;
 	}
 
+	//Actualizo la contrase;a
+	public function changePass($id,$pass){
+		$model = new Categoria();
+		$tabla = "usuarios";
+
+		//Usuario
+		$model->query("UPDATE `".$tabla."` SET `password` = ".$pass." WHERE id = ".$id." ;");
+		
+	}
+
 
 ////////////////////////////// {FIN} ACCIONES //////////////////////////////
 

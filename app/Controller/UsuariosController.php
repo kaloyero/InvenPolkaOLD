@@ -52,8 +52,27 @@ var $components    = array('Cookie');
 			}
 	}
 
-	function resetPassword($id = null) {
-
+	function cambioClave() {
+			$consultasUs = new ConsultasUsuario();
+			if ($this->request->is('get')) {
+				$this->set('errorClave','');				
+			} else {
+				$usuario = $this->Session->read("usuario");
+				//Valida el usuario y contrase;a ingresado son validos
+				$usValid = $consultasUs->validateUserPass($usuario['username'],$this->request->data['Usuario']['passwordViejo']);
+				if ($usValid) {
+					//valida q la clave nueva sea igual a la clave de confirmacion
+					if ($this->request->data['Usuario']['password'] == $this->request->data['Usuario']['passwordConfirm']){
+						//cambia el password
+						$consultasUs->changePass($usuario['id'],$this->request->data['Usuario']['password']);
+						$this->render('/General/Success');
+					} else {
+						$this->set('errorClave','La clave nueva debe ser igual a la clave de confirmación');					
+					}
+				} else {
+					$this->set('errorClave','Verifique su clave actual.');				
+				}
+			}
 	}
 
 	function login() {
@@ -91,6 +110,10 @@ var $components    = array('Cookie');
 	}
 
 	function delete($id) {
+
+		$model=new Usuario();
+		$this->Usuario->delete($id);
+		$this->render('/General/Success');
 
 	}
 

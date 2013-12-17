@@ -75,7 +75,7 @@
     <div class="leftpanel" style="margin-left: 0px;">
 
         <div class="logopanel animate0 fadeInUp">
-                <h1><a href="dashboard.html">Pol-kaka <span>v1.0</span></a></h1>
+                <h1><a href="dashboard.html">Pol-ka<span>v1.0</span></a></h1>
         </div><!--logopanel-->
 
         <div class="datewidget animate1 fadeInUp">Hoy es es Martes, Dec 25, 2012 5:30pm</div>
@@ -214,7 +214,7 @@
                     <a class="dropdown-toggle " data-toggle="dropdown" data-target="#" href="/page.html"> Hola! <?php echo $usuario['username'] ?><b class="caret"></b></a>
                     <ul class="dropdown-menu">
 						<?php if (! empty($privis['menuCambioPass'])) { ?>
-                        	<li><a href="#"><span class="icon-edit"></span> <?php echo $privis['menuCambioPass']['nombre'] ?></a></li>
+                        	<li><a href="#" class="changePass"><span class="icon-edit"></span> <?php echo $privis['menuCambioPass']['nombre'] ?></a></li>
 						<?php } ?>
                         <li class="divider"></li>
                         <li><a href="#" class="logOut"><span class="icon-off"></span> Salir</a></li>
@@ -276,9 +276,16 @@ jQuery(document).ready(function(){
 	articuloRender.bindFinderStaticEvents();
 
 	jQuery('.logOut').click(function(){
-			translator.logOutUser(self.type);
+			translator.logOutUser("usuario");
 			return false;
 	});
+
+	jQuery('.changePass').click(function(){
+			jQuery('.dropdown-toggle').click();		
+			translator.cambioPassword("usuario");
+			return false;
+	});
+
 
 });
 </script>

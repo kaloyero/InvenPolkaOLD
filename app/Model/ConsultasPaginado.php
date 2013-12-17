@@ -687,7 +687,7 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumns,$aColumnsFil
 	private function getDataUsuarioQuery() {
 
 		$select = 	"SELECT * ";
-		$from = 	" FROM `Usuarios` `tab` ";
+		$from = 	" FROM `usuarios` `tab` ";
 		$sWhere = 	"";
 		$limit = 	' limit '.$_GET['iDisplayStart'].' ,'.$_GET['iDisplayLength'] ;
 		$orderBy = 	" order by `tab`.`Apellido`,`tab`.`Nombre`";
@@ -725,7 +725,9 @@ private function getArrayUsuariosConfig($rows,$privilegios) {
 		  $icono2 = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/za' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div></div>";
 	  }
 	  if (! empty($privilegios['menuCambioPass'])) {
-		  $icono3 = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/za' class='reset'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/cambioPass.gif' /></a></div></div>";
+		  $icono3 = "";
+//  		  $icono3 = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/za' class='reset'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/cambioPass.gif' /></a></div></div>";
+
 	  }
 
 
