@@ -1,5 +1,5 @@
 <?php
-echo '<h4 class="widgettitle nomargin shadowed">Devolución de Articulos</h4>';
+echo '<h4 class="widgettitle nomargin shadowed">Detalle del Pedido</h4>';
 echo '<div class="widgetcontent bordered shadowed nopadding">';
 echo $this->Form->create('Pedido',array('class' => 'stdform stdform2','inputDefaults' => array(
         'div' => array('class' => 'field') )));
@@ -27,8 +27,8 @@ foreach ($Pedido as $Pe){
 	<thead>
 					<tr>
                         <th>Codigo Articulo</th>
-                        <th>Cantidad</th>
                         <th>Descripcion</th>
+                        <th>Cantidad</th>
                         <th>Imagen</th>
 		            </tr>
 	</thead>
@@ -37,10 +37,10 @@ foreach ($Pedido as $Pe){
 	foreach ($Detalles as $De){
 
 ?>			<tr>
-				<td><?php echo $De['det']['IdArticulo'] ;?></td>
+				<td><?php echo $De['art']['CodigoArticulo'] ;?></td>
 				<td><?php echo $De['art']['Descripcion'] ;?></td>
 				<td><?php echo $De['det']['Cantidad'] ;?></td>
-   				<td><img style="width:250px; height:150px;border-style:solid;border-width:3px;" src="/InvenPolka/app/webroot/files/articulo/IdFoto/<?php echo $De['det']['IdArticulo']; ?>/small_<?php echo $De['art']['idFoto']; ?>"></td>
+   				<td><img style="width:250px; height:150px;border-style:solid;border-width:3px;" src="/InvenPolka/app/webroot/files/articulo/idFoto/<?php echo $De['det']['IdArticulo']; ?>/small_<?php echo $De['art']['idFoto']; ?>"></td>
             </tr>
 <?php
 			}

@@ -33,6 +33,13 @@ class ConsultasSelect extends AppModel {
 		$proyectos=$proyecto->find('list',array('fields'=>array('Proyecto.id','Proyecto.Nombre')));
 		return $proyectos;
 	}
+
+	function getProyectosFull() {
+		$model=new Proyecto();
+		$proyectos=$model->query("select * from `proyectos` where `Inactivo` like 'F'; ");
+		return $proyectos;
+	}
+	
 ////////////////////////////// {FIN} PROYECTOS //////////////////////////////
 
 /********************************************************************************\

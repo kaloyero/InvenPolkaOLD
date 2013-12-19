@@ -50,7 +50,7 @@ class PedidosController extends AppController {
 
 	function envioNotificacionPedidoNuevo($nroPedido) {
 		@$nombre = addslashes("Deposito");
-		@$email = addslashes("kaloye_ale@hotmail.com");
+		@$email = addslashes("artewarnes@gmail.com");
 		@$asunto = addslashes("Nuevo Pedido");
 		@$mensaje = addslashes("Notificación a Deposito: \n Se ha creado el pedido numero ".$nroPedido.". El mismo se encuentra en su bandeja de entrada de pedidos.");
 

@@ -14,6 +14,11 @@ var Inventario = new Class({
 				translator.addMovimiento("movimientoInventario",self.getDataToSendInJsonFormat(),"darDeBajaArticulos");
                	return false;
           })
+          jQuery('.filtroDepo').bind("change", function(e) {
+				alert("filtra deposito");
+               	return false;
+          })
+
         },
     onUpdated: function(data){
             this.parent();

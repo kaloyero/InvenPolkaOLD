@@ -1,5 +1,5 @@
 <?php
-echo '<h4 class="widgettitle nomargin shadowed">Dar de baja Articulos</h4>';
+echo '<h4 class="widgettitle nomargin shadowed">Baja Articulos</h4>';
 echo '<div class="widgetcontent bordered shadowed nopadding">';
 
 echo $this->Form->create('MovimientoInventario',array('class' => 'stdform stdform2','inputDefaults' => array(
