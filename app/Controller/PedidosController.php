@@ -26,17 +26,25 @@ class PedidosController extends AppController {
    }
 
     public function add() {
-
+		$datasource = $this->Pedido->getDataSource();
+		//Comienzo la transaccion del Articulo
+		$datasource->begin();
         if ($this->request->is('post')) {
 			$this->request->data['Pedido']['Numero'] = 0;
             if ($this->Pedido->save($this->request->data)) {
 				//Para que?Si justo otro agrego un pedido en el medio,no seria mas el ultimo
 				$idInsertedPedido = $this->Pedido->getInsertID();
-				$this->Pedido->updateAll(array('Numero'=>$idInsertedPedido), array('Pedido.id'=>$idInsertedPedido));
-				//hago el alta del detalle
-				$this->agregarDetalles();
-				//Envio la notificacion
-				$this->envioNotificacionPedidoNuevo($idInsertedPedido);
+				if ($this->Pedido->updateAll(array('Numero'=>$idInsertedPedido), array('Pedido.id'=>$idInsertedPedido))){
+
+					//hago el alta del detalle
+					$this->agregarDetalles();
+					//Envio la notificacion
+					$this->envioNotificacionPedidoNuevo($idInsertedPedido);
+
+					//Commit del primer Begin
+					$datasource->commit();
+				}
+
 	          	$this->render('/General/Success');
             } else {
 				$this->render('/General/Error');
@@ -64,8 +72,8 @@ class PedidosController extends AppController {
 
 
 	}
-	
-	
+
+
 	//Consulta a la base los datos de los articulos seleccionados
 	function getListaArticulos() {
 		$arts = array();
@@ -105,6 +113,11 @@ class PedidosController extends AppController {
 		$idInsertedPedido = $this->Pedido->getInsertID();
 		$listDetalle = array ($this->request->data['Detalle']);
 		$cont=0;
+
+		$model = new PedidoDetalle();
+		$datasource = $model->getDataSource();
+		$datasource->begin();
+
 		foreach ($listDetalle as &$detalle) {
 			foreach ($detalle as &$det) {
 				$PedidoDetalle=new PedidoDetalle();
@@ -112,7 +125,10 @@ class PedidosController extends AppController {
 									  'IdArticulo' => $det['IdArticulo'],
             						  'Cantidad' => $det['Cantidad']);
 				if (! $this->PedidoDetalle->saveall($PedidoDetalle)) {
+					$datasource->rollback();
 					$this->render('/General/Error');
+				}else{
+					$datasource->commit();
 				}
 			}
 		}
