@@ -12,7 +12,7 @@ foreach ($Pedido as $Pe){
 		<span class="field float" ><input name="fecha" value="<?php echo $Pe['pedidos_vista']['Fecha'];?>" class="input-medium" readonly="readonly" maxlength="100" type="text" required="required"></span></p>
 		<p>
 		<label style="float: left;">Descripcion</label>
-		<span class="field float"><textarea name="descripcion" value="<?php echo $Pe['pedidos_vista']['Descripcion'];?>" class="span5" readonly="readonly" cols="30" rows="6"></textarea></span>
+		<span class="field float"><textarea name="descripcion" class="span5" readonly="readonly" cols="30" rows="6"><?php echo $Pe['pedidos_vista']['Descripcion'];?></textarea></span>
 		<label style="float: left;">Proyecto</label>
 		<span class="field float"><input name="Proyecto" value="<?php echo $Pe['pedidos_vista']['proyecto'];?>" class="input-medium" readonly="readonly" type="text"  required="required"/></span></p>
 
