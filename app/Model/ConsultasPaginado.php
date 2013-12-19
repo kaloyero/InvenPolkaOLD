@@ -158,7 +158,7 @@ private function getArrayDataConfig($rows,$modelo,$columnaId) {
 			//Obtengo los totales
 			$totales = $this->getTotales($model,$query);
 			//Proceso los campos para llenar la tabla
-			$arrayData=$this->getArrayDataWithEditLink($tabla,$rows,$aColumns,$query['select'],$privilegios);
+			$arrayData=$this->getArrayDataProyectos($tabla,$rows,$aColumns,$query['select'],$privilegios);
 			//Obtengo la tabla
 			$output = $this->createConfigTable($arrayData,$totales["total"],$totales["tDisplay"]);
 
@@ -202,6 +202,46 @@ private function getArrayDataConfig($rows,$modelo,$columnaId) {
 	//	print_r($query);
 		return $query;
 	}
+
+private function getArrayDataProyectos($tabla,$rows,$aColumns,$titi,$privilegios) {
+      $arrayDt=array();
+
+  //    array_push($arrayDt, array($titi));
+	  //Iconos
+   	  $icono = "";
+	  $icono2 = "";
+	  $icono3 = "";	  
+	  if (! empty($privilegios['btnEliminar'])) {
+		$icono = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/articulos/ed' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div>";
+	  }
+	  if (! empty($privilegios['btnEditar'])) {
+		$icono2 = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a class='desactivar'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div>";
+	  }
+	  if (! empty($privilegios['btnCierreProy'])) {
+		$icono3 = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a class='cierreProy'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/gemicon/reports.png' /></a></div>";
+	  }
+
+
+      foreach($rows as $j){
+			$fila=array();
+	        foreach($aColumns as $column){
+				if ($column != "dir" && $column != "idFoto"){
+					array_push($fila, array($j[$tabla][$column]));
+				} else {
+					//Si es foto
+					if ($column == "idFoto"){
+						array_push($fila, $this->getImageSmall($j[$tabla]['dir'],$j[$tabla]['idFoto']));
+					}
+				}
+			}
+
+			array_push($fila, " <div>".$icono.$icono2.$icono3."</div>");
+			array_push($arrayDt, $fila);
+      }
+
+	 return $arrayDt;
+
+}
 
 ////////////////////////////// {FIN} PROYECTO -> DATATABLE //////////////////////////////
 

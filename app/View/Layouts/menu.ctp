@@ -79,7 +79,11 @@
                 <h1><a href="dashboard.html">Pol-ka <span>v1.0</span></a></h1>
         </div><!--logopanel-->
 
-        <div class="datewidget animate1 fadeInUp">Hoy es es Martes, Dec 25, 2012 5:30pm</div>
+<?php
+$dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
+$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+?>
+        <div class="datewidget animate1 fadeInUp">Hoy es <?php echo $dias[date('w')-1]." ".(date('d')-1)." de ".$meses[date('n')-1]. " del ".date('Y') ; ?></div>
 <!--
             <div class="searchwidget animate2 fadeInUp">
                 <form action="results.html" method="post">

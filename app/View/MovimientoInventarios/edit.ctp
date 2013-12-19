@@ -30,8 +30,8 @@ foreach ($movimiento as $mov){
 			<thead>
 							<tr>
 		                        <th>Codigo Articulo</th>
-		                        <th>Cantidad</th>
 		                        <th>Descripcion</th>
+		                        <th>Cantidad</th>
 		                        <th>Imagen</th>
 				            </tr>
 			</thead>
@@ -40,7 +40,7 @@ foreach ($movimiento as $mov){
 			foreach ($detalles as $det){
 
 		?>			<tr>
-						<td><?php echo $det['mov']['IdArticulo'] ;?></td>
+						<td><?php echo $det['art']['CodigoArticulo'] ;?></td>
 						<td><?php echo $det['art']['Descripcion'] ;?></td>
 						<td><?php echo $det['mov']['Cantidad'] ;?></td>
 		   				<td><img style="width:250px; height:150px;border-style:solid;border-width:3px;" src="/InvenPolka/app/webroot/files/articulo/idFoto/<?php echo $det['mov']['IdArticulo']; ?>/small_<?php echo $det['art']['idFoto']; ?>"></td>

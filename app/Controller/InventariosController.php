@@ -8,6 +8,8 @@ class InventariosController extends AppController {
     public $helpers = array ('Html','Form');
 
     function index() {
+		$consultas =new ConsultasSelect();		
+		$this->set('proyectos',$consultas->getProyectosFull());
     }
 
 
