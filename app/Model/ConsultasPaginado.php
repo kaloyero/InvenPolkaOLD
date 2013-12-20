@@ -210,7 +210,7 @@ private function getArrayDataProyectos($tabla,$rows,$aColumns,$titi,$privilegios
 	  //Iconos
    	  $icono = "";
 	  $icono2 = "";
-	  $icono3 = "";	  
+	  $icono3 = "";
 	  if (! empty($privilegios['btnEliminar'])) {
 		$icono = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/articulos/ed' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div>";
 	  }
@@ -522,7 +522,7 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi,$tipoLista) {
 \********************************************************************************/
 
 	/* Para el listado de Articulos */
-	function getDataArticulos() {
+	function getDataArticulos($privilegios) {
 		$tabla="articulos_vista";
 		$model=new Articulo();
 		//Columnas que voy a mostrar
@@ -541,7 +541,7 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi,$tipoLista) {
 		//Obtengo los totales
 		$totales = $this->getTotales($model,$query);
 		//Proceso los campos para llenar la tabla
-		$arrayData=$this->getArrayDataArticulos($tabla,$rows,$query['select']);
+		$arrayData=$this->getArrayDataArticulos($tabla,$rows,$query['select'],$privilegios);
 		//Obtengo la tabla
 		$output = $this->createConfigTable($arrayData,$totales["total"],$totales["tDisplay"]);
 //		$output = $this->createConfigTable($arrayData,40,40);
@@ -666,7 +666,7 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumns,$aColumnsFil
 
 }
 
-	private function getArrayDataArticulos($tabla,$rows,$titi) {
+	private function getArrayDataArticulos($tabla,$rows,$titi,$privilegios) {
       $arrayDt=array();
 
 /*			$fila=array();
@@ -691,6 +691,13 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumns,$aColumnsFil
 			array_push($fila, array($j[$tabla]['estilo']));
 			array_push($fila, array($j[$tabla]['stock_total']));
 			array_push($fila, array($j[$tabla]['stock_dispo']));
+
+			//Las siguientes imagenes se preguntan en el privilegio
+			array_push($fila,'<a href="#" id='.$j[$tabla]['id'].' class="edit"><img style="width:20px;height:20;display:inline;float:right;margin-top:0.1cm;" src="/InvenPolka/app/webroot/files/gif/edit.jpg"></a>');
+			array_push($fila,'<a href="#" id='.$j[$tabla]['id'].' class="view"><img style="width:20px;height:20;display:inline;float:right;margin-top:0.1cm;" src="/InvenPolka/app/webroot/img/view.png"></a>');
+
+
+
 			array_push($arrayDt, $fila);
       }
 //*/

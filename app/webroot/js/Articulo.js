@@ -384,12 +384,18 @@ var Articulo = new Class({
         jQuery(".infoShow").remove();
 
         for(i=0; i< data.length; i++) {
- 			jQuery("#configurationTable").before('<div  class="infoShow">'+data[i]["_aData"][2]+
-													'<input type="checkbox" name="option3"> '+data[i]["_aData"][1]+
-													'<a href="#" id='+data[i]["_aData"][0][0]+' class="edit"><img style="width:20px;height:20;display:inline;float:right;margin-top:0.1cm;" src="/InvenPolka/app/webroot/files/gif/edit.jpg"></a>'+
-													' <a href="#" id="'+data[i]["_aData"][0][0]+'" class="view"><img style="width:20px;height:20;display:inline;float:right;margin-top:0.1cm;" src="/InvenPolka/app/webroot/img/view.png"></a>' +
-													'<B><c style="display:inline;float:right;margin-top:0.0cm;"> '+data[i]["_aData"][9]+' ('+ data[i]["_aData"][10]+') </c></B>'+
-													'</div>')
+            var htmlDiv="";
+            htmlDiv +='<div  class="infoShow">'+data[i]["_aData"][2]+'<input type="checkbox" name="option3"> '+data[i]["_aData"][1];
+
+            //Preguntamos si estan los botones antes de ponerlos (Por ahi esta conectado un usuario que no le haya venido el boton para usar)
+            if (data[i]["_aData"][11])
+                htmlDiv +=data[i]["_aData"][11];
+ 			if (data[i]["_aData"][12])
+ 			    htmlDiv +=data[i]["_aData"][12];
+
+ 			htmlDiv +='<B><c style="display:inline;float:right;margin-top:0.0cm;"> '+data[i]["_aData"][9]+' ('+ data[i]["_aData"][10]+') </c></B></div>';
+
+ 			jQuery("#configurationTable").before(htmlDiv);
 
         }
          this.checkElements();
