@@ -12,7 +12,7 @@ foreach ($Pedido as $Pe){
 		<span class="field float" ><input name="fecha" value="<?php echo $Pe['pedidos_vista']['Fecha'];?>" class="input-medium" readonly="readonly" maxlength="100" type="text" required="required"></span></p>
 		<p>
 		<label style="float: left;">Descripcion</label>
-		<span class="field float"><textarea name="descripcion" value="<?php echo $Pe['pedidos_vista']['Descripcion'];?>" class="span5" readonly="readonly" cols="30" rows="6"></textarea></span>
+		<span class="field float"><textarea name="descripcion" class="span5" readonly="readonly" cols="30" rows="6"><?php echo $Pe['pedidos_vista']['Descripcion'];?></textarea></span>
 		<label style="float: left;">Proyecto</label>
 		<span class="field float"><input name="Proyecto" value="<?php echo $Pe['pedidos_vista']['proyecto'];?>" class="input-medium" readonly="readonly" type="text"  required="required"/></span></p>
 
@@ -37,7 +37,7 @@ foreach ($Pedido as $Pe){
 	foreach ($Detalles as $De){
 
 ?>			<tr>
-				<td><?php echo $De['art']['CodigoArticulo'] ;?></td>
+				<td><?php echo $De['art']['codigo'] ;?></td>
 				<td><?php echo $De['art']['Descripcion'] ;?></td>
 				<td><?php echo $De['det']['Cantidad'] ;?></td>
    				<td><img style="width:250px; height:150px;border-style:solid;border-width:3px;" src="/InvenPolka/app/webroot/files/articulo/idFoto/<?php echo $De['det']['IdArticulo']; ?>/small_<?php echo $De['art']['idFoto']; ?>"></td>

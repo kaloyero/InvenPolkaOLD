@@ -3,7 +3,7 @@ var PedidoSalida = new Class({
     initialize: function(name){
         this.name = name;
         this.type='pedidoSalida';
-        this.breadcrumb='PedidosSalida';
+        this.breadcrumb='Pedidos Salida';
         this.descripcion="Pedidos a enviar"
     },
     onAdd: function(data){

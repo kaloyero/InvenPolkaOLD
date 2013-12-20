@@ -8,5 +8,5 @@
 	echo $this->Form->input('Inventario.IdProyecto',array('type'=>'select','options'=>$proyectos,'empty'=>false,'label'=>'Proyecto'));
     echo $this->Form->input('id', array('type' => 'hidden'));
     echo $this->Form->end('Guardar');
-	
+
 ?>

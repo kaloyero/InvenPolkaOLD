@@ -150,7 +150,8 @@ class ArticulosController extends AppController {
 		} else {
 			$paginado =new ConsultasPaginado();
 	        $this->autoRender = false;
-			$output = $paginado->getDataArticulos();
+			$privilegios = $this->Session->read("privilegios");
+			$output = $paginado->getDataArticulos($privilegios);
 	        echo json_encode($output);
 		}
 	}

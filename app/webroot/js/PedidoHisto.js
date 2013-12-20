@@ -3,7 +3,7 @@ var PedidoHisto = new Class({
     initialize: function(name){
         this.name = name;
         this.type='pedidoHisto';
-        this.breadcrumb='PedidosHisto';
+        this.breadcrumb='Pedidos Historico';
         this.descripcion="Historico de pedido"
     },
     onAdd: function(data){

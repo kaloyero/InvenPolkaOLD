@@ -1,4 +1,6 @@
 <?php
+echo '<h4 class="widgettitle nomargin shadowed">Detalle del Pedido</h4>';
+echo '<div class="widgetcontent bordered shadowed nopadding">';
 echo $this->Form->create('Pedido',array('class' => 'stdform stdform2','inputDefaults' => array(
         'div' => array('class' => 'field') )));
 
@@ -7,9 +9,10 @@ foreach ($Pedido as $Pe){
 		<label style="float: left;">Numero Pedido</label>
 		<span class="field float"><input name="Numero" value="<?php echo $Pe['pedidos_vista']['Numero'];?>" class="input-medium" readonly="readonly"  required="required"/></span>
 		<label style="float: left;">Fecha</label>
-		<span class="field float"><input name="fecha" value="<?php echo $Pe['pedidos_vista']['Fecha'];?>" class="input-medium" readonly="readonly" maxlength="100" type="text" required="required"></span>
+		<span class="field float"><input name="fecha" value="<?php echo $Pe['pedidos_vista']['Fecha'];?>" class="input-medium" readonly="readonly" maxlength="100" type="text" required="required"></span></p>
+		<p>
 		<label style="float: left;">Descripcion</label>
-		<span class="field float"><input name="descripcion" value="<?php echo $Pe['pedidos_vista']['Descripcion'];?>" class="input-medium" readonly="readonly" maxlength="100" type="text" required="required"></span>
+		<span class="field float"><textarea name="descripcion"  class="span5" readonly="readonly" cols="30" rows="6"><?php echo $Pe['pedidos_vista']['Descripcion'];?></textarea></span></span>
 		 </p>
 		<p>
 		<label style="float: left;">Proyecto</label>
@@ -38,7 +41,7 @@ foreach ($Pedido as $Pe){
 	foreach ($Detalles as $De){
 
 ?>			<tr>
-				<td><?php echo $De['art']['CodigoArticulo'] ;?></td>
+				<td><?php echo $De['art']['codigo'] ;?></td>
 				<td><?php echo $De['art']['Descripcion'] ;?></td>
 				<td><?php echo $De['det']['Cantidad'] ;?></td>
    				<td><img style="width:250px; height:150px;border-style:solid;border-width:3px;" src="/InvenPolka/app/webroot/files/articulo/idFoto/<?php echo $De['det']['IdArticulo']; ?>/small_<?php echo $De['art']['idFoto']; ?>"></td>
@@ -50,6 +53,7 @@ foreach ($Pedido as $Pe){
 	</tbody>
 </table>
 <br>
+</div>
 <button class="btn btn-primary volver" type="button">Volver</button>
 
 
