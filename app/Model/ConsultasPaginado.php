@@ -596,7 +596,7 @@ private function getDataArticulosQuery($tabla,$aColumns,$aColumnsFilter,$orderBy
 }
 
 	/* Para la funcionalidad Busqueda de Articulos */
-	function getDataArticulosSearch($whereFilter) {
+	function getDataArticulosSearch($whereFilter,$privilegios) {
 		$tabla="articulos_vista";
 		$model=new Articulo();
 		//Columnas que voy a mostrar
@@ -616,7 +616,7 @@ private function getDataArticulosQuery($tabla,$aColumns,$aColumnsFilter,$orderBy
 		//Obtengo los totales
 		$totales = $this->getTotales($model,$query);
 		//Proceso los campos para llenar la tabla
-		$arrayData=$this->getArrayDataArticulos($tabla,$rows,$query['select']);
+		$arrayData=$this->getArrayDataArticulos($tabla,$rows,$query['select'],$privilegios);
 		//Obtengo la tabla
 		$output = $this->createConfigTable($arrayData,$totales["total"],$totales["tDisplay"]);
 //		$output = $this->createConfigTable($arrayData,40,40);
