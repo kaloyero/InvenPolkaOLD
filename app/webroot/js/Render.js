@@ -183,6 +183,7 @@ var Render = new Class({
                            "iDisplayStart": self.startTablein,
                            "DisplayLength":self.showRowsByPage,
                            "bPaginate": true,
+						   "bFiltered": true,
                            "sPaginationType": "full_numbers",
                            "sAjaxSource": serverManager.services[this.type]["controllerName"]+"/ajaxData",
 /*							"oLanguage": {
