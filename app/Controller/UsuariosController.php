@@ -86,6 +86,10 @@ var $components    = array('Cookie');
 			$usValid = $consultasUs->validateUserPass($user,$pass);
 
 			if ($usValid) {
+				//Toma las estadisticas
+				$result = $consultas->getEstadisticaInventario();
+        		$this->set('porcentaje', $result);
+				//Categorias
 				$this->set('categorias',$consultas->getCategorias());
 				//Setea los datos del usuario en la session
 				$usuario = $consultasUs->getUsuario($user,$pass);

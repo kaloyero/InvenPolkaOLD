@@ -47,7 +47,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 /***** MAIN WRAPPER *****/
 /************************/
 
-body { background: #bcbcbc; font-family: 'HelveticaNeue', Arial, Helvetica, sans-serif; font-size: 12px; line-height: 21px; color: #666; }
+body { background-image: url(../img/fondos/imagen8.jpg);background-position: 100% -120% ; font-family: 'HelveticaNeue', Arial, Helvetica, sans-serif; font-size: 12px; line-height: 21px; color: #666; }
 button, input, textarea, select, a, a:focus { outline: none; }
 a { text-decoration: none; color: #546f8e; }
 a:hover { text-decoration: underline; }

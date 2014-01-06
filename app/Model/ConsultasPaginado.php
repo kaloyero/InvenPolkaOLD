@@ -218,7 +218,7 @@ private function getArrayDataProyectos($tabla,$rows,$aColumns,$titi,$privilegios
 		$icono2 = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a class='desactivar'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div>";
 	  }
 	  if (! empty($privilegios['btnCierreProy'])) {
-		$icono3 = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a class='cierreProy'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/gemicon/reports.png' /></a></div>";
+//		$icono3 = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a class='cierreProy'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/gemicon/reports.png' /></a></div>";
 	  }
 
 

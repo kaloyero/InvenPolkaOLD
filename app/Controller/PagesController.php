@@ -56,6 +56,10 @@ class PagesController extends AppController {
 			$consultas = new ConsultasSelect();
 			$this->set('categorias',$consultas->getCategorias());
 			//$this->Session->delete("usuario");
+			//Toma las estadisticas
+			$result = $consultas->getEstadisticaInventario();
+        	$this->set('porcentaje', $result);
+
 		}
 
 		$path = func_get_args();
