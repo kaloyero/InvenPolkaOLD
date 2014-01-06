@@ -9,9 +9,9 @@ echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5
 
 echo $this->Form->input('Director',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p><label style="float: left;">Director</label><span class="field float">','after'=>'</span>'));
 
-echo $this->Form->input('FechaIni',array('class'=>'input-medium fecha','div'=>false,'label'=>false,'before'=>'<label style="float: left;">Fecha Inicial</label><span class="field float">','after'=>'<small class="field"><em>yyyy / mm / dd</em></small></span>','type' => 'text'));
+echo $this->Form->input('FechaIni',array('class'=>'input-medium fecha','div'=>false,'label'=>false,'before'=>'<label style="float: left;">Fecha Inicial</label><span class="field float">','after'=>'<small class="field"><em>año / mes / dia</em></small></span>','type' => 'text'));
 
-echo $this->Form->input('FechaFin',array('class'=>'input-medium fecha','div'=>false,'label'=>false,'before'=>'<label style="float: left;">Fecha Fin</label><span class="field float">','after'=>'<small class="field"><em>yyyy / mm / dd</em></small></span></p>','type' => 'text'));
+echo $this->Form->input('FechaFin',array('class'=>'input-medium fecha','div'=>false,'label'=>false,'before'=>'<label style="float: left;">Fecha Fin</label><span class="field float">','after'=>'<small class="field"><em>año / mes / dia</em></small></span></p>','type' => 'text'));
 
 echo $this->Form->input('id', array('type' => 'hidden'));
 
