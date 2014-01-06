@@ -18,9 +18,6 @@
 	<?php if (! empty($privis['addBajaArt'])) { ?>
 		<button class="btn btn-primary deleteArt" disabled="true" tooltip = "<?php echo $privis['addBajaArt']['ayuda'] ?>"><?php echo $privis['addBajaArt']['nombre'] ?></button>
 	<?php } ?>
-	<?php if (! empty($privis['addTransProy'])) { ?>
-		<button class="btn btn-primary transfProy" disabled="true" tooltip = "<?php echo $privis['addTransProy']['ayuda'] ?>"><?php echo $privis['addTransProy']['nombre'] ?></button>
-	<?php } ?>
 
 </p>
 <table  id="configurationTable" class ="table table-bordered" width="100%"  style="width: 100%;">

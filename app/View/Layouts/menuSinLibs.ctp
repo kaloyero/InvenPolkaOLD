@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html><head>
-<script type="text/javascript" src="/InvenPolka/js/jsTemplate/custom.js"></script>
-<link id="skinstyle" rel="stylesheet" href="css/style.dark.css" type="text/css" />
+<?php
+		echo $this->Html->css('style.dark');
+?>
 
 </head>
-
 
 
 <div class="mainwrapper" style="background-position: 0px 0px;">
@@ -15,6 +15,7 @@
         <div class="logopanel animate0 fadeInUp">
                 <h1><a href="dashboard.html">Pol-ka <span>v1.0</span></a></h1>
         </div><!--logopanel-->
+
 <?php
 $dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
 $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
@@ -31,17 +32,16 @@ $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto"
         </div><!--searchwidget-->
 
         <div class="plainwidget animate3 fadeInUp">
-                <small>Cantidad de articulos disponibles: </small>
+            <small>Cantidad de articulos disponibles: </small>
                 <div class="progress progress-info">
                 <div class="bar" style="width: <?php echo $porcentaje; ?>%"></div>
             </div>
             <small><strong><?php echo round($porcentaje, 1, PHP_ROUND_HALF_DOWN); ?> % disponible</strong></small>
         </div><!--plainwidget-->
-
+		<?php $privis = $this->Session->read("privilegios"); ?>
         <div class="leftmenu">
             <ul class="nav nav-tabs nav-stacked">
                     <li class="nav-header animate4 fadeInUp">Navegacion</li>
-					<?php $privis = $this->Session->read("privilegios"); ?>
 
 					<?php if (! empty($privis['menuArticulos'])) { ?>
 						<li class="active  animate8 fadeInUp"><a id="articulo" class="option"><span class="icon-th-list"></span> <?php echo $privis['menuArticulos']['nombre'] ?></a></li>
@@ -153,13 +153,13 @@ $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto"
 
                             <div class="dropdown userinfo">
 					<?php $usuario = $this->Session->read("usuario"); ?>
-                    <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="/page.html"> Hola! <?php echo $usuario['username'] ?><b class="caret"></b></a>
+                    <a class="dropdown-toggle " data-toggle="dropdown" data-target="#" href="/page.html"> Hola! <?php echo $usuario['username'] ?><b class="caret"></b></a>
                     <ul class="dropdown-menu">
 						<?php if (! empty($privis['menuCambioPass'])) { ?>
                         	<li><a href="#" class="changePass"><span class="icon-edit"></span> <?php echo $privis['menuCambioPass']['nombre'] ?></a></li>
 						<?php } ?>
                         <li class="divider"></li>
-                        <li><a href="#"  class="logOut"><span class="icon-off"></span> Salir</a></li>
+                        <li><a href="#" class="logOut"><span class="icon-off"></span> Salir</a></li>
                     </ul>
                 </div><!--dropdown-->
 
@@ -218,12 +218,17 @@ jQuery(document).ready(function(){
 	articuloRender.bindFinderStaticEvents();
 
 	jQuery('.logOut').click(function(){
+			//Cierra la ventana abierta
+			jQuery('.dropdown-toggle').click();
+			//sale
 			translator.logOutUser("usuario");
 			return false;
 	});
 	
 	jQuery('.changePass').click(function(){
+			//Cierra la ventana abierta
 			jQuery('.dropdown-toggle').click();
+			//cambio clave
 			translator.cambioPassword("usuario");
 			return false;
 	});

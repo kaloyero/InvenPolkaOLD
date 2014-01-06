@@ -4,7 +4,6 @@
 
         echo $this->Html->script('operacionesBasicas');
         echo $this->Html->script('mootools.js');
-
         echo $this->Html->script('Render');
         echo $this->Html->script('RenderTranslator');
         echo $this->Html->script('Articulo');
@@ -15,8 +14,6 @@
         echo $this->Html->script('MovimientoInventario');
         echo $this->Html->script('Inventario');
         echo $this->Html->script('Proyecto');
-        echo $this->Html->script('AppStatus');
-
         echo $this->Html->script('Categoria');
         echo $this->Html->script('Usuario');
         echo $this->Html->script('Material');
@@ -24,11 +21,9 @@
         echo $this->Html->script('Objeto');
         echo $this->Html->script('Decorado');
         echo $this->Html->script('Dimension');
-        echo $this->Html->script('Proyecto');
-        echo $this->Html->script('Deposito');
-        echo $this->Html->script('Inventario');
+        echo $this->Html->script('AppStatus');
         echo $this->Html->script('Message');
-
+		
         echo $this->Html->script('ComponentTranslator');
 
         echo $this->Html->script('ServerManager');
@@ -49,7 +44,7 @@
         //echo $this->Html->css('demo_table');
         //echo $this->Html->css('demo_page');
 
- 		echo $this->Html->script('jsTemplate/custom');
+ 		//echo $this->Html->script('jsTemplate/custom');
         echo $this->Html->script('jsTemplate/uploadForm');
 		//echo $this->Html->script('jsTemplate/forms');
 
@@ -59,13 +54,12 @@
         echo $this->Html->script('jsTemplate/jquery.growl');
         echo $this->Html->css('jquery.growl');
         echo $this->Html->script('jsTemplate/jquery.validate');
+        echo $this->Html->script('libs/md5');
 
-
+		echo $this->Html->css('style.dark');
 
         echo $this->fetch('css');
         echo $this->fetch('script');?>
-
-		<link id="skinstyle" rel="stylesheet" href="css/style.dark.css" type="text/css" />
 
 </head>
 
@@ -281,12 +275,17 @@ jQuery(document).ready(function(){
 	articuloRender.bindFinderStaticEvents();
 
 	jQuery('.logOut').click(function(){
+			//Cierra la ventana abierta
+			jQuery('.dropdown-toggle').click();
+			//sale
 			translator.logOutUser("usuario");
 			return false;
 	});
-
+	
 	jQuery('.changePass').click(function(){
-			jQuery('.dropdown-toggle').click();		
+			//Cierra la ventana abierta
+			jQuery('.dropdown-toggle').click();
+			//cambio clave
 			translator.cambioPassword("usuario");
 			return false;
 	});
