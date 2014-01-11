@@ -4,7 +4,6 @@
 
         echo $this->Html->script('operacionesBasicas');
         echo $this->Html->script('mootools.js');
-
         echo $this->Html->script('Render');
         echo $this->Html->script('RenderTranslator');
         echo $this->Html->script('Articulo');
@@ -15,8 +14,6 @@
         echo $this->Html->script('MovimientoInventario');
         echo $this->Html->script('Inventario');
         echo $this->Html->script('Proyecto');
-        echo $this->Html->script('AppStatus');
-
         echo $this->Html->script('Categoria');
         echo $this->Html->script('Usuario');
         echo $this->Html->script('Material');
@@ -24,11 +21,9 @@
         echo $this->Html->script('Objeto');
         echo $this->Html->script('Decorado');
         echo $this->Html->script('Dimension');
-        echo $this->Html->script('Proyecto');
-        echo $this->Html->script('Deposito');
-        echo $this->Html->script('Inventario');
+        echo $this->Html->script('AppStatus');
         echo $this->Html->script('Message');
-
+		
         echo $this->Html->script('ComponentTranslator');
 
         echo $this->Html->script('ServerManager');
@@ -49,7 +44,7 @@
         //echo $this->Html->css('demo_table');
         //echo $this->Html->css('demo_page');
 
- 		echo $this->Html->script('jsTemplate/custom');
+ 		//echo $this->Html->script('jsTemplate/custom');
         echo $this->Html->script('jsTemplate/uploadForm');
 		//echo $this->Html->script('jsTemplate/forms');
 
@@ -59,13 +54,12 @@
         echo $this->Html->script('jsTemplate/jquery.growl');
         echo $this->Html->css('jquery.growl');
         echo $this->Html->script('jsTemplate/jquery.validate');
+        echo $this->Html->script('libs/md5');
 
-
+		echo $this->Html->css('style.dark');
 
         echo $this->fetch('css');
         echo $this->fetch('script');?>
-
-		<link id="skinstyle" rel="stylesheet" href="css/style.dark.css" type="text/css" />
 
 </head>
 
@@ -83,7 +77,7 @@
 $dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
 $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 ?>
-        <div class="datewidget animate1 fadeInUp">Hoy es <?php echo $dias[date('w')-1]." ".(date('d')-1)." de ".$meses[date('n')-1]. " del ".date('Y') ; ?></div>
+        <div class="datewidget animate1 fadeInUp">Hoy es <?php echo $dias[date('w')]." ".(date('d'))." de ".$meses[date('n')-1]. " del ".date('Y') ; ?></div>
 <!--
             <div class="searchwidget animate2 fadeInUp">
                 <form action="results.html" method="post">
@@ -95,17 +89,17 @@ $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto"
         </div><!--searchwidget-->
 
         <div class="plainwidget animate3 fadeInUp">
-                <small>Cantidad de articulos disponibles: </small>
+            <small>Cantidad de articulos disponibles: </small>
                 <div class="progress progress-info">
-                <div class="bar" style="width: 20%"></div>
+                <div class="bar" style="width: <?php echo $porcentaje; ?>%"></div>
             </div>
-            <small><strong>38% full</strong></small>
+            <small><strong><?php echo round($porcentaje, 1, PHP_ROUND_HALF_DOWN); ?> % disponible</strong></small>
         </div><!--plainwidget-->
 		<?php $privis = $this->Session->read("privilegios"); ?>
         <div class="leftmenu">
             <ul class="nav nav-tabs nav-stacked">
                     <li class="nav-header animate4 fadeInUp">Navegacion</li>
-						<li class="active animate5 fadeInUp"><a href="/InvenPolka"><span class="icon-align-justify"></span> Inicio</a></li>
+
 					<?php if (! empty($privis['menuArticulos'])) { ?>
 						<li class="active  animate8 fadeInUp"><a id="articulo" class="option"><span class="icon-th-list"></span> <?php echo $privis['menuArticulos']['nombre'] ?></a></li>
 					<?php } ?>
@@ -281,12 +275,17 @@ jQuery(document).ready(function(){
 	articuloRender.bindFinderStaticEvents();
 
 	jQuery('.logOut').click(function(){
+			//Cierra la ventana abierta
+			jQuery('.dropdown-toggle').click();
+			//sale
 			translator.logOutUser("usuario");
 			return false;
 	});
-
+	
 	jQuery('.changePass').click(function(){
-			jQuery('.dropdown-toggle').click();		
+			//Cierra la ventana abierta
+			jQuery('.dropdown-toggle').click();
+			//cambio clave
 			translator.cambioPassword("usuario");
 			return false;
 	});

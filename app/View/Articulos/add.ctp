@@ -22,7 +22,6 @@ echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5
 //echo $this->Form->input('Descripcion',array('class'=>'input-medium'));
 //Acceder al wrapper del Input array('div'=>array('class'=>'selector focus') Poner antes del input 'before'=>'<span>Decorado</span>'
 
-
 echo $this->Form->input('Articulo.IdCategoria',array('type'=>'select','options'=>$categorias,'empty'=>false,'class'=>'uniformselect categoria'                                                                                                                        ,'div'=>false,'label'=>false,'before'=>'<p>
                                 <label>Configuraciones</label>
                                 <span class="field categorias"> Categoria : '));

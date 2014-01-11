@@ -182,7 +182,10 @@ var Render = new Class({
                            "bServerSide": true,
                            "iDisplayStart": self.startTablein,
                            "DisplayLength":self.showRowsByPage,
+						   "aLengthMenu": [10, 25, 50, 100, 150, 200],
+						   "iDisplayLength":[100],
                            "bPaginate": true,
+						   "bFiltered": true,
                            "sPaginationType": "full_numbers",
                            "sAjaxSource": serverManager.services[this.type]["controllerName"]+"/ajaxData",
 /*							"oLanguage": {

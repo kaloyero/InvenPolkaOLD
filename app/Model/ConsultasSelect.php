@@ -119,6 +119,19 @@ class ConsultasSelect extends AppModel {
 		return $articulos;
 	}
 
+	function getArticulosVistaByArrayId($ids) {
+		$articulo=new Articulo();
+		$inCondition="";
+		foreach ($ids as $id){
+			$inCondition= $inCondition.$id.",";
+		}
+		//Borro la ultima coma
+		$inCondition = substr_replace( $inCondition, "", -1 );
+		$articulos =$articulo->query("Select * from `articulos_vista`  WHERE `id` IN (".$inCondition.");");
+
+		return $articulos;
+	}
+
 	//Devuelve TRUE si el Codigo de articulo existe
 	//Devuelve FALSE si el Codigo de articulo NO existe
 	//Si idEdit es null no valida que el id de articulo sea distinto de el mismo
@@ -462,6 +475,25 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 ****************************** {INICIO} INVENTARIOS ********************************
 \********************************************************************************/
 
+	function getEstadisticaInventario() {
+		$model=new Inventario();
+//		$cantDeposito=$model->query("SELECT sum(Disponibilidad) FROM `inventarios` WHERE idProyecto is null;");
+		$cantProyecto=$model->query("SELECT sum(Disponibilidad) as cantidad FROM `inventarios` WHERE idProyecto is not null;");
+		$total = $model->query("SELECT sum(Disponibilidad)  as cantidad  FROM `inventarios` ");
+
+		$cantProyecto = $cantProyecto[0];
+		$total = $total[0];
+		
+		if ($total <> 0){
+			$porcen = ($cantProyecto[0]['cantidad'] * 100) / $total[0]['cantidad'];
+		} else {
+			$porcen =  0;
+		}
+		
+		$porcen =  100 - $porcen;
+		
+		return $porcen;
+	}
 	//
 	function getDataInventarioByIdArticulo($idArticulo) {
 		$model=new Inventario();

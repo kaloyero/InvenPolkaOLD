@@ -9,9 +9,9 @@ echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5
 
 echo $this->Form->input('Director',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p><label style="float: left;">Director</label><span class="field float">','after'=>'</span>'));
 
-echo '<label style="float: left;">Fecha Comienzo</label><span class="field float"><input class="input-small fecha" type="text" name="data[Proyecto][FechaIni]" required="required" /><small><em> yyyy / mm / dd</em></small></span>';
+echo '<label style="float: left;">Fecha Comienzo</label><span class="field float"><input class="input-small fecha" type="text" name="data[Proyecto][FechaIni]" required="required" /><small><em>año / mes / dia</em></small></span>';
 
-echo '<label style="float: left;">Fecha Cierre</label><span class="field float"><input class="input-small fecha" type="text" name="data[Proyecto][FechaFin]" required="required" /><small><em>   yyyy / mm / dd</em></small></span></p>';
+echo '<label style="float: left;">Fecha Cierre</label><span class="field float"><input class="input-small fecha" type="text" name="data[Proyecto][FechaFin]" required="required" /><small><em>año / mes / dia</em></small></span></p>';
 
 
 echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</button><button type="reset" class="btn">Limpiar Formulario</button></p>';

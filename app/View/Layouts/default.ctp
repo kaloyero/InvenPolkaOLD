@@ -18,9 +18,6 @@
         echo $this->Html->script('MovimientoInventario');
         echo $this->Html->script('Inventario');
         echo $this->Html->script('Proyecto');
-        echo $this->Html->script('AppStatus');
-
-
         echo $this->Html->script('Categoria');
         echo $this->Html->script('Usuario');
         echo $this->Html->script('Material');
@@ -28,9 +25,7 @@
         echo $this->Html->script('Objeto');
         echo $this->Html->script('Decorado');
         echo $this->Html->script('Dimension');
-        echo $this->Html->script('Proyecto');
-        echo $this->Html->script('Deposito');
-        echo $this->Html->script('Inventario');
+        echo $this->Html->script('AppStatus');
         echo $this->Html->script('Message');
 
         echo $this->Html->script('ComponentTranslator');
@@ -65,8 +60,11 @@
         echo $this->Html->script('jsTemplate/jquery.validate');
         echo $this->Html->script('libs/md5');
 
+		echo $this->Html->css('style.dark');
+
         echo $this->fetch('css');
-        echo $this->fetch('script');?>
+        echo $this->fetch('script');
+?>
 
 <link id="skinstyle" rel="stylesheet" href="css/style.dark.css" type="text/css" />
 

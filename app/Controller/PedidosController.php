@@ -81,7 +81,7 @@ class PedidosController extends AppController {
 			array_push($arts,$value);
 		}
 		$consultasSelect = new ConsultasSelect();
-		$articulos = $consultasSelect->getArticulosByArrayId($arts);
+		$articulos = $consultasSelect->getArticulosVistaByArrayId($arts);
 		$this->set('articulos',$articulos);
 	}
 
