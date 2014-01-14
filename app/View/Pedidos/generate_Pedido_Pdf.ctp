@@ -25,13 +25,13 @@ $tcpdf->SetFont($textfont,'B',20);
 
 $lefthtml='<table ><tr>';
 $i=0;
-	foreach ($detalles as $De){
+        foreach ($detalles as $De){
 
 $i=$i+1;
 
 if ($i==6 ) {
-	$lefthtml.="</tr><tr>";
-	$i=1;
+        $lefthtml.="</tr><tr>";
+        $i=1;
 }
 
 $lefthtml.='<td width="100"><img style="width:80px; height:80px;border-style:solid;border-width:3px;" src="http://localhost/InvenPolka/app/webroot/files/articulo/IdFoto/'.$De["det"]["IdArticulo"].'/small_'.$De["art"]["idFoto"].'"><p align="center">'.$De['art']['codigo'].'</p><span align="center">'.$De['det']['Cantidad'].'    .....</p></td>';
@@ -53,8 +53,8 @@ $html = <<<EOF
   }
   p {
     color: blue;
-	margin-top: 0px;
-	margin-bottom: 0px;
+        margin-top: 0px;
+        margin-bottom: 0px;
     font-family: helvetica;
     font-size: 10pt;
   }
