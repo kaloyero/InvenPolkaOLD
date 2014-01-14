@@ -10,6 +10,7 @@
         echo $this->Html->script('Pedido');
         echo $this->Html->script('PedidoSalida');
         echo $this->Html->script('PedidoHisto');
+		echo $this->Html->script('PedidoRealizado');
         echo $this->Html->script('Deposito');
         echo $this->Html->script('MovimientoInventario');
         echo $this->Html->script('Inventario');
@@ -44,7 +45,7 @@
         //echo $this->Html->css('demo_table');
         //echo $this->Html->css('demo_page');
 
- 		//echo $this->Html->script('jsTemplate/custom');
+ 		echo $this->Html->script('jsTemplate/custom');
         echo $this->Html->script('jsTemplate/uploadForm');
 		//echo $this->Html->script('jsTemplate/forms');
 
@@ -111,6 +112,9 @@ $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto"
 					<?php } ?>
 					<?php if (! empty($privis['menuInventario'])) { ?>
 						<li class="active  animate8 fadeInUp"><a id="inventario" class="option"><span class="icon-th-list"></span> <?php echo $privis['menuInventario']['nombre'] ?></a></li>
+					<?php } ?>
+					<?php if (! empty($privis['menuPedidosArte'])) { ?>
+						<li class="active  animate8 fadeInUp"><a id="pedidoRealizado" class="option"><span class="icon-th-list"></span> <?php echo $privis['menuPedidosArte']['nombre'] ?></a></li>
 					<?php } ?>
 					<?php if (! empty($privis['menuPedEntrada'])) { ?>
 						<li class="active  animate8 fadeInUp"><a id="pedido" class="option"><span class="icon-th-list"></span> <?php echo $privis['menuPedEntrada']['nombre'] ?></a></li>

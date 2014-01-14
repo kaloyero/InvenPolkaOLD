@@ -2,11 +2,12 @@
         App::import('Model','ConsultasPaginado');
         App::import('Model','ConsultasSelect');
         App::import('Model','ConsultasUsuario');
+        App::import('Model','UsuarioProyecto');		
 
 class UsuariosController extends AppController {
 
     public $helpers = array ('Html','Form');
-var $components    = array('Cookie');
+	var $components    = array('Cookie');
 
     function index() {
     }
@@ -25,7 +26,15 @@ var $components    = array('Cookie');
 
    public function add() {
         if ($this->request->is('post')) {
-            if ($this->Usuario->save($this->request->data)) {
+            //Guarda el usuario
+			if ($this->Usuario->save($this->request->data)) {
+				//En caso de ser un usuario de tipo Arte le asocia us proyecto
+				if ($this->request->data['Usuario']['TipoRol']){
+					$model = new UsuarioProyecto();
+					$idUsuario = $this->Usuario->getInsertID();
+					$model->save(array('id_usuario' => $idUsuario,'id_proyecto' =>$this->request->data['Usuario']['IdProyecto']));
+				}
+				//Envia notificacion de nuevo usuario
 				$this->envioNotificacionNuevoUser($this->request->data['Usuario']['Nombre']." ".$this->request->data['Usuario']['Apellido'],$this->request->data['Usuario']['Email'],$this->request->data['Usuario']['username'],$this->request->data['Usuario']['password']);
                 $this->render('/General/Success');
             }else{
@@ -34,6 +43,7 @@ var $components    = array('Cookie');
         } else {
 				$consultas =new ConsultasSelect();
 				$this->set('rolesList' , $consultas->getRolesUsuarios());
+				$this->set('proyectos',  $consultas->getProyectos());
 		}
     }
 
@@ -42,6 +52,7 @@ var $components    = array('Cookie');
 			if ($this->request->is('get')) {
 					$consultas =new ConsultasSelect();
 					$this->set('rolesList' , $consultas->getRolesUsuarios());
+					$this->set('proyectos',$consultas->getProyectos());
 					$this->request->data = $this->Usuario->read();
 			} else {
 				if ($this->Usuario->save($this->request->data)) {
@@ -65,6 +76,8 @@ var $components    = array('Cookie');
 					if ($this->request->data['Usuario']['password'] == $this->request->data['Usuario']['passwordConfirm']){
 						//cambia el password
 						$consultasUs->changePass($usuario['id'],$this->request->data['Usuario']['password']);
+						//Envia notificacion de cambio de clave usuario
+						$this->envioNotificacionCambioClaveUser("Administrador","kaloye_ale@hotmail.com",$usuario['username'],$this->request->data['Usuario']['password']);
 						$this->render('/General/Success');
 					} else {
 						$this->set('errorClave','La clave nueva debe ser igual a la clave de confirmación');					
@@ -116,6 +129,7 @@ var $components    = array('Cookie');
 	function delete($id) {
 
 		$model=new Usuario();
+		$model=new UsuarioProyecto();
 		$this->Usuario->delete($id);
 		$this->render('/General/Success');
 
@@ -135,9 +149,22 @@ var $components    = array('Cookie');
 
 		@mail($email_to, $asuntoMsj ,$contenido ,$cabeceras );
 
-
 	}
 
+	function envioNotificacionCambioClaveUser($nombre,$mail,$user,$pass) {
+		@$nombre = addslashes($nombre);
+		@$email = addslashes($mail);
+		@$asunto = addslashes("Cambio de clave");
+		@$mensaje = addslashes("Estimado ".$nombre.", \n El usuario:".$user." \n ha cambiado su clave: ".$pass." ");
 
+		//Preparamos el mensaje de contacto
+		$cabeceras = "From: info@admin.com\n"; //La persona que envia el correo
+		$asuntoMsj = "$asunto";
+		$email_to = "$email";
+		$contenido = "$mensaje\n";
+
+		@mail($email_to, $asuntoMsj ,$contenido ,$cabeceras );
+
+	}
 }
 ?>

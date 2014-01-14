@@ -20,17 +20,22 @@ var Proyecto = new Class({
         var self=this;
 
         jQuery('.desactivar').bind("click", function(e) {
-			  translator.delete(self.type,self.getSelectedRowId(this));
-		  })
+			translator.delete(self.type,self.getSelectedRowId(this));
+		})
 		  
+        jQuery('.pedidoRealizado').bind("click", function(e) {
+			translator.showWithParam("pedidoRealizado",self.getSelectedRowId(this));
+		})
+
         jQuery('.cierreProy').bind("click", function(e) {
-			  translator.delete(self.type,self.getSelectedRowId(this));
-		  })		  
+			translator.delete(self.type,self.getSelectedRowId(this));
+		})		  
     },
     onDeleted:function() {
              //Actualizo la tabla en la pagina en q esta
         	jQuery('.paginate_active').click();
     },
+
 		
 });
 

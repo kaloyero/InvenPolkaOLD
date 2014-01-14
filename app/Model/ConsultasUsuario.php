@@ -98,6 +98,15 @@ class ConsultasUsuario extends AppModel {
 			$us['Rol']=$usuario['usuarios']['TipoRol'];
 		}
 		
+		//Si el usuario es de tipo arte (id =3) seteo el Proyecto asociado
+		$us['Proyecto'] = 0;
+		if ($us['Rol'] == 3){
+			$proyectos = $model->query("SELECT * FROM `usuario_proyectos` WHERE `id_usuario` = ".$us['id'].";");
+			foreach ($proyectos as $proy){
+				$us['Proyecto'] = $proy['usuario_proyectos']['id_proyecto'];
+			}
+		}
+		
 		return $us;
 	}
 

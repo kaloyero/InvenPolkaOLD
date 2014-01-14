@@ -30,7 +30,8 @@ class ConsultasSelect extends AppModel {
 \********************************************************************************/
 	function getProyectos() {
 		$proyecto=new Proyecto();
-		$proyectos=$proyecto->find('list',array('fields'=>array('Proyecto.id','Proyecto.Nombre')));
+		$proyectos=$proyecto->find('list',array('fields'=>array('Proyecto.id','Proyecto.Nombre'), 'conditions' => array(	'Proyecto.Inactivo =' => 'F')));
+
 		return $proyectos;
 	}
 

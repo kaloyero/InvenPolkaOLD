@@ -20,6 +20,9 @@ echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5
 
 echo $this->Form->input('TipoRol',array('type'=>'select','options'=>$rolesList,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p><label style="float: left;" >Tipo Usuario</label><span class="field float">','after'=>'</span></p>'));
 
+echo $this->Form->input('IdProyecto',array('type'=>'select','id'=>'proyectoId','options'=>$proyectos,'empty'=>true,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<label style="float: left;" >Proyecto</label><span class="field float">','after'=>'<small><em> Solo para usuarios de tipo \'Arte\'</em></small></span></p>'));
+
+
 
 echo '<p class="stdformbutton"><button class="btn btn-primary save">Guardar</button><button type="reset" class="btn">Limpiar Formulario</button></p>';
 

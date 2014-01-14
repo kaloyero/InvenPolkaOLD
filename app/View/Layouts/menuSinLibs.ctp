@@ -2,6 +2,7 @@
 <html><head>
 <?php
 		echo $this->Html->css('style.dark');
+		echo $this->Html->script('jsTemplate/custom');
 ?>
 
 </head>
@@ -54,6 +55,9 @@ $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto"
 					<?php } ?>
 					<?php if (! empty($privis['menuInventario'])) { ?>
 						<li class="active  animate8 fadeInUp"><a id="inventario" class="option"><span class="icon-th-list"></span> <?php echo $privis['menuInventario']['nombre'] ?></a></li>
+					<?php } ?>
+					<?php if (! empty($privis['menuPedidosArte'])) { ?>
+						<li class="active  animate8 fadeInUp"><a id="pedidoRealizado" class="option"><span class="icon-th-list"></span> <?php echo $privis['menuPedidosArte']['nombre'] ?></a></li>
 					<?php } ?>
 					<?php if (! empty($privis['menuPedEntrada'])) { ?>
 						<li class="active  animate8 fadeInUp"><a id="pedido" class="option"><span class="icon-th-list"></span> <?php echo $privis['menuPedEntrada']['nombre'] ?></a></li>

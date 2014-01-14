@@ -68,6 +68,30 @@ var Usuario = new Class({
 				  return false;
 			 });
 		},
+    bindAddEvents:function() {
+
+		var self=this;
+		this.parent();
+        jQuery('#UsuarioTipoRol').bind("change", function(e) {
+			//Pregunta si es usuario 'arte' (id 3 en la base de datos)
+			if (jQuery('#UsuarioTipoRol').val() == 3){
+				jQuery('#proyectoId').removeAttr("disabled");
+				jQuery('#proyectoId').attr("required", "required");
+			} else {
+				jQuery('#proyectoId').attr("disabled", "disabled");
+				jQuery('#proyectoId').removeAttr("required");
+			}
+	          //Si pasa la validacion,salvamos
+
+//              if (self.getForm().valid()){
+  //                 translator.save(self.type, self.getForm());
+   //                 self.addLoader();
+     //         }
+              //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
+              return false;
+         });
+
+     },
 		
 
 

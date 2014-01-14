@@ -6,6 +6,7 @@ var ServerManager = new Class({
         this.services['pedido']={};
         this.services['pedidoSalida']={};
         this.services['pedidoHisto']={};
+		this.services['pedidoRealizado']={};
         this.services['inventario']={};
         this.services['proyecto']={};
         this.services['estudio']={};
@@ -24,6 +25,7 @@ var ServerManager = new Class({
         this.services['buscadorArticulo']={};
         this.services['configuracion']={};
         this.services['usuario']={};
+		
 
         this.services['articulo']["controllerName"]="articulos";
         this.services['articulo']["model"]="Articulo";
@@ -33,6 +35,8 @@ var ServerManager = new Class({
         this.services['pedidoSalida']["model"]="PedidoSalida";
         this.services['pedidoHisto']["controllerName"]="pedidosHisto";
         this.services['pedidoHisto']["model"]="PedidoHisto";
+        this.services['pedidoRealizado']["controllerName"]="pedidosRealizado";
+        this.services['pedidoRealizado']["model"]="pedidoRealizado";
         this.services['inventario']["controllerName"]="inventarios";
         this.services['inventario']["model"]="Inventario";
         this.services['estudio']["controllerName"]="estudios";
@@ -127,6 +131,7 @@ var ServerManager = new Class({
 			}
 		});
     },
+	
     showFinder: function(config){
 
        	var type = config.object;

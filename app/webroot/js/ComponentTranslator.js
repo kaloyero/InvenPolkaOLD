@@ -11,6 +11,17 @@ var ComponentTranslator = new Class(
 					}
 				});
 			},
+		    showWithParam : function(objectType,param) {
+				serverManager.showList({
+					object : objectType,
+					onSuccess : function(data) {
+					    var renderInstace = renderTranslator.getRender(objectType);
+					    renderInstace.currentStatus="";
+                        renderInstace.onList(data);
+					}
+				},param);
+			},
+			
 			showFinder : function(objectType) {
 				serverManager.showFinder({
 					object : objectType,

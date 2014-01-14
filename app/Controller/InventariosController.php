@@ -9,9 +9,9 @@ class InventariosController extends AppController {
 
     function index() {
 		$consultas =new ConsultasSelect();		
-		$this->set('proyectos',$consultas->getProyectosFull());
+		//$this->set('proyectos',$consultas->getProyectosFull());
+		$this->set('proyectos',$consultas->getProyectos());		
     }
-
 
    public function view($id = null) {
         $this->Inventario->id = $id;

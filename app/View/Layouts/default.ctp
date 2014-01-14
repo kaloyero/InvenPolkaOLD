@@ -14,6 +14,7 @@
         echo $this->Html->script('Pedido');
         echo $this->Html->script('PedidoSalida');
         echo $this->Html->script('PedidoHisto');
+		echo $this->Html->script('PedidoRealizado');		
         echo $this->Html->script('Deposito');
         echo $this->Html->script('MovimientoInventario');
         echo $this->Html->script('Inventario');

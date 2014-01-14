@@ -217,6 +217,9 @@ private function getArrayDataProyectos($tabla,$rows,$aColumns,$titi,$privilegios
 	  if (! empty($privilegios['btnEditar'])) {
 		$icono2 = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a class='desactivar'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div>";
 	  }
+	  if (! empty($privilegios['btnVerPedidos'])) {
+		$icono3 = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a id='pedidoRealizado' class='pedidoRealizado'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/pedidosLista.png' /></a></div>";
+	  }
 	  if (! empty($privilegios['btnCierreProy'])) {
 //		$icono3 = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a class='cierreProy'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/gemicon/reports.png' /></a></div>";
 	  }
@@ -385,7 +388,36 @@ private function getArrayDataProyectos($tabla,$rows,$aColumns,$titi,$privilegios
 /*************************************************************************************\
 ****************************** {INICIO} Pedidos -> DATATABLE *************************
 \*************************************************************************************/
+		function getDataPedidosRealizados($proyecto,$privilegios) {
+			//Tipo de lista que voy a obtener Pedidos Realizados
+			$tipoLista = "R";
 
+			$model=new Pedido();
+			$tabla="pedidos_vista";
+			//Columnas que voy a mostrar
+
+			$aColumns = array( 'id' ,'Numero', 'Fecha' ,'proyecto', 'estado'  );
+			//Columnas por las que se va a filtrar
+			$aColumnsFilter = array(  'Numero' ,'proyecto', 'estado'  );
+			//Columna por la cual se va ordenar
+			$orderByfield = 'Fecha desc, proyecto,estado ';
+
+			//CREATE TABLE
+			//Consigue el query que se va ejecutar
+			$query=$this->getDataDefaultPedidoQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield,$tipoLista,$proyecto);
+			//Ejecuta el query, obtengo las filas
+			$rows =$model->query("".$query['select'].";");
+			//Obtengo los totales
+			$totales = $this->getTotales($model,$query);
+			//Proceso los campos para llenar la tabla
+			$arrayData=$this->getArrayDataPedido($tabla,$rows,$aColumns,$query['select'],$tipoLista,$privilegios);
+			//Obtengo la tabla
+			$output = $this->createConfigTable($arrayData,$totales["total"],$totales["tDisplay"]);
+
+			return $output;
+		}
+
+//PEDIDOS de entrada, salida e historico
 		function getDataPedidos($tipoLista) {
 			/*
 			tipoLista
@@ -401,26 +433,26 @@ private function getArrayDataProyectos($tabla,$rows,$aColumns,$titi,$privilegios
 
 			$aColumns = array( 'id' ,'Numero', 'Fecha' ,'proyecto', 'estado'  );
 			//Columnas por las que se va a filtrar
-			$aColumnsFilter = array(  'Numero' ,'proyecto'  );
+			$aColumnsFilter = array(  'Numero' ,'proyecto', 'estado'  );
 			//Columna por la cual se va ordenar
 			$orderByfield = 'Fecha desc, proyecto,estado ';
 
 			//CREATE TABLE
 			//Consigue el query que se va ejecutar
-			$query=$this->getDataDefaultPedidoQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield,$tipoLista);
+			$query=$this->getDataDefaultPedidoQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield,$tipoLista,NULL);
 			//Ejecuta el query, obtengo las filas
 			$rows =$model->query("".$query['select'].";");
 			//Obtengo los totales
 			$totales = $this->getTotales($model,$query);
 			//Proceso los campos para llenar la tabla
-			$arrayData=$this->getArrayDataPedido($tabla,$rows,$aColumns,$query['select'],$tipoLista);
+			$arrayData=$this->getArrayDataPedido($tabla,$rows,$aColumns,$query['select'],$tipoLista,NULL);
 			//Obtengo la tabla
 			$output = $this->createConfigTable($arrayData,$totales["total"],$totales["tDisplay"]);
 
 			return $output;
 		}
 
-private function getDataDefaultPedidoQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield,$tipoLista) {
+private function getDataDefaultPedidoQuery($tabla,$aColumns,$aColumnsFilter,$orderByfield,$tipoLista,$proyecto) {
 
         //Columnas por las que se va a filtrar
 		$aColumnsShow = $this->getColumnsToShow($aColumns);
@@ -439,6 +471,10 @@ private function getDataDefaultPedidoQuery($tabla,$aColumns,$aColumnsFilter,$ord
 			case 'H':
 				$sWhere = "";
 				break;
+			case 'R':
+				$sWhere = " WHERE `id_proyecto` = ".$proyecto." AND";
+				break;
+				
 		}
 
 
@@ -471,7 +507,7 @@ private function getDataDefaultPedidoQuery($tabla,$aColumns,$aColumnsFilter,$ord
 }
 
 
-private function getArrayDataPedido($tabla,$rows,$aColumns,$titi,$tipoLista) {
+private function getArrayDataPedido($tabla,$rows,$aColumns,$titi,$tipoLista,$privilegios) {
       $arrayDt=array();
 
   //    array_push($arrayDt, array($titi));
@@ -492,7 +528,7 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi,$tipoLista) {
 				case 'E':
 					$btnAccion= "<div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <a href='/InvenPolka/pedidos/confirmarPedido/".$j[$tabla]['id']."' class='confirm'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/confirmar.png' /></a></div><div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <a href='/InvenPolka/pedidos/generatePedidoPdf/".$j[$tabla]['id']."'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/pdf.gif' /></a></div>";
 					$btnPrintPedido = "";
-				break;
+					break;
 				case 'S':
 					$btnAccion = "<div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <a href='/InvenPolka/movimientoInventarios/asignacionAProyectos/".$j[$tabla]['id']."' class='asignarAProyecto'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/armar.png' /></a></div>";
 					$btnPrintComanda = "";
@@ -504,6 +540,13 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi,$tipoLista) {
 						$btnPrintComanda = "";
 					}
 					break;
+				case 'R':
+  				    if (! empty($privilegios['btnDevPedProy'])) {
+						$btnAccion = "<div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <a href='/InvenPolka/pedidos/edit/".$j[$tabla]['id']."' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/devolver.jpg' /></a></div>";
+					}
+					$btnPrintComanda = "";
+					break;
+					
 			}
 			$botonera = $botonera.$btnVer.$btnAccion.$btnPrintPedido.$btnPrintComanda ;
 
