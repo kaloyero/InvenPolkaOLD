@@ -211,10 +211,10 @@ private function getArrayDataProyectos($tabla,$rows,$aColumns,$titi,$privilegios
    	  $icono = "";
 	  $icono2 = "";
 	  $icono3 = "";
-	  if (! empty($privilegios['btnEliminar'])) {
+	  if (! empty($privilegios['btnEditar'])) {
 		$icono = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/articulos/ed' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div>";
 	  }
-	  if (! empty($privilegios['btnEditar'])) {
+	  if (! empty($privilegios['btnEliminar'])) {
 		$icono2 = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a class='desactivar'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div>";
 	  }
 	  if (! empty($privilegios['btnVerPedidos'])) {
@@ -735,7 +735,8 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumns,$aColumnsFil
 			array_push($fila, array($j[$tabla]['stock_total']));
 			array_push($fila, array($j[$tabla]['stock_dispo']));
 
-		if (! empty($privilegios['btnEditarArticulo'])) {
+//		if (! empty($privilegios['btnEditarArticulo'])) {
+		if (! empty($privilegios['btnEditar']))  { 
 			//Las siguientes imagenes se preguntan en el privilegio
 			array_push($fila,'<a href="#" id='.$j[$tabla]['id'].' class="edit"><img style="width:20px;height:20;display:inline;float:right;margin-top:0.1cm;" src="/InvenPolka/app/webroot/files/gif/edit.jpg"></a>');
 		}
