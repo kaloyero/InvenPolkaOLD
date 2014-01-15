@@ -24,7 +24,7 @@
         echo $this->Html->script('Dimension');
         echo $this->Html->script('AppStatus');
         echo $this->Html->script('Message');
-		
+
         echo $this->Html->script('ComponentTranslator');
 
         echo $this->Html->script('ServerManager');
@@ -39,6 +39,7 @@
         echo $this->Html->script('jsTemplate/jquery.cookie');
         echo $this->Html->script('jsTemplate/bootstrap.min');
         echo $this->Html->script('jsTemplate/jquery.flot.min');
+		echo $this->Html->script('jsTemplate/jquery.elevatezoom');
         echo $this->Html->script('jsTemplate/jquery.flot.resize.min');
         echo $this->Html->script('jsTemplate/jquery.dataTables.min');
         echo $this->Html->script('jsTemplate/jquery.notifications');
@@ -285,7 +286,7 @@ jQuery(document).ready(function(){
 			translator.logOutUser("usuario");
 			return false;
 	});
-	
+
 	jQuery('.changePass').click(function(){
 			//Cierra la ventana abierta
 			jQuery('.dropdown-toggle').click();

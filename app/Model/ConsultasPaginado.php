@@ -1040,7 +1040,7 @@ private function getDataDefaultQuery($tabla,$aColumns,$aColumnsFilter,$orderByfi
 
 
 	function getImageSmall($dir,$idFoto) {
-		return '<img style="width:150px; height:150px;border-style:solid;border-width:3px;" src="/InvenPolka/app/webroot/files/articulo/idFoto/'.$dir.'/small_'.$idFoto.'" alt="CakePHP" >';
+		return '<img class="preview" style="width:150px; height:150px;border-style:solid;border-width:3px;" src="/InvenPolka/app/webroot/files/articulo/idFoto/'.$dir.'/small_'.$idFoto.'" data-zoom-image="/InvenPolka/app/webroot/files/articulo/idFoto/'.$dir.'/'.$idFoto.'" alt="CakePHP" >';
 	}
 
 	function getColumnsToShow($aColumns) {

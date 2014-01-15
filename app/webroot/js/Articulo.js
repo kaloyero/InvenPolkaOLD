@@ -398,7 +398,8 @@ var Articulo = new Class({
  			jQuery("#configurationTable").before(htmlDiv);
 
         }
-         this.checkElements();
+        jQuery('.preview').elevateZoom()
+        this.checkElements();
     },
     getSelectedRowId:function(selectedRow) {
         return jQuery(selectedRow).attr('id');
