@@ -30,6 +30,7 @@ class InventariosController extends AppController {
     }
 
 	function ajaxData() {
+		
 			$paginado =new ConsultasPaginado();
 	        $this->autoRender = false;
 			$output = $paginado->getDataInventarios();
