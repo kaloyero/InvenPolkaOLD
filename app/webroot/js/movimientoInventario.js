@@ -23,13 +23,10 @@ var MovimientoInventario = new Class({
 				translator.addMovimiento("movimientoInventario",null,"asignacionAProyectos/".self.getSelectedRowId(this));
                	return false;
           })
-
-
           jQuery('.fecha').datepicker({ dateFormat: 'yy-mm-dd' });
 
         },
      bindAddEvents:function() {
-
          //En caso de que use el volver,a este Render,le asignamos la tabla de articulos,ya que este no usa ningun listado para volver
          //this.oTable=articuloRender.oTable;
          this.parent();
@@ -44,9 +41,30 @@ var MovimientoInventario = new Class({
              })
          }
 
+
+
    	})
    	//Se setea la fecha del dia,en este caso,solo se va a setear en la pantalla de despacho,porque busca un id,que solo tiene la view de despacho
    	jQuery('#fechaDespacho').datepicker( "setDate", new Date());
+
+    jQuery('.save').bind("click", function(e) {
+         //Si pasa la validacion,salvamos
+         if (self.getForm().valid()){
+              translator.save(self.type, self.getForm());
+              var numeroPedido=jQuery('.pedido').val();
+              jQuery.post("movimientoInventarios/reciboPdf/"+numeroPedido,function(){
+                  window.open("app/webroot/Recibo"+numeroPedido+".pdf", '_blank')
+              })
+
+               self.addLoader();
+         }
+         //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
+         return false;
+    });
+
+
+
+
 
     }
 

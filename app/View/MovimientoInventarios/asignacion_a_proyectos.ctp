@@ -10,7 +10,7 @@ echo $this->Form->create('MovimientoInventario',array('class' => 'stdform stdfor
 <p>
     <label style="float: left;">Numero de Pedido</label>
 	<span class="field float">
-    	<input  readonly="readonly" class="input-medium" maxlength="100" type="text" value="<?php echo $pe['pedidos_vista']['Numero'] ?>" required="required">
+    	<input  readonly="readonly" class="input-medium pedido" maxlength="100" type="text" value="<?php echo $pe['pedidos_vista']['Numero'] ?>" required="required">
     </span>
 
     <label style="float: left;">Fecha de Emisión</label>
@@ -91,7 +91,7 @@ echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depos
 
 
 <?php
-echo '<p class="stdformbutton"><button class="btn btn-primary save">Asignar</button></p>';
+echo '<p class="stdformbutton"><button class="btn btn-primary save">Aceptar</button></p>';
 ?>
 <?php echo $this->Form->end();?>
 

@@ -81,6 +81,7 @@ $tcpdf->writeHTML($html, true, false, true, false, '');
 // etc.
 // see the TCPDF examples
 
-echo $tcpdf->Output('filename.pdf', 'D');
+//echo $tcpdf->Output('C:\\invoices\filename.pdf', 'I');
+echo $tcpdf->Output('tessst2.pdf', 'FD');
 
 ?>

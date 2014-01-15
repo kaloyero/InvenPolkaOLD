@@ -14,6 +14,7 @@ var PedidoSalida = new Class({
 		this.drawHeader();
     },
      bindAddEvents:function() {
+         console.log("BUENASss")
         var self=this;
         this.parent();
         jQuery('.agregarOtro').bind("click", function(e) {

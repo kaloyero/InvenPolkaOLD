@@ -40,6 +40,7 @@
         echo $this->Html->script('jsTemplate/jquery-ui-1.9.2.min');
         echo $this->Html->script('jsTemplate/jquery.uniform.min');
         echo $this->Html->script('jsTemplate/jquery.cookie');
+        echo $this->Html->script('jsTemplate/jquery.elevatezoom');
         echo $this->Html->script('jsTemplate/bootstrap.min');
         echo $this->Html->script('jsTemplate/jquery.flot.min');
         echo $this->Html->script('jsTemplate/jquery.flot.resize.min');
