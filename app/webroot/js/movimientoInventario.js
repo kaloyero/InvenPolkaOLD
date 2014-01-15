@@ -49,7 +49,7 @@ var MovimientoInventario = new Class({
    	//Se setea la fecha del dia,en este caso,solo se va a setear en la pantalla de despacho,porque busca un id,que solo tiene la view de despacho
    	jQuery('#fechaDespacho').datepicker( "setDate", new Date());
 
-    jQuery('.save').bind("click", function(e) {
+    jQuery('.asignar').bind("click", function(e) {
          //Si pasa la validacion,salvamos
          if (self.getForm().valid()){
               translator.save(self.type, self.getForm());
