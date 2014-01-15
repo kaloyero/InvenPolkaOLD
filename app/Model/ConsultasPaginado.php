@@ -292,19 +292,18 @@ private function getArrayDataProyectos($tabla,$rows,$aColumns,$titi,$privilegios
 ****************************** {INICIO} Inventario -> DATATABLE *************************
 \*************************************************************************************/
 
+
 		function getDataInventarios() {
 			$model=new Inventario();
 			$tabla="inventarios_vista";
 			//Columnas que voy a mostrar
-
-print_r($_GET['sAjaxDataProp']);
-
 			$aColumns = array( 'id' ,'articulo', 'dir' ,'idFoto',  'Disponibilidad'   ,  'proyecto');
 			//Columnas por las que se va a filtrar
 			$aColumnsFilter = array(  'Disponibilidad' ,'articulo' ,  'proyecto' );
 			//Columna por la cual se va ordenar
 			$orderByfield = 'articulo,proyecto';
-			
+
+
 			$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,false,"no tiene privilegios");
 			return $output;
 		}
