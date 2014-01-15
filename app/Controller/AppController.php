@@ -37,7 +37,7 @@ class AppController extends Controller {
 
 
 
-           if ($this->params['controller']!="pages" && $this->action!="generatePedidoPdf"){
+           if ($this->params['controller']!="pages" && $this->action!="generatePedidoPdf" && $this->action!="reciboPdf"){
                                 if (!$this->request->is('ajax')){
                                         $this->redirect(array('controller' => 'pages', 'action' => 'display'));
                                 }else{

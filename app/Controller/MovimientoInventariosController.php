@@ -224,6 +224,7 @@ class MovimientoInventariosController extends AppController {
 
         if ($this->request->is('post')) {
 			$tipoMovi = $this->request->data['MovimientoInventario']['TipoMovimiento'];
+
 			switch ($tipoMovi) {
 				case 'P':
 					$this->asignacionAProyectos(null);
@@ -246,6 +247,17 @@ class MovimientoInventariosController extends AppController {
 		}
 
     }
+
+	public function reciboPdf($id = null) {
+		$model = new ConsultasSelect();
+		$detalles = $model->getDetallesPedidoByIdPedido($id);
+
+		$this->set('detalles',$detalles);
+		$this->set('pedidoId',$id);
+		$this->response->type('application/pdf');
+		$this->layout = 'pdf'; //this will use the pdf.ctp layout
+		$this->render();
+	}
 
 	function ajaxData() {
 			$paginado =new ConsultasPaginado();
