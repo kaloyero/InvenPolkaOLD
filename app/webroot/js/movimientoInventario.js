@@ -27,8 +27,6 @@ var MovimientoInventario = new Class({
 
         },
      bindAddEvents:function() {
-         console.log("BUENASssaa")
-
          //En caso de que use el volver,a este Render,le asignamos la tabla de articulos,ya que este no usa ningun listado para volver
          //this.oTable=articuloRender.oTable;
          this.parent();

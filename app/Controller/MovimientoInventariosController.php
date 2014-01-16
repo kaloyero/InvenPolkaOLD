@@ -4,6 +4,7 @@
 	App::import('Model','ConsultasPaginado');
 	App::import('Model','MovimientoDetalleInventario');
 	App::import('Model','MovimientoInventario');
+	App::import('Model','Pedido');
 
 class MovimientoInventariosController extends AppController {
 
@@ -114,6 +115,9 @@ class MovimientoInventariosController extends AppController {
         if ($this->request->is('post')) {
 			//Inserto el movimiento y los detalles
 			$this->insertMovimiento();
+			//modifico el estado del pedido a 'enviado'
+			$this->estadoPedidoEnviado($this->request->data['MovimientoInventario']['IdPedido']);
+			
           	$this->render('/General/Success');
 		} else {
 			$this->asignacionAProyectosGET($id);
@@ -331,6 +335,15 @@ class MovimientoInventariosController extends AppController {
    function getArticuloByDeposito($id = null) {
 		return "loco";
    }
+
+	private function estadoPedidoEnviado($idPedido){
+		$model = new Pedido();
+		$pedido = $model->read(null,$idPedido);
+		if ($pedido['Pedido']['estado'] == 'confirmado'){
+			$model->set('estado', 'enviado');
+			$model->save();
+		}
+	}
 
 
 }
