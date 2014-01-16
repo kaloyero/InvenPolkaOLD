@@ -534,7 +534,7 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi,$tipoLista,$pri
 					$btnPrintComanda = "";
 					break;
 				case 'H':
-				$btnAccion= "<div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <a href='/InvenPolka/pedidos/generatePedidoPdf/".$j[$tabla]['id']."'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/pdf.gif' /></a></div><div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <a href='/InvenPolka/app/webroot/Recibo".$j[$tabla]['id'].".pdf'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/recibo.jpg' /></a></div>";
+				$btnAccion= "<div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <a href='/InvenPolka/pedidos/generatePedidoPdf/".$j[$tabla]['id']."'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/pdf.gif' /></a></div><div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <a href='/InvenPolka/app/webroot/Recibo".$j[$tabla]['id'].".pdf' download='Recibo".$j[$tabla]['id']."'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/recibo.jpg' /></a></div>";
 					$btnPrintPedido = "";
 					if ($j[$tabla]["estado"] == "confirmado"){
 						$btnPrintComanda = "";
