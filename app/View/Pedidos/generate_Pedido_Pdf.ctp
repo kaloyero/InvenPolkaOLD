@@ -34,7 +34,7 @@ if ($i==6 ) {
         $i=1;
 }
 
-$lefthtml.='<td width="100"><img style="width:80px; height:80px;border-style:solid;border-width:3px;" src="http://localhost/InvenPolka/app/webroot/files/articulo/IdFoto/'.$De["det"]["IdArticulo"].'/small_'.$De["art"]["idFoto"].'"><p align="center">'.$De['art']['codigo'].'</p><span align="center">'.$De['det']['Cantidad'].'    .....</p></td>';
+$lefthtml.='<td width="100"><img style="width:80px; height:80px;border-style:solid;border-width:3px;" src="http://localhost:8080/InvenPolka/app/webroot/files/articulo/IdFoto/'.$De["det"]["IdArticulo"].'/small_'.$De["art"]["idFoto"].'"><p align="center">'.$De['art']['codigo'].'</p><span align="center">'.$De['det']['Cantidad'].'    .....</p></td>';
 
 
 }
@@ -60,7 +60,7 @@ $html = <<<EOF
   }
 </style>
 <body>
-<h1>Listado de pedidos</i></h1>
+<h1>Listado de pedido</i></h1>
 <p>      </p>
 <br>
 $lefthtml

@@ -9,9 +9,37 @@ class InventariosController extends AppController {
 
     function index() {
 		$consultas =new ConsultasSelect();		
-		//$this->set('proyectos',$consultas->getProyectosFull());
-		$this->set('proyectos',$consultas->getProyectos());		
+		//Lista de proyectos
+		$this->set('proyectos',$consultas->getProyectos());				
+			
+		//FILTRO
+		$filtro = $_GET['isSearch'];
+		if ($filtro !='undefined' ) {
+			//Seteo el filtro
+			$this->Session->write("filtroInventario",$filtro);
+//			$this->Session->write("filtroInventario","DEPOSITO");
+			if ($filtro != "DEPOSITO"){
+				//seteo que en el combo el proyecto seleccionado
+				$this->request->data['Inventario']['IdProyecto'] = $filtro;
+			}
+		} else {
+			//Reseteo el buscador
+			$this->Session->write("filtroInventario","");
+		}
+		
+		
     }
+
+	function ajaxData() {
+		//Obtengo de la SESSION el proyecto o deposito por el cual voy a 
+		$filtroProy = $this->Session->read("filtroInventario");
+
+		$paginado =new ConsultasPaginado();
+		$this->autoRender = false;
+		$output = $paginado->getDataInventarios($filtroProy);
+		echo json_encode($output);
+
+	}
 
    public function view($id = null) {
         $this->Inventario->id = $id;
@@ -29,13 +57,6 @@ class InventariosController extends AppController {
 
     }
 
-	function ajaxData() {
-		
-			$paginado =new ConsultasPaginado();
-	        $this->autoRender = false;
-			$output = $paginado->getDataInventarios();
-	        echo json_encode($output);
-	}
 
 
 	function edit($id = null) {
