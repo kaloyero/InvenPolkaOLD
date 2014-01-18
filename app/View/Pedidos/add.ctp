@@ -13,10 +13,17 @@ echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5
 //								                                <label>Fecha</label>
 
 echo '<label style="float: left;">Fecha</label><span class="field float"><input class="input-small fecha" type="text" name="data[Pedido][Fecha]" required="required" /><small><em> yyyy / mm / dd</em></small></span>';
-echo $this->Form->input('Pedido.IdProyecto',array('type'=>'select','options'=>$proyectos,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p>
+
+	//Obtengo datos del usuario
+	$usuario = $this->Session->read("usuario");
+	if ($usuario['Rol'] == '3'){
+		echo $this->Form->input('Pedido.IdProyecto',array('type' => 'hidden'));
+	} else {
+		echo $this->Form->input('Pedido.IdProyecto',array('type'=>'select','options'=>$proyectos,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p>
                                 <label>Proyecto</label>
                                 <span class="field">',
 								'after'=>'</span></p>'));
+	}
 ?>
 <span style="padding-left:1em;">LISTA DE ARTICULOS
 </span>

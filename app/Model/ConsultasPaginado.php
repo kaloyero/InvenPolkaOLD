@@ -460,7 +460,7 @@ private function getDataDefaultQueryInventario($tabla,$aColumns,$aColumnsFilter,
 
 			$aColumns = array( 'id' ,'Numero', 'Fecha' ,'proyecto', 'estado'  );
 			//Columnas por las que se va a filtrar
-			$aColumnsFilter = array(  'Numero' ,'proyecto', 'estado'  );
+			$aColumnsFilter = array(  'Numero' ,'Fecha' ,'proyecto', 'estado'  );
 			//Columna por la cual se va ordenar
 			$orderByfield = 'Fecha desc,Numero, proyecto,estado ';
 
@@ -495,7 +495,7 @@ private function getDataDefaultQueryInventario($tabla,$aColumns,$aColumnsFilter,
 
 			$aColumns = array( 'id' ,'Numero', 'Fecha' ,'proyecto', 'estado'  );
 			//Columnas por las que se va a filtrar
-			$aColumnsFilter = array(  'Numero' ,'proyecto', 'estado'  );
+			$aColumnsFilter = array(  'Numero' ,'Fecha' ,'proyecto', 'estado'  );
 			//Columna por la cual se va ordenar
 			$orderByfield = 'Fecha desc, proyecto,estado ';
 

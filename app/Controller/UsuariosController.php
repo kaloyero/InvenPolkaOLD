@@ -51,11 +51,36 @@ class UsuariosController extends AppController {
 			$this->Usuario->id = $id;
 			if ($this->request->is('get')) {
 					$consultas =new ConsultasSelect();
+					$consultasUs =new ConsultasUsuario();
 					$this->set('rolesList' , $consultas->getRolesUsuarios());
 					$this->set('proyectos',$consultas->getProyectos());
+					//Obtengo el usuario
 					$this->request->data = $this->Usuario->read();
+					//Inicializo el proyecto para el usuario en cero
+					$this->request->data['Usuario']['IdUsuarioProyecto'] = 0;
+					//Si es un usuario de tipo arte obtengo el Proyecto relacionado					
+					if ($this->request->data['Usuario']['TipoRol'] == '3'){
+						$usProy = $consultasUs->getUsuarioProyecto($id);
+						print_r($usProy);
+						$this->request->data['Usuario']['IdUsuarioProyecto'] = $usProy['Id'];
+						$this->request->data['Usuario']['IdProyecto'] = $usProy['Proyecto'];
+					}
+					
 			} else {
 				if ($this->Usuario->save($this->request->data)) {
+					//En caso de ser un usuario de tipo Arte le asocia us proyecto
+					if ($this->request->data['Usuario']['TipoRol'] == '3'){
+						$model = new UsuarioProyecto();
+						$idUsPr = $this->request->data['Usuario']['IdUsuarioProyecto'];
+						if ($idUsPr != 0){
+							//Si ya tiene proyecto asignado solo actualiza
+							$model->save(array('id' => $idUsPr ,'id_proyecto' =>$this->request->data['Usuario']['IdProyecto']));
+						} else {
+							//si no tiene proyecto asignado se lo asigna
+							$model->save(array('id_usuario' => $this->request->data['Usuario']['id'],'id_proyecto' =>$this->request->data['Usuario']['IdProyecto']));
+						
+						}
+					}
 					$this->render('/General/Success');
 				}else{
 					$this->render('/General/Error');

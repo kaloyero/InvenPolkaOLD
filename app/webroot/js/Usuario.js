@@ -75,6 +75,7 @@ var Usuario = new Class({
         jQuery('#UsuarioTipoRol').bind("change", function(e) {
 			//Pregunta si es usuario 'arte' (id 3 en la base de datos)
 			if (jQuery('#UsuarioTipoRol').val() == 3){
+
 				jQuery('#proyectoId').removeAttr("disabled");
 				jQuery('#proyectoId').attr("required", "required");
 			} else {
@@ -92,7 +93,24 @@ var Usuario = new Class({
          });
 
      },
-		
+    bindEditEvents:function() {
+
+		var self=this;
+		this.parent();
+        jQuery('#UsuarioTipoRol').bind("change", function(e) {
+			//Pregunta si es usuario 'arte' (id 3 en la base de datos)
+			if (jQuery('#UsuarioTipoRol').val() == 3){
+				jQuery('#proyectoId').removeAttr("disabled");
+				jQuery('#proyectoId').attr("required", "required");
+			} else {
+				jQuery('#proyectoId').attr("disabled", "disabled");
+				jQuery('#proyectoId').removeAttr("required");
+			}
+              return false;
+         });
+
+     },
+
 
 
 });

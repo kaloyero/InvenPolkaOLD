@@ -97,17 +97,32 @@ class ConsultasUsuario extends AppModel {
 			$us['Email']=$usuario['usuarios']['Email'];
 			$us['Rol']=$usuario['usuarios']['TipoRol'];
 		}
-		
-		//Si el usuario es de tipo arte (id =3) seteo el Proyecto asociado
-		$us['Proyecto'] = 0;
-		if ($us['Rol'] == 3){
-			$proyectos = $model->query("SELECT * FROM `usuario_proyectos` WHERE `id_usuario` = ".$us['id'].";");
-			foreach ($proyectos as $proy){
-				$us['Proyecto'] = $proy['usuario_proyectos']['id_proyecto'];
+
+		//Si el usuario no esta vacio		
+		if (! empty($us)){
+			
+			$us['Proyecto'] = 0;
+			//Si el usuario es de tipo arte (id =3) seteo el Proyecto asociado
+			if ($us['Rol'] == '3'){
+				$proy = $this->getUsuarioProyecto($us['id']);
+				$us['Proyecto'] = $proy['Proyecto'];
 			}
 		}
-		
+			
 		return $us;
+	}
+	
+	public function getUsuarioProyecto($idUser){
+		$model = new Categoria();
+		$proyectos = $model->query("SELECT * FROM `usuario_proyectos` WHERE `id_usuario` = ".$idUser.";");
+		$proyecto = array();
+		foreach ($proyectos as $proy){
+			$proyecto['Id'] = 		$proy['usuario_proyectos']['id'];
+			$proyecto['Usuario'] = 	$proy['usuario_proyectos']['id_usuario'];
+			$proyecto['Proyecto'] = $proy['usuario_proyectos']['id_proyecto'];
+		}
+		
+		return $proyecto;
 	}
 
 	//Actualizo la contrase;a

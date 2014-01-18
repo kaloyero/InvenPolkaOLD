@@ -141,7 +141,15 @@ class PedidosController extends AppController {
 
 	private function setViewData() {
 		$consultasSelect = new ConsultasSelect();
-		$this->set('proyectos',$consultasSelect ->getProyectos());
+		//Obtengo datos del usuario
+		$usuario = $this->Session->read("usuario");
+		if ($usuario['Rol'] == '3'){
+			//Obtengo el proyecto para el usuario ARTE
+			$this->request->data['Pedido']['IdProyecto'] =$usuario['Proyecto'];
+		} else {
+			$this->set('proyectos',$consultasSelect ->getProyectos());
+		}
+		
 	}
 
 	function confirmarPedido($id = null) {
