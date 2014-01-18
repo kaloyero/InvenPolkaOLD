@@ -62,10 +62,6 @@ var MovimientoInventario = new Class({
          return false;
     });
 
-
-
-
-
     }
 
 });

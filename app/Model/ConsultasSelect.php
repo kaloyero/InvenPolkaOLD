@@ -314,10 +314,6 @@ WHERE  `mov`.`IdMovimientoInventario` ='".$id."';";
 		return $detalleMovimiento;
 	}
 
-
-
-
-
 	//Para que? Porque el modelo es proyecto?
 	function getDetallesPedidoByIdPedido($id) {
 		$model=new Proyecto();
@@ -327,6 +323,25 @@ LEFT JOIN  `articulos`  `art` ON (  `det`.`IdArticulo` =  `art`.`id` )
 WHERE  `det`.`IdPedido` ='".$id."';";
 		$pedidos=$model->query($query);
 		return $pedidos;
+	}
+
+	/* Este metodo devuelve los articulos de un pedido. Se fija si alguno de estos articulos fue devuelto. */
+	function getDetallesPedidoAdevolverByIdPedido($idPedido,$idProyecto) {
+		$model=new Proyecto();
+		
+		$query="
+	SELECT  
+		`det`.`id` AS  `IdDetalleMovimiento`, `det`.`IdArticulo` AS  `IdArticulo` ,  `det`.`Cantidad` AS  `CantidadEntregada` ,
+		`inv`.`Disponibilidad` AS  `CantidadStock` ,  
+		`art`.`Descripcion` AS  `Descripcion` ,  `art`.`dir` AS  `dir` , `art`.`idFoto` AS  `idFoto` ,`art`.`CodigoArticulo` AS  `codigo`
+	FROM  `movimiento_detalle_inventarios` AS  `det`
+		LEFT JOIN  `articulos`  `art` ON (  `det`.`IdArticulo` =  `art`.`id` )
+		LEFT JOIN  `inventarios`  `inv` ON (`det`.`IdArticulo` =  `inv`.`IdArticulo` AND `inv`.`IdProyecto` = '".$idProyecto."')
+	WHERE  
+		`det`.`IdMovimientoInventario` IN (SELECT id FROM  `movimiento_inventarios` WHERE  `idPedido` =  '".$idPedido."' AND  `TipoMovimiento` =  'P')";
+
+		$articulos=$model->query($query);
+		return $articulos;
 	}
 
 	function existePedidoDetalleByArticuloId($idArticulo){

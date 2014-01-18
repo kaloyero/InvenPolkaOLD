@@ -4,7 +4,7 @@ var PedidoRealizado = new Class({
         this.name = name;
         this.type='pedidoRealizado';
         this.breadcrumb='Pedidos Realizados';
-        this.descripcion="Pedidos que ha realizado el usuario"
+        this.descripcion="Pedidos que ha realizado el proyecto"
     },
     onAdd: function(data){
         this.cleanCanvas();
@@ -35,7 +35,15 @@ var PedidoRealizado = new Class({
  			 translator.showWithParam("pedidoRealizado",self.getSelectedRowId(this));
   	    });
      },
-	 
+	 afterDataTable:function() {
+		self = this;
+	    this.parent();
+
+		jQuery('.devolucionArtPorProy').bind("click", function(e) {
+			translator.addMovimiento("movimientoInventario",null,"devolucionArtPorPedido/"+self.getSelectedRowId(this));
+			return false;
+		})
+	 },
      getIdFromSelectedNumberType: function(selectedNumberType){
             return jQuery(selectedNumberType).parent().parent().find(":first" ).find("input").val()
         },
