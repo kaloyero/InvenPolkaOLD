@@ -228,7 +228,7 @@ jQuery(document).ready(function(){
 			translator.logOutUser("usuario");
 			return false;
 	});
-	
+
 	jQuery('.changePass').click(function(){
 			//Cierra la ventana abierta
 			jQuery('.dropdown-toggle').click();

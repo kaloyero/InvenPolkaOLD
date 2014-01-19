@@ -52,9 +52,22 @@ var MovimientoInventario = new Class({
          if (self.getForm().valid()){
               translator.save(self.type, self.getForm());
               var numeroPedido=jQuery('.pedido').val();
+              var cantidadFilas=Math.ceil((jQuery("#listaArticulos").find("tr").length -1)/2);
               jQuery.post("movimientoInventarios/reciboPdf/"+numeroPedido,function(){
-                  window.open("app/webroot/Recibo"+numeroPedido+".pdf", '_blank')
+
+
+                  //for (var i=0;i<cantidadFilas;i++)
+                 // {
+                       window.open("app/webroot/Recibo"+numeroPedido+".pdf", '_blank')
+                 // }
+                  //window.open("app/webroot/Recibo"+numeroPedido+"-1.pdf", '_blank')
+
+
+                   //jQuery.fileDownload("app/webroot/Recibo"+numeroPedido+".pdf")
+                        //.done(function () { alert('File download a success!'); })
+                        //.fail(function () { alert('File download failed!'); });
               })
+
 
                self.addLoader();
          }
