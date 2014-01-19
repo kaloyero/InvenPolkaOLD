@@ -18,7 +18,15 @@ echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5
 
 echo $this->Form->input('TipoRol',array('type'=>'select','options'=>$rolesList,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p><label style="float: left;" >Tipo Usuario</label><span class="field float">','after'=>'</span></p>'));
 
+//Si es usuario ARTE
+if ($this->request->data['Usuario']['TipoRol'] == '3'){
+	echo $this->Form->input('IdProyecto',array('type'=>'select','id'=>'proyectoId','options'=>$proyectos,'empty'=>true,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<label style="float: left;" >Proyecto</label><span class="field float">','after'=>'<small><em> Solo para usuarios de tipo \'Arte\'</em></small></span></p>'));	
+} else {
+	echo $this->Form->input('IdProyecto',array('type'=>'select','disabled' => 'disabled','id'=>'proyectoId','options'=>$proyectos,'empty'=>true,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<label style="float: left;" >Proyecto</label><span class="field float">','after'=>'<small><em> Solo para usuarios de tipo \'Arte\'</em></small></span></p>'));
+}
+
 echo $this->Form->input('id', array('type' => 'hidden'));
+echo $this->Form->input('Usuario.IdUsuarioProyecto', array('type' => 'hidden'));
 
 //echo $this->Form->end('Guardar');
 echo '<p class="stdformbutton"><button class="btn btn-primary edit">Guardar</button></p>';

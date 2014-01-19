@@ -44,6 +44,12 @@ class MovimientoInventariosController extends AppController {
 		$articulos = $consultasSelect->getDetallesPedidoByIdPedido($idPedido);
 		$this->set('artis',$articulos);
 	}
+	
+	private function getListaArticulosDePedidosAdevolver($idPedido,$idProyecto){
+		$consultasSelect = new ConsultasSelect();
+		$articulos = $consultasSelect->getDetallesPedidoAdevolverByIdPedido($idPedido,$idProyecto);
+		$this->set('artis',$articulos);
+	}
 
 	//Consulta a la base los datos de los articulos seleccionados
 	private function getListaArticulos() {
@@ -58,8 +64,11 @@ class MovimientoInventariosController extends AppController {
 
    	public function ingresoDeArticulos() {
         if ($this->request->is('post')) {
-			//Inserto el movimiento y los detalles
-			$this->insertMovimiento();
+			//verifico que tenga al menos un articulo con CANTIDAD > a cero
+			if ($this->verificarCantidadMayorCero()) {
+				//Inserto el movimiento y los detalles
+				$this->insertMovimiento();
+			}
           	//Sale por success
 			$this->render('/General/Success');
 		} else {
@@ -74,9 +83,10 @@ class MovimientoInventariosController extends AppController {
 
    	public function darDeBajaArticulos() {
         if ($this->request->is('post')) {
-			//Inserto el movimiento y los detalles
-			$this->insertMovimiento();
-
+			if ($this->verificarCantidadMayorCero()) {
+				//Inserto el movimiento y los detalles
+				$this->insertMovimiento();
+			}
           	$this->render('/General/Success');
 		} else {
 			//CargarLista de Articulos
@@ -87,8 +97,10 @@ class MovimientoInventariosController extends AppController {
 
 	public function transferirADeposito(){
         if ($this->request->is('post')) {
-			//Inserto el movimiento y los detalles
-			$this->insertMovimiento();
+			if ($this->verificarCantidadMayorCero()) {
+				//Inserto el movimiento y los detalles
+				$this->insertMovimiento();
+			}
           	$this->render('/General/Success');
 		} else {
 			//CargarLista de Articulos
@@ -101,8 +113,10 @@ class MovimientoInventariosController extends AppController {
 
 	public function devolucionDeArticulos(){
         if ($this->request->is('post')) {
-			//Inserto el movimiento y los detalles
-			$this->insertMovimiento();
+			if ($this->verificarCantidadMayorCero()) {
+				//Inserto el movimiento y los detalles
+				$this->insertMovimiento();
+			}
           	$this->render('/General/Success');
 		} else {
 			$this->setViewData();
@@ -111,13 +125,39 @@ class MovimientoInventariosController extends AppController {
 		}
 	}
 
+	public function devolucionArtPorPedido($idPedido){
+        if ($this->request->is('post')) {
+			if ($this->verificarCantidadMayorCero()) {
+				//Inserto el movimiento y los detalles
+				$this->insertMovimiento();
+			}
+          	$this->render('/General/Success');
+		} else {
+			$this->devolucionArtPorPedidoGET($idPedido);
+		}
+	}
+
+	private function devolucionArtPorPedidoGET($idPedido){
+			$consultas = new ConsultasSelect();
+			//Obtengo la informacion del Pedido
+			$pedido = $consultas->getPedidoById($idPedido);
+			$this->set("pedido", $pedido);
+			//Cargar Lista de Articulos del Pedido
+			$ped = $pedido[0];
+			$this->getListaArticulosDePedidosAdevolver($idPedido,$ped['pedidos_vista']['id_proyecto']);
+			//Cargo la lista de depositos
+			$this->set('depositos',$consultas->getDepositos());
+
+	}
+
 	public function asignacionAProyectos($id = null){
         if ($this->request->is('post')) {
-			//Inserto el movimiento y los detalles
-			$this->insertMovimiento();
-			//modifico el estado del pedido a 'enviado'
-			$this->estadoPedidoEnviado($this->request->data['MovimientoInventario']['IdPedido']);
-			
+			if ($this->verificarCantidadMayorCero()) {
+				//Inserto el movimiento y los detalles
+				$this->insertMovimiento();
+				//modifico el estado del pedido a 'enviado'
+				$this->estadoPedidoEnviado($this->request->data['MovimientoInventario']['IdPedido']);
+			}
           	$this->render('/General/Success');
 		} else {
 			$this->asignacionAProyectosGET($id);
@@ -134,6 +174,22 @@ class MovimientoInventariosController extends AppController {
 			//Cargo la lista de depositos
 			$this->set('depositos',$consultas->getDepositos());
 
+	}
+
+	private function verificarCantidadMayorCero(){
+		$existArts = false ;
+		$listDetalle = array ($this->request->data['Detalle']);
+		foreach ($listDetalle as &$detalle) {
+			foreach ($detalle as &$det) {
+				if ($det['Cantidad'] > 0){
+					$existArts = true ; 
+				}
+			}
+			if ($existArts){
+				 break; 
+			}
+		}
+		return $existArts;
 	}
 
 	//Hace el insert en la Tabla de Movimientos
@@ -228,7 +284,6 @@ class MovimientoInventariosController extends AppController {
 
         if ($this->request->is('post')) {
 			$tipoMovi = $this->request->data['MovimientoInventario']['TipoMovimiento'];
-
 			switch ($tipoMovi) {
 				case 'P':
 					$this->asignacionAProyectos(null);
@@ -249,7 +304,6 @@ class MovimientoInventariosController extends AppController {
         } else {
 
 		}
-
     }
 
 	public function reciboPdf($id = null) {

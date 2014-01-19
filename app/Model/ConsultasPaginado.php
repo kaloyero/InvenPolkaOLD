@@ -293,7 +293,7 @@ private function getArrayDataProyectos($tabla,$rows,$aColumns,$titi,$privilegios
 \*************************************************************************************/
 
 
-		function getDataInventarios() {
+		function getDataInventarios($filtroProy) {
 			$model=new Inventario();
 			$tabla="inventarios_vista";
 			//Columnas que voy a mostrar
@@ -303,10 +303,70 @@ private function getArrayDataProyectos($tabla,$rows,$aColumns,$titi,$privilegios
 			//Columna por la cual se va ordenar
 			$orderByfield = 'articulo,proyecto';
 
+			//Consigue el query que se va ejecutar
+			$query=$this->getDataDefaultQueryInventario($tabla,$aColumns,$aColumnsFilter,$orderByfield,$filtroProy);
+			//Ejecuta el query, obtengo las filas
+			$rows =$model->query("".$query['select'].";");
+//print_r("".$query['select'].";");
+//print_r($rows);
+			//Obtengo los totales
+			$totales = $this->getTotales($model,$query);
+			//Proceso los campos para llenar la tabla
+			$arrayData=$this->getArrayData($tabla,$rows,$aColumns,$query['select']);
+			//Obtengo la tabla
+			$output = $this->createConfigTable($arrayData,$totales["total"],$totales["tDisplay"]);
 
-			$output = $this->getDataDefault($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield,false,"no tiene privilegios");
 			return $output;
 		}
+
+private function getDataDefaultQueryInventario($tabla,$aColumns,$aColumnsFilter,$orderByfield,$where) {
+
+        //Columnas por las que se va a filtrar
+		$aColumnsShow = $this->getColumnsToShow($aColumns);
+		//Partes del query
+		$select = "SELECT ".$aColumnsShow;
+		$from = " FROM ".$tabla." ";
+		$limit = 'limit '.$_GET['iDisplayStart'].' ,'.$_GET['iDisplayLength'] ;
+		$orderBy = " order by ".$orderByfield." ";
+		$sWhere = "";
+		if ($where != ""){
+			if ($where == "DEPOSITO"){
+				$sWhere = " Where `id_proyecto` is Null AND ";
+			} else {
+				$sWhere = " Where `id_proyecto` LIKE  '6' AND ";
+			}
+		}
+		/*BUSQUEDA*/
+		//Si el wehre viene vacio
+		if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" )
+		{
+			if ($_GET['sSearch'] != ""){
+				$arreglo = explode(' ', $_GET['sSearch']);
+				if ($where == ""){
+					$sWhere = " WHERE ";
+				}
+				foreach($arreglo as $searchWord){
+					$sWhere .= "(";
+					for ( $i=0 ; $i<count($aColumnsFilter) ; $i++ )
+					{
+						$sWhere .= "`".$aColumnsFilter[$i]."` LIKE '%".( $searchWord )."%' OR ";
+					}
+					$sWhere = substr_replace( $sWhere, "", -3 );
+					$sWhere .= ') AND ';
+				}
+			}
+		}
+		$sWhere = substr_replace( $sWhere, "", -4 );
+
+		$query['select'] = $select.$from.$sWhere.$orderBy.$limit;
+		$query['selectWOL'] = $select.$from.$sWhere;
+		$query['from'] =  $from;
+		$query['where'] = $sWhere;
+
+		return $query;
+
+}
+
 
 ////////////////////////////// {FIN} Inventario -> DATATABLE //////////////////////////////
 
@@ -400,9 +460,9 @@ private function getArrayDataProyectos($tabla,$rows,$aColumns,$titi,$privilegios
 
 			$aColumns = array( 'id' ,'Numero', 'Fecha' ,'proyecto', 'estado'  );
 			//Columnas por las que se va a filtrar
-			$aColumnsFilter = array(  'Numero' ,'proyecto', 'estado'  );
+			$aColumnsFilter = array(  'Numero' ,'Fecha' ,'proyecto', 'estado'  );
 			//Columna por la cual se va ordenar
-			$orderByfield = 'Fecha desc, proyecto,estado ';
+			$orderByfield = 'Fecha desc,Numero, proyecto,estado ';
 
 			//CREATE TABLE
 			//Consigue el query que se va ejecutar
@@ -435,7 +495,7 @@ private function getArrayDataProyectos($tabla,$rows,$aColumns,$titi,$privilegios
 
 			$aColumns = array( 'id' ,'Numero', 'Fecha' ,'proyecto', 'estado'  );
 			//Columnas por las que se va a filtrar
-			$aColumnsFilter = array(  'Numero' ,'proyecto', 'estado'  );
+			$aColumnsFilter = array(  'Numero' ,'Fecha' ,'proyecto', 'estado'  );
 			//Columna por la cual se va ordenar
 			$orderByfield = 'Fecha desc, proyecto,estado ';
 
@@ -537,14 +597,24 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi,$tipoLista,$pri
 					break;
 				case 'H':
 				$btnAccion= "<div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <a href='/InvenPolka/pedidos/generatePedidoPdf/".$j[$tabla]['id']."'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/pdf.gif' /></a></div><div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <a href='/InvenPolka/app/webroot/Recibo".$j[$tabla]['id'].".pdf' download='Recibo".$j[$tabla]['id']."-1.pdf'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/recibo.jpg' /></a></div>";
+
+				//Pregunto si el estado del producto fue enviado. Solo los productos en este estado pueden imprimir la comanda
+					if ($j[$tabla]["estado"] == "enviado"){
+						$btnAccion=$btnAccion."<a href='/InvenPolka/app/webroot/Recibo".$j[$tabla]['id'].".pdf' download='Recibo".$j[$tabla]['id']."'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/recibo.jpg' /></a>";
+					}
+					$btnAccion= $btnAccion."</div>";
 					$btnPrintPedido = "";
 					if ($j[$tabla]["estado"] == "confirmado"){
 						$btnPrintComanda = "";
 					}
 					break;
 				case 'R':
+					//Pregunto si tiene privilegios para devolver pedidos
   				    if (! empty($privilegios['btnDevPedProy'])) {
-						$btnAccion = "<div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <a href='/InvenPolka/pedidos/edit/".$j[$tabla]['id']."' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/devolver.jpg' /></a></div>";
+						//Pregunto si el estado del producto fue enviado. Solo los productos en este estado pueden ser devueltos
+						if ($j[$tabla]["estado"] == "enviado"){
+							$btnAccion = "<div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <a href='/InvenPolka/pedidos/edit/".$j[$tabla]['id']."' class='devolucionArtPorProy'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/devolver.jpg' /></a></div>";
+						}
 					}
 					$btnPrintComanda = "";
 					break;
@@ -915,6 +985,7 @@ private function getArrayData($tabla,$rows,$aColumns,$titi) {
 
   //    array_push($arrayDt, array($titi));
 
+//	print_r($rows);
       foreach($rows as $j){
 			$fila=array();
 	        foreach($aColumns as $column){

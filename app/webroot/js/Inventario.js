@@ -15,7 +15,17 @@ var Inventario = new Class({
                	return false;
           })
           jQuery('.filtroDepo').bind("change", function(e) {
-				alert("filtra deposito");
+  			    translator.showWithParam("inventario",jQuery('.filtroDepo').val());
+               	return false;
+          })
+
+          jQuery('.filtroDeposito').bind("click", function(e) {
+  			    if (jQuery('#checkFiltro').attr('checked')){
+					translator.showWithParam("inventario","DEPOSITO");
+				} else {
+					translator.show("inventario");
+				}
+
                	return false;
           })
 
