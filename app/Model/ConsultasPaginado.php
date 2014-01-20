@@ -331,7 +331,7 @@ private function getDataDefaultQueryInventario($tabla,$aColumns,$aColumnsFilter,
 		$sWhere = "";
 		if ($where != ""){
 			if ($where == "DEPOSITO"){
-				$sWhere = " Where `id_proyecto` is Null AND ";		
+				$sWhere = " Where `id_proyecto` is Null AND ";
 			} else {
 				$sWhere = " Where `id_proyecto` LIKE  '6' AND ";
 			}
@@ -366,7 +366,7 @@ private function getDataDefaultQueryInventario($tabla,$aColumns,$aColumnsFilter,
 		return $query;
 
 }
-		
+
 
 ////////////////////////////// {FIN} Inventario -> DATATABLE //////////////////////////////
 
@@ -596,7 +596,8 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi,$tipoLista,$pri
 					$btnPrintComanda = "";
 					break;
 				case 'H':
-					$btnAccion= "<div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <a href='/InvenPolka/pedidos/generatePedidoPdf/".$j[$tabla]['id']."'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/pdf.gif' /></a></div><div style= 'width:20%; float:left; min-width:10px; text-align:center;'>";
+				$btnAccion= "<div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <a href='/InvenPolka/pedidos/generatePedidoPdf/".$j[$tabla]['id']."'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/pdf.gif' /></a></div><div style= 'width:20%; float:left; min-width:10px; text-align:center;'></div>";
+
 				//Pregunto si el estado del producto fue enviado. Solo los productos en este estado pueden imprimir la comanda
 					if ($j[$tabla]["estado"] == "enviado"){
 						$btnAccion=$btnAccion."<a href='/InvenPolka/app/webroot/Recibo".$j[$tabla]['id'].".pdf' download='Recibo".$j[$tabla]['id']."'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/recibo.jpg' /></a>";
@@ -807,7 +808,7 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumns,$aColumnsFil
 			array_push($fila, array($j[$tabla]['stock_dispo']));
 
 //		if (! empty($privilegios['btnEditarArticulo'])) {
-		if (! empty($privilegios['btnEditar']))  { 
+		if (! empty($privilegios['btnEditar']))  {
 			//Las siguientes imagenes se preguntan en el privilegio
 			array_push($fila,'<a href="#" id='.$j[$tabla]['id'].' class="edit"><img style="width:20px;height:20;display:inline;float:right;margin-top:0.1cm;" src="/InvenPolka/app/webroot/files/gif/edit.jpg"></a>');
 		}

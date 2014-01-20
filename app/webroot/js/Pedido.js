@@ -8,7 +8,7 @@ var Pedido = new Class({
     },
      onSaved:function() {
          this.parent();
-          translator.show("articulo");
+          translator.show("pedido");
      },
 
     onAdd: function(data){
@@ -65,7 +65,11 @@ var Pedido = new Class({
 		self = this;
 	    this.parent();
 		jQuery('.confirm').bind("click", function(e) {
-			translator.confirmarPedido(self.type,self.getSelectedRowId(this));
+		    if (confirm("Desea confirmar el pedido?"))
+            {
+                translator.confirmarPedido(self.type,self.getSelectedRowId(this));
+
+            }
 			return false;
 		})
 		jQuery('.asignarAProyecto').bind("click", function(e) {

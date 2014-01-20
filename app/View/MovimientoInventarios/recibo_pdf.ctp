@@ -10,8 +10,7 @@ $tcpdf->xheadercolor = array(150,0,0);
 $tcpdf->xheadertext = 'KBS Homes & Properties';
 $tcpdf->xfootertext = 'Copyright Â© %d KBS Homes & Properties. All rights reserved.';
 
-// add a page (required with recent versions of tcpdf)
-$tcpdf->AddPage();
+
 
 // Now you position and print your page content
 // example:
@@ -23,25 +22,36 @@ $tcpdf->SetFont($textfont,'B',20);
 
 //$tcpdf->Image('http://localhost/InvenPolka/app/webroot/files/articulo/idFoto/94/small_Screen-shot-2011-11-11-at-7.55.07-PM.png', '', '', 40, 40, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
 
-$lefthtml='<table ><tr>';
+
 $articulos="";
 $i=0;
+$cantidadRecibos=0;
+$totalElementos=count($detalles);
+
+
+$lastElement = end($detalles);
 	foreach ($detalles as $De){
 
 
 $articulos.='<tr><td>'.$De['det']['Cantidad'].'</td><td>'.$De['art']['codigo'].'</td><td>'.$De['art']['codigo'].'</td><td>???</td></tr>';
+ $i=$i+1;
+
+	if ($i==2 || $De==$lastElement){
+
+      if ($i!=15){
+		$faltantes=15-$i;
+		for ($i = 1; $i <= $faltantes; $i++) {
+		    $articulos.='<tr><td></td><td></td><td></td><td></td></tr>';
+		}
+
+	}
+		// add a page (required with recent versions of tcpdf)
+		$tcpdf->AddPage();
 
 
-}
+		$cantidadRecibos=$cantidadRecibos+1;
+		$i=0;
 
-
-
-
-
-
-
-$lefthtml.='</tr>';
-$lefthtml.='</table>';
 $testHtml='
 				<table  cellpadding="1" cellspacing="1" style="width: 550px;">
 					<tbody>
@@ -362,7 +372,7 @@ $testHtml
 </body>
 EOF;
 
-$tcpdf->SetY(0);
+$tcpdf->SetY(10);
 $tcpdf->SetTextColor(0, 0, 0);
 $tcpdf->SetFont('times', '', 12);
 $tcpdf->writeHTML($html, true, false, true, false, '');
@@ -376,6 +386,19 @@ $tcpdf->writeHTML($html, true, false, true, false, '');
 // etc.
 // see the TCPDF examples
  $nombreRecibo='Recibo'.$pedidoId.'.pdf';
-echo $tcpdf->Output($nombreRecibo, 'F');
+//$nombreRecibo2='ReciboA'.$pedidoId.'.pdf';
+//$tcpdf->Output($nombreRecibo2, 'F');
+$articulos="";
+
+
+	}
+}
+
+$tcpdf->Output($nombreRecibo, 'F');
+
+
+
+
+
 
 ?>

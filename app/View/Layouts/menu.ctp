@@ -43,6 +43,7 @@
         echo $this->Html->script('jsTemplate/jquery.flot.resize.min');
         echo $this->Html->script('jsTemplate/jquery.dataTables.min');
         echo $this->Html->script('jsTemplate/jquery.notifications');
+		echo $this->Html->script('jsTemplate/jquery.fileDownload');
         //echo $this->Html->css('demo_table');
         //echo $this->Html->css('demo_page');
 
