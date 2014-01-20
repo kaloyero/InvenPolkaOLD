@@ -33,7 +33,7 @@ $lastElement = end($detalles);
 	foreach ($detalles as $De){
 
 
-$articulos.='<tr><td>'.$De['det']['Cantidad'].'</td><td>'.$De['art']['descripcion'].'</td><td>'.$De['art']['codigo'].'</td><td></td></tr>';
+$articulos.='<tr><td>'.$De['det']['Cantidad'].'</td><td>'.$De['art']['Descripcion'].'</td><td>'.$De['art']['codigo'].'</td><td></td></tr>';
  $i=$i+1;
 
 	if ($i==15 || $De==$lastElement){
@@ -68,13 +68,13 @@ $testHtml='
 								<strong>Depto de Logistica</strong>
 							</td>
 							<td>
-								&nbsp; 
+								&nbsp;
 							</td>
 						</tr>
 						<tr>
 							<td>
 								<strong>de Polka Producciones S.A</strong>
-							</td>							
+							</td>
 							<td>
 								&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; O.S.N LOG /N° &nbsp;'.$pedidoId.'
 							</td>
@@ -82,7 +82,7 @@ $testHtml='
 						<tr>
 							<td>
 								<span style="font-size:9px;">Jorge Newbery 3039</span>
-							</td>	
+							</td>
 							<td>
 								&nbsp;
 							</td>
@@ -105,11 +105,11 @@ $testHtml='
 							<td>
 								<span style="font-size:9px;">IVA RESPONSABLE INSCRIPTO</span></td>
 							<td>
-								<span style="font-size:7px;"> 
+								<span style="font-size:7px;">
 									C.U.I.T. : 30-67822531-9 &nbsp;&nbsp; ING BRUTOS CONV MULT: 901-905077-6
 								<br>
-									&nbsp;INICIO DE ACT : 01/12/1994 &nbsp;&nbsp; INSCRIP CONFER N° 011729 
-								</span>	
+									&nbsp;INICIO DE ACT : 01/12/1994 &nbsp;&nbsp; INSCRIP CONFER N° 011729
+								</span>
 							</td>
 						</tr>
 					</tbody>

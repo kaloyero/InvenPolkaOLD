@@ -59,7 +59,7 @@ var MovimientoInventario = new Class({
               translator.save(self.type, self.getForm());
               self.currentStatus="pedidoSalida";
               var numeroPedido=jQuery('.pedido').val();
-              var cantidadFilas=Math.ceil((jQuery("#listaArticulos").find("tr").length -1)/2);
+              //var cantidadFilas=Math.ceil((jQuery("#listaArticulos").find("tr").length -1)/2);
               jQuery.post("movimientoInventarios/reciboPdf/"+numeroPedido,function(){
 
 
