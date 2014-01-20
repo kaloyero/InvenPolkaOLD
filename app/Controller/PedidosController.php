@@ -124,11 +124,15 @@ class PedidosController extends AppController {
 				$PedidoDetalle= array('IdPedido' => $idInsertedPedido,
 									  'IdArticulo' => $det['IdArticulo'],
             						  'Cantidad' => $det['Cantidad']);
-				if (! $this->PedidoDetalle->saveall($PedidoDetalle)) {
-					$datasource->rollback();
-					$this->render('/General/Error');
-				}else{
-					$datasource->commit();
+				//Verifica que la cantidad del articulo solicitado sea mayor a cero					  
+				if ($PedidoDetalle['Cantidad'] > 0){									  
+					//Guarda, hace el insert
+					if (! $this->PedidoDetalle->saveall($PedidoDetalle)) {
+						$datasource->rollback();
+						$this->render('/General/Error');
+					}else{
+						$datasource->commit();
+					}
 				}
 			}
 		}

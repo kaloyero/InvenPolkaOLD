@@ -226,8 +226,14 @@ class MovimientoInventariosController extends AppController {
 									   'IdArticulo' => $det['IdArticulo'],
 									   'Cantidad' => $det['Cantidad']);
 					}
-				$this->MovimientoDetalleInventario->saveall($MovDetalle);
-				$this->balanceInventario($tipoMov,$MovDetalle);
+				//Si el detalle tiene Cantidad > 0
+				if ($MovDetalle['Cantidad'] > 0 ){
+					//Guarda el detalle
+					$this->MovimientoDetalleInventario->saveall($MovDetalle);
+					//
+					$this->balanceInventario($tipoMov,$MovDetalle);
+				}
+				
 			}
 		}
 	}
