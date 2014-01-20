@@ -61,9 +61,10 @@ class UsuariosController extends AppController {
 					//Si es un usuario de tipo arte obtengo el Proyecto relacionado					
 					if ($this->request->data['Usuario']['TipoRol'] == '3'){
 						$usProy = $consultasUs->getUsuarioProyecto($id);
-						print_r($usProy);
-						$this->request->data['Usuario']['IdUsuarioProyecto'] = $usProy['Id'];
-						$this->request->data['Usuario']['IdProyecto'] = $usProy['Proyecto'];
+						if ( !isset($usProy) ) {
+							$this->request->data['Usuario']['IdUsuarioProyecto'] = $usProy['Id'];
+							$this->request->data['Usuario']['IdProyecto'] = $usProy['Proyecto'];
+						}
 					}
 					
 			} else {
