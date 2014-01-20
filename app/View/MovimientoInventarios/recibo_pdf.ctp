@@ -36,7 +36,7 @@ $lastElement = end($detalles);
 $articulos.='<tr><td>'.$De['det']['Cantidad'].'</td><td>'.$De['art']['codigo'].'</td><td>'.$De['art']['codigo'].'</td><td>???</td></tr>';
  $i=$i+1;
 
-	if ($i==2 || $De==$lastElement){
+	if ($i==15 || $De==$lastElement){
 
       if ($i!=15){
 		$faltantes=15-$i;
