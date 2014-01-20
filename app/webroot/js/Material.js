@@ -37,7 +37,9 @@ var Material = new Class({
 			 return false;
 		});
         jQuery('.desactivar').bind("click", function(e) {
-            translator.delete(self.type,self.getSelectedRowId(this));
+            if (confirm("Seguro desea eliminar?")){
+                translator.delete(self.type,self.getSelectedRowId(this));
+            }
         })
 
 	},
