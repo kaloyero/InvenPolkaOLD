@@ -33,10 +33,10 @@ $lastElement = end($detalles);
 	foreach ($detalles as $De){
 
 
-$articulos.='<tr><td>'.$De['det']['Cantidad'].'</td><td>'.$De['art']['codigo'].'</td><td>'.$De['art']['codigo'].'</td><td>???</td></tr>';
+$articulos.='<tr><td>'.$De['det']['Cantidad'].'</td><td>'.$De['art']['descripcion'].'</td><td>'.$De['art']['codigo'].'</td><td></td></tr>';
  $i=$i+1;
 
-	if ($i==2 || $De==$lastElement){
+	if ($i==15 || $De==$lastElement){
 
       if ($i!=15){
 		$faltantes=15-$i;
@@ -57,51 +57,60 @@ $testHtml='
 					<tbody>
 						<tr>
 							<td>
-								<span style="font-size:26px;"><strong>Pol-ka &nbsp; &nbsp;</strong></span></td>
+								<span style="font-size:26px;"><strong>Pol-ka &nbsp; &nbsp;</strong></span>
+							</td>
 							<td>
-								<span style="font-size:26px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Traslado de Materiales</span></td>
+								<span style="font-size:26px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Traslado de Materiales</span>
+							</td>
 						</tr>
 						<tr>
 							<td>
-								<strong>Producciones</strong></td>
+								<strong>Depto de Logistica</strong>
+							</td>
 							<td>
-								&nbsp; &nbsp; &nbsp; &nbsp;  O.S.N LOG /N '.$pedidoId.'</td>
+								&nbsp; 
+							</td>
 						</tr>
 						<tr>
 							<td>
-								Depto de Logistica</td>
+								<strong>de Polka Producciones S.A</strong>
+							</td>							
 							<td>
-								&nbsp; &nbsp; &nbsp; &nbsp; Fecha :</td>
+								&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; O.S.N LOG /N° &nbsp;'.$pedidoId.'
+							</td>
 						</tr>
 						<tr>
 							<td>
-								<strong>de Polka Producciones S.A</strong></td>
+								<span style="font-size:9px;">Jorge Newbery 3039</span>
+							</td>	
 							<td>
-								&nbsp; &nbsp; &nbsp; &nbsp; Cuit : &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Ing Brutos Conv Mult:11111111111</td>
+								&nbsp;
+							</td>
 						</tr>
 						<tr>
 							<td>
-								Jorge Newbery 3039</td>
+								<span style="font-size:9px;">(C1426CYE) Capital Federal</span></td>
 							<td>
-								&nbsp; &nbsp; &nbsp; &nbsp; Inicio de Act : 01/01/1981 Inscrip Confer N0</td>
+								&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; Fecha : ..../..../........
+							</td>
 						</tr>
 						<tr>
 							<td>
-								(C1426CYE) Capital Federal</td>
+								<span style="font-size:9px;">Tel/Fax 4555-9137</span></td>
 							<td>
-								&nbsp;</td>
+								&nbsp;
+							</td>
 						</tr>
 						<tr>
 							<td>
-								Tel/Fax 4566766676</td>
+								<span style="font-size:9px;">IVA RESPONSABLE INSCRIPTO</span></td>
 							<td>
-								&nbsp;</td>
-						</tr>
-						<tr>
-							<td>
-								Iva Responsable Inscripto</td>
-							<td>
-								&nbsp;</td>
+								<span style="font-size:7px;"> 
+									C.U.I.T. : 30-67822531-9 &nbsp;&nbsp; ING BRUTOS CONV MULT: 901-905077-6
+								<br>
+									&nbsp;INICIO DE ACT : 01/12/1994 &nbsp;&nbsp; INSCRIP CONFER N° 011729 
+								</span>	
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -118,58 +127,60 @@ $testHtml='
 					<tbody>
 						<tr >
 							<td>
-								Solcitia : &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
+								Solcita : .............................................</td>
 							<td>
-								&nbsp;Responsable: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</td>
+								&nbsp;Responsable: ....................................</td>
 							<td>
-								Sector: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</td>
+								Sector: ...........................................</td>
 						</tr>
 						<tr>
 							<td>
-								Traslado Desde : &nbsp;(Lugar) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
+								Traslado Desde : (Lugar) ..................
+							</td>
 							<td>
-								&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</td>
+								...........................................................
+							</td>
 							<td>
-								Hora Citado: &nbsp; &nbsp; &nbsp;</td>
+								Hora Citado: .................................</td>
 						</tr>
 						<tr>
 							<td>
-								&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (Direccion) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</td>
+								&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (Direccion) ............</td>
 							<td>
-								&nbsp;</td>
+								...........................................................</td>
 							<td>
-								Hora Salida:</td>
+								Hora Salida:...................................</td>
 						</tr>
 						<tr>
 							<td >
-								&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Contacto Sr/Sra</td>
+								&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Contacto Sr/Sra .....</td>
 							<td>
-								&nbsp;</td>
+								...........................................................</td>
 							<td>
-								Hora Llegada:</td>
+								Hora Llegada:................................</td>
 						</tr>
 						<tr>
 							<td>
-								&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Hasta : &nbsp; (Lugar)</td>
+								&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Hasta : &nbsp; (Lugar) ..................</td>
 							<td>
-								&nbsp;</td>
+								...........................................................</td>
 							<td>
-								Hora Finalizacion:&nbsp;<br />
-								&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
+								Hora Finalizacion:.........................
+							</td>
 						</tr>
 						<tr>
 							<td>
-								&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (Direccion)</td>
+								&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (Direccion) ............</td>
 							<td>
-								&nbsp;</td>
+								...........................................................</td>
 							<td>
 								&nbsp;</td>
 						</tr>
 						<tr>
 							<td>
-								&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Contacto Sr/Sra</td>
+								&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Contacto Sr/Sra ....</td>
 							<td>
-								&nbsp;</td>
+								...........................................................</td>
 							<td>
 								&nbsp;</td>
 						</tr>
@@ -195,7 +206,7 @@ $testHtml='
 									Codigo
 									</th>
 									<th>
-									Estado
+									Estado / Obs.
 								  </th>
 								</tr>
 								</tbody>
@@ -349,7 +360,7 @@ $testHtml='
      </tr>
    </table>		   <table id="table3">
 	           <tr>
-	             <td> Devolucion por O.de S N Log / Blanco = Logistica chofer / Rosa Usuario / Amarillo Seguridad / Verde Archivo</td>
+	             <td> <span style="font-size:9px;">Devolucion por O.de S N Log / Blanco = Logistica chofer / Rosa = Usuario / Amarillo = Seguridad / Verde = Archivo</span></td>
 	           </tr>
 				</table>
 								';
