@@ -3,13 +3,16 @@ var SideBarController = new Class({
 
     },
     onOptionSelected: function(objectType){
+        this.removerBasuraPluginZoom();
     	translator.show(objectType);
     },
     onSearchSelected: function(objectType){
+        this.removerBasuraPluginZoom();
     	translator.showFinder(objectType);
     },
 
     bindMenuOptionsEvents:function() {
+
     	jQuery('.option').bind("click", function(e) {
     		var objectId=jQuery(this).attr("id");
     		sideBarController.onOptionSelected(objectId);
@@ -18,6 +21,10 @@ var SideBarController = new Class({
     		var objectId=jQuery(this).attr("id");
     		sideBarController.onSearchSelected(objectId);
     });
+
+    },
+    removerBasuraPluginZoom:function() {
+        jQuery('.zoomContainer').remove();
 
     }
 
