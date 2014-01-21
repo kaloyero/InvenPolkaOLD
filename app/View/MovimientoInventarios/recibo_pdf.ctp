@@ -32,9 +32,11 @@ $totalElementos=count($detalles);
 $lastElement = end($detalles);
 	foreach ($detalles as $De){
 
+   if ($De['det']['Cantidad']!=0){
+	$articulos.='<tr><td>'.$De['det']['Cantidad'].'</td><td>'.$De['art']['Descripcion'].'</td><td>'.$De['art']['codigo'].'</td><td></td></tr>';
+	 $i=$i+1;
+}
 
-$articulos.='<tr><td>'.$De['det']['Cantidad'].'</td><td>'.$De['art']['Descripcion'].'</td><td>'.$De['art']['codigo'].'</td><td></td></tr>';
- $i=$i+1;
 
 	if ($i==15 || $De==$lastElement){
 
