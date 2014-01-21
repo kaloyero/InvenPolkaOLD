@@ -16,7 +16,7 @@ echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5
 
 
 <?php
-echo $this->Form->input('MovimientoInventario.IdProyecto',array('type'=>'select','options'=>$proyectos,'empty'=>true,'required'=>true,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p><label  style="float: left;">Proyecto</label><span class="field float">','after'=>'</span>'));
+echo $this->Form->input('MovimientoInventario.IdProyecto',array('type'=>'select','required'=>'required','options'=>$proyectos,'empty'=>true,'required'=>true,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p><label  style="float: left;">Proyecto</label><span class="field float">','after'=>'</span>'));
 
 echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depositoOriginal','type'=>'select','options'=>$depositos,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'
                                 <label style="float: left;">Deposito</label>
