@@ -1,6 +1,6 @@
+<h4 class="widgettitle nomargin shadowed">Articulos</h4>
+<div class="widgetcontent bordered shadowed nopadding">
 <?php
-echo '<h4 class="widgettitle nomargin shadowed">Articulos</h4>';
-echo '<div class="widgetcontent bordered shadowed nopadding">';
 
 echo $this->Form->create('Articulo',array('type' => 'file','class' => 'stdform stdform2','inputDefaults' => array(
         'div' => array('class' => 'field')
@@ -9,6 +9,7 @@ echo $this->Form->create('Articulo',array('type' => 'file','class' => 'stdform s
 //echo $this->Form->input('filename',array('type'=>'file'));
 
 echo $this->Form->input('idFoto', array('type' => 'file', 'accept' =>'image/*','label' => false,'class'=>'uniform-file','div'=>array('class'=>'field uploader focus')));
+
 
 echo '<p><span id ="preview" class="field float"><img height="800px" width="800px" /></span></p>';
 

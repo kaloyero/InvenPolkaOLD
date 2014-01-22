@@ -53,6 +53,7 @@ var Render = new Class({
         jQuery('.uniform-file').uniform();
     	//Inicializo calendario
      	jQuery('.datepicker').datepicker({ dateFormat: 'dd-mm-yy' });
+	   	jQuery('.fechaActual').datepicker( "setDate", new Date());	
         this.bindAddEvents();
          },
     onView: function(data){
@@ -160,7 +161,7 @@ var Render = new Class({
                    });
 
           //Agregamos los Calendar
-         jQuery('.fecha').datepicker({ dateFormat: 'yy-mm-dd' });
+         jQuery('.fecha').datepicker({ dateFormat: 'yy-mm-dd' });		 
          },
       getSelectedRowId:function(selectedRow) {
           return jQuery(selectedRow).parent().parent().parent().parent().find(":first" ).text()

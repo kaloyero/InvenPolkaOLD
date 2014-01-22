@@ -39,6 +39,7 @@ var Pedido = new Class({
                  })
              }
 
+ 	   	 jQuery('.fecha').datepicker( "setDate", new Date());	
      	});
 
 

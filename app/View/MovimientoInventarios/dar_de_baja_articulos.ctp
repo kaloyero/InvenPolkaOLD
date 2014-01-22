@@ -11,7 +11,7 @@ echo $this->Form->create('MovimientoInventario',array('class' => 'stdform stdfor
 								'after'=>'</span>'));*/
 
 
-echo '<p><label style="float: left;">Fecha de Baja</label><span class="field float"><input class="input-small fecha" type="text" name="data[MovimientoInventario][Fecha]" required="required" /><small><em> yyyy / mm / dd</em></small></span>';
+echo '<p><label style="float: left;">Fecha de Baja</label><span class="field float"><input class="input-small fecha" type="text" name="data[MovimientoInventario][Fecha]" required="required" /><small><em> año / mes / dia</em></small></span>';
 
 echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5','div'=>false,'label'=>false,'before'=>'<p>
                                 <label style="float: left;">Comentarios</label>

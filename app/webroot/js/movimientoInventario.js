@@ -30,6 +30,7 @@ var MovimientoInventario = new Class({
                	return false;
           })
           jQuery('.fecha').datepicker({ dateFormat: 'yy-mm-dd' });
+		  jQuery('.fecha').datepicker( "setDate", new Date());
 
         },
      creaarRecibo:function(numeroPedido){
@@ -59,6 +60,7 @@ var MovimientoInventario = new Class({
    	})
    	//Se setea la fecha del dia,en este caso,solo se va a setear en la pantalla de despacho,porque busca un id,que solo tiene la view de despacho
    	jQuery('#fechaDespacho').datepicker( "setDate", new Date());
+    jQuery('.fecha').datepicker( "setDate", new Date());
 
     jQuery('.asignar').bind("click", function(e) {
          //Si pasa la validacion,salvamos
