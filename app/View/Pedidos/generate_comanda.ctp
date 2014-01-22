@@ -16,7 +16,7 @@ $tcpdf->AddPage();
 // Now you position and print your page content
 // example:
 $tcpdf->SetTextColor(0, 0, 0);
-$tcpdf->SetFont($textfont,'B',20);
+$tcpdf->SetFont($textfont,'B',10);
 //$tcpdf->Cell(0,14, "Hello WorldAle", 0,1,'L');
 
 //$lefthtml = '<b>Date: </b>HOY <img style="width:150px; height:150px;border-style:solid;border-width:3px;" src="http://localhost/InvenPolka/app/webroot/files/articulo/idFoto/94/small_Screen-shot-2011-11-11-at-7.55.07-PM.png" alt="CakePHP">';
@@ -34,7 +34,7 @@ if ($i==6 ) {
         $i=1;
 }
 
-$lefthtml.='<td width="100"><img style="width:80px; height:80px;border-style:solid;border-width:3px;" src="http://localhost:8080/InvenPolka/app/webroot/files/articulo/idFoto/'.$De["det"]["IdArticulo"].'/small_'.$De["art"]["idFoto"].'"><p align="center">'.$De['art']['codigo'].'</p><span align="center">'.$De['det']['Cantidad'].'    .....</p></td>';
+$lefthtml.='<td width="100"><img style="width:80px; height:80px;border-style:solid;border-width:0px;" src="http://localhost:8080/InvenPolka/app/webroot/files/articulo/idFoto/'.$De["det"]["IdArticulo"].'/small_'.$De["art"]["idFoto"].'"><p align="center">'.$De['art']['codigo'].'</p><span align="center">'.$De['det']['Cantidad'].'    .....</p></td>';
 
 
 }
@@ -48,20 +48,19 @@ $html = <<<EOF
   h1 {
     color: navy;
     font-family: times;
-    font-size: 24pt;
+    font-size: 14pt;
     text-decoration: underline;
   }
   p {
     color: blue;
-        margin-top: 0px;
-        margin-bottom: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
     font-family: helvetica;
     font-size: 10pt;
   }
 </style>
 <body>
-<h1>Listado de pedido</i></h1>
-<p>      </p>
+<h1><i>Listado de Articulos del Pedido $idPedidoComanda</i></h1>
 <br>
 $lefthtml
 </body>
@@ -69,7 +68,7 @@ EOF;
 
 $tcpdf->SetY(0);
 $tcpdf->SetTextColor(0, 0, 0);
-$tcpdf->SetFont('times', '', 12);
+$tcpdf->SetFont('times', '', 10);
 $tcpdf->writeHTML($html, true, false, true, false, '');
 
 
@@ -82,6 +81,6 @@ $tcpdf->writeHTML($html, true, false, true, false, '');
 // see the TCPDF examples
 
 //echo $tcpdf->Output('C:\\invoices\filename.pdf', 'I');
-echo $tcpdf->Output('Comanda.pdf', 'D');
+echo $tcpdf->Output('Comanda_'.$idPedidoComanda.'.pdf', 'D');
 
 ?>

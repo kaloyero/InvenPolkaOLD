@@ -102,7 +102,7 @@ class PedidosController extends AppController {
 	public function generateComanda($id = null) {
 		$model = new ConsultasSelect();
 		$detalles = $model->getDetallesPedidoByIdPedido($id);
-
+		$this->set('idPedidoComanda',$id);
 		$this->set('detalles',$detalles);
 		$this->response->type('application/pdf');
 		$this->layout = 'pdf'; //this will use the pdf.ctp layout
