@@ -33,8 +33,8 @@ foreach ($Pedido as $Pe){
 	<thead>
 					<tr>
                         <th>Codigo Articulo</th>
-                        <th>Cantidad</th>
                         <th>Descripcion</th>
+                        <th>Cantidad</th>                        
                         <th>Imagen</th>
 		            </tr>
 	</thead>

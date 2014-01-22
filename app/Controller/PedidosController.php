@@ -102,7 +102,6 @@ class PedidosController extends AppController {
 	public function generateComanda($id = null) {
 		$model = new ConsultasSelect();
 		$detalles = $model->getDetallesPedidoByIdPedido($id);
-
 		$this->set('detalles',$detalles);
 		$this->set('pedidoId',$id);
 		$this->response->type('application/pdf');

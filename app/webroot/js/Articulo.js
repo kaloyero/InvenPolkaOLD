@@ -392,7 +392,7 @@ var Articulo = new Class({
 
         for(i=0; i< data.length; i++) {
             var htmlDiv="";
-            htmlDiv +='<div  class="infoShow">'+data[i]["_aData"][2]+'<input type="checkbox" name="option3"> '+data[i]["_aData"][1];
+            htmlDiv +='<div class="infoShow">'+data[i]["_aData"][2]+'<input type="checkbox" name="option3"> '+data[i]["_aData"][1];
 
             //Preguntamos si estan los botones antes de ponerlos (Por ahi esta conectado un usuario que no le haya venido el boton para usar)
             if (data[i]["_aData"][11])

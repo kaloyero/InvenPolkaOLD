@@ -1,5 +1,5 @@
 <?php
-echo '<h4 class="widgettitle nomargin shadowed">Devolución de ArticulosvPor Pedido</h4>';
+echo '<h4 class="widgettitle nomargin shadowed">Devolución de Articulos Por Pedido</h4>';
 echo '<div class="widgetcontent bordered shadowed nopadding">';
 
 echo $this->Form->create('MovimientoInventario',array('class' => 'stdform stdform2','inputDefaults' => array(
@@ -62,6 +62,7 @@ echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depos
         <tr>
             <th>Codigo Articulo</th>
             <th>Descripcion</th>
+            <th>Cantidad Solicitada</th>
             <th>Cantidad Recibida</th>
             <th>Cantidad Disponible</th>            
             <th>Cantidad a Devolver</th>
@@ -87,6 +88,7 @@ echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depos
                 <?php echo $articulo['art']['codigo']; ?>
             </td>
             <td><?php echo $articulo['art']['Descripcion']; ?></td>
+            <td><?php echo $articulo['pdt']['CantidadPedido']; ?></td>            
             <td><?php echo $articulo['det']['CantidadEntregada']; ?></td>
             <td>(<?php echo $articulo['inv']['CantidadStock']; ?>)</td>            
             <td>
