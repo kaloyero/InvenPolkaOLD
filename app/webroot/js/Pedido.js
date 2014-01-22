@@ -8,21 +8,22 @@ var Pedido = new Class({
     },
      onSaved:function() {
          this.parent();
-          translator.show("pedido");
+          translator.show("articulo");
      },
 
     onAdd: function(data){
         this.cleanCanvas();
         jQuery(".contentinner").append(data);
         this.bindAddEvents();
-		this.makeAddTable();
-		this.drawHeader();
+		//this.makeAddTable();
+		//this.drawHeader();
     },
      bindAddEvents:function() {
         var self=this;
         this.parent();
         jQuery('.agregarOtro').bind("click", function(e) {
              articuloRender.setContext("pedidos");
+             self.saveTableStatus();
              translator.show('articulo');
      		return false;
      	})
@@ -40,7 +41,6 @@ var Pedido = new Class({
              }
 
      	});
-
 
      	jQuery('input[type=number]').bind("change", function(e) {
             articuloRender.currentSelectedArticulos[self.getIdFromSelectedNumberType(this)]=jQuery(this).val();

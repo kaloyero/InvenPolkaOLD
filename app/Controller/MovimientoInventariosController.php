@@ -233,7 +233,7 @@ class MovimientoInventariosController extends AppController {
 					//
 					$this->balanceInventario($tipoMov,$MovDetalle);
 				}
-				
+
 			}
 		}
 	}

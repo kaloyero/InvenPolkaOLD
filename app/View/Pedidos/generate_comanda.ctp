@@ -82,6 +82,7 @@ $tcpdf->writeHTML($html, true, false, true, false, '');
 // see the TCPDF examples
 
 //echo $tcpdf->Output('C:\\invoices\filename.pdf', 'I');
-echo $tcpdf->Output('Comanda.pdf', 'D');
+$nombreComanda='Comanda'.$pedidoId.'.pdf';
+echo $tcpdf->Output($nombreComanda, 'D');
 
 ?>

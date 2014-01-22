@@ -104,6 +104,7 @@ class PedidosController extends AppController {
 		$detalles = $model->getDetallesPedidoByIdPedido($id);
 
 		$this->set('detalles',$detalles);
+		$this->set('pedidoId',$id);
 		$this->response->type('application/pdf');
 		$this->layout = 'pdf'; //this will use the pdf.ctp layout
 		$this->render();
