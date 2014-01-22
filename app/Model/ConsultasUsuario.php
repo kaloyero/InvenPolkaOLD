@@ -105,7 +105,7 @@ class ConsultasUsuario extends AppModel {
 			//Si el usuario es de tipo arte (id =3) seteo el Proyecto asociado
 			if ($us['Rol'] == '3'){
 				$proy = $this->getUsuarioProyecto($us['id']);
-				if (!isset($proy)){
+				if (! empty($proy)){
 					$us['Proyecto'] = $proy['Proyecto'];
 				} else {
 					//no tiene usuario asignado

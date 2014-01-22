@@ -349,11 +349,12 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 		$query="
 	SELECT
 		`det`.`id` AS  `IdDetalleMovimiento`, `det`.`IdArticulo` AS  `IdArticulo` ,  `det`.`Cantidad` AS  `CantidadEntregada` ,
-		`inv`.`Disponibilidad` AS  `CantidadStock` ,
+		`inv`.`Disponibilidad` AS  `CantidadStock` ,`pdt`.`Cantidad` AS  `CantidadPedido`,
 		`art`.`Descripcion` AS  `Descripcion` ,  `art`.`dir` AS  `dir` , `art`.`idFoto` AS  `idFoto` ,`art`.`CodigoArticulo` AS  `codigo`
 	FROM  `movimiento_detalle_inventarios` AS  `det`
 		LEFT JOIN  `articulos`  `art` ON (  `det`.`IdArticulo` =  `art`.`id` )
 		LEFT JOIN  `inventarios`  `inv` ON (`det`.`IdArticulo` =  `inv`.`IdArticulo` AND `inv`.`IdProyecto` = '".$idProyecto."')
+		LEFT JOIN  `pedido_detalles`  `pdt` ON (  `det`.`IdArticulo` =  `pdt`.`IdArticulo` AND  `pdt`.`IdPedido` =  '".$idPedido."' ) 
 	WHERE
 		`det`.`IdMovimientoInventario` IN (SELECT id FROM  `movimiento_inventarios` WHERE  `idPedido` =  '".$idPedido."' AND  `TipoMovimiento` =  'P')";
 
