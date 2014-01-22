@@ -21,7 +21,7 @@ var ComponentTranslator = new Class(
 					}
 				},param);
 			},
-			
+
 			showFinder : function(objectType) {
 				serverManager.showFinder({
 					object : objectType,
@@ -61,14 +61,19 @@ var ComponentTranslator = new Class(
 					}
 				});
 			},
-			save : function(objectType,formData) {
+			save : function(objectType,formData,callback) {
 				serverManager.save({
 					object : objectType,
 					data:formData,
 					onSuccess : function(data) {
-					    messageRender.createMessage(data);
-					     var renderInstace = renderTranslator.getRender(objectType);
-    					    renderInstace.onSaved(data);
+					    if (callback){
+					         callback();
+					    }else{
+					         messageRender.createMessage(data);
+                            var renderInstace = renderTranslator.getRender(objectType);
+            			    renderInstace.onSaved(data);
+					    }
+
 					}
 				});
 			},

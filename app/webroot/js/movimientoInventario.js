@@ -32,6 +32,13 @@ var MovimientoInventario = new Class({
           jQuery('.fecha').datepicker({ dateFormat: 'yy-mm-dd' });
 
         },
+     creaarRecibo:function(numeroPedido){
+         var self=this;
+           jQuery.post("movimientoInventarios/reciboPdf/"+numeroPedido,function(){
+                    window.open("app/webroot/Recibo"+numeroPedido+".pdf", '_blank')
+                    self.onSaved();
+           })
+     },
      bindAddEvents:function() {
          //En caso de que use el volver,a este Render,le asignamos la tabla de articulos,ya que este no usa ningun listado para volver
          //this.oTable=articuloRender.oTable;
@@ -56,27 +63,11 @@ var MovimientoInventario = new Class({
     jQuery('.asignar').bind("click", function(e) {
          //Si pasa la validacion,salvamos
          if (self.getForm().valid()){
-              translator.save(self.type, self.getForm());
+             var numeroPedido=jQuery('.pedido').val();
+
+              translator.save(self.type, self.getForm(),function(){self.creaarRecibo(numeroPedido)});
               self.currentStatus="pedidoSalida";
-              var numeroPedido=jQuery('.pedido').val();
-              //var cantidadFilas=Math.ceil((jQuery("#listaArticulos").find("tr").length -1)/2);
-              jQuery.post("movimientoInventarios/reciboPdf/"+numeroPedido,function(){
-
-
-                  //for (var i=0;i<cantidadFilas;i++)
-                 // {
-                       window.open("app/webroot/Recibo"+numeroPedido+".pdf", '_blank')
-                 // }
-                  //window.open("app/webroot/Recibo"+numeroPedido+"-1.pdf", '_blank')
-
-
-                   //jQuery.fileDownload("app/webroot/Recibo"+numeroPedido+".pdf")
-                        //.done(function () { alert('File download a success!'); })
-                        //.fail(function () { alert('File download failed!'); });
-              })
-
-
-               self.addLoader();
+              self.addLoader();
          }
          //Este false,hace que el form,no se submitee sin Ajax,osea,de la accion propia del boton submit
          return false;

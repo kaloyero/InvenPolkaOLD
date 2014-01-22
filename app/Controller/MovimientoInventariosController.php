@@ -44,7 +44,7 @@ class MovimientoInventariosController extends AppController {
 		$articulos = $consultasSelect->getDetallesPedidoByIdPedido($idPedido);
 		$this->set('artis',$articulos);
 	}
-	
+
 	private function getListaArticulosDePedidosAdevolver($idPedido,$idProyecto){
 		$consultasSelect = new ConsultasSelect();
 		$articulos = $consultasSelect->getDetallesPedidoAdevolverByIdPedido($idPedido,$idProyecto);
@@ -182,11 +182,11 @@ class MovimientoInventariosController extends AppController {
 		foreach ($listDetalle as &$detalle) {
 			foreach ($detalle as &$det) {
 				if ($det['Cantidad'] > 0){
-					$existArts = true ; 
+					$existArts = true ;
 				}
 			}
 			if ($existArts){
-				 break; 
+				 break;
 			}
 		}
 		return $existArts;
@@ -314,7 +314,7 @@ class MovimientoInventariosController extends AppController {
 
 	public function reciboPdf($id = null) {
 		$model = new ConsultasSelect();
-		$detalles = $model->getDetallesPedidoByIdPedido($id);
+		$detalles = $model->getDetallesPedidoByIdMovimiento($id);
 
 		$this->set('detalles',$detalles);
 		$this->set('pedidoId',$id);

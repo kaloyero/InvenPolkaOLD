@@ -40,7 +40,7 @@ class ConsultasSelect extends AppModel {
 		$proyectos=$model->query("select * from `proyectos` where `Inactivo` like 'F'; ");
 		return $proyectos;
 	}
-	
+
 ////////////////////////////// {FIN} PROYECTOS //////////////////////////////
 
 /********************************************************************************\
@@ -325,19 +325,36 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 		return $pedidos;
 	}
 
+		function getDetallesPedidoByIdMovimiento($id) {
+			$model=new Proyecto();
+	       $queryGetIdMovimiento="SELECT  `mov`.`id` AS  `IdMovimiento` FROM  `movimiento_inventarios` AS  `mov` WHERE `mov`.`IdPedido` ='".$id."';";
+			$resultIdMovimiento=$model->query($queryGetIdMovimiento);
+			$query="SELECT  `det`.`id` AS  `IdDetalle`, `det`.`IdArticulo` AS  `IdArticulo` ,  `det`.`Cantidad` AS  `Cantidad` ,  `art`.`Descripcion` AS  `Descripcion` ,  `art`.`dir` AS  `dir` , `art`.`idFoto` AS  `idFoto` ,`art`.`CodigoArticulo` AS  `codigo`
+	FROM  `movimiento_detalle_inventarios` AS  `det`
+	INNER JOIN  `articulos`  `art` ON (  `det`.`IdArticulo` =  `art`.`id` )
+	WHERE  `det`.`IdMovimientoInventario` ='".$resultIdMovimiento[0]['mov']['IdMovimiento']."';";
+			$pedidos=$model->query($query);
+
+			return $pedidos;
+		}
+
+
+
+
+
 	/* Este metodo devuelve los articulos de un pedido. Se fija si alguno de estos articulos fue devuelto. */
 	function getDetallesPedidoAdevolverByIdPedido($idPedido,$idProyecto) {
 		$model=new Proyecto();
-		
+
 		$query="
-	SELECT  
+	SELECT
 		`det`.`id` AS  `IdDetalleMovimiento`, `det`.`IdArticulo` AS  `IdArticulo` ,  `det`.`Cantidad` AS  `CantidadEntregada` ,
-		`inv`.`Disponibilidad` AS  `CantidadStock` ,  
+		`inv`.`Disponibilidad` AS  `CantidadStock` ,
 		`art`.`Descripcion` AS  `Descripcion` ,  `art`.`dir` AS  `dir` , `art`.`idFoto` AS  `idFoto` ,`art`.`CodigoArticulo` AS  `codigo`
 	FROM  `movimiento_detalle_inventarios` AS  `det`
 		LEFT JOIN  `articulos`  `art` ON (  `det`.`IdArticulo` =  `art`.`id` )
 		LEFT JOIN  `inventarios`  `inv` ON (`det`.`IdArticulo` =  `inv`.`IdArticulo` AND `inv`.`IdProyecto` = '".$idProyecto."')
-	WHERE  
+	WHERE
 		`det`.`IdMovimientoInventario` IN (SELECT id FROM  `movimiento_inventarios` WHERE  `idPedido` =  '".$idPedido."' AND  `TipoMovimiento` =  'P')";
 
 		$articulos=$model->query($query);
@@ -499,15 +516,15 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 
 		$cantProyecto = $cantProyecto[0];
 		$total = $total[0];
-		
+
 		if ($total <> 0){
 			$porcen = ($cantProyecto[0]['cantidad'] * 100) / $total[0]['cantidad'];
 		} else {
 			$porcen =  0;
 		}
-		
+
 		$porcen =  100 - $porcen;
-		
+
 		return $porcen;
 	}
 	//

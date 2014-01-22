@@ -99,7 +99,7 @@ class PedidosController extends AppController {
 		}
 	}
 
-	public function generatePedidoPdf($id = null) {
+	public function generateComanda($id = null) {
 		$model = new ConsultasSelect();
 		$detalles = $model->getDetallesPedidoByIdPedido($id);
 
@@ -124,8 +124,8 @@ class PedidosController extends AppController {
 				$PedidoDetalle= array('IdPedido' => $idInsertedPedido,
 									  'IdArticulo' => $det['IdArticulo'],
             						  'Cantidad' => $det['Cantidad']);
-				//Verifica que la cantidad del articulo solicitado sea mayor a cero					  
-				if ($PedidoDetalle['Cantidad'] > 0){									  
+				//Verifica que la cantidad del articulo solicitado sea mayor a cero
+				if ($PedidoDetalle['Cantidad'] > 0){
 					//Guarda, hace el insert
 					if (! $this->PedidoDetalle->saveall($PedidoDetalle)) {
 						$datasource->rollback();
@@ -153,7 +153,7 @@ class PedidosController extends AppController {
 		} else {
 			$this->set('proyectos',$consultasSelect ->getProyectos());
 		}
-		
+
 	}
 
 	function confirmarPedido($id = null) {
