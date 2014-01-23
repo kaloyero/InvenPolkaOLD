@@ -407,7 +407,7 @@ $articulos="";
 	}
 }
 
-$tcpdf->Output($nombreRecibo, 'F');
+$tcpdf->Output("recibos/".$nombreRecibo, 'F');
 
 
 

@@ -113,6 +113,8 @@ var Render = new Class({
          });
 
          jQuery('.volver').bind("click", function(e) {
+             console.log("ENTRAAAVOLV")
+
                  self.saveTableStatus();
                  translator.show(appStatus.activeList);
                });
@@ -178,13 +180,14 @@ var Render = new Class({
        },
        makeDatatable:function() {
            var self=this;
+           console.log("IN",appStatus.startTablein,"LE",appStatus.showRowsByPage)
             appStatus.oTable=   jQuery('#configurationTable').dataTable({
                            "bProcessing": true,
                            "bServerSide": true,
-                           "iDisplayStart": self.startTablein,
-                           "DisplayLength":self.showRowsByPage,
+                           "iDisplayStart": appStatus.startTablein,
+                           "DisplayLength":appStatus.showRowsByPage,
 						   "aLengthMenu": [10, 25, 50, 100, 150, 200],
-						   "iDisplayLength":[100],
+						   "iDisplayLength":[10],
                            "bPaginate": true,
 						   "bFiltered": true,
                            "sPaginationType": "full_numbers",
@@ -286,12 +289,12 @@ var Render = new Class({
           this.setValidationMessage();
       },
       saveTableStatus:function(){
-          this.startTablein=appStatus.oTable.fnSettings()._iDisplayStart;
-          this.showRowsByPage=appStatus.oTable.fnSettings()._iDisplayLength;
+          appStatus.startTablein=appStatus.oTable.fnSettings()._iDisplayStart;
+          appStatus.showRowsByPage=appStatus.oTable.fnSettings()._iDisplayLength;
         },
       resetTableStatus:function(){
-            this.startTablein=0;
-            this.showRowsByPage=10;
+            appStatus.startTablein=0;
+            appStatus.showRowsByPage=100;
         }
 
 });

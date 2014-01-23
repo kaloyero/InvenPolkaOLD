@@ -16,22 +16,29 @@ var Articulo = new Class({
     getContext:function() {
         return this.context;
     },
+    removerBasuraPluginZoom:function() {
+          jQuery('.zoomContainer').remove();
+      },
     bindListEvents:function() {
           var self=this;
 		  this.parent();
           jQuery('.crearPedido').bind("click", function(e) {
+                self.removerBasuraPluginZoom();
 				translator.add("pedido",self.getDataToSendInJsonFormat());
                	return false;
           })
           jQuery('.asignarDepo').bind("click", function(e) {
+                self.removerBasuraPluginZoom();
 				translator.addMovimiento("movimientoInventario",self.getDataToSendInJsonFormat(),"ingresoDeArticulos");
                	return false;
           })
           jQuery('.devolucionArt').bind("click", function(e) {
+                self.removerBasuraPluginZoom();
 				translator.addMovimiento("movimientoInventario",self.getDataToSendInJsonFormat(),"devolucionDeArticulos");
                	return false;
           })
           jQuery('.deleteArt').bind("click", function(e) {
+                self.removerBasuraPluginZoom();
 				translator.addMovimiento("movimientoInventario",self.getDataToSendInJsonFormat(),"darDeBajaArticulos");
                	return false;
           })
