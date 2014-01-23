@@ -247,10 +247,10 @@ class MovimientoInventariosController extends AppController {
 			switch ($tipoMov) {
 				case 'P':
 					$proyecto = $this->request->data['MovimientoInventario']['IdProyecto'];
-					//Descuento del deposito la cantidad del articulo
-					$consultas ->restaInventarioEnDeposito($articulo,$deposito,$cantidad);
 					//Inserto/modifico al inventario que el proyecto tiene X cantidad de ese articulo
 					$consultas ->sumaInventarioEnProyecto($articulo,$deposito,$proyecto,$cantidad);
+					//Descuento del deposito la cantidad del articulo
+					$consultas ->restaInventarioEnDeposito($articulo,$deposito,$cantidad);
 					break;
 				case 'D':
 					$proyecto = $this->request->data['MovimientoInventario']['IdProyecto'];

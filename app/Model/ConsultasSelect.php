@@ -631,22 +631,29 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 		}
 
 //		if ( (!empty($proyecto)) && $total < 1){
+		print_r("-1-");
 		if ($total < 1){
+			print_r("-2-");
 			//Verifico si voy a eliminar articulo de Deposito		
 			if ($proyecto == NULL){
+				print_r("-3-");
 				//Si elimino del Inventario verifico que el articulo no exista en algún proyecto.	
 				if($this->existeStockEnProyecto($articulo,$deposito)){
+					print_r("-4-");
 					//Si existe en algun proyecto pongo stock en cero
 					$model->updateAll(array('Disponibilidad'=>$total), $conditions);		
 				} else {
+					print_r("-5-");
 					//Si no lo borro
 					$model->deleteAll($conditions);
 				}
 			} else {
+				print_r("-6-");
 				//Si no tengo stock en el proyecto lo borro
 				$model->deleteAll($conditions);
 			}
 		} else {
+			print_r("-7-");
 			//Actualizo el stock
 			$model->updateAll(array('Disponibilidad'=>$total), $conditions);
 		}
