@@ -4,7 +4,7 @@
 	<?php $privis = $this->Session->read("privilegios"); ?>
 
 	<?php if (! empty($privis['addArticulo'])) { ?>
-		<button id="add" class="btn" tooltip = "<?php echo $privis['addArticulo']['ayuda'] ?>"><?php echo $privis['addArticulo']['nombre'] ?></button>
+		<button id="addArticulo" class="btn" tooltip = "<?php echo $privis['addArticulo']['ayuda'] ?>"><?php echo $privis['addArticulo']['nombre'] ?></button>
 	<?php } ?>
 	<?php if (! empty($privis['addCrearPed'])) { ?>
 		<button class="btn btn-primary crearPedido " disabled="true" tooltip = "<?php echo $privis['addCrearPed']['ayuda'] ?>"><?php echo $privis['addCrearPed']['nombre'] ?></button>
