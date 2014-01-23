@@ -42,7 +42,7 @@ echo $this->Form->input('Articulo.IdEstilo',array('type'=>'select','empty'=>fals
 
 echo "<p><label style='float: left;'>Inventario :</label></p>";
 
-echo $this->Form->input('Inventario.Disponibilidad',array('class'=>'input-medium','type' => 'number','required','value'=>'0','min'=>'0','div'=>false,'label'=>false,'before'=>'<p>
+echo $this->Form->input('Inventario.Disponibilidad',array('class'=>'input-medium','type' => 'number','required','value'=>'1','min'=>'0','div'=>false,'label'=>false,'before'=>'<p>
                                                                                                 <label  style="float: left;">Stock Inicial</label>
                                                                                                 <span class="field float">',
                                                                                                                                 'after'=>'</span>'));

@@ -398,7 +398,7 @@ $tcpdf->writeHTML($html, true, false, true, false, '');
 // ...
 // etc.
 // see the TCPDF examples
- $nombreRecibo='Recibo'.$pedidoId.'.pdf';
+ $nombreRecibo='Recibo_'.$pedidoId.'.pdf';
 //$nombreRecibo2='ReciboA'.$pedidoId.'.pdf';
 //$tcpdf->Output($nombreRecibo2, 'F');
 $articulos="";
@@ -407,7 +407,7 @@ $articulos="";
 	}
 }
 
-$tcpdf->Output("recibos/".$nombreRecibo, 'F');
+$tcpdf->Output("/files/recibos/".$nombreRecibo, 'F');
 
 
 
