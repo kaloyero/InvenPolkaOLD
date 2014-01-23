@@ -12,7 +12,7 @@ echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5
 //echo $this->Form->input('Fecha',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
 //								                                <label>Fecha</label>
 
-echo '<p><label style="float: left;">Fecha Empaquetado</label><span class="field float"><input class="input-small fecha" type="text" 	name="data[MovimientoInventario][Fecha]" required="required" /><small><em> año / mes / dia</em></small></span>';
+echo '<p><label style="float: left;">Fecha Empaquetado</label><span class="field float"><input class="input-small fecha " type="text" 	name="data[Pedido][Fecha]" required="required" /><small><em> año / mes / dia</em></small></span>';
 
 	//Obtengo datos del usuario
 	$usuario = $this->Session->read("usuario");

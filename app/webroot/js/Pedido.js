@@ -40,7 +40,6 @@ var Pedido = new Class({
                  })
              }
 
- 	   	 jQuery('.fecha').datepicker( "setDate", new Date());	
      	});
 
      	jQuery('input[type=number]').bind("change", function(e) {
