@@ -187,7 +187,7 @@ var Render = new Class({
                            "iDisplayStart": appStatus.startTablein,
                            "DisplayLength":appStatus.showRowsByPage,
 						   "aLengthMenu": [10, 25, 50, 100, 150, 200],
-						   "iDisplayLength":[10],
+						   "iDisplayLength":[100],
                            "bPaginate": true,
 						   "bFiltered": true,
                            "sPaginationType": "full_numbers",
