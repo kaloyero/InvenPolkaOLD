@@ -67,7 +67,7 @@ $testHtml='
 						</tr>
 						<tr>
 							<td>
-								<strong>Depto de Logistica</strong>
+								<strong>Depto de Arte</strong>
 							</td>
 							<td>
 								&nbsp;
@@ -398,7 +398,7 @@ $tcpdf->writeHTML($html, true, false, true, false, '');
 // ...
 // etc.
 // see the TCPDF examples
- $nombreRecibo='Recibo_'.$pedidoId.'.pdf';
+ $nombreRecibo='Remito_'.$pedidoId.'.pdf';
 //$nombreRecibo2='ReciboA'.$pedidoId.'.pdf';
 //$tcpdf->Output($nombreRecibo2, 'F');
 $articulos="";

@@ -73,7 +73,7 @@
     <div class="leftpanel" style="margin-left: 0px;">
 
         <div class="logopanel animate0 fadeInUp">
-                <h1><a href="dashboard.html">Pol-ka <span>v1.0</span></a></h1>
+                <h1><a href="dashboard.html">Pol-ka <span>Arte</span></a></h1>
         </div><!--logopanel-->
 
 <?php

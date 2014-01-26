@@ -333,7 +333,7 @@ private function getDataDefaultQueryInventario($tabla,$aColumns,$aColumnsFilter,
 			if ($where == "DEPOSITO"){
 				$sWhere = " Where `id_proyecto` is Null AND ";
 			} else {
-				$sWhere = " Where `id_proyecto` LIKE  '6' AND ";
+				$sWhere = " Where `id_proyecto` LIKE  '".$where."' AND ";
 			}
 		}
 		/*BUSQUEDA*/
