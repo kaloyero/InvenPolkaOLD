@@ -294,8 +294,17 @@ class ConsultasSelect extends AppModel {
 	function getPedidoById($id) {
 		$model=new Proyecto();
 		$pedidos=$model->query("SELECT * FROM `pedidos_vista` WHERE id = '".$id."';");
-
-		return $pedidos;
+		$pedido = array();
+		foreach ($pedidos as $pe){
+			$pedido['id'] =	$pe['pedidos_vista']['id'];
+			$pedido['Numero'] =	$pe['pedidos_vista']['Numero'];
+			$pedido['Fecha'] =	$pe['pedidos_vista']['Fecha'];
+			$pedido['Descripcion'] =	$pe['pedidos_vista']['Descripcion'];
+			$pedido['estado'] =	$pe['pedidos_vista']['estado'];
+			$pedido['id_proyecto'] =	$pe['pedidos_vista']['id_proyecto'];
+			$pedido['proyecto'] =	$pe['pedidos_vista']['proyecto'];
+		}
+		return $pedido;
 	}
 	function getMovimientoById($id) {
 		$model=new Proyecto();

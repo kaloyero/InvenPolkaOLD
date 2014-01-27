@@ -61,10 +61,10 @@ class PedidosHistoController extends AppController {
 		$model = new ConsultasSelect();
 		$this->Pedido->id = $id;
 		if ($this->request->is('get')) {
-			$pedido = $model->getPedidoById($id);
+			$pe = $model->getPedidoById($id);
 			$detalles = $model->getDetallesPedidoByIdPedido($id);
 			$this->set('Detalles',$detalles);
-			$this->set('Pedido',$pedido);
+			$this->set('Pe',$pe);
 			//$this->set('Detalles',$pedido);
 		} else {
 			$this->confirmar($id);

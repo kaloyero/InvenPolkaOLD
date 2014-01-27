@@ -92,7 +92,7 @@ class PedidosController extends AppController {
 			$pedido = $model->getPedidoById($id);
 			$detalles = $model->getDetallesPedidoByIdPedido($id);
 			$this->set('Detalles',$detalles);
-			$this->set('Pedido',$pedido);
+			$this->set('Pe',$pedido);
 			//$this->set('Detalles',$pedido);
 		} else {
 			$this->confirmar($id);
@@ -103,6 +103,8 @@ class PedidosController extends AppController {
 		$model = new ConsultasSelect();
 		$detalles = $model->getDetallesPedidoByIdPedido($id);
 		$this->set('detalles',$detalles);
+		$pedido = $model->getPedidoById($id);
+		$this->set('pedido',$pedido);
 		$this->set('pedidoId',$id);
 		$this->response->type('application/pdf');
 		$this->layout = 'pdf'; //this will use the pdf.ctp layout

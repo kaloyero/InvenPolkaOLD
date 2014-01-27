@@ -23,6 +23,12 @@ $tcpdf->SetFont($textfont,'B',10);
 
 //$tcpdf->Image('http://localhost/InvenPolka/app/webroot/files/articulo/idFoto/94/small_Screen-shot-2011-11-11-at-7.55.07-PM.png', '', '', 40, 40, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
 
+
+$encabezado = "	Proyeco: <c>".$pedido['proyecto']."</c>
+			   	Fecha de Emisión: <c>".$pedido['Fecha']."</c>
+			   	Estado: <c>".$pedido['estado']."</c>
+				Descripción: <c>".$pedido['Descripcion']."</c>";
+
 $lefthtml='<table ><tr>';
 $i=0;
         foreach ($detalles as $De){
@@ -34,7 +40,7 @@ if ($i==6 ) {
         $i=1;
 }
 
-$lefthtml.='<td width="100"><img style="width:80px; height:80px;border-style:solid;border-width:0px;" src="/InvenPolka/app/webroot/files/articulo/idFoto/'.$De["det"]["IdArticulo"].'/small_'.$De["art"]["idFoto"].'"><p align="center">'.$De['art']['codigo'].'</p><span align="center">'.$De['det']['Cantidad'].'    .....</p></td>';
+$lefthtml.='<td width="100"><img style="width:80px; height:80px;border-style:solid;border-width:0px;" src="/InvenPolka/app/webroot/files/articulo/idFoto/'.$De["det"]["IdArticulo"].'/small_'.$De["art"]["idFoto"].'"><p align="center">'.$De['art']['codigo'].'</p><span align="center">Cantidad: '.$De['det']['Cantidad'].'</p></td>';
 
 
 }
@@ -51,6 +57,11 @@ $html = <<<EOF
     font-size: 14pt;
     text-decoration: underline;
   }
+  h2 {
+    color: navy;
+    font-family: times;
+    font-size: 10pt;
+  }
   p {
     color: blue;
         margin-top: 0px;
@@ -58,9 +69,19 @@ $html = <<<EOF
     font-family: helvetica;
     font-size: 10pt;
   }
+  c {
+    color: black;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-family: helvetica;
+    font-size: 10pt;
+  }
+  
 </style>
 <body>
 <h1>Listado de Articulos del pedido $pedidoId</i></h1>
+<h2>$encabezado</h2>
+
 <p>      </p>
 <br>
 $lefthtml

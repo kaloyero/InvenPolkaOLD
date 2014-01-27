@@ -165,7 +165,7 @@ class UsuariosController extends AppController {
 		@$nombre = addslashes($nombre);
 		@$email = addslashes($mail);
 		@$asunto = addslashes("Usuario Creado");
-		@$mensaje = addslashes("Estimado ".$nombre.", \n Se le ha asignado un usuario para acceder a la aplicacion de Inventarios.\n\n Usuario:".$user." \n Clave: ".$pass." ");
+		@$mensaje = addslashes("Estimado ".$nombre.", \n Se le ha asignado un usuario para acceder a la aplicacion de Inventarios.\n\n Usuario:".$user." \n Clave: ".$pass." \n\n <B>Se recomienda cambiar la clave de acceso luego del primer ingreso.</b> \n ");
 
 		//Preparamos el mensaje de contacto
 		$cabeceras = "From: info@admin.com\n"; //La persona que envia el correo

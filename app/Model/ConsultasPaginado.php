@@ -864,6 +864,12 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumns,$aColumnsFil
 		$limit = 	' limit '.$_GET['iDisplayStart'].' ,'.$_GET['iDisplayLength'] ;
 		$orderBy = 	" order by `tab`.`Apellido`,`tab`.`Nombre`";
 
+		$select = 	"SELECT  * , (select `nombre` from `proyectos` where `id` = `usp`.`id_proyecto`) as `proyecto` ";
+		$from = 	" FROM `usuarios` `tab` ";
+		$from .= "	LEFT JOIN  `usuario_proyectos`  `usp` ON (  `usp`.`id_usuario` =  `tab`.`id` ) ";
+		$limit = 	' limit '.$_GET['iDisplayStart'].' ,'.$_GET['iDisplayLength'] ;
+		$orderBy = 	" order by `tab`.`Apellido`,`tab`.`Nombre`";
+	
 		/*BUSQUEDA*/
 		//Si el wehre viene vacio
 		if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" )
