@@ -70,9 +70,14 @@ var Articulo = new Class({
          this.getForm().ajaxForm({
                     // any other options,
                  beforeSubmit: function () {
+                     console.log("Entra")
+
+
                      if (self.isActualFormValid){
+                         jQuery(".save").attr("disabled", "disabled");
                          self.addLoader();
                      }else{
+                         //jQuery('.save').removeAttr("disabled");
                          return false;
                      }
 
@@ -88,8 +93,9 @@ var Articulo = new Class({
 
            });
             jQuery('.save').bind("click", function(e) {
-                self.currentStatus="Adding";
-                self.validateGeneral();
+                    self.currentStatus="Adding";
+                    self.validateGeneral();
+
              });
               jQuery('.volver').bind("click", function(e) {
                     self.saveTableStatus();
@@ -126,8 +132,10 @@ var Articulo = new Class({
          this.getForm().ajaxForm({
              beforeSubmit: function () {
                  if (self.isActualFormValid){
+                     jQuery(".save").attr("disabled", "disabled");
                      self.addLoader();
                  }else{
+                     self.currentStatus="";
                      return false;
                  }
              },

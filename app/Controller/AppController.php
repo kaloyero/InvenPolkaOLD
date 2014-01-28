@@ -21,6 +21,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 App::uses('Controller', 'Controller');
+App::uses('CakeEmail', 'Network/Email');
 
 /**
  * Application Controller
@@ -34,8 +35,26 @@ App::uses('Controller', 'Controller');
 class AppController extends Controller {
 
         function beforeFilter(){
+			$Email = new CakeEmail();
 
+			//$Email->emailFormat('html');
+					//	$Email->template('tempemail');
+					//	$Email->viewVars(array('dire' =>'www.ole.com.ar'));
+					//	$Email->from(array('me@example.com' => 'My Site'));
+					//	$Email->to('alexisq4a@yahoo.com.ar');
+					//	$Email->subject('About');
+			//$Email->helpers('Html');
+						//$Email->attachments=array(TMP.'Recibo3.pdf');
+						//$Email->send();
 
+			//$to      = 'alexisq4a@yahoo.com.ar';
+			//$subject = 'the subject';
+			//$message = 'hello';
+			//$headers = 'From: webmaster@example.com' . "\r\n" .
+			//    'Reply-To: webmaster@example.com' . "\r\n" .
+			//    'X-Mailer: PHP/' . phpversion();
+
+			//mail($to, $subject, $message, $headers);
 
            if ($this->params['controller']!="pages" && $this->action!="generateComanda" && $this->action!="reciboPdf"){
                                 if (!$this->request->is('ajax')){
