@@ -379,9 +379,9 @@ private function getDataDefaultQueryInventario($tabla,$aColumns,$aColumnsFilter,
 				$model=new MovimientoInventario();
 				$tabla="movimientos_vista";
 				//Columnas que voy a mostrar
-			    $aColumns = array( 'id','Numero','Fecha','TipoMovimiento','deposito_orig','deposito_dest','pedido','proyecto');
+			    $aColumns = array( 'id','Numero','Fecha','TipoMovimiento','deposito_orig','deposito_dest','pedido','username','proyecto');
 		        //Columnas por las que se va a filtrar
-			    $aColumnsFilter = array( 'Numero','Fecha','Descripcion','TipoMovimiento','deposito_orig','deposito_dest','pedido','proyecto' );
+			    $aColumnsFilter = array( 'Numero','Fecha','Descripcion','TipoMovimiento','deposito_orig','deposito_dest','pedido','username','proyecto' );
 				//Columna por la cual se va ordenar
 				$orderByfield = 'Numero desc';
 				$output = $this->getDataDefaultMovimientos($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield);
@@ -427,6 +427,7 @@ private function getDataDefaultQueryInventario($tabla,$aColumns,$aColumnsFilter,
 					array_push($fila, array($j[$tabla]['deposito_orig']));
 //					array_push($fila, array($j[$tabla]['deposito_dest']));
 					array_push($fila, array($j[$tabla]['pedido']));
+					array_push($fila, array($j[$tabla]['username']));					
 					array_push($fila, array($j[$tabla]['proyecto']));
 					array_push($fila, $icono);
 
@@ -458,9 +459,9 @@ private function getDataDefaultQueryInventario($tabla,$aColumns,$aColumnsFilter,
 			$tabla="pedidos_vista";
 			//Columnas que voy a mostrar
 
-			$aColumns = array( 'id' ,'Numero', 'Fecha' ,'proyecto', 'estado'  );
+			$aColumns = array( 'id' ,'Numero', 'Fecha' ,'proyecto', 'username' , 'estado'  );
 			//Columnas por las que se va a filtrar
-			$aColumnsFilter = array(  'Numero' ,'Fecha' ,'proyecto', 'estado'  );
+			$aColumnsFilter = array(  'Numero' ,'Fecha' ,'proyecto', 'username', 'estado'  );
 			//Columna por la cual se va ordenar
 			$orderByfield = 'Fecha desc,Numero, proyecto,estado ';
 
@@ -493,9 +494,9 @@ private function getDataDefaultQueryInventario($tabla,$aColumns,$aColumnsFilter,
 			$tabla="pedidos_vista";
 			//Columnas que voy a mostrar
 
-			$aColumns = array( 'id' ,'Numero', 'Fecha' ,'proyecto', 'estado'  );
+			$aColumns = array( 'id' ,'Numero', 'Fecha' ,'proyecto', 'username' , 'estado'  );
 			//Columnas por las que se va a filtrar
-			$aColumnsFilter = array(  'Numero' ,'Fecha' ,'proyecto', 'estado'  );
+			$aColumnsFilter = array(  'Numero' ,'Fecha' ,'proyecto', 'username', 'estado'  );
 			//Columna por la cual se va ordenar
 			$orderByfield = 'Fecha desc, proyecto,estado ';
 

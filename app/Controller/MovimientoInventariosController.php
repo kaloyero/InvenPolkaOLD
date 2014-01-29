@@ -141,10 +141,10 @@ class MovimientoInventariosController extends AppController {
 			$consultas = new ConsultasSelect();
 			//Obtengo la informacion del Pedido
 			$pedido = $consultas->getPedidoById($idPedido);
-			$this->set("pedido", $pedido);
+			$this->set("pe", $pedido);
 			//Cargar Lista de Articulos del Pedido
-			$ped = $pedido[0];
-			$this->getListaArticulosDePedidosAdevolver($idPedido,$ped['pedidos_vista']['id_proyecto']);
+			$ped = $pedido;
+			$this->getListaArticulosDePedidosAdevolver($idPedido,$ped['id_proyecto']);
 			//Cargo la lista de depositos
 			$this->set('depositos',$consultas->getDepositos());
 
@@ -168,7 +168,7 @@ class MovimientoInventariosController extends AppController {
 			$consultas = new ConsultasSelect();
 			//Agarro la informacion del Pedido
 			$pedido = $consultas->getPedidoById($id);
-			$this->set("pedido", $pedido);
+			$this->set("pe", $pedido);
 			//Cargar Lista de Articulos del Pedido
 			$this->getListaArticulosDePedidos($id);
 			//Cargo la lista de depositos
@@ -196,6 +196,8 @@ class MovimientoInventariosController extends AppController {
 	private function insertMovimiento(){
 			//Guardo el numero de movimiento en cero para despues hacerlo igual al id.
 			$this->request->data['MovimientoInventario']['Numero'] = 0;
+			//Setea el id del usuario logueado
+			$this->setUsuarioId();
             $res= $this->MovimientoInventario->save($this->request->data);
 			if ($res) {
 				$idInsertedPedido = $this->MovimientoInventario->getInsertID();
@@ -365,6 +367,8 @@ class MovimientoInventariosController extends AppController {
 			$this->set('detalles',$detalles);
 			$this->setViewData();
 		} else {
+			//Setea el id del usuario logueado
+			$this->setUsuarioId();			
 			if ($this->MovimientoInventario->save($this->request->data)) {
 				$this->Session->setFlash('Cambios guardados');
 				$this->redirect(array('action' => 'index'));
@@ -403,6 +407,12 @@ class MovimientoInventariosController extends AppController {
 			$model->set('estado', 'enviado');
 			$model->save();
 		}
+	}
+
+	function setUsuarioId(){
+		$usuario = $this->getUsuario();
+		$this->request->data['MovimientoInventario']['id_usuario'] = $usuario["id"];
+		
 	}
 
 

@@ -24,10 +24,7 @@ $tcpdf->SetFont($textfont,'B',10);
 //$tcpdf->Image('http://localhost/InvenPolka/app/webroot/files/articulo/idFoto/94/small_Screen-shot-2011-11-11-at-7.55.07-PM.png', '', '', 40, 40, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
 
 
-$encabezado = "	Proyeco: <c>".$pedido['proyecto']."</c>
-			   	Fecha de Emisión: <c>".$pedido['Fecha']."</c>
-			   	Estado: <c>".$pedido['estado']."</c>
-				Descripción: <c>".$pedido['Descripcion']."</c>";
+$encabezado = "	Proyecto: ".$pedido['proyecto']." Fecha de Emisión: ".$pedido['Fecha']." Estado: ".$pedido['estado']."  Descripción: ".$pedido['Descripcion']."";
 
 $lefthtml='<table ><tr>';
 $i=0;
@@ -79,7 +76,7 @@ $html = <<<EOF
   
 </style>
 <body>
-<h1>Listado de Articulos del pedido $pedidoId</i></h1>
+<h1>Listado de Articulos del pedido $pedidoId</h1>
 <h2>$encabezado</h2>
 
 <p>      </p>

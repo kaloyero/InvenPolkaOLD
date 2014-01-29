@@ -113,8 +113,6 @@ var Render = new Class({
          });
 
          jQuery('.volver').bind("click", function(e) {
-             console.log("ENTRAAAVOLV")
-
                  self.saveTableStatus();
                  translator.show(appStatus.activeList);
                });

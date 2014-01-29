@@ -7,34 +7,33 @@ echo $this->Form->create('MovimientoInventario',array('class' => 'stdform stdfor
 
 ?>
 <p><h5 style="color:#3366FF;padding-left:0.5em;">Información del Pedido</h5></p>
-<?php 	foreach ($pedido as $pe): ?>
+
 <p>
     <label style="float: left;">Numero de Pedido</label>
 	<span class="field float">
-    	<input  readonly="readonly" class="input-medium pedido" maxlength="100" type="text" value="<?php echo $pe['pedidos_vista']['Numero'] ?>" required="required">
+    	<input  readonly="readonly" class="input-medium pedido" maxlength="100" type="text" value="<?php echo $pe['Numero'] ?>" required="required">
     </span>
 
     <label style="float: left;">Fecha de Emisión</label>
 	<span class="field float">
-    	<input readonly="readonly" class="input-medium" maxlength="100" type="text" value="<?php echo $pe['pedidos_vista']['Fecha'] ?>" required="required">
+    	<input readonly="readonly" class="input-medium" maxlength="100" type="text" value="<?php echo $pe['Fecha'] ?>" required="required">
     </span>
 
 	<label style="float: left;">Proyecto</label>
 	<span class="field float">
-    	<input  readonly="readonly" class="input-medium" maxlength="100" type="text" value="<?php echo $pe['pedidos_vista']['proyecto'] ?>" required="required">
+    	<input  readonly="readonly" class="input-medium" maxlength="100" type="text" value="<?php echo $pe['proyecto'] ?>" required="required">
     </span>
 
 </p>
 <p>
 	<label style="float: left;">Comentarios</label>
 	<span class="field float">
-    	<textarea  readonly="readonly" name="data[Articulo][Descripcion]" class="span5" pattern=".*\S+.*" cols="30" rows="6"  required="required"><?php echo $pe['pedidos_vista']['Descripcion'] ?></textarea>
+    	<textarea  readonly="readonly" name="data[Articulo][Descripcion]" class="span5" pattern=".*\S+.*" cols="30" rows="6"  required="required"><?php echo $pe['Descripcion'] ?></textarea>
     </span>
 </p>
-<input type="hidden" value="<?php echo $pe['pedidos_vista']['id'] ?>" name="data[MovimientoInventario][IdPedido]"/>
-<input type="hidden" value="<?php echo $pe['pedidos_vista']['id_proyecto'] ?>" name="data[MovimientoInventario][IdProyecto]"/>
+<input type="hidden" value="<?php echo $pe['id'] ?>" name="data[MovimientoInventario][IdPedido]"/>
+<input type="hidden" value="<?php echo $pe['id_proyecto'] ?>" name="data[MovimientoInventario][IdProyecto]"/>
 
-<?php endforeach; ?>
 <p><h5 style="color:#3366FF;padding-left:0.5em;">Información de la Devolución</h5></p>
 
 <?php

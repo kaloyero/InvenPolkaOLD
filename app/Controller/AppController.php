@@ -52,4 +52,9 @@ class AppController extends Controller {
                         $this->redirect(array('action' => 'index'));
                 }
         }
+
+        function getUsuario() {
+			return $this->Session->read("usuario");
+        }
+		
 }

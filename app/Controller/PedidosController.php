@@ -31,6 +31,8 @@ class PedidosController extends AppController {
 		$datasource->begin();
         if ($this->request->is('post')) {
 			$this->request->data['Pedido']['Numero'] = 0;
+			//Setea el id del usuario logueado
+			$this->setUsuarioId();
             if ($this->Pedido->save($this->request->data)) {
 				//Para que?Si justo otro agrego un pedido en el medio,no seria mas el ultimo
 				$idInsertedPedido = $this->Pedido->getInsertID();
@@ -55,6 +57,12 @@ class PedidosController extends AppController {
 			$this->setViewData();
 		}
     }
+	
+	function setUsuarioId(){
+		$usuario = $this->getUsuario();
+		$this->request->data['Pedido']['id_usuario'] = $usuario["id"];
+		
+	}
 
 	function envioNotificacionPedidoNuevo($nroPedido) {
 		@$nombre = addslashes("Deposito");
