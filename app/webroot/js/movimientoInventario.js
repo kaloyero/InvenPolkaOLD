@@ -66,6 +66,7 @@ var MovimientoInventario = new Class({
          //Si pasa la validacion,salvamos
          if (self.getForm().valid()){
              var numeroPedido=jQuery('.pedido').val();
+             jQuery(this).attr("disabled", "disabled");
 
               translator.save(self.type, self.getForm(),function(){self.creaarRecibo(numeroPedido)});
               self.currentStatus="pedidoSalida";

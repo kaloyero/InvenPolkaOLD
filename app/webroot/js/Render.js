@@ -53,7 +53,7 @@ var Render = new Class({
         jQuery('.uniform-file').uniform();
     	//Inicializo calendario
      	jQuery('.datepicker').datepicker({ dateFormat: 'dd-mm-yy' });
-	   	jQuery('.fechaActual').datepicker( "setDate", new Date());	
+	   	jQuery('.fechaActual').datepicker( "setDate", new Date());
         this.bindAddEvents();
          },
     onView: function(data){
@@ -105,6 +105,7 @@ var Render = new Class({
           jQuery('.save').bind("click", function(e) {
               //Si pasa la validacion,salvamos
               if (self.getForm().valid()){
+                  jQuery(this).attr("disabled", "disabled");
                    translator.save(self.type, self.getForm());
                     self.addLoader();
               }
@@ -140,6 +141,7 @@ var Render = new Class({
 
          jQuery('.edit').bind("click", function(e) {
              if (self.getForm().valid()){
+                 jQuery(this).attr("disabled", "disabled");
                  translator.update(self.type, self.getForm());
                  self.addLoader();
             }
@@ -161,7 +163,7 @@ var Render = new Class({
                    });
 
           //Agregamos los Calendar
-         jQuery('.fecha').datepicker({ dateFormat: 'yy-mm-dd' });		 
+         jQuery('.fecha').datepicker({ dateFormat: 'yy-mm-dd' });
          },
       getSelectedRowId:function(selectedRow) {
           return jQuery(selectedRow).parent().parent().parent().parent().find(":first" ).text()

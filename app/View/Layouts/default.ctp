@@ -106,12 +106,14 @@ jQuery(document).ready(function(){
 	jQuery('#username,#password').focus(function(){
 		if(jQuery(this).hasClass('error')) jQuery(this).removeClass('error');
 	});
-	jQuery('#loginform button').click(function(){
-
 	jQuery('.logOut').click(function(){
+
 			translator.logOutUser(self.type);
 			return false;
 	});
+	jQuery('#loginform button').click(function(){
+
+		 console.log("SOI")
 
 
 		if(!jQuery.browser.msie) {
