@@ -303,6 +303,10 @@ class ConsultasSelect extends AppModel {
 			$pedido['estado'] =	$pe['pedidos_vista']['estado'];
 			$pedido['id_proyecto'] =	$pe['pedidos_vista']['id_proyecto'];
 			$pedido['proyecto'] =	$pe['pedidos_vista']['proyecto'];
+			$pedido['id_usuario'] =	$pe['pedidos_vista']['id_usuario'];
+			$pedido['Nombre'] =	$pe['pedidos_vista']['Nombre'];
+			$pedido['Apellido'] =	$pe['pedidos_vista']['Apellido'];
+			$pedido['username'] =	$pe['pedidos_vista']['username'];
 		}
 		return $pedido;
 	}
@@ -312,6 +316,34 @@ class ConsultasSelect extends AppModel {
 
 		return $movimientos;
 	}
+
+	function getMovimientoByIdPedido($id) {
+		$model=new Proyecto();
+		$movimientos=$model->query("SELECT  * FROM  `movimientos_vista` AS  `mov` WHERE `mov`.`id_pedido` ='".$id."';");
+
+		$movimiento = array();
+		foreach ($movimientos as $pe){
+			$movimiento['id'] 			=	$pe['mov']['id'];
+			$movimiento['Numero'] 		=	$pe['mov']['Numero'];
+			$movimiento['Fecha'] 		=	$pe['mov']['Fecha'];
+			$movimiento['Descripcion'] 	=	$pe['mov']['Descripcion'];
+			$movimiento['TipoMov'] 		=	$pe['mov']['TipoMovimiento'];
+			$movimiento['id_proyecto'] 	=	$pe['mov']['id_proyecto'];
+			$movimiento['proyecto'] 	=	$pe['mov']['proyecto'];
+			$movimiento['DepoOrigId'] 	=	$pe['mov']['id_deposito_orig'];
+			$movimiento['DepoOrig'] 	=	$pe['mov']['deposito_orig'];			
+			$movimiento['DepoDestId'] 	=	$pe['mov']['id_deposito_dest'];
+			$movimiento['DepoDest'] 	=	$pe['mov']['deposito_dest'];
+			$movimiento['PedidoId'] 	=	$pe['mov']['id_pedido'];
+			$movimiento['Pedido'] 		=	$pe['mov']['pedido'];
+			$movimiento['id_usuario'] 	=	$pe['mov']['id_usuario'];
+			$movimiento['Nombre'] 		=	$pe['mov']['Nombre'];
+			$movimiento['Apellido'] 	=	$pe['mov']['Apellido'];
+			$movimiento['username'] 	=	$pe['mov']['username'];
+		}
+		return $movimiento;
+	}
+
 
 	function getDetallesMovimientoByIdMovimiento($id) {
 		$model=new Proyecto();
@@ -336,11 +368,10 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 
 		function getDetallesMoviPedidoByIdPedido($id) {
 			$model=new Proyecto();
-	       $queryGetIdMovimiento="SELECT  `mov`.`id` AS  `IdMovimiento` FROM  `movimiento_inventarios` AS  `mov` WHERE `mov`.`IdPedido` ='".$id."';";
+	        $queryGetIdMovimiento="SELECT  `mov`.`id` AS  `IdMovimiento` FROM  `movimiento_inventarios` AS  `mov` WHERE `mov`.`IdPedido` ='".$id."';";
 			$resultIdMovimiento=$model->query($queryGetIdMovimiento);
-			$query="SELECT  `det`.`id` AS  `IdDetalle`, `det`.`IdArticulo` AS  `IdArticulo` ,  `det`.`Cantidad` AS  `Cantidad` ,  `art`.`Descripcion` AS  `Descripcion` ,  `art`.`dir` AS  `dir` , `art`.`idFoto` AS  `idFoto` ,`art`.`CodigoArticulo` AS  `codigo` 
-	FROM  `movimiento_detalle_inventarios` AS  `det` INNER JOIN  `articulos`  `art` ON (  `det`.`IdArticulo` =  `art`.`id` ) 	WHERE  `det`.`IdMovimientoInventario` ='".$resultIdMovimiento[0]['mov']['IdMovimiento']."';";
-			$pedidos=$model->query($query);
+			$consulta="SELECT  `det`.`id` AS  `IdDetalle`, `det`.`IdArticulo` AS  `IdArticulo` ,  `det`.`Cantidad` AS  `Cantidad` ,  `art`.`Descripcion` AS  `Descripcion` ,  `art`.`dir` AS  `dir` , `art`.`idFoto` AS  `idFoto` ,`art`.`CodigoArticulo` AS  `codigo` FROM  `movimiento_detalle_inventarios` AS  `det` INNER JOIN  `articulos`  `art` ON (  `det`.`IdArticulo` =  `art`.`id` ) 	WHERE  `det`.`IdMovimientoInventario` ='".$resultIdMovimiento[0]['mov']['IdMovimiento']."';";
+			$pedidos=$model->query($consulta);
 
 			return $pedidos;
 		}
@@ -638,29 +669,22 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 		}
 
 //		if ( (!empty($proyecto)) && $total < 1){
-		print_r("-1-");
 		if ($total < 1){
-			print_r("-2-");
 			//Verifico si voy a eliminar articulo de Deposito		
 			if ($proyecto == NULL){
-				print_r("-3-");
 				//Si elimino del Inventario verifico que el articulo no exista en algún proyecto.	
 				if($this->existeStockEnProyecto($articulo,$deposito)){
-					print_r("-4-");
 					//Si existe en algun proyecto pongo stock en cero
 					$model->updateAll(array('Disponibilidad'=>$total), $conditions);		
 				} else {
-					print_r("-5-");
 					//Si no lo borro
 					$model->deleteAll($conditions);
 				}
 			} else {
-				print_r("-6-");
 				//Si no tengo stock en el proyecto lo borro
 				$model->deleteAll($conditions);
 			}
 		} else {
-			print_r("-7-");
 			//Actualizo el stock
 			$model->updateAll(array('Disponibilidad'=>$total), $conditions);
 		}
