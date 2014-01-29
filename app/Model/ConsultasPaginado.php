@@ -601,7 +601,7 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi,$tipoLista,$pri
 
 				//Pregunto si el estado del producto fue enviado. Solo los productos en este estado pueden imprimir la comanda
 					if ($j[$tabla]["estado"] == "enviado"){
-						$btnAccion=$btnAccion."<a href='/InvenPolka/app/webroot/Recibo".$j[$tabla]['id'].".pdf' download='Recibo".$j[$tabla]['id']."'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/recibo.jpg' /></a>";
+						$btnAccion=$btnAccion."<a href='/InvenPolka/app/webroot/files/remitos/Remito_".$j[$tabla]['id'].".pdf' download='Remito_".$j[$tabla]['id']."'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/recibo.jpg' /></a>";
 					}
 					$btnAccion= $btnAccion."</div>";
 					$btnPrintPedido = "";
@@ -909,14 +909,18 @@ private function getArrayUsuariosConfig($rows,$privilegios) {
 
 	  }
 
-
+		
       foreach($rows as $j){
 				$fila[0] = array($j['tab']['id']);
 				$fila[1] = array($j['tab']['username']);
 				$fila[2] = array($j['tab']['Apellido'].", ".$j['tab']['Nombre']);
-				$fila[3] = array($j['tab']['Legajo']);
-				$fila[4] = array($j['tab']['Email']);
-				$fila[5] = array($rolesList[$j['tab']['TipoRol']]);
+				$fila[3] = array($j['tab']['Email']);
+				$fila[4] = array($rolesList[$j['tab']['TipoRol']]);
+				if ($j['tab']['TipoRol'] == '3'){
+					$fila[5] = array($j[0]['proyecto']);
+				} else {
+					$fila[5] = array("");
+				}
 				$fila[6] = array($estadosList[$j['tab']['Inactivo']]);
 				//Icono
 				$fila[7] = array($icono.$icono2.$icono3);

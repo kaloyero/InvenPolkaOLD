@@ -8,9 +8,9 @@
                 <th style="display:none;">Id</th>
  				<th>Usuario</th>
 				<th>Nombre</th>
-				<th>Legajo</th>
 				<th>Mail</th>
 				<th>Tipo Usuario</th>
+				<th>Proyecto</th>
 				<th>Estado</th>
 				<th>Acciones</th>
 		</tr>

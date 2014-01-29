@@ -334,7 +334,7 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 		return $pedidos;
 	}
 
-		function getDetallesPedidoByIdMovimiento($id) {
+		function getDetallesMoviPedidoByIdPedido($id) {
 			$model=new Proyecto();
 	       $queryGetIdMovimiento="SELECT  `mov`.`id` AS  `IdMovimiento` FROM  `movimiento_inventarios` AS  `mov` WHERE `mov`.`IdPedido` ='".$id."';";
 			$resultIdMovimiento=$model->query($queryGetIdMovimiento);

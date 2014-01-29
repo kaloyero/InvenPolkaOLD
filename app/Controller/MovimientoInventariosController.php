@@ -316,10 +316,13 @@ class MovimientoInventariosController extends AppController {
 
 	public function reciboPdf($id = null) {
 		$model = new ConsultasSelect();
-		$detalles = $model->getDetallesPedidoByIdMovimiento($id);
-
+		print_r("HOLA");
+		$detalles = $model->getDetallesMoviPedidoByIdPedido($id);
+		print_r($detalles);
 		$this->set('detalles',$detalles);
 		$this->set('pedidoId',$id);
+		$pedido = $model->getPedidoById($id);
+		$this->set('pedido',$pedido);
 		$this->response->type('application/pdf');
 		$this->layout = 'pdf'; //this will use the pdf.ctp layout
 		$this->render();

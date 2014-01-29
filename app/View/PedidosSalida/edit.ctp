@@ -41,7 +41,7 @@ echo $this->Form->create('Pedido',array('class' => 'stdform stdform2','inputDefa
 	foreach ($Detalles as $De){
 
 ?>			<tr>
-				<td><?php echo $De['det']['IdArticulo'] ;?></td>
+				<td><?php echo $De['art']['codigo'] ;?></td>
 				<td><?php echo $De['art']['Descripcion'] ;?></td>
 				<td><?php echo $De['det']['Cantidad'] ;?></td>
    				<td><img style="width:150px; height:150px;border-style:solid;border-width:3px;" src="/InvenPolka/app/webroot/files/articulo/idFoto/<?php echo $De['det']['IdArticulo']; ?>/small_<?php echo $De['art']['idFoto']; ?>"></td>
