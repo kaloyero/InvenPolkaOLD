@@ -338,10 +338,8 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 			$model=new Proyecto();
 	       $queryGetIdMovimiento="SELECT  `mov`.`id` AS  `IdMovimiento` FROM  `movimiento_inventarios` AS  `mov` WHERE `mov`.`IdPedido` ='".$id."';";
 			$resultIdMovimiento=$model->query($queryGetIdMovimiento);
-			$query="SELECT  `det`.`id` AS  `IdDetalle`, `det`.`IdArticulo` AS  `IdArticulo` ,  `det`.`Cantidad` AS  `Cantidad` ,  `art`.`Descripcion` AS  `Descripcion` ,  `art`.`dir` AS  `dir` , `art`.`idFoto` AS  `idFoto` ,`art`.`CodigoArticulo` AS  `codigo`
-	FROM  `movimiento_detalle_inventarios` AS  `det`
-	INNER JOIN  `articulos`  `art` ON (  `det`.`IdArticulo` =  `art`.`id` )
-	WHERE  `det`.`IdMovimientoInventario` ='".$resultIdMovimiento[0]['mov']['IdMovimiento']."';";
+			$query="SELECT  `det`.`id` AS  `IdDetalle`, `det`.`IdArticulo` AS  `IdArticulo` ,  `det`.`Cantidad` AS  `Cantidad` ,  `art`.`Descripcion` AS  `Descripcion` ,  `art`.`dir` AS  `dir` , `art`.`idFoto` AS  `idFoto` ,`art`.`CodigoArticulo` AS  `codigo` 
+	FROM  `movimiento_detalle_inventarios` AS  `det` INNER JOIN  `articulos`  `art` ON (  `det`.`IdArticulo` =  `art`.`id` ) 	WHERE  `det`.`IdMovimientoInventario` ='".$resultIdMovimiento[0]['mov']['IdMovimiento']."';";
 			$pedidos=$model->query($query);
 
 			return $pedidos;
