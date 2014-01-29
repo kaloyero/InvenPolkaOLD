@@ -316,9 +316,7 @@ class MovimientoInventariosController extends AppController {
 
 	public function reciboPdf($id = null) {
 		$model = new ConsultasSelect();
-		print_r("HOLA");
 		$detalles = $model->getDetallesMoviPedidoByIdPedido($id);
-		print_r($detalles);
 		$this->set('detalles',$detalles);
 		$this->set('pedidoId',$id);
 		$pedido = $model->getPedidoById($id);
