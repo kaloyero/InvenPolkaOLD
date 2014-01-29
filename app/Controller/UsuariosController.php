@@ -2,7 +2,7 @@
         App::import('Model','ConsultasPaginado');
         App::import('Model','ConsultasSelect');
         App::import('Model','ConsultasUsuario');
-        App::import('Model','UsuarioProyecto');		
+        App::import('Model','UsuarioProyecto');
 
 class UsuariosController extends AppController {
 
@@ -58,7 +58,7 @@ class UsuariosController extends AppController {
 					$this->request->data = $this->Usuario->read();
 					//Inicializo el proyecto para el usuario en cero
 					$this->request->data['Usuario']['IdUsuarioProyecto'] = 0;
-					//Si es un usuario de tipo arte obtengo el Proyecto relacionado					
+					//Si es un usuario de tipo arte obtengo el Proyecto relacionado
 					if ($this->request->data['Usuario']['TipoRol'] == '3'){
 						$usProy = $consultasUs->getUsuarioProyecto($id);
 						if ( ! empty($usProy) ) {
@@ -66,7 +66,7 @@ class UsuariosController extends AppController {
 							$this->request->data['Usuario']['IdProyecto'] = $usProy['Proyecto'];
 						}
 					}
-					
+
 			} else {
 				if ($this->Usuario->save($this->request->data)) {
 					//En caso de ser un usuario de tipo Arte le asocia us proyecto
@@ -79,7 +79,7 @@ class UsuariosController extends AppController {
 						} else {
 							//si no tiene proyecto asignado se lo asigna
 							$model->save(array('id_usuario' => $this->request->data['Usuario']['id'],'id_proyecto' =>$this->request->data['Usuario']['IdProyecto']));
-						
+
 						}
 					}
 					$this->render('/General/Success');
@@ -92,7 +92,7 @@ class UsuariosController extends AppController {
 	function cambioClave() {
 			$consultasUs = new ConsultasUsuario();
 			if ($this->request->is('get')) {
-				$this->set('errorClave','');				
+				$this->set('errorClave','');
 			} else {
 				$usuario = $this->Session->read("usuario");
 				//Valida el usuario y contrase;a ingresado son validos
@@ -106,10 +106,10 @@ class UsuariosController extends AppController {
 						$this->envioNotificacionCambioClaveUser("Administrador","kaloye_ale@hotmail.com",$usuario['username'],$this->request->data['Usuario']['password']);
 						$this->render('/General/Success');
 					} else {
-						$this->set('errorClave','La clave nueva debe ser igual a la clave de confirmación');					
+						$this->set('errorClave','La clave nueva debe ser igual a la clave de confirmación');
 					}
 				} else {
-					$this->set('errorClave','Verifique su clave actual.');				
+					$this->set('errorClave','Verifique su clave actual.');
 				}
 			}
 	}
@@ -149,7 +149,8 @@ class UsuariosController extends AppController {
 		$this->Session->delete("privilegios");
 		$this->Session->delete("usuario");
 		//Redirecciona a la pagina de login
-		$this->render('/Layouts/default');
+		$this->render('/Layouts/defaultsin');
+		//$this->redirect('../');
 	}
 
 	function delete($id) {
