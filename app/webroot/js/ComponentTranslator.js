@@ -164,11 +164,11 @@ var ComponentTranslator = new Class(
 					id : idObject,
 					onSuccess : function(data) {
 					     var renderInstace = renderTranslator.getRender(objectType);
-    					    renderInstace.onSaved(data);
+    					    renderInstace.onSavedConfirmado(data);
 					    jQuery.jGrowl("Pedido Confirmado.", {
 					        theme : 'success'
 				        });
-						jQuery('.paginate_active').click();
+
 					},
 					onError : function(data) {
 					    jQuery.jGrowl("El Pedido no se pudo confirmar.", {

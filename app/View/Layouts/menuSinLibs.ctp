@@ -172,14 +172,6 @@ $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto"
             </div><!--headerpanel-->
 <div class="contenidoDinamico">
         <div class="breadcrumbwidget animate2 fadeInUp">
-                <ul class="skins">
-                <li><a href="default" class="skin-color default"></a></li>
-                <li><a href="orange" class="skin-color orange"></a></li>
-                <li><a href="dark" class="skin-color dark"></a></li>
-                <li>&nbsp;</li>
-                <li class="fixed"><a href="" class="skin-layout fixed"></a></li>
-                <li class="wide"><a href="" class="skin-layout wide"></a></li>
-            </ul><!--skins-->
                 <ul class="breadcrumb">
                 <li><a href="dashboard.html">Inicio</a> <span class="divider">/</span></li>
                 <li class="active activeBreadcrum">Escritorio</li>

@@ -10,6 +10,10 @@ var Pedido = new Class({
          this.parent();
           translator.show("articulo");
      },
+      onSavedConfirmado:function() {
+          //Esto actualiza la tabla
+          jQuery('.paginate_active').click();
+      },
 
     onAdd: function(data){
         this.cleanCanvas();

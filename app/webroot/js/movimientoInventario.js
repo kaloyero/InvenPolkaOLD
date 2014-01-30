@@ -36,7 +36,7 @@ var MovimientoInventario = new Class({
      creaarRecibo:function(numeroPedido){
          var self=this;
            jQuery.post("movimientoInventarios/reciboPdf/"+numeroPedido,function(){
-                    window.open("app/webroot/recibos/Recibo"+numeroPedido+".pdf", '_blank')
+                    window.open("app/webroot/files/remitos/Recibo_"+numeroPedido+".pdf", '_blank')
                     self.onSaved();
            })
      },
