@@ -333,7 +333,7 @@ private function getDataDefaultQueryInventario($tabla,$aColumns,$aColumnsFilter,
 			if ($where == "DEPOSITO"){
 				$sWhere = " Where `id_proyecto` is Null AND ";
 			} else {
-				$sWhere = " Where `id_proyecto` LIKE  '6' AND ";
+				$sWhere = " Where `id_proyecto` LIKE  '".$where."' AND ";
 			}
 		}
 		/*BUSQUEDA*/
@@ -379,9 +379,9 @@ private function getDataDefaultQueryInventario($tabla,$aColumns,$aColumnsFilter,
 				$model=new MovimientoInventario();
 				$tabla="movimientos_vista";
 				//Columnas que voy a mostrar
-			    $aColumns = array( 'id','Numero','Fecha','TipoMovimiento','deposito_orig','deposito_dest','pedido','proyecto');
+			    $aColumns = array( 'id','Numero','Fecha','TipoMovimiento','deposito_orig','deposito_dest','pedido','username','proyecto');
 		        //Columnas por las que se va a filtrar
-			    $aColumnsFilter = array( 'Numero','Fecha','Descripcion','TipoMovimiento','deposito_orig','deposito_dest','pedido','proyecto' );
+			    $aColumnsFilter = array( 'Numero','Fecha','Descripcion','TipoMovimiento','deposito_orig','deposito_dest','pedido','username','proyecto' );
 				//Columna por la cual se va ordenar
 				$orderByfield = 'Numero desc';
 				$output = $this->getDataDefaultMovimientos($model,$tabla,$aColumns,$aColumnsFilter,$orderByfield);
@@ -427,6 +427,7 @@ private function getDataDefaultQueryInventario($tabla,$aColumns,$aColumnsFilter,
 					array_push($fila, array($j[$tabla]['deposito_orig']));
 //					array_push($fila, array($j[$tabla]['deposito_dest']));
 					array_push($fila, array($j[$tabla]['pedido']));
+					array_push($fila, array($j[$tabla]['username']));					
 					array_push($fila, array($j[$tabla]['proyecto']));
 					array_push($fila, $icono);
 
@@ -458,9 +459,9 @@ private function getDataDefaultQueryInventario($tabla,$aColumns,$aColumnsFilter,
 			$tabla="pedidos_vista";
 			//Columnas que voy a mostrar
 
-			$aColumns = array( 'id' ,'Numero', 'Fecha' ,'proyecto', 'estado'  );
+			$aColumns = array( 'id' ,'Numero', 'Fecha' ,'proyecto', 'username' , 'estado'  );
 			//Columnas por las que se va a filtrar
-			$aColumnsFilter = array(  'Numero' ,'Fecha' ,'proyecto', 'estado'  );
+			$aColumnsFilter = array(  'Numero' ,'Fecha' ,'proyecto', 'username', 'estado'  );
 			//Columna por la cual se va ordenar
 			$orderByfield = 'Fecha desc,Numero, proyecto,estado ';
 
@@ -493,9 +494,9 @@ private function getDataDefaultQueryInventario($tabla,$aColumns,$aColumnsFilter,
 			$tabla="pedidos_vista";
 			//Columnas que voy a mostrar
 
-			$aColumns = array( 'id' ,'Numero', 'Fecha' ,'proyecto', 'estado'  );
+			$aColumns = array( 'id' ,'Numero', 'Fecha' ,'proyecto', 'username' , 'estado'  );
 			//Columnas por las que se va a filtrar
-			$aColumnsFilter = array(  'Numero' ,'Fecha' ,'proyecto', 'estado'  );
+			$aColumnsFilter = array(  'Numero' ,'Fecha' ,'proyecto', 'username', 'estado'  );
 			//Columna por la cual se va ordenar
 			$orderByfield = 'Fecha desc, proyecto,estado ';
 
@@ -600,7 +601,7 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi,$tipoLista,$pri
 
 				//Pregunto si el estado del producto fue enviado. Solo los productos en este estado pueden imprimir la comanda
 					if ($j[$tabla]["estado"] == "enviado"){
-						$btnAccion=$btnAccion."<a href='/InvenPolka/app/webroot/Recibo".$j[$tabla]['id'].".pdf' download='Recibo".$j[$tabla]['id']."'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/recibo.jpg' /></a>";
+						$btnAccion=$btnAccion."<a href='/InvenPolka/app/webroot/files/remitos/Remito_".$j[$tabla]['id'].".pdf' download='Remito_".$j[$tabla]['id']."'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/recibo.jpg' /></a>";
 					}
 					$btnAccion= $btnAccion."</div>";
 					$btnPrintPedido = "";
@@ -864,6 +865,12 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumns,$aColumnsFil
 		$limit = 	' limit '.$_GET['iDisplayStart'].' ,'.$_GET['iDisplayLength'] ;
 		$orderBy = 	" order by `tab`.`Apellido`,`tab`.`Nombre`";
 
+		$select = 	"SELECT  * , (select `nombre` from `proyectos` where `id` = `usp`.`id_proyecto`) as `proyecto` ";
+		$from = 	" FROM `usuarios` `tab` ";
+		$from .= "	LEFT JOIN  `usuario_proyectos`  `usp` ON (  `usp`.`id_usuario` =  `tab`.`id` ) ";
+		$limit = 	' limit '.$_GET['iDisplayStart'].' ,'.$_GET['iDisplayLength'] ;
+		$orderBy = 	" order by `tab`.`Apellido`,`tab`.`Nombre`";
+	
 		/*BUSQUEDA*/
 		//Si el wehre viene vacio
 		if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" )
@@ -902,14 +909,18 @@ private function getArrayUsuariosConfig($rows,$privilegios) {
 
 	  }
 
-
+		
       foreach($rows as $j){
 				$fila[0] = array($j['tab']['id']);
 				$fila[1] = array($j['tab']['username']);
 				$fila[2] = array($j['tab']['Apellido'].", ".$j['tab']['Nombre']);
-				$fila[3] = array($j['tab']['Legajo']);
-				$fila[4] = array($j['tab']['Email']);
-				$fila[5] = array($rolesList[$j['tab']['TipoRol']]);
+				$fila[3] = array($j['tab']['Email']);
+				$fila[4] = array($rolesList[$j['tab']['TipoRol']]);
+				if ($j['tab']['TipoRol'] == '3'){
+					$fila[5] = array($j[0]['proyecto']);
+				} else {
+					$fila[5] = array("");
+				}
 				$fila[6] = array($estadosList[$j['tab']['Inactivo']]);
 				//Icono
 				$fila[7] = array($icono.$icono2.$icono3);

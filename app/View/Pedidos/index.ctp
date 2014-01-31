@@ -5,6 +5,7 @@
 		                <th>Numero</th>
                         <th>Fecha</th>
                         <th>Proyecto</th>
+                        <th>Solicita</th>						
                         <th>Estado</th>
                         <th>Acciones</th>
 		            </tr>

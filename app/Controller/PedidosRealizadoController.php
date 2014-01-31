@@ -65,7 +65,7 @@ class PedidosRealizadoController extends AppController {
 			$pedido = $model->getPedidoById($id);
 			$detalles = $model->getDetallesPedidoByIdPedido($id);
 			$this->set('Detalles',$detalles);
-			$this->set('Pedido',$pedido);
+			$this->set('Pe',$pedido);
 			//$this->set('Detalles',$pedido);
 		} else {
 			$this->confirmar($id);

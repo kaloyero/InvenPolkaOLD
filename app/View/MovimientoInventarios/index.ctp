@@ -7,6 +7,7 @@
 			<th>TipoMovimiento</th>
 			<th>Deposito</th>
 			<th>Nro. Pedido</th>
+			<th>Usuario</th>
 			<th>Proyecto</th>
 			<th>Acciones</th>
 		</tr>

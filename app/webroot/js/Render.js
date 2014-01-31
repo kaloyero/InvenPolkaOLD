@@ -114,7 +114,6 @@ var Render = new Class({
          });
 
          jQuery('.volver').bind("click", function(e) {
-
                  self.saveTableStatus();
                  translator.show(appStatus.activeList);
                });

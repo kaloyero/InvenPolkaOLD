@@ -33,7 +33,6 @@ class InventariosController extends AppController {
 	function ajaxData() {
 		//Obtengo de la SESSION el proyecto o deposito por el cual voy a 
 		$filtroProy = $this->Session->read("filtroInventario");
-
 		$paginado =new ConsultasPaginado();
 		$this->autoRender = false;
 		$output = $paginado->getDataInventarios($filtroProy);
