@@ -24,22 +24,22 @@ $fila = '<td></td><td></td><td></td><td></td><td></td>';
 $listaArt = '<tr>';
 	$c = 0;
 	foreach ($detalles as $De){
-		
+
 		if ($c == 5){
 			$listaArt.= '</tr><tr>';
 			$fila = '<td></td><td></td><td></td><td></td>';
 			$art = '<td>'.$De['art']['codigo'].'</td>';
 			$listaArt.= $art;
-			$c = 1;			
+			$c = 1;
 		} else {
 			$art = '<td>'.$De['art']['codigo'].'</td>';
 			//descuento uno para la fila final
 	        $fila = substr_replace( $fila, "", -9 );
 			$listaArt.= $art;
 		}
-		$c++;	
-	}	
-	
+		$c++;
+	}
+
 	$listaArt.=$fila.'<tr>';
 */
 
@@ -105,10 +105,10 @@ $testHtml='
 					</tr></tbody>
 				</table>
 				<table  class="listado" border ="1" cellpadding="1" cellspacing="1" style="line-height: 10px;width: 550px;">
-					
+
 					<tr>
-				
-				
+
+
 					<tr>
 
 
@@ -142,15 +142,6 @@ $tcpdf->writeHTML($html, true, false, true, false, '');
 
 $nombreRecibo='Remito_'.$pedidoId.'.pdf';
 
-<<<<<<< HEAD
 $tcpdf->Output("files/remitos/".$nombreRecibo, 'F');
-=======
-$tcpdf->Output("files\\remitos\\".$nombreRecibo, 'F');
->>>>>>> b99292fe37fb71d0a5c101f98e03fd6932d3d39c
-
-
-
-
-
 
 ?>
