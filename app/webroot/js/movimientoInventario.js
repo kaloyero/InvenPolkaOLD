@@ -17,6 +17,10 @@ var MovimientoInventario = new Class({
 
          }
      },
+     devolucionMovimiento:function(data) {
+           //Hago todo esto para asginarle un comportamiento al Volver
+            this.onAdd(data);
+        },
 
     bindListEvents:function() {
           var self=this;
