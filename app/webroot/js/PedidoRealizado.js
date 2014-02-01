@@ -28,12 +28,7 @@ var PedidoRealizado = new Class({
      	jQuery('input[type=number]').bind("change", function(e) {
             articuloRender.currentSelectedArticulos[self.getIdFromSelectedNumberType(this)]=jQuery(this).val();
      	})
-		
-		jQuery('.volver').bind("click", function(e) {
-			 alert("No vuelve");
-			 self.saveTableStatus();
- 			 translator.showWithParam("pedidoRealizado",self.getSelectedRowId(this));
-  	    });
+
      },
 	 afterDataTable:function() {
 		self = this;

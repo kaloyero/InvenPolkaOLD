@@ -115,7 +115,13 @@ var Render = new Class({
 
          jQuery('.volver').bind("click", function(e) {
                  self.saveTableStatus();
-                 translator.show(appStatus.activeList);
+                 console.log("ListaAc",appStatus.activeList);
+                 if (appStatus.activeList=='pedidoRealizado'){
+                     translator.showWithParam("pedidoRealizado",appStatus.idProyectoPedidoRealizado);
+                 }else{
+                     translator.show(appStatus.activeList);
+                 }
+
                });
 
          //Agregamos los calendar
@@ -159,7 +165,11 @@ var Render = new Class({
 
 			 jQuery('.volver').bind("click", function(e) {
                      self.saveTableStatus();
-                     translator.show(self.type);
+                     if (appStatus.activeList=='pedidoRealizado'){
+                          translator.showWithParam("pedidoRealizado",appStatus.idProyectoPedidoRealizado);
+                      }else{
+                          translator.show(appStatus.activeList);
+                      }
                    });
 
           //Agregamos los Calendar

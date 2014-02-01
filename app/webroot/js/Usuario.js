@@ -10,6 +10,9 @@ var Usuario = new Class({
             this.parent();
             translator.show(this.type);
       },
+    onDeleted: function(data){
+        jQuery('.paginate_active').click();
+    },
     getFormValidate:function(){
                 // Specify the validation rules
                 return     '{rules: {data[Usuario][Nombre]: "required",data[Usuario][Usuario]: "required"}}'

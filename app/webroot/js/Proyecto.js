@@ -26,6 +26,7 @@ var Proyecto = new Class({
 		})
 
         jQuery('.pedidoRealizado').bind("click", function(e) {
+            appStatus.idProyectoPedidoRealizado=self.getSelectedRowId(this);
 			translator.showWithParam("pedidoRealizado",self.getSelectedRowId(this));
 		})
 
