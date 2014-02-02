@@ -96,7 +96,8 @@ $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto"
                 <div class="progress progress-info">
                 <div class="bar" style="width: <?php echo $porcentaje; ?>%"></div>
             </div>
-            <small><strong><?php //echo round($porcentaje, 1, PHP_ROUND_HALF_DOWN); ?> % disponible</strong></small>
+            <small><strong><?php //echo round($porcentaje, 1, PHP_ROUND_HALF_DOWN); 
+			echo floor($porcentaje);?> % disponible</strong></small>
         </div><!--plainwidget-->
 		<?php $privis = $this->Session->read("privilegios"); ?>
         <div class="leftmenu">

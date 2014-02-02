@@ -136,7 +136,7 @@ class ConsultasUsuario extends AppModel {
 		$tabla = "usuarios";
 
 		//Usuario
-		$model->query("UPDATE `".$tabla."` SET `password` = ".$pass." WHERE id = ".$id." ;");
+		$model->query("UPDATE `".$tabla."` SET `password` = '".$pass."' WHERE id = ".$id." ;");
 		
 	}
 

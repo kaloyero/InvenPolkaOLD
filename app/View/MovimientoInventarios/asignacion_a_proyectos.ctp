@@ -59,6 +59,7 @@ echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depos
         <tr>
             <th>Codigo Articulo</th>
             <th>Descripcion</th>
+            <th>Stock Disponible</th>
             <th>Cantidad solicitada</th>
             <th>Cantidad enviada</th>
             <th>Imagen</th>
@@ -79,8 +80,13 @@ echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depos
 				<?php echo $articulo['art']['codigo']; ?>
             </td>
             <td><?php echo $articulo['art']['Descripcion']; ?></td>
+            <td><?php echo $articulo['inv']['CantidadStock']; ?></td>
             <td><?php echo $articulo['det']['Cantidad']; ?></td>
+		<?php if ($articulo['det']['Cantidad'] > $articulo['inv']['CantidadStock'] ){ ?>
+			<td><input name="data[Detalle][<?php echo $cont ?>][Cantidad]"  class="input-medium valid" value="0" min="0" max="<?php echo $articulo['inv']['CantidadStock']; ?>" type="number" /></td>
+		<?php } else { ?>
 			<td><input name="data[Detalle][<?php echo $cont ?>][Cantidad]"  class="input-medium valid" value="0" min="0" max="<?php echo $articulo['det']['Cantidad']; ?>" type="number" /></td>
+		<?php } ?>
             <td><img style="width:150px; height:150px;border-style:solid;border-width:3px;" src="/InvenPolka/app/webroot/files/articulo/idFoto/<?php echo $articulo['art']['dir']; ?>/small_<?php echo $articulo['art']['idFoto']; ?>" alt="CakePHP" ></td>
         </tr>
         <?php endforeach; ?>

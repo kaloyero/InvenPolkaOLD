@@ -29,7 +29,7 @@ class UsuariosController extends AppController {
             //Guarda el usuario
 			if ($this->Usuario->save($this->request->data)) {
 				//En caso de ser un usuario de tipo Arte le asocia us proyecto
-				if ($this->request->data['Usuario']['TipoRol']){
+				if ($this->request->data['Usuario']['TipoRol'] == 3){
 					$model = new UsuarioProyecto();
 					$idUsuario = $this->Usuario->getInsertID();
 					$model->save(array('id_usuario' => $idUsuario,'id_proyecto' =>$this->request->data['Usuario']['IdProyecto']));
@@ -103,7 +103,7 @@ class UsuariosController extends AppController {
 						//cambia el password
 						$consultasUs->changePass($usuario['id'],$this->request->data['Usuario']['password']);
 						//Envia notificacion de cambio de clave usuario
-						$this->envioNotificacionCambioClaveUser("Administrador","kaloye_ale@hotmail.com",$usuario['username'],$this->request->data['Usuario']['password']);
+						$this->envioNotificacionCambioClaveUser("Administrador","ber.losada@gmail.com",$usuario['username'],$this->request->data['Usuario']['password']);
 						$this->render('/General/Success');
 					} else {
 						$this->set('errorClave','La clave nueva debe ser igual a la clave de confirmación');

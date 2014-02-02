@@ -358,9 +358,10 @@ WHERE  `mov`.`IdMovimientoInventario` ='".$id."';";
 	//Para que? Porque el modelo es proyecto?
 	function getDetallesPedidoByIdPedido($id) {
 		$model=new Proyecto();
-		$query="SELECT  `det`.`id` AS  `IdDetalle`, `det`.`IdArticulo` AS  `IdArticulo` ,  `det`.`Cantidad` AS  `Cantidad` ,  `art`.`Descripcion` AS  `Descripcion` ,  `art`.`dir` AS  `dir` , `art`.`idFoto` AS  `idFoto` ,`art`.`CodigoArticulo` AS  `codigo`
+		$query="SELECT  `det`.`id` AS  `IdDetalle`, `det`.`IdArticulo` AS  `IdArticulo` ,  `det`.`Cantidad` AS  `Cantidad` ,  `art`.`Descripcion` AS  `Descripcion` ,  `art`.`dir` AS  `dir` , `art`.`idFoto` AS  `idFoto` ,`art`.`CodigoArticulo` AS  `codigo` ,`inv`.`Disponibilidad` AS  `CantidadStock` 
 FROM  `pedido_detalles` AS  `det`
 LEFT JOIN  `articulos`  `art` ON (  `det`.`IdArticulo` =  `art`.`id` )
+LEFT JOIN  `inventarios`  `inv` ON (`det`.`IdArticulo` =  `inv`.`IdArticulo` AND `inv`.`IdProyecto` is NULL)
 WHERE  `det`.`IdPedido` ='".$id."';";
 		$pedidos=$model->query($query);
 		return $pedidos;

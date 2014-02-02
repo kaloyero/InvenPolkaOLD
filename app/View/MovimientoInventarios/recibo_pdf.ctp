@@ -22,37 +22,47 @@ $tcpdf->SetFont($textfont,'B',20);
 
 //$tcpdf->Image('http://localhost/InvenPolka/app/webroot/files/articulo/idFoto/94/small_Screen-shot-2011-11-11-at-7.55.07-PM.png', '', '', 40, 40, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
 
+$lefthtml='<table  cellpadding="1" cellspacing="1" style="line-height: 10px;width: 550px;"><tbody><tr>';
+$fila=0;
+$col=0;
+$page=1;
+//Cuantas columnas de articulos por pagina
+$tope=6;
+$listaArtis= array();
 
-$articulos="";
-$i=0;
-$cantidadRecibos=0;
-$totalElementos=count($detalles);
+foreach ($detalles as $De){
 
+	$fila=$fila+1;
 
-$lastElement = end($detalles);
-	foreach ($detalles as $De){
+	if ($fila==6 ) {
+			$col= $col + 1;
+			
+			$fila=1;
+			if ($col == $tope){
+				$lefthtml.="</tr></tbody></table>";
+				$listaArtis[$page]= $lefthtml;
+				$lefthtml='<table  cellpadding="1" cellspacing="1" style="line-height: 10px;width: 550px;"><tbody><tr>';
+				$col = 0;
+				$page = $page + 1;
+				//En las proximas paginas vana entrar 7 columnas
+				$tope=7;
+			} else {
+				$lefthtml.="</tr><tr>";
+				$fila=1;
+			
+			}
+	}
 
-   if ($De['det']['Cantidad']!=0){
-	$articulos.='<tr><td>'.$De['det']['Cantidad'].'</td><td>'.$De['art']['Descripcion'].'</td><td>'.$De['art']['codigo'].'</td><td></td></tr>';
-	 $i=$i+1;
+	$lefthtml.='<td width="100" align="center"><img style="width:80px; height:80px;border-style:solid;border-width:0px;" src="/InvenPolka/app/webroot/files/articulo/idFoto/'.$De["det"]["IdArticulo"].'/small_'.$De["art"]["idFoto"].'"><br>'.$De['art']['codigo'].'<br>Cantidad: '.$De['det']['Cantidad'].'</td>';
+
 }
 
+$lefthtml.='</tr>';
+$lefthtml.='</tbody></table>';
+$listaArtis[$page]= $lefthtml;
 
-	if ($i==15 || $De==$lastElement){
+$tcpdf->AddPage();
 
-      if ($i!=15){
-		$faltantes=15-$i;
-		for ($i = 1; $i <= $faltantes; $i++) {
-		    $articulos.='<tr><td></td><td></td><td></td><td></td></tr>';
-		}
-
-	}
-		// add a page (required with recent versions of tcpdf)
-		$tcpdf->AddPage();
-
-
-		$cantidadRecibos=$cantidadRecibos+1;
-		$i=0;
 
 $testHtml='
 				<table  cellpadding="1" cellspacing="1" style="width: 550px;">
@@ -67,7 +77,7 @@ $testHtml='
 						</tr>
 						<tr>
 							<td>
-								<strong>Depto de Logistica</strong>
+								<strong>Depto de Arte</strong>
 							</td>
 							<td>
 								&nbsp;
@@ -78,42 +88,34 @@ $testHtml='
 								<strong>de Polka Producciones S.A</strong>
 							</td>
 							<td>
-								&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; O.S.N LOG /N° &nbsp;'.$pedidoId.'
+								&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; PEDIDO N° &nbsp;'.$pedidoId.'
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<span style="font-size:9px;">Jorge Newbery 3039</span>
+								<span style="font-size:9px;"><b>Fecha Despacho: </b>'.$pedido['Fecha'].'</span>
 							</td>
 							<td>
-								&nbsp;
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<span style="font-size:9px;">(C1426CYE) Capital Federal</span></td>
-							<td>
-								&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; Fecha : ..../..../........
+								<span style="font-size:9px;"><b>Fecha Solicitud: </b>'.$movi['Fecha'].'</span>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<span style="font-size:9px;">Tel/Fax 4555-9137</span></td>
+								<span style="font-size:9px;"><b>Deposito: </b>'.$movi['DepoOrig'].'</span>
+							</td>
 							<td>
-								&nbsp;
+								<span style="font-size:9px;"><b>Proyecto: </b>'.$movi['proyecto'].'</span>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<span style="font-size:9px;">IVA RESPONSABLE INSCRIPTO</span></td>
+								<span style="font-size:9px;"><b>Entrega: </b>'.$pedido['username'].' ('.$pedido['Nombre'].' '.$pedido['Apellido'].')</span>
+							</td>
 							<td>
-								<span style="font-size:7px;">
-									C.U.I.T. : 30-67822531-9 &nbsp;&nbsp; ING BRUTOS CONV MULT: 901-905077-6
-								<br>
-									&nbsp;INICIO DE ACT : 01/12/1994 &nbsp;&nbsp; INSCRIP CONFER N° 011729
-								</span>
+								<span style="font-size:9px;"><b>Solicita: </b>'.$movi['username'].' ('.$movi['Nombre'].' '.$movi['Apellido'].')</span>
 							</td>
 						</tr>
+
 					</tbody>
 				</table>
 				<br><table  cellpadding="1" cellspacing="1" style="line-height: 10px;width: 550px;">
@@ -124,248 +126,10 @@ $testHtml='
 					</tr></tbody>
 				</table>
 
-
-				<table  class="prueba" border ="1" cellpadding="1" cellspacing="1" style="line-height: 10px;width: 550px;">
-					<tbody>
-						<tr >
-							<td>
-								Solcita : .............................................</td>
-							<td>
-								&nbsp;Responsable: ....................................</td>
-							<td>
-								Sector: ...........................................</td>
-						</tr>
-						<tr>
-							<td>
-								Traslado Desde : (Lugar) ..................
-							</td>
-							<td>
-								...........................................................
-							</td>
-							<td>
-								Hora Citado: .................................</td>
-						</tr>
-						<tr>
-							<td>
-								&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (Direccion) ............</td>
-							<td>
-								...........................................................</td>
-							<td>
-								Hora Salida:...................................</td>
-						</tr>
-						<tr>
-							<td >
-								&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Contacto Sr/Sra .....</td>
-							<td>
-								...........................................................</td>
-							<td>
-								Hora Llegada:................................</td>
-						</tr>
-						<tr>
-							<td>
-								&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Hasta : &nbsp; (Lugar) ..................</td>
-							<td>
-								...........................................................</td>
-							<td>
-								Hora Finalizacion:.........................
-							</td>
-						</tr>
-						<tr>
-							<td>
-								&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (Direccion) ............</td>
-							<td>
-								...........................................................</td>
-							<td>
-								&nbsp;</td>
-						</tr>
-						<tr>
-							<td>
-								&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Contacto Sr/Sra ....</td>
-							<td>
-								...........................................................</td>
-							<td>
-								&nbsp;</td>
-						</tr>
-					</tbody>
-				</table>
-				<table  cellpadding="1" cellspacing="1" style="line-height: 10px;width: 550px;">
-					<tbody><tr >
-						<td>
-						</td>
-
-					</tr></tbody>
-				</table>
-						<table  class="listado" border ="1" cellpadding="1" cellspacing="1" style="line-height: 10px;width: 550px;">
-							<tbody>
-								<tr >
-									<th>
-									Cantidad
-									</th>
-									<th>
-									Descripcion
-									</th>
-									<th>
-									Codigo
-									</th>
-									<th>
-									Estado / Obs.
-								  </th>
-								</tr>
-								</tbody>
-							</table>
-								<table  class="listado" border ="0.5" cellpadding="1" cellspacing="1" style="line-height: 10px;width: 550px;">'.$articulos.'
-
-							</tbody>
-						</table>
-						<table  cellpadding="1" cellspacing="1" style="line-height: 10px;width: 550px;">
-							<tbody><tr >
-								<td>
-								</td>
-
-							</tr></tbody>
-</table>
-
-							<table  class ="prueba" cellpadding="1" cellspacing="1" style="line-height: 10px;width: 500px;">
-								<tbody><tr >
-									<td>
-									Firma Solicitante:
-									</td>
-										<td>
-									____________
-									</td>
-											<td>
-									Aclaracion:
-											</td>
-												<td>
-									____________
-												</td>
-								</tr></tbody>
-</table>
-				<table  cellpadding="1" cellspacing="1" style="line-height: 10px;width: 550px;">
-					<tbody><tr >
-						<td>
-						</td>
-
-					</tr></tbody>
-</table>
-	<table  cellpadding="1" cellspacing="1" style="line-height: 10px;width: 250px;">
-
-</table>
-<table border ="1">
-     <tr>
-       <td>
-         <table id="table1">
-           			<tbody>
-
-
-					<tr>
-						<td>
-						&nbsp;
-						</td>
-							<td>
-							&nbsp;
-						</td>
-					</tr>
-
-<tr>
-						<td>
-						Firma Autorizante:
-						</td>
-							<td>
-							____________
-						</td>
-					</tr>
-					<tr >
-						<td>
-						Aclaracion:
-						</td>
-							<td>
-						____________
-						</td>
-					</tr>
-					<tr>
-						<td>
-						&nbsp;
-						</td>
-							<td>
-							&nbsp;
-						</td>
-					</tr>
-					<tr >
-						<td>
-						Entrego(En Origen):
-						</td>
-							<td>
-						____________
-						</td>
-					</tr>
-					<tr>
-						<td>
-						&nbsp;
-						</td>
-							<td>
-							&nbsp;
-						</td>
-					</tr>
-					<tr >
-						<td>
-						Recibio(En Destino):
-						</td>
-							<td>
-						____________
-						</td>
-					</tr></tbody>
-         </table>
-       </td>
-       <td>
-         <table id="table2">
-           <tr>
-             <td><strong>Depto de Logista :</strong></td><td></td>
-           </tr>
-		<tr>
-             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Transporte</td> <td></td>
-           </tr>
-		<tr>
-             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Propio</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; De Terceros</td>
-           </tr>
-			<tr>
-             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td><td></td>
-           </tr>
-		<tr>
-             <td>Vechiculo ________</td><td>Vechiculo ________</td>
-           </tr>
-		<tr>
-             <td>Patente &nbsp;&nbsp;&nbsp; ________</td><td>Patente  &nbsp;&nbsp;&nbsp;________</td>
-           </tr>
-		<tr>
-             <td>Chofer &nbsp;&nbsp;&nbsp;  ________</td><td>Chofer  &nbsp;&nbsp;&nbsp;________</td>
-           </tr>
-		<tr>
-             <td>Firma &nbsp; &nbsp;&nbsp;&nbsp; ________</td><td>Firma &nbsp; &nbsp;&nbsp;&nbsp;________</td>
-           </tr>
-			<tr>
-             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td><td></td>
-           </tr>
-			<tr>
-	             <td>Encargado:  __________________</td><td></td>
-	           </tr>
-			<tr>
-             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td><td></td>
-           </tr>
-			<tr>
-            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td><td></td>
-          </tr>
-         </table>
-
-       </td>
-
-     </tr>
-   </table>		   <table id="table3">
-	           <tr>
-	             <td> <span style="font-size:9px;">Devolucion por O.de S N Log / Blanco = Logistica chofer / Rosa = Usuario / Amarillo = Seguridad / Verde = Archivo</span></td>
-	           </tr>
-				</table>
-								';
+				<br>
+				'.$listaArtis[1].'
+				
+';
 
 
 $html = <<<EOF
@@ -390,21 +154,19 @@ $tcpdf->SetTextColor(0, 0, 0);
 $tcpdf->SetFont('times', '', 12);
 $tcpdf->writeHTML($html, true, false, true, false, '');
 
-
-//$tcpdf->writeHTMLCell(0, '', '', '', $lefthtml, 0, 0, false, true, 'L');
-
-
-
-// ...
-// etc.
-// see the TCPDF examples
- $nombreRecibo='Remito_'.$pedidoId.'.pdf';
-//$nombreRecibo2='ReciboA'.$pedidoId.'.pdf';
-//$tcpdf->Output($nombreRecibo2, 'F');
-$articulos="";
-
-
-	}
+//Separo en paginas
+for ($i = 2; $i < $page+1; $i++){
+	// add a page (required with recent versions of tcpdf)
+	$tcpdf->AddPage();
+$html = <<<EOF
+<body>
+$listaArtis[$i]
+</body>
+EOF;
+	$tcpdf->writeHTML($html, true, false, true, false, '');
 }
+
+
+$nombreRecibo='Remito_'.$pedidoId.'.pdf';
 
 $tcpdf->Output("files/remitos/".$nombreRecibo, 'F');

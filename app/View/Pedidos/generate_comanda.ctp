@@ -27,23 +27,39 @@ $tcpdf->SetFont($textfont,'B',10);
 $encabezado = "	Proyecto: ".$pedido['proyecto']." Fecha de Emisión: ".$pedido['Fecha']." Estado: ".$pedido['estado']."  Descripción: ".$pedido['Descripcion']."";
 
 $lefthtml='<table ><tr>';
-$i=0;
-        foreach ($detalles as $De){
+$fila=0;
+$col=0;
+$page=1;
+$listaArtis= array();
 
-$i=$i+1;
+foreach ($detalles as $De){
 
-if ($i==6 ) {
-        $lefthtml.="</tr><tr>";
-        $i=1;
-}
+	$fila=$fila+1;
 
-$lefthtml.='<td width="100"><img style="width:80px; height:80px;border-style:solid;border-width:0px;" src="/InvenPolka/app/webroot/files/articulo/idFoto/'.$De["det"]["IdArticulo"].'/small_'.$De["art"]["idFoto"].'"><p align="center">'.$De['art']['codigo'].'</p><span align="center">Cantidad: '.$De['det']['Cantidad'].'</p></td>';
+	if ($fila==6 ) {
+			$col= $col + 1;
+			
+			$fila=1;
+			if ($col == 7){
+				$lefthtml.="</tr></table>";
+				$listaArtis[$page]= $lefthtml;
+				$lefthtml='<table ><tr>';
+				$col = 0;
+				$page = $page + 1;
+			} else {
+				$lefthtml.="</tr><tr>";
+				$fila=1;
+			
+			}
+	}
 
+	$lefthtml.='<td width="100" align="center"><img style="width:80px; height:80px;border-style:solid;border-width:0px;" src="/InvenPolka/app/webroot/files/articulo/idFoto/'.$De["det"]["IdArticulo"].'/small_'.$De["art"]["idFoto"].'"><br>'.$De['art']['codigo'].'<br>Cantidad: '.$De['det']['Cantidad'].'</td>';
 
 }
 
 $lefthtml.='</tr>';
 $lefthtml.='</table>';
+$listaArtis[$page]= $lefthtml;
 $html = <<<EOF
 
 <!-- EXAMPLE OF CSS STYLE -->
@@ -79,9 +95,7 @@ $html = <<<EOF
 <h1>Listado de Articulos del pedido $pedidoId</h1>
 <h2>$encabezado</h2>
 
-<p>      </p>
-<br>
-$lefthtml
+$listaArtis[1]
 </body>
 EOF;
 
@@ -90,11 +104,18 @@ $tcpdf->SetTextColor(0, 0, 0);
 $tcpdf->SetFont('times', '', 10);
 $tcpdf->writeHTML($html, true, false, true, false, '');
 
-
-//$tcpdf->writeHTMLCell(0, '', '', '', $lefthtml, 0, 0, false, true, 'L');
-
-
-
+//Separo en paginas
+for ($i = 2; $i < $page+1; $i++){
+	// add a page (required with recent versions of tcpdf)
+	$tcpdf->AddPage();
+$html = <<<EOF
+<body>
+$listaArtis[$i]
+</body>
+EOF;
+	$tcpdf->writeHTML($html, true, false, true, false, '');
+}
+	
 // ...
 // etc.
 // see the TCPDF examples
