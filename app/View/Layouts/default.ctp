@@ -107,7 +107,8 @@ jQuery(document).ready(function(){
 		if(jQuery(this).hasClass('error')) jQuery(this).removeClass('error');
 	});
 	jQuery('.logOut').click(function(){
-
+        jQuery('.stdformbutton').append('<img src="/invenPolka/app/webroot/files/gif/16.GIF" class ="loader" alt="CakePHP" height="50px" width="50px">');
+			debugger
 			translator.logOutUser(self.type);
 			return false;
 	});

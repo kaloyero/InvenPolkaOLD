@@ -274,6 +274,7 @@ jQuery(document).ready(function(){
 
 	jQuery('.logOut').click(function(){
 			//Cierra la ventana abierta
+           jQuery('.breadcrumb').append('<img src="/invenPolka/app/webroot/files/gif/16.GIF" class ="loader" alt="CakePHP" height="50px" width="50px">');
 			jQuery('.dropdown-toggle').click();
 			//sale
 			translator.logOutUser("usuario");
