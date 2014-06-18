@@ -60,9 +60,7 @@
         echo $this->Html->script('libs/md5');
 
 		echo $this->Html->css('style.dark');
-
 		echo $this->Html->script('jsTemplate/custom');
-
         echo $this->fetch('css');
         echo $this->fetch('script');?>
 
@@ -139,7 +137,7 @@ $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto"
 					<?php if (! empty($privis['menuConfig'])) { ?>
 						<li class="dropdown animate13 fadeInUp"><a href=""><span class="icon-pencil"></span> <?php echo $privis['menuConfig']['nombre'] ?></a>
 							<ul>
-									<li><a id="categoria" class="option">Categorias</a></li>
+									<li><a id="categoria" class="option">Categoriasa</a></li>
 									<li><a id="objeto" class="option">Objetos</a></li>
 									<li><a id="decorado" class="option">Decorados</a></li>
 									<li><a id="material" class="option">Materiales</a></li>
@@ -278,7 +276,7 @@ jQuery(document).ready(function(){
 
 	jQuery('.logOut').click(function(){
 			//Cierra la ventana abierta
-			jQuery('.breadcrumb').append('<img src="/invenPolka/app/webroot/files/gif/16.GIF" class ="loader" alt="CakePHP" height="50px" width="50px">');
+            jQuery('.breadcrumb').append('<img src="/invenPolka/app/webroot/files/gif/16.GIF" class ="loader" alt="CakePHP" height="50px" width="50px">');
 			jQuery('.dropdown-toggle').click();
 			//sale
 			translator.logOutUser("usuario");
