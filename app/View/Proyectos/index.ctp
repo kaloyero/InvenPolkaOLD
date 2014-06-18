@@ -1,10 +1,12 @@
-<p class="stdformbutton">
+<h4 class="widgettitle nomargin shadowed">
+
 	<?php $privis = $this->Session->read("privilegios"); ?>
 
 	<?php if (! empty($privis['addProyecto'])) { ?>
 		<button id="add" class="btn">Agregar</button>
 	<?php } ?>
-</p>
+</h4>
+<h4 class="widgettitle nomargin shadowed">Listado de Proyectos</h4>
 
 <table  id="configurationTable" class ="table table-bordered" width="100%"  style="width: 100%;">
         <thead>
@@ -20,3 +22,5 @@
       	</tbody>
 
 </table>
+<div class="botonera widgettitle">
+</div>

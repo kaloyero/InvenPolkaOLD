@@ -61,6 +61,8 @@
 
 		echo $this->Html->css('style.dark');
 
+		echo $this->Html->script('jsTemplate/custom');
+
         echo $this->fetch('css');
         echo $this->fetch('script');?>
 
@@ -257,7 +259,8 @@ $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto"
 
     <div class="footer">
             <div class="footerleft">Inventario Polka v1.0</div>
-            <div class="footerright" style="margin-left: 260px;">© Version Beta - <a href="#s">Polka</a> - <a href="#"></a></div>
+            <div class="footerright" style="margin-left: 260px;">
+            <a href="http://www.belasoft.com.ar" target="_blank" >BelaSoft - disign&webApp </a> - <a href="#s">Polka</a> - <a href="#"></a></div>
     </div><!--footer-->
 
 
@@ -275,6 +278,7 @@ jQuery(document).ready(function(){
 
 	jQuery('.logOut').click(function(){
 			//Cierra la ventana abierta
+			jQuery('.breadcrumb').append('<img src="/invenPolka/app/webroot/files/gif/16.GIF" class ="loader" alt="CakePHP" height="50px" width="50px">');
 			jQuery('.dropdown-toggle').click();
 			//sale
 			translator.logOutUser("usuario");

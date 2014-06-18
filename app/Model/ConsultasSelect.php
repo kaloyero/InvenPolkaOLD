@@ -49,7 +49,7 @@ class ConsultasSelect extends AppModel {
 	function getRolesUsuarios() {
 //		$rolesList = array('A'=>'Us. Administrador','D'=>'Us. Deposito','R'=>'Us. Arte');
 		$model=new Role();
-		$acciones=$model->find('list',array('fields'=>array('Role.id','Role.Nombre')));
+		$acciones=$model->find('list',array('fields'=>array('Role.id','Role.Nombre'), 'conditions' => array(	'Role.Inactivo =' => 'F')));
 
 		return $acciones;
 	}

@@ -101,8 +101,8 @@ private function getArrayDataConfig($rows,$modelo,$columnaId) {
       $arrayDt=array();
 
 
-  	  $icono = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a class ='desactivar' ><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>";
-	  $icono2 = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/za' class='view'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div></div>";
+  	  $icono = "<div><div class= 'iconoAccion' ><a class ='desactivar' ><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>";
+	  $icono2 = "<div><div class= 'iconoAccion' ><a href='/InvenPolka/za' class='view'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.png' /></a></div></div>";
       foreach($rows as $j){
 				//id
 				$fila[0] = array($j['tab']['id']);
@@ -212,13 +212,13 @@ private function getArrayDataProyectos($tabla,$rows,$aColumns,$titi,$privilegios
 	  $icono2 = "";
 	  $icono3 = "";
 	  if (! empty($privilegios['btnEditar'])) {
-		$icono = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/articulos/ed' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div>";
+		$icono = "<div  class= 'iconoAccion' > <a href='/InvenPolka/articulos/ed' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.png' /></a></div>";
 	  }
 	  if (! empty($privilegios['btnEliminar'])) {
-		$icono2 = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a class='desactivar'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div>";
+		$icono2 = "<div  class= 'iconoAccion' > <a class='desactivar'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div>";
 	  }
 	  if (! empty($privilegios['btnVerPedidos'])) {
-		$icono3 = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a id='pedidoRealizado' class='pedidoRealizado'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/pedidosLista.png' /></a></div>";
+		$icono3 = "<div  class= 'iconoAccion' > <a id='pedidoRealizado' class='pedidoRealizado'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/pedidosLista.png' /></a></div>";
 	  }
 	  if (! empty($privilegios['btnCierreProy'])) {
 //		$icono3 = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a class='cierreProy'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/gemicon/reports.png' /></a></div>";
@@ -414,7 +414,7 @@ private function getDataDefaultQueryInventario($tabla,$aColumns,$aColumnsFilter,
 			  							);
 			 $icono = "";
 
-		$icono = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a class ='edit' ><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/view.png' /></a></div></div>";
+		$icono = "<div><div  class= 'iconoAccion' > <a class ='edit' ><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/view.png' /></a></div></div>";
 
 
 		  //  array_push($arrayDt, array($titi));
@@ -583,25 +583,25 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi,$tipoLista,$pri
 
 			$botonera = " <div>";
 
-			$btnVer ="<div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <a href='/InvenPolka/pedidos/edit/".$j[$tabla]['id']."' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/view.png' /></a></div>";
+			$btnVer ="<div  class= 'iconoAccion' > <a href='/InvenPolka/pedidos/edit/".$j[$tabla]['id']."' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/view.png' /></a></div>";
 			$btnAccion = "";
 			$btnPrintPedido = "";
 			$btnPrintComanda = "";
 			switch ($tipoLista) {
 				case 'E':
-					$btnAccion= "<div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <a href='/InvenPolka/pedidos/confirmarPedido/".$j[$tabla]['id']."' class='confirm'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/confirmar.png' /></a></div><div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <a href='/InvenPolka/pedidos/generateComanda/".$j[$tabla]['id']."'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/pdf.gif' /></a></div>";
+					$btnAccion= "<div  class= 'iconoAccion' > <a href='/InvenPolka/pedidos/confirmarPedido/".$j[$tabla]['id']."' class='confirm'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/confirmar.png' /></a></div><div class= 'iconoAccion' > <a href='/InvenPolka/pedidos/generateComanda/".$j[$tabla]['id']."'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/pdf.gif' /></a></div>";
 					$btnPrintPedido = "";
 					break;
 				case 'S':
-					$btnAccion = "<div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <a href='/InvenPolka/movimientoInventarios/asignacionAProyectos/".$j[$tabla]['id']."' class='asignarAProyecto'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/armar.png' /></a></div>";
+					$btnAccion = "<div  class= 'iconoAccion' > <a href='/InvenPolka/movimientoInventarios/asignacionAProyectos/".$j[$tabla]['id']."' class='asignarAProyecto'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/armar.png' /></a></div>";
 					$btnPrintComanda = "";
 					break;
 				case 'H':
-				$btnAccion= "<div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <a href='/InvenPolka/pedidos/generateComanda/".$j[$tabla]['id']."'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/pdf.gif' /></a></div><div style= 'width:20%; float:left; min-width:10px; text-align:center;'></div>";
+				$btnAccion= "<div  class= 'iconoAccion' > <a href='/InvenPolka/pedidos/generateComanda/".$j[$tabla]['id']."'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/pdf.gif' /></a></div>";
 
 				//Pregunto si el estado del producto fue enviado. Solo los productos en este estado pueden imprimir la comanda
 					if ($j[$tabla]["estado"] == "enviado"){
-						$btnAccion=$btnAccion."<a href='/InvenPolka/app/webroot/files/remitos/Remito_".$j[$tabla]['id'].".pdf' download='Remito_".$j[$tabla]['id']."'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/recibo.jpg' /></a>";
+						$btnAccion=$btnAccion."<div  class= 'iconoAccion' ><a href='/InvenPolka/app/webroot/files/remitos/Remito_".$j[$tabla]['id'].".pdf' download='Remito_".$j[$tabla]['id']."'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/recibo.jpg' /></a></div>";
 					}
 					$btnAccion= $btnAccion."</div>";
 					$btnPrintPedido = "";
@@ -614,7 +614,7 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi,$tipoLista,$pri
   				    if (! empty($privilegios['btnDevPedProy'])) {
 						//Pregunto si el estado del producto fue enviado. Solo los productos en este estado pueden ser devueltos
 						if ($j[$tabla]["estado"] == "enviado"){
-							$btnAccion = "<div style= 'width:20%; float:left; min-width:10px; text-align:center;'> <a href='/InvenPolka/pedidos/edit/".$j[$tabla]['id']."' class='devolucionArtPorProy'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/devolver.jpg' /></a></div>";
+							$btnAccion = "<div  class= 'iconoAccion' > <a href='/InvenPolka/pedidos/edit/".$j[$tabla]['id']."' class='devolucionArtPorProy'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/devolver.jpg' /></a></div>";
 						}
 					}
 					$btnPrintComanda = "";
@@ -811,7 +811,7 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumns,$aColumnsFil
 //		if (! empty($privilegios['btnEditarArticulo'])) {
 		if (! empty($privilegios['btnEditar']))  {
 			//Las siguientes imagenes se preguntan en el privilegio
-			array_push($fila,'<a href="#" id='.$j[$tabla]['id'].' class="edit"><img style="width:20px;height:20;display:inline;float:right;margin-top:0.1cm;" src="/InvenPolka/app/webroot/files/gif/edit.jpg"></a>');
+			array_push($fila,'<a href="#" id='.$j[$tabla]['id'].' class="edit"><img style="width:20px;height:20;display:inline;float:right;margin-top:0.1cm;" src="/InvenPolka/app/webroot/files/gif/edit.png"></a>');
 		}
 
 		array_push($fila,'<a href="#" id='.$j[$tabla]['id'].' class="view"><img style="width:20px;height:20;display:inline;float:right;margin-top:0.1cm;" src="/InvenPolka/app/webroot/img/view.png"></a>');
@@ -898,10 +898,10 @@ private function getArrayUsuariosConfig($rows,$privilegios) {
 	  $icono2 = "";
 	  $icono3 = "";
 	  if (! empty($privilegios['btnEliminar'])) {
-	  	  $icono = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a class ='desactivar' ><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>";
+	  	  $icono = "<div><div class= 'iconoAccion'> <a class ='desactivar' ><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>";
 	  }
 	  if (! empty($privilegios['btnEditar'])) {
-		  $icono2 = "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/za' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div></div>";
+		  $icono2 = "<div><div class= 'iconoAccion'> <a href='/InvenPolka/za' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.png' /></a></div></div>";
 	  }
 	  if (! empty($privilegios['menuCambioPass'])) {
 		  $icono3 = "";
@@ -911,11 +911,14 @@ private function getArrayUsuariosConfig($rows,$privilegios) {
 
 		
       foreach($rows as $j){
+		  	//Pregunta si es usuario INVITADO. Asi no lo muestra en el listado de usuarios
+			if ($j['tab']['id'] != '1'){
 				$fila[0] = array($j['tab']['id']);
 				$fila[1] = array($j['tab']['username']);
 				$fila[2] = array($j['tab']['Apellido'].", ".$j['tab']['Nombre']);
 				$fila[3] = array($j['tab']['Email']);
 				$fila[4] = array($rolesList[$j['tab']['TipoRol']]);
+				
 				if ($j['tab']['TipoRol'] == '3'){
 					$fila[5] = array($j[0]['proyecto']);
 				} else {
@@ -926,6 +929,8 @@ private function getArrayUsuariosConfig($rows,$privilegios) {
 				$fila[7] = array($icono.$icono2.$icono3);
 
 				array_push($arrayDt, $fila);
+			}
+
 	  }
 
 	  return $arrayDt;
@@ -1010,7 +1015,7 @@ private function getArrayData($tabla,$rows,$aColumns,$titi) {
 				}
 
 			}
-			array_push($fila, "<div><div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a class ='desactivar '><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>");
+			array_push($fila, "<div><div class= 'iconoAccion'> <a class ='desactivar '><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div></div>");
 			array_push($arrayDt, $fila);
       }
 	 return $arrayDt;
@@ -1024,10 +1029,10 @@ private function getArrayDataWithEditLink($tabla,$rows,$aColumns,$titi,$privileg
    	  $icono = "";
 	  $icono2 = "";
 	  if (! empty($privilegios['btnEliminar'])) {
-		$icono = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a href='/InvenPolka/articulos/ed' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.jpg' /></a></div>";
+		$icono = "<div class= 'iconoAccion'> <a href='/InvenPolka/articulos/ed' class='edit'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/edit.png' /></a></div>";
 	  }
 	  if (! empty($privilegios['btnEditar'])) {
-		$icono2 = "<div style= 'width:20%; float:left; min-width:100px; text-align:center;'> <a class='desactivar'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div>";
+		$icono2 = "<div class= 'iconoAccion'> <a class='desactivar'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/files/gif/desactivar.png' /></a></div>";
 	  }
 
 

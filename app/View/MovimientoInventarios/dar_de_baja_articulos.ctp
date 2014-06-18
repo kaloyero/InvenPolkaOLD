@@ -1,45 +1,46 @@
-<?php
-echo '<h4 class="widgettitle nomargin shadowed">Baja Articulos</h4>';
-echo '<div class="widgetcontent bordered shadowed nopadding">';
+<h4 class="widgettitle nomargin shadowed">Datos de la Baja<button class="volver glyphicon" style="float:right;" type="button" title="Volver atras"><img src="app/webroot/img/icon-back.png" alt="Volver atras" /></button></h4>
+<div class="widgetcontent bordered shadowed nopadding">
 
+<?php
 echo $this->Form->create('MovimientoInventario',array('class' => 'stdform stdform2','inputDefaults' => array(
         'div' => array('class' => 'field') )));
-
-/*echo $this->Form->input('Fecha',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
-                                <label style="float: left;">Fecha de baja</label>
-                                <span class="field float">',
-								'after'=>'</span>'));*/
-
-
-echo '<p><label style="float: left;">Fecha de Baja</label><span class="field float"><input class="input-small fecha" type="text" name="data[MovimientoInventario][Fecha]" required="required" /><small><em> año / mes / dia</em></small></span>';
-
-echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5','div'=>false,'label'=>false,'before'=>'<p>
-                                <label style="float: left;">Comentarios</label>
-                                <span class="field float">',
-								'after'=>'</span>'));
 ?>
-<input type="hidden" value="B" name="data[MovimientoInventario][TipoMovimiento]"/>
+<div class="conteinerPrinc-1">
+	<p><label style="float: left;">Fecha de Baja</label><span class="field float"><input class="input-small fecha" type="text" name="data[MovimientoInventario][Fecha]" required="required" /><small>	<em> año / mes / dia</em></small></span><p>
+
 <?php
 echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depositoOriginal','type'=>'select','options'=>$depositos,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'
-                                <label style="float: left;">Deposito Origen</label>
+                                <p><label style="float: left;">Deposito Origen</label>
                                 <span class="field float">',
 								'after'=>'</span></p>'));
 
 echo $this->Form->input('MovimientoInventario.IdProyecto',array('type'=>'select','options'=>$proyectos,'empty'=>true,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p><label>Proyecto</label><span class="field">','after'=>'</span></p>'));
 
 ?>
+</div>
+<div class="conteinerPrinc-2">
+<?php
+echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5','div'=>false,'label'=>false,'before'=>'<p>
+                                <p><label style="float: left;">Comentarios</label>
+                                <span class="field float">',
+								'after'=>'</span></p>'));
+?>
 
-<p><h5 style="color:#3366FF;padding-left:0.5em;">Lista de Articulos</h5></p>
+
+<input type="hidden" value="B" name="data[MovimientoInventario][TipoMovimiento]"/>
+
+</div>
+<div class="listaArticulos widgettitle nomargin shadowed"><h4>Lista de Articulos</h4></div>
 </span>
 <table  id="listaArticulos" class ="table table-bordered" width="100%"  style="width: 100%;">
 	<thead>
-					<tr>
-                        <th>Codigo Articulo</th>
-                        <th>Descripcion</th>
-                        <th>Cantidad</th>
-                        <th>Imagen</th>
-						<th>Acciones</th>
-		            </tr>
+        <tr>
+            <th>Codigo Articulo</th>
+            <th>Descripcion</th>
+            <th>Cantidad</th>
+            <th>Imagen</th>
+            <th>Acciones</th>
+        </tr>
 	</thead>
 	<tbody>
 		<?php
@@ -65,10 +66,12 @@ echo $this->Form->input('MovimientoInventario.IdProyecto',array('type'=>'select'
 	</tbody>
 </table>
 
-<?php
-echo '<p class="stdformbutton"><button class="btn btn-primary save">Aceptar</button></p>';
-?>
-<?php echo $this->Form->end();?>
+
 </div>
-<button class="btn btn-primary volver" type="button">Volver</button>
+
+<div class="botonera widgettitle">
+	<p class="stdformbutton">
+    	<button class="btn btn-primary save" style="margin-left: 10px;">Aceptar</button>
+    </p>
+</div>
 

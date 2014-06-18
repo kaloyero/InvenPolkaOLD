@@ -1,35 +1,38 @@
+<h4 class="widgettitle nomargin shadowed">Ingreso de Articulos<button class="volver glyphicon" style="float:right;" type="button" title="Volver atras"><img src="app/webroot/img/icon-back.png" alt="Volver atras" /></button></h4>
+<div class="widgetcontent bordered shadowed nopadding">
+
 <?php
-echo '<h4 class="widgettitle nomargin shadowed">Ingreso de Articulos</h4>';
-echo '<div class="widgetcontent bordered shadowed nopadding">';
 
 echo $this->Form->create('MovimientoInventario',array('class' => 'stdform stdform2','inputDefaults' => array(
         'div' => array('class' => 'field') )));
+?>
+<div class="conteinerPrinc-1">
+<p><label style="float: left;">Fecha Ingreso</label><span class="field float"><input class="input-small fecha" type="text" 	name="data[MovimientoInventario][Fecha]" required="required" /><small><em> año / mes / dia</em></small></span></p>
 
-/*echo $this->Form->input('Fecha',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
-		                                <label style="float: left;">Fecha Empaquetado</label>
-		                                <span class="field float">',
-										'after'=>'</span>'));*/
-
-
-echo '<p><label style="float: left;">Fecha Empaquetado</label><span class="field float"><input class="input-small fecha" type="text" 	name="data[MovimientoInventario][Fecha]" required="required" /><small><em> año / mes / dia</em></small></span>';
-
+<?php
+echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depositoOriginal','type'=>'select','options'=>$depositos,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'
+                                <p><label style="float: left;">Deposito</label>
+                                <span class="field float">',
+								'after'=>'</span></p>'));
+?>
+<br><br>
+</div>
+<div class="conteinerPrinc-2">
+<?php
 echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5','div'=>false,'label'=>false,'before'=>'<p>
 								                                <label style="float: left;">Comentarios</label>
 								                                <span class="field float">',
 																'after'=>'</span></p>','pattern' => '.*\S+.*'));
 
 ?>
-<div class="input text">
-<input type="hidden" value="I" name="data[MovimientoInventario][TipoMovimiento]"/>
 </div>
-<?php
-echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depositoOriginal','type'=>'select','options'=>$depositos,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'
-                                <label style="float: left;">Deposito</label>
-                                <span class="field float">',
-								'after'=>'</span></p>'));
-?>
 
-<h5 style="color:#3366FF;padding-left:0.5em;">Lista de Articulos</h5><table  id="listaArticulos" class ="table table-bordered" width="100%"  style="width: 100%;">
+
+<input type="hidden" value="I" name="data[MovimientoInventario][TipoMovimiento]"/>
+
+
+<div class="listaArticulos widgettitle nomargin shadowed"><h4>Lista de Articulos</h4></div>
+<table  id="listaArticulos" class ="table table-bordered" width="100%"  style="width: 100%;">
 	<thead>
 					<tr>
                         <th>Codigo Articulo</th>
@@ -62,15 +65,13 @@ echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depos
 
 	</tbody>
 </table>
-
-
-
-<?php
-echo '<p class="stdformbutton"><button class="btn btn-primary save">Aceptar</button></p> ';
-?>
-<?php echo $this->Form->end();?>
 </div>
-<button class="btn btn-primary volver" type="button">Volver</button>
+
+<div class="botonera widgettitle">
+	<p class="stdformbutton">
+    	<button class="btn btn-primary save" style="margin-left: 10px;">Aceptar</button>
+    </p>
+</div>
 
 
 

@@ -17,7 +17,9 @@
 ?>
                 <p class="animate4 bounceIn"><input type="text" id="username" name="username" placeholder="Usuario" /></p>
                 <p class="animate5 bounceIn"><input type="password" id="password" name="password" placeholder="Contraseña" /></p>
+                <p class="animate6 bounceIn" style="font-size: 18px;color: #D1CDF1 !important;"><input type="checkbox" id="invitado" name="invitado" style="box-shadow: 0 0px 0;width: 25px;margin: 0px 10px 0px 40px;"/><b>Entrar como Usuario Invitado</b></p>
                 <p class="animate6 bounceIn"><button class="btn btn-default btn-block">Entrar</button></p>
+
 <?php echo $this->Form->end()?>
         </div><!--loginwrapperinner-->
     </div>
@@ -39,16 +41,12 @@ jQuery(document).ready(function(){
 		if(jQuery(this).hasClass('error')) jQuery(this).removeClass('error');
 	});
 	jQuery('.logOut').click(function(){
-		 console.log("what")
+			jQuery('.stdformbutton').append('<img src="/invenPolka/app/webroot/files/gif/16.GIF" class ="loader" alt="CakePHP" height="50px" width="50px">');
 
 			translator.logOutUser(self.type);
 			return false;
 	});
 	jQuery('#loginform button').click(function(){
-
-		 console.log("SOI")
-
-
 		if(!jQuery.browser.msie) {
 			if(jQuery('#username').val() == '' || jQuery('#password').val() == '') {
 				if(jQuery('#username').val() == '') jQuery('#username').addClass('error'); else jQuery('#username').removeClass('error');
@@ -65,6 +63,19 @@ jQuery(document).ready(function(){
 			return false;
 		}
 	});
+    jQuery('#invitado').change(function() {
+        if(jQuery(this).is(":checked")) {
+			jQuery("#username").prop('disabled', true);
+			jQuery("#password").prop('disabled', true);
+			jQuery('#username').val('Invitado');
+			jQuery('#password').val('123');
+        } else {
+			jQuery('#username').val('');
+			jQuery('#password').val('');
+			jQuery("#username").prop('disabled', false);
+			jQuery("#password").prop('disabled', false);
+		}
+    });
 });
 </script>
 </body>

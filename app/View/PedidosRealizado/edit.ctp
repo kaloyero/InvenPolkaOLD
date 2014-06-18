@@ -1,33 +1,44 @@
+<h4 class="widgettitle nomargin shadowed">Datos del Pedido<button class="volver glyphicon" style="float:right;" type="button" title="Volver atras"><img src="app/webroot/img/icon-back.png" alt="Volver atras" /></button></h4>
+<div class="widgetcontent bordered shadowed nopadding">
+
 <?php
-echo '<h4 class="widgettitle nomargin shadowed">Despacho Pedido</h4>';
-echo '<div class="widgetcontent bordered shadowed nopadding">';
-echo $this->Form->create('Pedido',array('class' => 'stdform stdform2','inputDefaults' => array(
+echo $this->Form->create('Pedido',array('class' => 'stdform','inputDefaults' => array(
         'div' => array('class' => 'field') )));
 
 
 ?>
-<p>
-		<label style="float: left;">Numero Pedido</label>
-		<span class="field float"><input name="Numero" value="<?php echo $Pe['Numero'];?>" class="input-medium" readonly="readonly"  required="required"/></span>
-		<label style="float: left;">Fecha</label>
-		<span class="field float"><input name="fecha" value="<?php echo $Pe['Fecha'];?>" class="input-medium" readonly="readonly" maxlength="100" type="text" required="required"></span></p>
-			<p>
+
+<div class="conteinerPrinc-1">
+    <p>
+        <label style="float: left;">Numero Pedido</label>
+        <span class="field float"><input name="Numero" value="<?php echo $Pe['Numero'];?>" class="input-medium" readonly="readonly"  required="required"/></span>
+    </p>
+    <p>
+        <label style="float: left;">Fecha</label>
+        <span class="field float"><input name="fecha" value="<?php echo $Pe['Fecha'];?>" class="input-medium" readonly="readonly" maxlength="100" type="text" required="required"></span></p>
+    </p>
+    <p>
+        <label>Proyecto</label>
+        <span class="field float"><input name="Proyecto" value="<?php echo $Pe['proyecto'];?>" class="input-medium" readonly="readonly" type="text"  required="required"/></span>
+    </p>
+    <br><br>
+</div>
+
+<div class="conteinerPrinc-2">
+	<p>
 		<label style="float: left;">Descripcion</label>
 		<span class="field float"><textarea name="descripcion"  class="span5" readonly="readonly" cols="30" rows="6"><?php echo $Pe['Descripcion'];?></textarea></span>
-
-		<label style="float: left;">Proyecto</label>
-		<span class="field float"><input name="Proyecto" value="<?php echo $Pe['proyecto'];?>" class="input-medium" readonly="readonly" type="text"  required="required"/></span>
-		</p>
-
-		<label style="float: left;">Estado</label>
+    </p>
+    <p>
+		<label>Estado</label>
 		<span class="field float"><input name="Estado" value="<?php echo $Pe['estado'];?>" class="input-medium" readonly="readonly" type="text"  required="required"/></span>
-		</p>
-
+	</p>
+</div>
 <?php
 
 
 ?>
-<p><h5 style="color:#3366FF;padding-left:0.5em;">Lista de Articulos</h5></p>
+<div class="listaArticulos widgettitle nomargin shadowed"><h4> Lista de Articulos</h4></div>
 <table  id="listaArticulos" class ="table table-bordered" width="100%"  style="width: 100%;">
 	<thead>
 					<tr>
@@ -53,8 +64,9 @@ echo $this->Form->create('Pedido',array('class' => 'stdform stdform2','inputDefa
 
 	</tbody>
 </table>
+<div class="botonera widgettitle">
 </div>
-<br>
-<button class="btn btn-primary volver" type="button">Volver</button>
+
+</div>
 
 

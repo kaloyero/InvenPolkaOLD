@@ -248,7 +248,8 @@
 
     <div class="footer">
             <div class="footerleft">Inventario Polka v1.0</div>
-            <div class="footerright" style="margin-left: 260px;">© Version Beta - <a href="#s">Polka</a> - <a href="#"></a></div>
+            <div class="footerright" style="margin-left: 260px;">
+            <a href="http://www.belasoft.com.ar" target="_blank" >BelaSoft - disign&webApp </a> - <a href="#s">Polka</a> - <a href="#"></a></div>
     </div><!--footer-->
 
 

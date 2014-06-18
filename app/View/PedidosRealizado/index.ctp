@@ -1,3 +1,6 @@
+<h4 class="widgettitle nomargin shadowed">Listado de Pedidos realizados por el Proyecto</h4>
+<div class="widgetcontent bordered shadowed nopadding">
+
 <table  id="configurationTable" class ="table table-bordered" width="100%"  style="width: 100%;">
 	<thead>
 	     <tr>
@@ -13,3 +16,7 @@
 	<tbody>
 	</tbody>
 </table>
+
+
+<div class="botonera widgettitle">
+</div>

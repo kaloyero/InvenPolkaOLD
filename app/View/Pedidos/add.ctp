@@ -1,19 +1,15 @@
+<h4 class="widgettitle nomargin shadowed">Datos del Pedido<button class="volver glyphicon" style="float:right;" type="button" title="Volver atras"><img src="app/webroot/img/icon-back.png" alt="Volver atras" /></button></h4>
+<div class="widgetcontent bordered shadowed nopadding">
+
 <?php
-echo '<h4 class="widgettitle nomargin shadowed">Pedido</h4>';
-echo '<div class="widgetcontent bordered shadowed nopadding">';
 
 echo $this->Form->create('Pedido',array('class' => 'stdform stdform2','inputDefaults' => array(
         'div' => array('class' => 'field') )));
-echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5','div'=>false,'label'=>false,'before'=>'<p>
-								                                <label style="float: left;">Comentarios</label>
-								                                <span class="field float">',
-																'after'=>'</span></p>','pattern' => '.*\S+.*'));
+?>
+<div class="conteinerPrinc-1">
+<p><label style="float: left;">Fecha Empaquetado</label><span class="field float"><input class="input-small fecha " type="text" 	name="data[Pedido][Fecha]" required="required" /><small><em> año / mes / dia</em></small></span></p>
 
-//echo $this->Form->input('Fecha',array('class'=>'input-medium','div'=>false,'label'=>false,'before'=>'<p>
-//								                                <label>Fecha</label>
-
-echo '<p><label style="float: left;">Fecha Empaquetado</label><span class="field float"><input class="input-small fecha " type="text" 	name="data[Pedido][Fecha]" required="required" /><small><em> año / mes / dia</em></small></span>';
-
+<?php
 	//Obtengo datos del usuario
 	$usuario = $this->Session->read("usuario");
 	if ($usuario['Rol'] == '3'){
@@ -25,8 +21,19 @@ echo '<p><label style="float: left;">Fecha Empaquetado</label><span class="field
 								'after'=>'</span></p>'));
 	}
 ?>
-<span style="padding-left:1em;">LISTA DE ARTICULOS
-</span>
+<br><br>
+</div>
+<div class="conteinerPrinc-2">
+<?php
+echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5','div'=>false,'label'=>false,'before'=>'<p>
+								                                <label style="float: left;">Comentarios</label>
+								                                <span class="field float">',
+																'after'=>'</span></p>','pattern' => '.*\S+.*'));
+
+?>
+
+</div>
+<div class="listaArticulos widgettitle nomargin shadowed"><h4>Lista de Articulos</h4></div>
 <table  id="listaArticulos" class ="table table-bordered" width="100%"  style="width: 100%;">
 	<thead>
 					<tr>
@@ -61,12 +68,11 @@ echo '<p><label style="float: left;">Fecha Empaquetado</label><span class="field
 	</tbody>
 </table>
 
-
-<?php
-echo '<p class="stdformbutton"><button class="btn btn-primary agregarOtro">Agregar Otro Articulo</button>&nbsp;<button class="btn btn-primary save">Enviar Pedido</button></p>';
-?>
-
-
-<?php echo $this->Form->end();?>
 </div>
-<button class="btn btn-primary volver" type="button">Volver</button>
+
+<div class="botonera widgettitle">
+	<p class="stdformbutton">
+	    <button class="btn btn-primary agregarOtro" style="margin-left: 10px;">Agregar Otro Articulo</button>
+    	<button class="btn btn-primary save" style="margin-left: 10px;">Enviar Pedido</button>
+    </p>
+</div>

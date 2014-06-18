@@ -1,30 +1,34 @@
+<h4 class="widgettitle nomargin shadowed">Datos del Pedido<button class="volver glyphicon" style="float:right;" type="button" title="Volver atras"><img src="app/webroot/img/icon-back.png" alt="Volver atras" /></button></h4>
+<div class="widgetcontent bordered shadowed nopadding">
+
 <?php
-echo '<h4 class="widgettitle nomargin shadowed">Devolución de Articulos Por Pedido</h4>';
-echo '<div class="widgetcontent bordered shadowed nopadding">';
 
 echo $this->Form->create('MovimientoInventario',array('class' => 'stdform stdform2','inputDefaults' => array(
         'div' => array('class' => 'field') )));
 
 ?>
-<p><h5 style="color:#3366FF;padding-left:0.5em;">Información del Pedido</h5></p>
 
+<div class="conteinerPrinc-1">
 <p>
-    <label style="float: left;">Numero de Pedido</label>
+    <label style="float: left;">Nro Pedido</label>
 	<span class="field float">
     	<input  readonly="readonly" class="input-medium pedido" maxlength="100" type="text" value="<?php echo $pe['Numero'] ?>" required="required">
     </span>
-
-    <label style="float: left;">Fecha de Emisión</label>
+</p>
+<p>
+    <label style="float: left;">Fecha Emisión</label>
 	<span class="field float">
     	<input readonly="readonly" class="input-medium" maxlength="100" type="text" value="<?php echo $pe['Fecha'] ?>" required="required">
     </span>
-
+</p>
+<p>
 	<label style="float: left;">Proyecto</label>
 	<span class="field float">
     	<input  readonly="readonly" class="input-medium" maxlength="100" type="text" value="<?php echo $pe['proyecto'] ?>" required="required">
     </span>
-
 </p>
+</div>
+<div class="conteinerPrinc-2">
 <p>
 	<label style="float: left;">Comentarios</label>
 	<span class="field float">
@@ -33,19 +37,11 @@ echo $this->Form->create('MovimientoInventario',array('class' => 'stdform stdfor
 </p>
 <input type="hidden" value="<?php echo $pe['id'] ?>" name="data[MovimientoInventario][IdPedido]"/>
 <input type="hidden" value="<?php echo $pe['id_proyecto'] ?>" name="data[MovimientoInventario][IdProyecto]"/>
+</div>
 
-<p><h5 style="color:#3366FF;padding-left:0.5em;">Información de la Devolución</h5></p>
-
-<?php
-echo '<p><label  style="float: left;">Fecha</label><span class="field float"><input class="input-small fecha" type="text" name="data[MovimientoInventario][Fecha]" required="required" /><small class="field"><em>   año / mes / dia</em></small></span>';
-
-echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5','div'=>false,'label'=>false,'before'=>'
-								                                <label style="float: left;">Comentarios</label>
-								                                <span class="field float">',
-																'after'=>'</span></p>','pattern' => '.*\S+.*'));
-?>
-<input type="hidden" value="D" name="data[MovimientoInventario][TipoMovimiento]"/>
-
+<div class="listaArticulos widgettitle nomargin shadowed"><h4>Datos de la Devolución</h4></div>
+<div class="conteinerPrinc-1">
+<p><label  style="float: left;">Fecha Devolución</label><span class="field float"><input class="input-small fecha" type="text" name="data[MovimientoInventario][Fecha]" required="required" /><small class="field"><em>   año / mes / dia</em></small></span></p>
 
 <?php
 echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depositoOriginal','type'=>'select','options'=>$depositos,'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'
@@ -53,9 +49,20 @@ echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depos
                                 <span class="field float">',
 								'after'=>'</span></p>'));
 ?>
+<BR><BR>
+</div>
+<div class="conteinerPrinc-2">
+<?php
 
+echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5','div'=>false,'label'=>false,'before'=>'
+								                                <p><label style="float: left;">Comentarios</label>
+								                                <span class="field float">',
+																'after'=>'</span></p>','pattern' => '.*\S+.*'));
+?>
+<input type="hidden" value="D" name="data[MovimientoInventario][TipoMovimiento]"/>
 
-<p><h5 style="color:#3366FF;padding-left:0.5em;">Lista de Articulos</h5></p>
+</div>
+<div class="listaArticulos widgettitle nomargin shadowed"><h4>Lista de Articulos</h4></div>
 <table  id="listaArticulos" class ="table table-bordered" width="100%"  style="width: 100%;">
 	<thead>
         <tr>
@@ -109,15 +116,22 @@ echo $this->Form->input('MovimientoInventario.IdDepositoOrig',array('id'=>'depos
 
 	</tbody>
 </table>
-
-<?php
-//Para asegurarme que existe al menos un articulo a devolver.
-if ($cont > 0){
-	echo '<p class="stdformbutton"><button class="btn btn-primary save">Aceptar</button></p>';
-} else {
-	echo '<p class="stdformbutton">Este pedido no contiene articulos para ser devueltos</p>';
-}
-?>
-<?php echo $this->Form->end();?>
+		<?php
+        //Para asegurarme que existe al menos un articulo a devolver.
+        if ($cont < 1){
+            echo '<p class="stdformbutton">Este pedido no contiene articulos para ser devueltos</p>';
+        }
+        ?>
 </div>
-<button class="btn btn-primary volver" type="button">Volver</button>
+<div class="botonera widgettitle">
+	<p class="stdformbutton">
+		<?php
+        //Para asegurarme que existe al menos un articulo a devolver.
+        if ($cont > 0){
+            ?><button class="btn btn-primary save" style="margin-left: 10px;">Aceptar</button><?php
+        } else {
+            echo '<p class="stdformbutton">Este pedido no contiene articulos para ser devueltos</p>';
+        }
+        ?>
+    </p>
+</div>

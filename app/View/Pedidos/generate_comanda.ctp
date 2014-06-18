@@ -24,13 +24,14 @@ $tcpdf->SetFont($textfont,'B',10);
 //$tcpdf->Image('http://localhost/InvenPolka/app/webroot/files/articulo/idFoto/94/small_Screen-shot-2011-11-11-at-7.55.07-PM.png', '', '', 40, 40, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
 
 
-$encabezado = "	Proyecto: ".$pedido['proyecto']." Fecha de Emisión: ".$pedido['Fecha']." Estado: ".$pedido['estado']."  Descripción: ".$pedido['Descripcion']."";
+$encabezado = "	<table><tr><td><u>Proyecto:</u> ".$pedido['proyecto']." </td><td><u>Fecha de Emisión:</u> ".$pedido['Fecha']." </td><td><u>Estado:</u> ".$pedido['estado']."  </td></tr><tr><td colspan ='3'><u>Descripción:</u> ".$pedido['Descripcion']."</td></tr><table> <br>";
 
 $lefthtml='<table ><tr>';
 $fila=0;
 $col=0;
 $page=1;
 $listaArtis= array();
+$tope=6;
 
 foreach ($detalles as $De){
 
@@ -40,12 +41,14 @@ foreach ($detalles as $De){
 			$col= $col + 1;
 			
 			$fila=1;
-			if ($col == 7){
+			if ($col == $tope){
 				$lefthtml.="</tr></table>";
 				$listaArtis[$page]= $lefthtml;
 				$lefthtml='<table ><tr>';
 				$col = 0;
 				$page = $page + 1;
+				//En las proximas paginas vana entrar 7 columnas
+				$tope=7;
 			} else {
 				$lefthtml.="</tr><tr>";
 				$fila=1;

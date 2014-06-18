@@ -1,6 +1,4 @@
-
-
-<p class="stdformbutton">
+<h4 class="widgettitle nomargin shadowed">
 	<?php $privis = $this->Session->read("privilegios"); ?>
 
 	<?php if (! empty($privis['addArticulo'])) { ?>
@@ -18,8 +16,9 @@
 	<?php if (! empty($privis['addBajaArt'])) { ?>
 		<button class="btn btn-primary deleteArt" disabled="true" tooltip = "<?php echo $privis['addBajaArt']['ayuda'] ?>"><?php echo $privis['addBajaArt']['nombre'] ?></button>
 	<?php } ?>
+</h4>
+<h4 class="widgettitle nomargin shadowed">Listado de Articulos</h4>
 
-</p>
 <table  id="configurationTable" class ="table table-bordered" width="100%"  style="width: 100%;">
 	<thead>
 	     <tr>

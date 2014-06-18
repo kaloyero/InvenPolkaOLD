@@ -1,6 +1,7 @@
+<h4 class="widgettitle nomargin shadowed">Depositos<button class="volver glyphicon" style="float:right;" type="button" title="Volver atras"><img src="app/webroot/img/icon-back.png" alt="Volver atras" /></button></h4>
+<div class="widgetcontent bordered shadowed nopadding">
 <?php
-echo '<h4 class="widgettitle nomargin shadowed">Depositos</h4>';
-echo '<div class="widgetcontent bordered shadowed nopadding">';
+
 echo $this->Form->create('Deposito',array('class' => 'stdform stdform2','inputDefaults' => array(
         'div' => array('class' => 'field'))));
 echo $this->Form->input('Nombre');

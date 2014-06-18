@@ -39,6 +39,8 @@ var Render = new Class({
            var self=this;
            this.cleanCanvas();
            jQuery(".contentinner").append(data);
+		   //Inicializa el buscador del datatable
+		   appStatus.actualSearch="";
            this.makeDatatable();
 		   this.bindListEvents();
            this.drawHeader();
@@ -182,13 +184,13 @@ var Render = new Class({
           this.getForm().find('input:checkbox, input:radio, select.uniformselect').uniform();
         },
       addLoader:function() {
-           jQuery('.stdformbutton').append('<img src="/invenPolka/app/webroot/files/gif/16.GIF" class ="loader" alt="CakePHP" height="50px" width="50px">');
+           jQuery('.contentinner').append('<div style="height:300px; width:100%; top:15%: position: absolute;"><img src="/invenPolka/app/webroot/files/gif/16.GIF" class ="loader" alt="CakePHP" height="80px" width="80px"></div>')
 
       },
       removeLoader:function() {
           jQuery('.loader').remove();
        },
-       makeDatatable:function() {
+	 makeDatatable:function() {
            var self=this;
            console.log("IN",appStatus.startTablein,"LE",appStatus.showRowsByPage)
             appStatus.oTable=   jQuery('#configurationTable').dataTable({
@@ -197,9 +199,10 @@ var Render = new Class({
                            "iDisplayStart": appStatus.startTablein,
                            "DisplayLength":appStatus.showRowsByPage,
 						   "aLengthMenu": [10, 25, 50, 100, 150, 200],
-						   "iDisplayLength":[100],
+						   "iDisplayLength":appStatus.showRowsByPage,
                            "bPaginate": true,
 						   "bFiltered": true,
+						   "oSearch": {"sSearch":appStatus.actualSearch},
                            "sPaginationType": "full_numbers",
                            "sAjaxSource": serverManager.services[this.type]["controllerName"]+"/ajaxData",
 /*							"oLanguage": {
@@ -212,7 +215,8 @@ var Render = new Class({
 									"sLengthMenu":     	"Mostrar _MENU_ registros",
 									"sZeroRecords":    	"No se encontraron resultados",
 									"sEmptyTable":     	"Ningún dato disponible en esta tabla",
-									"sInfo": 			"Mostrando _START_ hasta _END_ de un total de  _TOTAL_ registros",
+								
+	"sInfo": 			"Mostrando _START_ hasta _END_ de un total de  _TOTAL_ registros",
 									"sInfoEmpty":      	"Mostrando registros del 0 al 0 de un total de 0 registros",
 									"sInfoFiltered":   	"(filtrado de un total de _MAX_ registros)",
 									"sLoadingRecords": "Cargando...",
@@ -244,6 +248,9 @@ var Render = new Class({
 							   self.resetTableStatus();
 
                            }
+                       });
+              jQuery('.dataTables_filter').find("input").change(function() {
+                        appStatus.actualSearch=jQuery(this).val();
                        });
        // oTable.fnSetColumnVis( 0, false );
           },
@@ -301,10 +308,12 @@ var Render = new Class({
       saveTableStatus:function(){
           appStatus.startTablein=appStatus.oTable.fnSettings()._iDisplayStart;
           appStatus.showRowsByPage=appStatus.oTable.fnSettings()._iDisplayLength;
+//		  appStatus.showSearch="Hola";
         },
       resetTableStatus:function(){
             appStatus.startTablein=0;
-            appStatus.showRowsByPage=100;
+			appStatus.showRowsByPage=100;
+//			appStatus.showSearch = "";
         }
 
 });

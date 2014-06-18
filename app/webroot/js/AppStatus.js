@@ -3,7 +3,8 @@ var AppStatus = new Class({
     initialize: function(name){
         this.actualTable="";
         this.startTablein=0;
-        this.showRowsByPage=10;
+        this.showRowsByPage=100;
+        this.actualSearch="";
     }
 
 });

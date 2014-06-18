@@ -1,16 +1,29 @@
+<style type="text/css">
+p.search { width: 300px;}
+span.search { padding: 7px 0 0 3%; font-weight: bold; color: #333;}
+label.search { font-weight: bold; color: #333; margin-right: 3%; margin-top: 5px;}
 
+input[type="radio"], input[type="checkbox"] {margin: 0 !important;}
+
+</style>
+
+
+<div class="listaArticulos widgettitle nomargin shadowed"><h4> Filtros de Búsqueda</h4></div>
+<div class="conteinerPrinc-1" style="height: 40px;">
+	<?php if ($_GET['isSearch'] == "DEPOSITO"){ ?>
+        <p class="search"><input type="checkbox" class="filtroDeposito" id="checkFiltro" checked="checked"><span class="search"> Filtrar por Deposito</span></p>
+    <?php } else { ?>
+        <p class="search"><input type="checkbox" class="filtroDeposito" id="checkFiltro" ><span class="search"> Filtrar por Deposito</span>
+    <?php } ?></p>
+</div>
+<div class="conteinerPrinc-2" style="height: 40px;">
 <?php
-echo $this->Form->input('Inventario.IdProyecto',array('type'=>'select','options'=>$proyectos,'empty'=>true,'class'=>'uniformselect filtroDepo','div'=>false,'label'=>false,'before'=>'<label style="float: left;" >Filtrar Proyecto</label><span class="field float">','after'=>'</span></p>'));
+echo $this->Form->input('Inventario.IdProyecto',array('type'=>'select','options'=>$proyectos,'empty'=>true,'class'=>'uniformselect filtroDepo','div'=>false,'label'=>false,'before'=>'<p><label class="search" style="float: left;" >Filtrar por Proyecto</label><span class="field float">','after'=>'</span></p>'));
 
 ?>
-
-<?php if ($_GET['isSearch'] == "DEPOSITO"){ ?>
-	<input type="checkbox" class="filtroDeposito" id="checkFiltro" checked="checked"> Filtrar por deposito
-<?php } else { ?>
-	<input type="checkbox" class="filtroDeposito" id="checkFiltro" > Filtrar por deposito
-<?php } ?>
-
-<table  id="configurationTable" class ="table table-bordered" width="100%"  style="width: 100%;">
+</div>
+.
+<table  id="configurationTable" class ="table table-bordered" width="100%"  style="width: 100%; ">
 	<thead>
 	     <tr>
 		                <th style="display:none;">Id</th>
@@ -23,3 +36,7 @@ echo $this->Form->input('Inventario.IdProyecto',array('type'=>'select','options'
 	<tbody>
 	</tbody>
 </table>
+
+
+<div class="botonera widgettitle">
+</div>

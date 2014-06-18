@@ -17,6 +17,7 @@ class ArticulosController extends AppController {
     public $helpers = array ('Html','Form');
 	public $findResult;
     function index() {
+
  	if ($_GET['isSearch']=='undefined' || $_GET['isSearch']!=true ) {
 	   	//Borramos de la sesion,las condiciones de los articulos,porque el usuario entro a el listado completo
 		$this->Session->delete("articulos");

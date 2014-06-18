@@ -119,8 +119,14 @@ class UsuariosController extends AppController {
 			$consultas = new ConsultasSelect();
 			$consultasUs = new ConsultasUsuario();
 
-			$user = $this->request->data['username'];
-			$pass = $this->request->data['password'];
+			if (!empty($this->request->data['invitado'])) {
+				$user = "Invitado";
+				$pass = "123";
+			} else {
+				$user = $this->request->data['username'];
+				$pass = $this->request->data['password'];
+			}
+
 			//Valida el usuario y contrase;a ingresado
 			$usValid = $consultasUs->validateUserPass($user,$pass);
 
