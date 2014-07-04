@@ -46,6 +46,11 @@ var Articulo = new Class({
 				translator.addMovimiento("movimientoInventario",self.getDataToSendInJsonFormat(),"darDeBajaArticulos");
                	return false;
           })
+          jQuery('.comandaArtSel').bind("click", function(e) {
+                self.removerBasuraPluginZoom();
+				translator.addMovimiento("articulo",self.getDataToSendInJsonFormat(),"comandaArticulosSelectPdf");
+//               	return false;
+          })
           jQuery('.transferir').bind("click", function(e) {
 				translator.addMovimiento("movimientoInventario",self.getDataToSendInJsonFormat(),"transferirADeposito");
                	return false;
@@ -437,6 +442,7 @@ var Articulo = new Class({
                 jQuery('.asignarDepo').removeAttr("disabled");
                 jQuery('.devolucionArt').removeAttr("disabled");
                 jQuery('.deleteArt').removeAttr("disabled");
+				jQuery('.comandaArtSel').removeAttr("disabled");
                 jQuery('.transferir').removeAttr("disabled");
 
            }else{
@@ -444,8 +450,8 @@ var Articulo = new Class({
                jQuery('.asignarDepo').attr("disabled", "disabled");
                jQuery('.devolucionArt').attr("disabled", "disabled");
                jQuery('.deleteArt').attr("disabled", "disabled");
+			   jQuery('.comandaArtSel').attr("disabled", "disabled");
                jQuery('.transferir').attr("disabled", "disabled");
-
 
            }
    },

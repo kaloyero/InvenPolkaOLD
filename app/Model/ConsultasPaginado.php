@@ -617,7 +617,7 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi,$tipoLista,$pri
 							$btnAccion = "<div  class= 'iconoAccion' > <a href='/InvenPolka/pedidos/edit/".$j[$tabla]['id']."' class='devolucionArtPorProy'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/devolver.jpg' /></a></div>";
 						}
 					}
-					$btnPrintComanda = "";
+					$btnPrintComanda = "</div><div class= 'iconoAccion' > <a href='/InvenPolka/pedidos/generateComanda/".$j[$tabla]['id']."'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/pdf.gif' /></a></div>";
 					break;
 
 			}

@@ -300,5 +300,32 @@ class ArticulosController extends AppController {
 			$this->setViewData("find");
 		}
 	}
+	
+    public function comandaArticulosSelectPdf() {
+		$datasource = $this->Articulo->getDataSource();
+		//Comienzo la transaccion del Articulo
+		$datasource->begin();
+        if ( ! $this->request->is('post')) {
+			//CargarLista de Articulos
+			$this->getListaArticulos();
+
+			$this->response->type('application/pdf');
+			$this->layout = 'pdf'; //this will use the pdf.ctp layout
+			$this->render();
+		}
+    }
+	//Consulta a la base los datos de los articulos seleccionados
+	function getListaArticulos() {
+		$arts = array();
+		foreach($_GET as $name => $value) {
+			array_push($arts,$value);
+		}
+		$consultasSelect = new ConsultasSelect();
+		$articulos = $consultasSelect->getArticulosVistaByArrayId($arts);
+		$this->set('articulos',$articulos);
+	}
+
+	
 }
+
 ?>
