@@ -15,6 +15,7 @@ var SideBarController = new Class({
 
     	jQuery('.option').bind("click", function(e) {
     		var objectId=jQuery(this).attr("id");
+    		appStatus.actualSearch="";
     		sideBarController.onOptionSelected(objectId);
     });
     	jQuery('.search').bind("click", function(e) {

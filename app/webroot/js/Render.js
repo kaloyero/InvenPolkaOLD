@@ -47,7 +47,7 @@ var Render = new Class({
            this.drawHeader();
            //Se guarda que lista esta activa
            appStatus.activeList=this.type;
-           appStatus.actualSearch="";
+
 	},
     onAdd: function(data){
         this.cleanCanvas();
