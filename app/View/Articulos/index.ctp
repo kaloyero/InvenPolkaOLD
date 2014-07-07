@@ -16,7 +16,8 @@
 	<?php if (! empty($privis['addBajaArt'])) { ?>
 		<button class="btn btn-primary deleteArt" disabled="true" tooltip = "<?php echo $privis['addBajaArt']['ayuda'] ?>"><?php echo $privis['addBajaArt']['nombre'] ?></button>
 	<?php } ?>
- 	<button class="btn btn-primary comandaArtSel" disabled="true" tooltip = "Descargar Pdf con articulos seleccionados">Descargar Selección</button>
+	<a class="btn btn-primary comandaArtSel " href="33">Descargar Selección</a>
+
 </h4>
 <h4 class="widgettitle nomargin shadowed">Listado de Articulos</h4>
 

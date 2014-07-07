@@ -47,8 +47,24 @@ var Articulo = new Class({
                	return false;
           })
           jQuery('.comandaArtSel').bind("click", function(e) {
-                self.removerBasuraPluginZoom();
-				translator.addMovimiento("articulo",self.getDataToSendInJsonFormat(),"comandaArticulosSelectPdf");
+               // self.removerBasuraPluginZoom();
+				//translator.addMovimiento("articulo",self.getDataToSendInJsonFormat(),"comandaArticulosSelectPdf");
+				//e.preventDefault();
+				var cadena="?"
+				var primero =true;
+				var obj = self.getDataToSendInJsonFormat();
+				for  (var item in obj) {
+				    if (primero==false){
+				        cadena+="&";
+				    }else{
+				        primero =false;
+				    }
+                 cadena +="data=" +obj[item];
+                }
+				console.log("DATa",cadena)
+				jQuery(this).attr("href", "/InvenPolka/articulos/generateComanda"+cadena)
+                       // e.preventDefault();
+                       // document.location.href = "www.google.com.ar";
 //               	return false;
           })
           jQuery('.transferir').bind("click", function(e) {
