@@ -59,7 +59,7 @@ var Articulo = new Class({
 				    }else{
 				        primero =false;
 				    }
-                 cadena +="data=" +obj[item];
+                 cadena +="data"+obj[item]+"=" +obj[item];
                 }
 				console.log("DATa",cadena)
 				jQuery(this).attr("href", "/InvenPolka/articulos/generateComanda"+cadena)

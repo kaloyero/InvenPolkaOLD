@@ -301,7 +301,9 @@ class ArticulosController extends AppController {
 		}
 	}
 
-    public function comandaArticulosSelectPdf() {
+    public function generateComanda() {
+
+
 		$datasource = $this->Articulo->getDataSource();
 		//Comienzo la transaccion del Articulo
 		$datasource->begin();
@@ -315,9 +317,10 @@ class ArticulosController extends AppController {
 		}
     }
 
-	public function generateComanda() {
+	public function generateComanda2() {
 			//Comienzo la transaccion del Articulo
 				$arts = array();
+
 				foreach($_GET as $name => $value) {
 					array_push($arts,$value);
 				}
@@ -334,8 +337,6 @@ class ArticulosController extends AppController {
 					}
 
 	}
-
-
 
 
 	//Consulta a la base los datos de los articulos seleccionados
