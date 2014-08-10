@@ -2,6 +2,7 @@ var Articulo = new Class({
     Extends: Render,
     initialize: function(name){
         this.name = name;
+        console.log("ENTRA INIT")
         this.currentSelectedArticulos={};
 
         this.context="articulo";
@@ -27,21 +28,25 @@ var Articulo = new Class({
       	        translator.add(self.type);
          })
           jQuery('.crearPedido').bind("click", function(e) {
+                self.setContext("pedido")
                 self.removerBasuraPluginZoom();
 				translator.add("pedido",self.getDataToSendInJsonFormat());
                	return false;
           })
           jQuery('.asignarDepo').bind("click", function(e) {
+                self.setContext("pedido")
                 self.removerBasuraPluginZoom();
 				translator.addMovimiento("movimientoInventario",self.getDataToSendInJsonFormat(),"ingresoDeArticulos");
                	return false;
           })
           jQuery('.devolucionArt').bind("click", function(e) {
+                self.setContext("pedido")
                 self.removerBasuraPluginZoom();
 				translator.addMovimiento("movimientoInventario",self.getDataToSendInJsonFormat(),"devolucionDeArticulos");
                	return false;
           })
           jQuery('.deleteArt').bind("click", function(e) {
+                self.setContext("pedido")
                 self.removerBasuraPluginZoom();
 				translator.addMovimiento("movimientoInventario",self.getDataToSendInJsonFormat(),"darDeBajaArticulos");
                	return false;
@@ -76,7 +81,8 @@ var Articulo = new Class({
 
      deleteSelectedArticlesArray:function(){
          //Ponemos en 0 nuevamente el array de seleccionados si el contexto no es Pedidos
-       		  if (this.getContext()!='pedidos'){
+         console.log("ENTRA DELETE",this.getContext())
+       		  if (this.getContext()!='pedido'){
        		      this.currentSelectedArticulos={};
        		  }else{
        		      //Vuelvo el contexto a articulos
@@ -400,9 +406,11 @@ var Articulo = new Class({
 		})
 		jQuery(':checkbox').bind("change", function(e) {
 		    var articuloId=self.getArticuloIdFromCheckBoxSelection(this);
-
+            console.log("ENTRA CHECK",articuloId)
             if(jQuery(this).is(":checked")) {
+                console.log("Chequeado",self.currentSelectedArticulos)
                 self.currentSelectedArticulos[articuloId] = 0
+                console.log("Chequeado2",self.currentSelectedArticulos)
             }else{
                 delete self.currentSelectedArticulos[articuloId];
                  }
@@ -412,6 +420,7 @@ var Articulo = new Class({
 
 },
     checkElements:function(){
+        console.log("ENTRA CHe",this.currentSelectedArticulos)
         for (var id in this.currentSelectedArticulos)
         {
             if (jQuery("#"+id).length >0){
