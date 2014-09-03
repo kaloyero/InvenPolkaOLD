@@ -82,7 +82,6 @@ var Articulo = new Class({
 
      deleteSelectedArticlesArray:function(){
          //Ponemos en 0 nuevamente el array de seleccionados si el contexto no es Pedidos
-	console.log("CONTE",this.getContext())
        		  if (this.getContext()!='pedido'){
        		      this.currentSelectedArticulos={};
        		  }else{
@@ -93,7 +92,7 @@ var Articulo = new Class({
 
      bindAddEvents:function() {
          var self=this;
-		 self.removerBasuraPluginZoom();
+	 self.removerBasuraPluginZoom();
          this.styleForm();
          this.generateValidation();
          this.getForm().ajaxForm({
@@ -408,7 +407,6 @@ var Articulo = new Class({
 		})
 		jQuery(':checkbox').bind("change", function(e) {
 		    var articuloId=self.getArticuloIdFromCheckBoxSelection(this);
-
             if(jQuery(this).is(":checked")) {
                 self.currentSelectedArticulos[articuloId] = 0
             }else{
