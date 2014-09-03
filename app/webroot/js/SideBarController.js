@@ -4,6 +4,10 @@ var SideBarController = new Class({
     },
     onOptionSelected: function(objectType){
         this.removerBasuraPluginZoom();
+	if (objectType=="articulo"){
+            articuloRender.context=""
+        }
+
     	translator.show(objectType);
     },
     onSearchSelected: function(objectType){

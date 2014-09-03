@@ -60,7 +60,9 @@
         echo $this->Html->script('libs/md5');
 
 		echo $this->Html->css('style.dark');
+
 		echo $this->Html->script('jsTemplate/custom');
+
         echo $this->fetch('css');
         echo $this->fetch('script');?>
 
@@ -276,7 +278,7 @@ jQuery(document).ready(function(){
 
 	jQuery('.logOut').click(function(){
 			//Cierra la ventana abierta
-            jQuery('.breadcrumb').append('<img src="/invenPolka/app/webroot/files/gif/16.GIF" class ="loader" alt="CakePHP" height="50px" width="50px">');
+			jQuery('.breadcrumb').append('<img src="/invenPolka/app/webroot/files/gif/16.GIF" class ="loader" alt="CakePHP" height="50px" width="50px">');
 			jQuery('.dropdown-toggle').click();
 			//sale
 			translator.logOutUser("usuario");

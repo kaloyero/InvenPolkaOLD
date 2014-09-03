@@ -27,26 +27,31 @@ var Articulo = new Class({
       	        translator.add(self.type);
          })
           jQuery('.crearPedido').bind("click", function(e) {
+		self.setContext("pedido");
                 self.removerBasuraPluginZoom();
 				translator.add("pedido",self.getDataToSendInJsonFormat());
                	return false;
           })
           jQuery('.asignarDepo').bind("click", function(e) {
+		self.setContext("pedido");
                 self.removerBasuraPluginZoom();
 				translator.addMovimiento("movimientoInventario",self.getDataToSendInJsonFormat(),"ingresoDeArticulos");
                	return false;
           })
           jQuery('.devolucionArt').bind("click", function(e) {
+		self.setContext("pedido");
                 self.removerBasuraPluginZoom();
 				translator.addMovimiento("movimientoInventario",self.getDataToSendInJsonFormat(),"devolucionDeArticulos");
                	return false;
           })
           jQuery('.deleteArt').bind("click", function(e) {
+		self.setContext("pedido");
                 self.removerBasuraPluginZoom();
 				translator.addMovimiento("movimientoInventario",self.getDataToSendInJsonFormat(),"darDeBajaArticulos");
                	return false;
           })
           jQuery('.comandaArtSel').bind("click", function(e) {
+          self.setContext("pedido")
                // self.removerBasuraPluginZoom();
 				//translator.addMovimiento("articulo",self.getDataToSendInJsonFormat(),"comandaArticulosSelectPdf");
 				//e.preventDefault();
@@ -68,6 +73,7 @@ var Articulo = new Class({
 //               	return false;
           })
           jQuery('.transferir').bind("click", function(e) {
+		self.setContext("pedido");
 				translator.addMovimiento("movimientoInventario",self.getDataToSendInJsonFormat(),"transferirADeposito");
                	return false;
           })
@@ -76,7 +82,8 @@ var Articulo = new Class({
 
      deleteSelectedArticlesArray:function(){
          //Ponemos en 0 nuevamente el array de seleccionados si el contexto no es Pedidos
-       		  if (this.getContext()!='pedidos'){
+	console.log("CONTE",this.getContext())
+       		  if (this.getContext()!='pedido'){
        		      this.currentSelectedArticulos={};
        		  }else{
        		      //Vuelvo el contexto a articulos
