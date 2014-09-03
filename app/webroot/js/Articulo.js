@@ -93,6 +93,7 @@ var Articulo = new Class({
 
      bindAddEvents:function() {
          var self=this;
+		 self.removerBasuraPluginZoom();
          this.styleForm();
          this.generateValidation();
          this.getForm().ajaxForm({
