@@ -51,6 +51,13 @@ echo $this->Form->create('Articulo',array('type' => 'file','class' => 'stdform s
 ?>
 <h4 class="widgettitle nomargin shadowed">Codigo Articulo: <?php echo $articulo['articulos_vista']['CodigoArticulo'] ?><button class="volver glyphicon" style="float:right;" type="button" title="Volver atras"><img src="app/webroot/img/icon-back.png" alt="Volver atras" /></button></h4>
 
+<h2 class=" nomargin shadowed" style="margin:20px 10px;">Imagen</h2>
+<label style="float: left;"></label>
+<span class="field">
+
+<img src="/InvenPolka/app/webroot/files/articulo/idFoto/<?php echo $articulo['articulos_vista']['dir'] ?>/<?php echo $articulo['articulos_vista']['idFoto'] ?>" alt="CakePHP" height="800px" width="800px">
+</span>
+
 <h2 class=" nomargin shadowed" style="margin:20px 10px;">Descripciones</h2>
 <p>
     <label style="float: left;"></label>
@@ -125,12 +132,7 @@ echo $this->Form->create('Articulo',array('type' => 'file','class' => 'stdform s
         </table>
 </p>
 
-<h2 class=" nomargin shadowed" style="margin:20px 10px;">Imagen</h2>
-<label style="float: left;"></label>
-<span class="field">
 
-<img src="/InvenPolka/app/webroot/files/articulo/idFoto/<?php echo $articulo['articulos_vista']['dir'] ?>/<?php echo $articulo['articulos_vista']['idFoto'] ?>" alt="CakePHP" height="800px" width="800px">
-</span>
 </div>
 <div class="botonera widgettitle">
 </div>

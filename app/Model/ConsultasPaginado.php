@@ -796,8 +796,14 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumns,$aColumnsFil
 			$fila=array();
         	array_push($fila, array($j[$tabla]['id']));
 	        array_push($fila, array($j[$tabla]['CodigoArticulo']));
-
-			array_push($fila, $this->getImageSmall($j[$tabla]['dir'],$j[$tabla]['idFoto']));
+			if ( $j[$tabla]['stock_dispo'] > 0 ){
+				//Hago imagen normal xq tiene stock
+				$imagen = 	 $this->getImageSmall($j[$tabla]['dir'],$j[$tabla]['idFoto']);			
+			} else {
+				//Hago imagen SIN stock
+				$imagen =    $this->getImageSmallOpacity($j[$tabla]['dir'],$j[$tabla]['idFoto']);	
+			}
+			array_push($fila,$imagen);					
 //	        array_push($fila, array($titi));
 			array_push($fila, array($j[$tabla]['categoria']));
 			array_push($fila, array($j[$tabla]['objeto']));
@@ -1128,6 +1134,9 @@ private function getDataDefaultQuery($tabla,$aColumns,$aColumnsFilter,$orderByfi
 
 }
 
+	function getImageSmallOpacity($dir,$idFoto) {
+		return '<img class="preview" style="opacity:0.2;width:150px; height:150px;border-style:solid;border-width:3px;" src="/InvenPolka/app/webroot/files/articulo/idFoto/'.$dir.'/small_'.$idFoto.'" data-zoom-image="/InvenPolka/app/webroot/files/articulo/idFoto/'.$dir.'/'.$idFoto.'" alt="CakePHP" >';
+	}
 
 	function getImageSmall($dir,$idFoto) {
 		return '<img class="preview" style="width:150px; height:150px;border-style:solid;border-width:3px;" src="/InvenPolka/app/webroot/files/articulo/idFoto/'.$dir.'/small_'.$idFoto.'" data-zoom-image="/InvenPolka/app/webroot/files/articulo/idFoto/'.$dir.'/'.$idFoto.'" alt="CakePHP" >';

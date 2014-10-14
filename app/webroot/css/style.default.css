@@ -119,6 +119,8 @@ input[type="number"] { width: 50px !important;}
 .leftmenu .nav-tabs ul li:last-child { border-bottom: 0; }
 
 
+
+
 /***** RIGHT PANEL *****/
 /***********************/
 
@@ -199,7 +201,7 @@ h3.ctitle { border: 1px solid; color: #fff; text-shadow: 1px 1px rgba(0,0,0,0.2)
 .showhide:hover { text-decoration: none; color: #777; background: #e7e7e7; }
 
 /* Nuestro */
-.infoShow { margin:1cm 1cm 1cm 1cm;float: left;width:150px;height:150px; font-size: 10px;}
+.infoShow { margin:10px 10px 1cm 1cm;float: left;width:150px;height:150px; font-size: 10px;}
 
 
 
@@ -1640,3 +1642,14 @@ div.growlUI h1, div.growlUI h2 {
 
 /* desactiva */
 .desactiva {width:20px;height:20px;display:inline}
+
+/***** Listado de Articulos *****/
+/********************************/
+.resaltado {color:#fc7d20 !important;font-style:oblique}
+
+.optionGrande {   transform:scale(1.5,1.5);
+				   -ms-transform:scale(1.5,1.5); /* IE 9 */
+				   -moz-transform:scale(1.5,1.5); /* Firefox */
+				   -webkit-transform:scale(1.5,1.5); /* Safari and Chrome */
+				   -o-transform:scale(1.5,1.5); /* Opera */
+			}

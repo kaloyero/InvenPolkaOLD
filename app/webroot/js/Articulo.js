@@ -92,7 +92,6 @@ var Articulo = new Class({
 
      bindAddEvents:function() {
          var self=this;
-	 self.removerBasuraPluginZoom();
          this.styleForm();
          this.generateValidation();
          this.getForm().ajaxForm({
@@ -155,6 +154,8 @@ var Articulo = new Class({
        },
      bindEditEvents:function() {
          var self=this;
+		 self.removerBasuraPluginZoom();
+		 self.setContext("pedido");
          this.styleForm();
          this.generateValidation();
          this.getForm().ajaxForm({
@@ -431,7 +432,12 @@ var Articulo = new Class({
 
         for(i=0; i< data.length; i++) {
             var htmlDiv="";
-            htmlDiv +='<div class="infoShow">'+data[i]["_aData"][2]+'<input type="checkbox" name="option3"> '+data[i]["_aData"][1];
+            htmlDiv +='<div class="infoShow">'+data[i]["_aData"][2];
+			//Pregunto si tiene stock, sino, no parece el check
+			if (data[i]["_aData"][10] > 0){
+				htmlDiv += '<input type="checkbox" name="option3" class="optionGrande"> ';
+			}
+			htmlDiv += data[i]["_aData"][1];
 
             //Preguntamos si estan los botones antes de ponerlos (Por ahi esta conectado un usuario que no le haya venido el boton para usar)
             if (data[i]["_aData"][11])
@@ -439,7 +445,8 @@ var Articulo = new Class({
  			if (data[i]["_aData"][12])
  			    htmlDiv +=data[i]["_aData"][12];
 
- 			htmlDiv +='<B><c style="display:inline;float:right;margin-top:0.0cm;"> '+data[i]["_aData"][9]+' ('+ data[i]["_aData"][10]+') </c></B></div>';
+ 			htmlDiv +='<B><c style="display:inline;float:right;margin-top:0.0cm;"> '+data[i]["_aData"][10]+'</c></B></div>';
+// 			htmlDiv +='<B><c style="display:inline;float:right;margin-top:0.0cm;"> '+data[i]["_aData"][9]+' ('+ data[i]["_aData"][10]+') </c></B></div>';
 
  			jQuery("#configurationTable").before(htmlDiv);
 

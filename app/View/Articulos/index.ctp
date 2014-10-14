@@ -19,8 +19,8 @@
 	<a class="btn btn-primary comandaArtSel " href="33">Descargar Selección</a>
 
 </h4>
-<h4 class="widgettitle nomargin shadowed">Listado de Articulos</h4>
-
+<h4 class="widgettitle nomargin shadowed">Listado de Articulos 
+</h4>
 <table  id="configurationTable" class ="table table-bordered" width="100%"  style="width: 100%;">
 	<thead>
 	     <tr>

@@ -13,7 +13,6 @@ jQuery(document).ready(function(){
 		if(jQuery(this).hasClass('error')) jQuery(this).removeClass('error');
 	});
 	jQuery('#loginform button').click(function(){
-
 		if(!jQuery.browser.msie) {
 			if(jQuery('#username').val() == '' || jQuery('#password').val() == '') {
 				if(jQuery('#username').val() == '') jQuery('#username').addClass('error'); else jQuery('#username').removeClass('error');
