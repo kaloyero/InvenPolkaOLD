@@ -433,13 +433,21 @@ var Articulo = new Class({
         for(i=0; i< data.length; i++) {
             var htmlDiv="";
             htmlDiv +='<div class="infoShow">'+data[i]["_aData"][2];
+			
 			//Pregunto si tiene stock, sino, no parece el check
-			if (data[i]["_aData"][10] > 0){
+			if (data[i]["_aData"][10] <= 0){
+				//ARTICULO NO DISPONIBLE
+				htmlDiv +='<div style="position: absolute;margin-top: -115px;margin-left: 15px;"><h4 style="text-align: center;font-size: 14px;color: #C59191;">ARTICULO<BR>TEMPORALMENTE<BR>NO DISPONIBLE</h4></div >'
+			}
+			
+			console.log(data[i]["_aData"][13]);
+			//Si se debe mostrar el selector
+			if (data[i]["_aData"][13] == 'S'){
 				htmlDiv += '<input type="checkbox" name="option3" class="optionGrande"> ';
 			}
 			htmlDiv += data[i]["_aData"][1];
 
-            //Preguntamos si estan los botones antes de ponerlos (Por ahi esta conectado un usuario que no le haya venido el boton para usar)
+//Preguntamos si estan los botones antes de ponerlos (Por ahi esta conectado un usuario que no le haya venido el boton para usar)
             if (data[i]["_aData"][11])
                 htmlDiv +=data[i]["_aData"][11];
  			if (data[i]["_aData"][12])

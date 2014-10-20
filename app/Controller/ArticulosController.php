@@ -144,11 +144,10 @@ class ArticulosController extends AppController {
 
 	function ajaxData() {
 		$privilegios = $this->Session->read("privilegios");
-
+		
 		if ($this->Session->check("articulos")){
 			$paginado =new ConsultasPaginado();
 	        $this->autoRender = false;
-
 			$output = $paginado->getDataArticulosSearch($this->Session->read("articulos"),$privilegios);
 	        echo json_encode($output);
 		} else {

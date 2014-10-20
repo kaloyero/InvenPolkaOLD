@@ -814,17 +814,32 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumns,$aColumnsFil
 			array_push($fila, array($j[$tabla]['stock_total']));
 			array_push($fila, array($j[$tabla]['stock_dispo']));
 
+		$botonEditar = '';
 //		if (! empty($privilegios['btnEditarArticulo'])) {
 		if (! empty($privilegios['btnEditar']))  {
 			//Las siguientes imagenes se preguntan en el privilegio
-			array_push($fila,'<a href="#" id='.$j[$tabla]['id'].' class="edit"><img style="width:20px;height:20;display:inline;float:right;margin-top:0.1cm;" src="/InvenPolka/app/webroot/files/gif/edit.png"></a>');
+			$botonEditar = '<a href="#" id='.$j[$tabla]['id'].' class="edit"><img style="width:20px;height:20;display:inline;float:right;margin-top:0.1cm;" src="/InvenPolka/app/webroot/files/gif/edit.png"></a>';
 		}
+		array_push($fila,$botonEditar);
 
+		
 		array_push($fila,'<a href="#" id='.$j[$tabla]['id'].' class="view"><img style="width:20px;height:20;display:inline;float:right;margin-top:0.1cm;" src="/InvenPolka/app/webroot/img/view.png"></a>');
 
+		//Decide si se muestra el checkBox para seleccionar el articulo.
+		$mostrarArt = 'S';
+		if (! empty($privilegios['selectorArticulo']))  {
+			$mostrarArt =  'S';
+		} else {
+			if ($j[$tabla]['stock_dispo'] > 0){
+				$mostrarArt =  'S';
+			} else {
+				$mostrarArt = 'N';
+			}
+		}
+		array_push($fila, $mostrarArt);
 
-
-			array_push($arrayDt, $fila);
+		array_push($arrayDt, $fila);
+		
       }
 //*/
 
