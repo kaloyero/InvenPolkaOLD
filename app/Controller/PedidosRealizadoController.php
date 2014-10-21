@@ -29,7 +29,13 @@ class PedidosRealizadoController extends AppController {
 		//Obtengo los privilegios
 		$privilegios = $this->Session->read("privilegios");
 		$paginado =new ConsultasPaginado();
+		$select =new ConsultasSelect();
 		$this->autoRender = false;
+
+		//Tomo cada Pedido y reviso si es necesario marcarlo como devuelto
+		$select->actualizaTodosPedidosPorProyecto($filtroProyecto);
+
+		//Tomo los Pedidos Realizados
 		$output = $paginado->getDataPedidosRealizados($filtroProyecto,$privilegios);
 		echo json_encode($output);
 	}

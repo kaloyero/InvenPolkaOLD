@@ -307,6 +307,7 @@ class ConsultasSelect extends AppModel {
 			$pedido['Nombre'] =	$pe['pedidos_vista']['Nombre'];
 			$pedido['Apellido'] =	$pe['pedidos_vista']['Apellido'];
 			$pedido['username'] =	$pe['pedidos_vista']['username'];
+			$pedido['FechaDev'] =	$pe['pedidos_vista']['FechaDev'];
 		}
 		return $pedido;
 	}
@@ -377,9 +378,75 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 			return $pedidos;
 		}
 
+	/* Este metodo valida cuando se devuelven articulos del pedido si debe cambiar el estado del Pedido. Si se devolvieron todos los articulos del pedido lo pone en devuelto*/
+	function actualizaPedidosEnviadosPorProyecto($idPedido,$idProyecto, $articulosAdevolver) {
+			$valida = $this->validaCerrarPedidosPorProyecto($idPedido,$idProyecto, $articulosAdevolver);
 
+			if ($valida == 'S'){
+				$this->actualizaPedidosADevuelto($idPedido);
+			}
+	}
+	
+	/* Este metodo cuando se carga el listado de Pedidos por proyecto. Revisa cada uno de los pedidos en estado 'enviado' y revisa si debe o no cambiar el estado a 'devuelto'*/
+	function actualizaTodosPedidosPorProyecto($idProyecto) {
+			$pedidos = $this->getIdPedidoByProyecto($idProyecto);
+			
+			foreach ($pedidos as $ped){
+				$idPedido = $ped['pedidos_vista']['id'];
+				$articulos = $this->getDetallesPedidoAdevolverByIdPedido($idPedido,$idProyecto);
+				$cont = 0;
+				foreach ($articulos as $art){
+			        //Si los articulos tienen stock
+		            if ($art['inv']['CantidadStock'] > 0){
+						$cont= $cont + 1;
+						break;
+					}
+				}
+				//Si no tiene articulos actualizo el estado del pedido a 'devuelto'
+				if ($cont == 0){
+					$this->actualizaPedidosADevuelto($idPedido);
+				}
+			}
+	}
 
+	function getIdPedidoByProyecto($idProyecto) {
+		$model=new Proyecto();
+		$query="SELECT  `id`  FROM  `pedidos_vista` WHERE `id_proyecto` ='".$idProyecto."' AND `estado` ='enviado';";
+		$resultados=$model->query($query);
 
+		return $resultados;
+	}
+
+	function actualizaPedidosADevuelto($idPedido) {
+				$model=new Pedido();
+				$conditions = array(
+					'Pedido.id' => $idPedido
+				);
+				$model->updateAll(array('Pedido.estado'=>"'devuelto'"), $conditions);
+	}
+
+	function validaCerrarPedidosPorProyecto($idPedido,$idProyecto, $articulosAdevolver) {
+			$articulos = $this->getDetallesPedidoAdevolverByIdPedido($idPedido,$idProyecto);
+			$cerrarPedido = 'S';
+			//Recorro los items de los articulos del proyecto
+			foreach ($articulos as $art){			
+				//Si el proyecto no tiene stock del articulo compara con la cantidad devuelta
+				if ($art['inv']["CantidadStock"] != 0){
+					foreach ($articulosAdevolver as $artDev){
+						foreach ($artDev as &$det) {
+							$cantidad = $det['Cantidad'];
+							//Si la cantidad devuelta es MENOR a la cantidad Entregada y si la cantidad devuelta es distinta a Cantidad Stock sale 
+							if ($cantidad < $art['det']['CantidadEntregada'] 
+									&& $cantidad != $art['inv']['CantidadStock']){
+								$cerrarPedido = 'N';
+								return $cerrarPedido;
+							}
+						}
+					}
+				}
+			}
+			return $cerrarPedido;
+	}
 
 	/* Este metodo devuelve los articulos de un pedido. Se fija si alguno de estos articulos fue devuelto. */
 	function getDetallesPedidoAdevolverByIdPedido($idPedido,$idProyecto) {
@@ -388,7 +455,7 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 		$query="
 	SELECT
 		`det`.`id` AS  `IdDetalleMovimiento`, `det`.`IdArticulo` AS  `IdArticulo` ,  `det`.`Cantidad` AS  `CantidadEntregada` ,
-		`inv`.`Disponibilidad` AS  `CantidadStock` ,`pdt`.`Cantidad` AS  `CantidadPedido`,
+		`inv`.`Disponibilidad` AS  `CantidadStock` ,`pdt`.`Cantidad` AS  `CantidadPedido`, `pdt`.`IdPedido`,
 		`art`.`Descripcion` AS  `Descripcion` ,  `art`.`dir` AS  `dir` , `art`.`idFoto` AS  `idFoto` ,`art`.`CodigoArticulo` AS  `codigo`
 	FROM  `movimiento_detalle_inventarios` AS  `det`
 		LEFT JOIN  `articulos`  `art` ON (  `det`.`IdArticulo` =  `art`.`id` )
@@ -567,13 +634,51 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 
 		return $porcen;
 	}
-	//
+
 	function getDataInventarioByIdArticulo($idArticulo) {
 		$model=new Inventario();
-		$inventario=$model->query("SELECT * FROM `inventarios_vista` WHERE id_articulo = '".$idArticulo."' order by 'Disponibilidad','deposito','proyecto' asc;");
-		return $inventario;
+		$inventarioDeposito= $this->getDataInventarioDepositoByIdArticulo($idArticulo);
+		$inventarioProyecto= $this->getDataInventarioProyectoByIdArticulo($idArticulo);
+		
+		foreach ($inventarioDeposito as $depo){
+			$inv['pd'] = array('proyecto'=>$depo['inventarios_vista']['deposito'],'FechaDev'=>'');
+			$inv['pdt']['cantidad']=$depo['inventarios_vista']['Disponibilidad'];
+			array_push($inventarioProyecto,$inv);
+		}
+		
+		return $inventarioProyecto;
+		
 	}
 
+	//
+	function getDataInventarioDepositoByIdArticulo($idArticulo) {
+		$model=new Inventario();
+		$inventarioDeposito=$model->query("SELECT * FROM `inventarios_vista` WHERE id_articulo = '".$idArticulo."' AND id_proyecto is null order by 'Disponibilidad','deposito','proyecto' asc;");
+		return $inventarioDeposito;
+	}
+
+	function getDataInventarioProyectoByIdArticulo($idArticulo) {
+		$model=new Inventario();
+		$query = "
+			SELECT `pd`.`proyecto`,`pdt`.`cantidad` , `pd`.`FechaDev`
+			FROM  `pedidos_vista`  `pd` 
+			
+			
+			LEFT OUTER JOIN  `pedido_detalles`  `pdt` ON (  `pdt`.`IdPedido` =  `pd`.`id` ) 
+			LEFT OUTER JOIN  `inventarios`  `inv` ON (  `inv`.`IdProyecto` =  `pd`.`id_proyecto` AND `inv`.`IdArticulo` =  
+			
+			`pdt`.`idArticulo` AND `inv`.`Disponibilidad` > 0 ) 
+			
+			WHERE 
+			`pd`.`estado` =  'enviado'
+			AND  `inv`.`IdArticulo` =  '".$idArticulo."'
+			ORDER BY  `pd`.`proyecto` ASC, `pd`.`FechaDev` ASC 
+
+		";
+		
+		$inventarioPedidos=$model->query($query);
+		return $inventarioPedidos;
+	}
 	//Suma (inserta/modifica) en inventario para deposito
 	function sumaInventarioEnDeposito($articulo,$deposito,$cantidad) {
 		if ($this->getExisteArticulo($articulo,$deposito,NULL)){

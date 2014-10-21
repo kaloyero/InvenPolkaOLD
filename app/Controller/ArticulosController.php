@@ -177,6 +177,7 @@ class ArticulosController extends AppController {
 				//Le asigno el valor al codigo de Articulo
 				$this->request->data['Articulo']['CodigoArticulo'] = $codigoArt ;
 
+print_r($this->request->data['Articulo']);
 		        if ($this->Articulo->save($this->request->data,array('fieldList' => $fieldsToEdit ))){
 					  $this->render('/General/Success');
 		        	}else{
@@ -212,9 +213,9 @@ class ArticulosController extends AppController {
 		$fieldList= array();
 		if(!empty($this->request->data["Articulo"]["idFoto"])){
 
-			$fieldsToEdit= array('CodigoArticulo', 'Descripcion', 'IdCategoria', 'IdObjeto', 'IdEstilo', 'IdMaterial', 'IdDecorado', 'IdDimension','idFoto');
+			$fieldsToEdit= array('CodigoArticulo', 'Descripcion', 'IdCategoria', 'IdObjeto', 'IdEstilo', 'IdMaterial', 'IdDecorado', 'IdDimension','idFoto', 'Disponible');
 		}else{
-			$fieldList= array('CodigoArticulo', 'Descripcion', 'IdCategoria', 'IdObjeto', 'IdEstilo', 'IdMaterial', 'IdDecorado', 'IdDimension');
+			$fieldList= array('CodigoArticulo', 'Descripcion', 'IdCategoria', 'IdObjeto', 'IdEstilo', 'IdMaterial', 'IdDecorado', 'IdDimension', 'Disponible');
 		}
 			return $fieldList;
 	}

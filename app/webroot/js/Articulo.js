@@ -435,7 +435,7 @@ var Articulo = new Class({
             htmlDiv +='<div class="infoShow">'+data[i]["_aData"][2];
 			
 			//Pregunto si tiene stock, sino, no parece el check
-			if (data[i]["_aData"][10] <= 0){
+			if (data[i]["_aData"][10] <= 0 || data[i]["_aData"][14] == 'F'){
 				//ARTICULO NO DISPONIBLE
 				htmlDiv +='<div style="position: absolute;margin-top: -115px;margin-left: 15px;"><h4 style="text-align: center;font-size: 14px;color: #C59191;">ARTICULO<BR>TEMPORALMENTE<BR>NO DISPONIBLE</h4></div >'
 			}

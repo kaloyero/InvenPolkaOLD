@@ -495,12 +495,48 @@ WHERE  `det`.`IdPedido` ='".$id."';";
 		
 		return $porcen;
 	}
+
 	//
 	function getDataInventarioByIdArticulo($idArticulo) {
 		$model=new Inventario();
-		$inventario=$model->query("SELECT * FROM `inventarios_vista` WHERE id_articulo = '".$idArticulo."' order by 'Disponibilidad','deposito','proyecto' asc;");
-		return $inventario;
+		$inventarioDeposito= $this->getDataInventarioDepositoByIdArticulo($idArticulo);
+		$inventarioProyecto= $this->getDataInventarioProyectoByIdArticulo($idArticulo);
+		
+		print_r($inventarioProyecto);
+		
 	}
+
+
+	//
+	function getDataInventarioDepositoByIdArticulo($idArticulo) {
+		$model=new Inventario();
+		$inventarioDeposito=$model->query("SELECT * FROM `inventarios_vista` WHERE id_articulo = '".$idArticulo."' order by 'Disponibilidad','deposito','proyecto' asc;");
+		return $inventarioDeposito;
+	}
+
+	function getDataInventarioProyectoByIdArticulo($idArticulo) {
+		$model=new Inventario();
+		$query = "
+			SELECT `pd`.`proyecto`,`pdt`.`cantidad` , `pd`.`FechaDev`
+			FROM  `pedidos_vista`  `pd` 
+			
+			
+			LEFT OUTER JOIN  `pedido_detalles`  `pdt` ON (  `pdt`.`IdPedido` =  `pd`.`id` ) 
+			LEFT OUTER JOIN  `inventarios`  `inv` ON (  `inv`.`IdProyecto` =  `pd`.`id_proyecto` AND `inv`.`IdArticulo` =  
+			
+			`pdt`.`idArticulo` AND `inv`.`Disponibilidad` > 0 ) 
+			
+			WHERE 
+			`pd`.`estado` =  'enviado'
+			AND  `inv`.`IdArticulo` =  '".$idArticulo."'
+			ORDER BY  `pd`.`proyecto` ASC, `pd`.`FechaDev` ASC 
+
+		";
+		
+		$inventarioPedidos=$model->query($query);
+		return $inventarioPedidos;
+	}
+
 
 	//Suma (inserta/modifica) en inventario para deposito
 	function sumaInventarioEnDeposito($articulo,$deposito,$cantidad) {

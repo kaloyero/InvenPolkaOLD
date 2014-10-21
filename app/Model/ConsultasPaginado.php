@@ -600,7 +600,7 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi,$tipoLista,$pri
 				$btnAccion= "<div  class= 'iconoAccion' > <a href='/InvenPolka/pedidos/generateComanda/".$j[$tabla]['id']."'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/pdf.gif' /></a></div>";
 
 				//Pregunto si el estado del producto fue enviado. Solo los productos en este estado pueden imprimir la comanda
-					if ($j[$tabla]["estado"] == "enviado"){
+					if ($j[$tabla]["estado"] == "enviado" || $j[$tabla]["estado"] == "devuelto"){
 						$btnAccion=$btnAccion."<div  class= 'iconoAccion' ><a href='/InvenPolka/app/webroot/files/remitos/Remito_".$j[$tabla]['id'].".pdf' download='Remito_".$j[$tabla]['id']."'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/recibo.jpg' /></a></div>";
 					}
 					$btnAccion= $btnAccion."</div>";
@@ -642,7 +642,7 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi,$tipoLista,$pri
 		$tabla="articulos_vista";
 		$model=new Articulo();
 		//Columnas que voy a mostrar
-	    $aColumns = array( 'id','CodigoArticulo','dir','idFoto','descripcion','categoria','decorado','objeto','estilo','material','dimension','stock_total','stock_dispo' );
+	    $aColumns = array( 'id','CodigoArticulo','dir','idFoto','descripcion','categoria','decorado','objeto','estilo','material','dimension','stock_total','stock_dispo','Disponible' );
         //Columnas por las que se va a filtrar
 	    $aColumnsFilter = array( 'CodigoArticulo','descripcion','categoria','decorado','objeto','estilo','material','dimension' );
 		//Columna por la cual se va ordenar
@@ -716,7 +716,7 @@ private function getDataArticulosQuery($tabla,$aColumns,$aColumnsFilter,$orderBy
 		$tabla="articulos_vista";
 		$model=new Articulo();
 		//Columnas que voy a mostrar
-	    $aColumns = array( 'id','CodigoArticulo','dir','idFoto','descripcion','categoria','decorado','objeto','estilo','material','dimension' ,'id_categoria','id_decorado','id_objeto','id_estilo','id_material','id_dimension','stock_total','stock_dispo');
+	    $aColumns = array( 'id','CodigoArticulo','dir','idFoto','descripcion','categoria','decorado','objeto','estilo','material','dimension' ,'id_categoria','id_decorado','id_objeto','id_estilo','id_material','id_dimension','stock_total','stock_dispo','Disponible');
         //Columnas por las que se va a filtrar
 	    $aColumnsFilter = array(  );
 		//Columna por la cual se va ordenar
@@ -796,7 +796,7 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumns,$aColumnsFil
 			$fila=array();
         	array_push($fila, array($j[$tabla]['id']));
 	        array_push($fila, array($j[$tabla]['CodigoArticulo']));
-			if ( $j[$tabla]['stock_dispo'] > 0 ){
+			if ( $j[$tabla]['stock_dispo'] > 0 && $j[$tabla]['Disponible'] == 'T' ){
 				//Hago imagen normal xq tiene stock
 				$imagen = 	 $this->getImageSmall($j[$tabla]['dir'],$j[$tabla]['idFoto']);			
 			} else {
@@ -821,22 +821,23 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumns,$aColumnsFil
 			$botonEditar = '<a href="#" id='.$j[$tabla]['id'].' class="edit"><img style="width:20px;height:20;display:inline;float:right;margin-top:0.1cm;" src="/InvenPolka/app/webroot/files/gif/edit.png"></a>';
 		}
 		array_push($fila,$botonEditar);
-
 		
 		array_push($fila,'<a href="#" id='.$j[$tabla]['id'].' class="view"><img style="width:20px;height:20;display:inline;float:right;margin-top:0.1cm;" src="/InvenPolka/app/webroot/img/view.png"></a>');
 
 		//Decide si se muestra el checkBox para seleccionar el articulo.
 		$mostrarArt = 'S';
+		
 		if (! empty($privilegios['selectorArticulo']))  {
 			$mostrarArt =  'S';
 		} else {
-			if ($j[$tabla]['stock_dispo'] > 0){
+			if ($j[$tabla]['stock_dispo'] > 0 && $j[$tabla]['Disponible'] == 'T'){
 				$mostrarArt =  'S';
 			} else {
 				$mostrarArt = 'N';
 			}
 		}
 		array_push($fila, $mostrarArt);
+		array_push($fila, array($j[$tabla]['Disponible']));
 
 		array_push($arrayDt, $fila);
 		
