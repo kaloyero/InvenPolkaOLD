@@ -153,6 +153,10 @@ class MovimientoInventariosController extends AppController {
 	}
 
 	private function devolucionArtPorPedidoGET($idPedido){
+			print_r("teta");
+			print_r($idPedido);
+			print_r("culo");
+			
 			$consultas = new ConsultasSelect();
 			//Obtengo la informacion del Pedido
 			$pedido = $consultas->getPedidoById($idPedido);

@@ -487,6 +487,7 @@ private function getDataDefaultQueryInventario($tabla,$aColumns,$aColumnsFilter,
 			E -> pedidos que entraron
 			S -> pedidos de Salida
 			H -> historico de pedidos
+			PP -> Pendientes Por Proyectos
 
 			*/
 
@@ -525,7 +526,7 @@ private function getDataDefaultPedidoQuery($tabla,$aColumns,$aColumnsFilter,$ord
 		$limit = 'limit '.$_GET['iDisplayStart'].' ,'.$_GET['iDisplayLength'] ;
 		$orderBy = " order by ".$orderByfield." ";
 		switch ($tipoLista) {
-			case 'E':
+			case 'E': // pedidos que entraron
 				$sWhere = " WHERE `estado` like 'abierto' AND";
 				break;
 			case 'S':
@@ -536,6 +537,9 @@ private function getDataDefaultPedidoQuery($tabla,$aColumns,$aColumnsFilter,$ord
 				break;
 			case 'R':
 				$sWhere = " WHERE `id_proyecto` = ".$proyecto." AND";
+				break;
+			case 'PP': //Proyecto Pendiente
+				$sWhere = " WHERE (`estado` like 'enviado') AND";
 				break;
 
 		}
@@ -609,6 +613,22 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi,$tipoLista,$pri
 						$btnPrintComanda = "";
 					}
 					break;
+				case 'PP' :
+					$btnAccion= "<div  class= 'iconoAccion' > <a href='/InvenPolka/pedidos/generateComanda/".$j[$tabla]['id']."'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/pdf.gif' /></a></div>";
+					//Pregunto si el estado del producto fue enviado. Solo los productos en este estado pueden ser devueltos
+					if ($j[$tabla]["estado"] == "enviado"){
+//						print_r($j[$tabla]['id']);
+							$btnAccion=$btnAccion."<div  class= 'iconoAccion' > <a href='/InvenPolka/pedidos/edit/".$j[$tabla]['id']."' class='devolucionArtPorProy'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/devolver.jpg' /></a></div>";
+					}					
+
+
+				//Pregunto si el estado del producto fue enviado. Solo los productos en este estado pueden imprimir la comanda
+					if ($j[$tabla]["estado"] == "enviado" || $j[$tabla]["estado"] == "devuelto"){
+						$btnAccion=$btnAccion."<div  class= 'iconoAccion' ><a href='/InvenPolka/app/webroot/files/remitos/Remito_".$j[$tabla]['id'].".pdf' download='Remito_".$j[$tabla]['id']."'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/recibo.jpg' /></a></div>";
+					}
+					$btnAccion= $btnAccion."</div>";
+					$btnPrintPedido = "";
+					break;					
 				case 'R':
 					//Pregunto si tiene privilegios para devolver pedidos
   				    if (! empty($privilegios['btnDevPedProy'])) {

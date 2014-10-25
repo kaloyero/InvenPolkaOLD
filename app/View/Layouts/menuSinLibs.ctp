@@ -84,6 +84,9 @@ $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto"
 					<?php if (! empty($privis['menuPedSal'])) { ?>
 						<li class="active  animate8 fadeInUp"><a id="pedidoSalida" class="option"><span class="icon-th-list"></span> <?php echo $privis['menuPedSal']['nombre'] ?></a></li>
 					<?php } ?>
+					<?php if (! empty($privis['menuPedProyPend'])) { ?>
+						<li class="active  animate8 fadeInUp"><a id="pedidoProyPend" class="option"><span class="icon-th-list"></span> <?php echo $privis['menuPedProyPend']['nombre'] ?></a></li>
+					<?php } ?>
 					<?php if (! empty($privis['menuPedHisto'])) { ?>
 						<li class="active  animate8 fadeInUp"><a id="pedidoHisto" class="option"><span class="icon-th-list"></span> <?php echo $privis['menuPedHisto']['nombre'] ?></a></li>
 					<?php } ?>

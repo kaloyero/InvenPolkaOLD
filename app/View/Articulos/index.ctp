@@ -17,9 +17,10 @@
 		<button class="btn btn-primary deleteArt" disabled="true" tooltip = "<?php echo $privis['addBajaArt']['ayuda'] ?>"><?php echo $privis['addBajaArt']['nombre'] ?></button>
 	<?php } ?>
 	<a class="btn btn-primary comandaArtSel " href="33">Descargar Selección</a>
-
+	
 </h4>
-<h4 class="widgettitle nomargin shadowed">Listado de Articulos 
+<h4 class="widgettitle nomargin shadowed">Listado de Articulos 	
+<input id="artDisponibles" type="button" name="artDisponibles" style = "margin-left: 65%;"  value="Mostrar Articulos Disponibles" /> 
 </h4>
 <table  id="configurationTable" class ="table table-bordered" width="100%"  style="width: 100%;">
 	<thead>

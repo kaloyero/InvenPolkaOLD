@@ -26,6 +26,19 @@ var Articulo = new Class({
 		        self.removerBasuraPluginZoom();
       	        translator.add(self.type);
          })
+
+
+		  jQuery('#artDisponibles').bind("click", function(e) {
+			if (jQuery("#artDisponibles").attr("value") == "Mostrar Articulos Disponibles"){
+				jQuery("#artDisponibles").attr("value", "Mostrar  Todos  los  Articulos");
+		  	} else {
+				jQuery("#artDisponibles").attr("value", "Mostrar Articulos Disponibles");
+			}
+			/* ACA DEBERIA RECARGAR LA LISTA*/
+			
+			
+         })
+
           jQuery('.crearPedido').bind("click", function(e) {
 		self.setContext("pedido");
                 self.removerBasuraPluginZoom();
@@ -430,34 +443,48 @@ var Articulo = new Class({
         jQuery("tr").remove();
         jQuery(".infoShow").remove();
 
+		mostrarStock = 'S';
+		//Si NO se muestra la leyenda de mostrar articulos disponibles, muestra SOLO los Articulos DISPONIBLES
+		if ( ! (jQuery("#artDisponibles").attr("value") == "Mostrar Articulos Disponibles") ){
+			mostrarStock = 'N';
+		}
+		
         for(i=0; i< data.length; i++) {
-            var htmlDiv="";
-            htmlDiv +='<div class="infoShow">'+data[i]["_aData"][2];
-			
-			//Pregunto si tiene stock, sino, no parece el check
-			if (data[i]["_aData"][10] <= 0 || data[i]["_aData"][14] == 'F'){
-				//ARTICULO NO DISPONIBLE
-				htmlDiv +='<div style="position: absolute;margin-top: -115px;margin-left: 15px;"><h4 style="text-align: center;font-size: 14px;color: #C59191;">ARTICULO<BR>TEMPORALMENTE<BR>NO DISPONIBLE</h4></div >'
+			//Pregunto si tiene Stock
+			conStock = 'S';
+			if ((data[i]["_aData"][10] <= 0 || data[i]["_aData"][14] == 'F') ){
+				conStock = 'N';
 			}
-			
-			console.log(data[i]["_aData"][13]);
-			//Si se debe mostrar el selector
-			if (data[i]["_aData"][13] == 'S'){
-				htmlDiv += '<input type="checkbox" name="option3" class="optionGrande"> ';
+			//Pregunto si muestro SOLO los articulos DISPONiBLES
+			if (mostrarStock == 'S' || ( mostrarStock == 'N' && conStock == 'S')){
+
+				var htmlDiv="";
+				htmlDiv +='<div class="infoShow">'+data[i]["_aData"][2];
+				
+				//Pregunto si tiene stock, sino, no parece el check
+				if (data[i]["_aData"][10] <= 0 || data[i]["_aData"][14] == 'F'){
+					//ARTICULO NO DISPONIBLE
+					htmlDiv +='<div style="position: absolute;margin-top: -115px;margin-left: 15px;"><h4 style="text-align: center;font-size: 14px;color: #C59191;">ARTICULO<BR>TEMPORALMENTE<BR>NO DISPONIBLE</h4></div >'
+				}
+				
+				console.log(data[i]["_aData"][13]);
+				//Si se debe mostrar el selector
+				if (data[i]["_aData"][13] == 'S'){
+					htmlDiv += '<input type="checkbox" name="option3" class="optionGrande"> ';
+				}
+				htmlDiv += data[i]["_aData"][1];
+	
+	//Preguntamos si estan los botones antes de ponerlos (Por ahi esta conectado un usuario que no le haya venido el boton para usar)
+				if (data[i]["_aData"][11])
+					htmlDiv +=data[i]["_aData"][11];
+				if (data[i]["_aData"][12])
+					htmlDiv +=data[i]["_aData"][12];
+	
+				htmlDiv +='<B><c style="display:inline;float:right;margin-top:0.0cm;"> '+data[i]["_aData"][10]+'</c></B></div>';
+	// 			htmlDiv +='<B><c style="display:inline;float:right;margin-top:0.0cm;"> '+data[i]["_aData"][9]+' ('+ data[i]["_aData"][10]+') </c></B></div>';
+	
+				jQuery("#configurationTable").before(htmlDiv);
 			}
-			htmlDiv += data[i]["_aData"][1];
-
-//Preguntamos si estan los botones antes de ponerlos (Por ahi esta conectado un usuario que no le haya venido el boton para usar)
-            if (data[i]["_aData"][11])
-                htmlDiv +=data[i]["_aData"][11];
- 			if (data[i]["_aData"][12])
- 			    htmlDiv +=data[i]["_aData"][12];
-
- 			htmlDiv +='<B><c style="display:inline;float:right;margin-top:0.0cm;"> '+data[i]["_aData"][10]+'</c></B></div>';
-// 			htmlDiv +='<B><c style="display:inline;float:right;margin-top:0.0cm;"> '+data[i]["_aData"][9]+' ('+ data[i]["_aData"][10]+') </c></B></div>';
-
- 			jQuery("#configurationTable").before(htmlDiv);
-
         }
         //jQuery('.preview').elevateZoom({ zoomType: "inner",cursor: "crosshair" });
         jQuery('.preview').elevateZoom({zoomWindowPosition: 6});
@@ -465,7 +492,7 @@ var Articulo = new Class({
 
 
         this.checkElements();
-    },
+	},
     getSelectedRowId:function(selectedRow) {
         return jQuery(selectedRow).attr('id');
    },
