@@ -153,7 +153,9 @@ var Articulo = new Class({
 
        },
      bindEditEvents:function() {
+
          var self=this;
+         self.removerBasuraPluginZoom();
          this.styleForm();
          this.generateValidation();
          this.getForm().ajaxForm({
@@ -204,6 +206,7 @@ var Articulo = new Class({
                                     reader.readAsDataURL(f);
                                 }
                    })
+
     },
 
     onFinder:function(data) {
