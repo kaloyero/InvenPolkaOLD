@@ -51,6 +51,13 @@ echo $this->Form->create('Articulo',array('type' => 'file','class' => 'stdform s
 ?>
 <h4 class="widgettitle nomargin shadowed">Codigo Articulo: <?php echo $articulo['articulos_vista']['CodigoArticulo'] ?><button class="volver glyphicon" style="float:right;" type="button" title="Volver atras"><img src="app/webroot/img/icon-back.png" alt="Volver atras" /></button></h4>
 
+<h2 class=" nomargin shadowed" style="margin:20px 10px;">Imagen</h2>
+<label style="float: left;"></label>
+<span class="field">
+
+<img src="/InvenPolka/app/webroot/files/articulo/idFoto/<?php echo $articulo['articulos_vista']['dir'] ?>/<?php echo $articulo['articulos_vista']['idFoto'] ?>" alt="CakePHP" height="800px" width="800px">
+</span>
+
 <h2 class=" nomargin shadowed" style="margin:20px 10px;">Descripciones</h2>
 <p>
     <label style="float: left;"></label>
@@ -110,27 +117,22 @@ echo $this->Form->create('Articulo',array('type' => 'file','class' => 'stdform s
             <tr style="border-bottom: 1px solid #ccc;">
                 <th align="left"><b>Ubicacion</b></th>
                 <th><b>Cantidad</b></th>
+                <th><b>Devolución Aproximada</b></th>
             </tr>
-            <?php                foreach ($inventario as $inv){ ?>
+            <?php 
+			               foreach ($inventario as $inv){
+				 ?>
             <tr>
-                <?php if (is_null($inv['inventarios_vista']['proyecto'])){ ?>
-                <td align="left" width="150px"><?php echo $inv['inventarios_vista']['deposito'] ?></td>
-                <?php } else { ?>
-                <td align="left" width="150px"><?php echo $inv['inventarios_vista']['proyecto'] ?></td>
-                <?php } ?>
-                <td align="center"width="80px"><?php echo $inv['inventarios_vista']['Disponibilidad'] ?></td>
+                <td align="left" width="150px"><?php echo $inv['pd']['proyecto'] ?></td>
+                <td align="center"width="80px"><?php echo $inv['pdt']['cantidad'] ?></td>
+                <td align="center"width="80px"><?php echo $inv['pd']['FechaDev'] ?></td>
             </tr>
             <?php } ?>
 
         </table>
 </p>
 
-<h2 class=" nomargin shadowed" style="margin:20px 10px;">Imagen</h2>
-<label style="float: left;"></label>
-<span class="field">
 
-<img src="/InvenPolka/app/webroot/files/articulo/idFoto/<?php echo $articulo['articulos_vista']['dir'] ?>/<?php echo $articulo['articulos_vista']['idFoto'] ?>" alt="CakePHP" height="800px" width="800px">
-</span>
 </div>
 <div class="botonera widgettitle">
 </div>

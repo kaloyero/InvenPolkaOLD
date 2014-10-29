@@ -35,6 +35,8 @@ echo $this->Form->input('CodigoArticulo',array('class'=>'input-medium','div'=>fa
                                 <label style="float: left;">Codigo Articulo</label>
                                 <span class="field float">',
 								'after'=>'</span>','pattern' => '.*\S+.*'));
+								
+echo $this->Form->input('Articulo.Disponible',array('type'=>'select','options'=>array('T' => 'Disponible','F' => 'NO Disponible'),'empty'=>false,'class'=>'uniformselect','div'=>false,'label'=>false,'before'=>'<p><label>Estado: </label><span class="field"> ','after'=>'</span></p>'));        								
 ?>
 <br>
 <h2 class=" nomargin shadowed">Comentarios</h2>
@@ -44,6 +46,7 @@ echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5
 								                                <label style="float: left;">Comentarios</label>
 								                                <span class="field float">',
 																'after'=>'</span></p>','pattern' => '.*\S+.*'));
+
 ?>
 <br>
 <h2 class=" nomargin shadowed">Configuraciones</h2>

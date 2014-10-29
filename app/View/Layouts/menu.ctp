@@ -11,6 +11,7 @@
         echo $this->Html->script('PedidoSalida');
         echo $this->Html->script('PedidoHisto');
 		echo $this->Html->script('PedidoRealizado');
+		echo $this->Html->script('PedidoProyPend');
         echo $this->Html->script('Deposito');
         echo $this->Html->script('MovimientoInventario');
         echo $this->Html->script('Inventario');
@@ -60,7 +61,9 @@
         echo $this->Html->script('libs/md5');
 
 		echo $this->Html->css('style.dark');
+
 		echo $this->Html->script('jsTemplate/custom');
+
         echo $this->fetch('css');
         echo $this->fetch('script');?>
 
@@ -90,22 +93,25 @@ $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto"
                 </div>
             </form>
         </div><!--searchwidget-->
-
-        <div class="plainwidget animate3 fadeInUp">
-            <small>Cantidad de articulos disponibles: </small>
-                <div class="progress progress-info">
-                <div class="bar" style="width: <?php echo $porcentaje; ?>%"></div>
-            </div>
-            <small><strong><?php //echo round($porcentaje, 1, PHP_ROUND_HALF_DOWN); 
-			echo floor($porcentaje);?> % disponible</strong></small>
-        </div><!--plainwidget-->
 		<?php $privis = $this->Session->read("privilegios"); ?>
+
+		<?php if (! empty($privis['graficoInventario'])) { ?>
+
+            <div class="plainwidget animate3 fadeInUp">
+                <small>Cantidad de articulos disponibles: </small>
+                    <div class="progress progress-info">
+                    <div class="bar" style="width: <?php echo $porcentaje; ?>%"></div>
+                </div>
+                <small><strong><?php //echo round($porcentaje, 1, PHP_ROUND_HALF_DOWN); 
+                echo floor($porcentaje);?> % disponible</strong></small>
+            </div><!--plainwidget-->
+		 <?php } ?>
         <div class="leftmenu">
             <ul class="nav nav-tabs nav-stacked">
                     <li class="nav-header animate4 fadeInUp">Navegacion</li>
 
 					<?php if (! empty($privis['menuArticulos'])) { ?>
-						<li class="active  animate8 fadeInUp"><a id="articulo" class="option"><span class="icon-th-list"></span> <?php echo $privis['menuArticulos']['nombre'] ?></a></li>
+						<li class="active  animate8 fadeInUp"><a id="articulo" class="option resaltado"><span class="icon-th-list"></span><B> <?php echo $privis['menuArticulos']['nombre'] ?></b></a></li>
 					<?php } ?>
 					<?php if (! empty($privis['menuProyectos'])) { ?>
 						<li class="active  animate8 fadeInUp"><a id="proyecto" class="option"><span class="icon-th-list"></span>  <?php echo $privis['menuProyectos']['nombre'] ?></a></li>
@@ -125,6 +131,9 @@ $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto"
 					<?php if (! empty($privis['menuPedSal'])) { ?>
 						<li class="active  animate8 fadeInUp"><a id="pedidoSalida" class="option"><span class="icon-th-list"></span> <?php echo $privis['menuPedSal']['nombre'] ?></a></li>
 					<?php } ?>
+					<?php if (! empty($privis['menuPedProyPend'])) { ?>
+						<li class="active  animate8 fadeInUp"><a id="pedidoProyPend" class="option"><span class="icon-th-list"></span> <?php echo $privis['menuPedProyPend']['nombre'] ?></a></li>
+					<?php } ?>
 					<?php if (! empty($privis['menuPedHisto'])) { ?>
 						<li class="active  animate8 fadeInUp"><a id="pedidoHisto" class="option"><span class="icon-th-list"></span> <?php echo $privis['menuPedHisto']['nombre'] ?></a></li>
 					<?php } ?>
@@ -137,7 +146,7 @@ $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto"
 					<?php if (! empty($privis['menuConfig'])) { ?>
 						<li class="dropdown animate13 fadeInUp"><a href=""><span class="icon-pencil"></span> <?php echo $privis['menuConfig']['nombre'] ?></a>
 							<ul>
-									<li><a id="categoria" class="option">Categoriasa</a></li>
+									<li><a id="categoria" class="option">Categorias</a></li>
 									<li><a id="objeto" class="option">Objetos</a></li>
 									<li><a id="decorado" class="option">Decorados</a></li>
 									<li><a id="material" class="option">Materiales</a></li>
@@ -151,7 +160,7 @@ $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto"
 											<a href="#">
 											  <span class="icon-search"></span> <?php echo $privis['menuBuscaArt']['nombre'] ?>
 											</a>
-											<ul style="display: block;">
+											<ul >
 											  <li>
 																		<form action="/InvenPolka/articulos/find" class=" formBuscador" id="ArticuloSearchFindForm" enctype="multipart/form-data" method="post" accept-charset="utf-8"><div style="display:none;"><input type="hidden" name="_method" value="POST"></div><div class="field" style="margin:5px 5px 5px 20px;"><label for="ArticuloSearchCodigoArticulo">Codigo Articulo</label><input name="data[ArticuloSearch][CodigoArticulo]" type="text" id="ArticuloSearchCodigoArticulo"></div><p>
 <div class="field" style="margin:5px 5px 5px 20px;">
@@ -273,10 +282,11 @@ jQuery.noConflict();
 jQuery(document).ready(function(){
 	sideBarController.bindMenuOptionsEvents();
 	articuloRender.bindFinderStaticEvents();
+	jQuery('#articulo').click();
 
 	jQuery('.logOut').click(function(){
 			//Cierra la ventana abierta
-            jQuery('.breadcrumb').append('<img src="/invenPolka/app/webroot/files/gif/16.GIF" class ="loader" alt="CakePHP" height="50px" width="50px">');
+			jQuery('.breadcrumb').append('<img src="/invenPolka/app/webroot/files/gif/16.GIF" class ="loader" alt="CakePHP" height="50px" width="50px">');
 			jQuery('.dropdown-toggle').click();
 			//sale
 			translator.logOutUser("usuario");

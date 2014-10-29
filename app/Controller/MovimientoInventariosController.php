@@ -114,6 +114,8 @@ class MovimientoInventariosController extends AppController {
 	public function devolucionDeArticulos(){
         if ($this->request->is('post')) {
 			if ($this->verificarCantidadMayorCero()) {
+				//Si es devolucion por proyecto
+				$this->devolucionArtPorPedidoPOST();
 				//Inserto el movimiento y los detalles
 				$this->insertMovimiento();
 			}
@@ -122,6 +124,19 @@ class MovimientoInventariosController extends AppController {
 			$this->setViewData();
 			//CargarLista de Articulos
 			$this->getListaArticulos();
+		}
+	}
+
+	private function devolucionArtPorPedidoPOST(){
+		if(!empty($this->request->data["MovimientoInventario"]["IdPedido"])){
+			$consultas = new ConsultasSelect();
+			$idPedido = $this->request->data["MovimientoInventario"]["IdPedido"];
+			$idProyecto = $this->request->data["MovimientoInventario"]["IdProyecto"];
+
+			$listDetalle = array ($this->request->data['Detalle']);
+			//En el caso de que se devuelvan todos los articulos del Pedido lo cierra.			
+			$consultas->actualizaPedidosEnviadosPorProyecto($idPedido,$idProyecto, $listDetalle);
+			
 		}
 	}
 
@@ -138,6 +153,10 @@ class MovimientoInventariosController extends AppController {
 	}
 
 	private function devolucionArtPorPedidoGET($idPedido){
+			print_r("teta");
+			print_r($idPedido);
+			print_r("culo");
+			
 			$consultas = new ConsultasSelect();
 			//Obtengo la informacion del Pedido
 			$pedido = $consultas->getPedidoById($idPedido);
@@ -147,7 +166,6 @@ class MovimientoInventariosController extends AppController {
 			$this->getListaArticulosDePedidosAdevolver($idPedido,$ped['id_proyecto']);
 			//Cargo la lista de depositos
 			$this->set('depositos',$consultas->getDepositos());
-
 	}
 
 	public function asignacionAProyectos($id = null){

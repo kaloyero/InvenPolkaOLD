@@ -7,8 +7,6 @@ echo $this->Form->create('Pedido',array('class' => 'stdform stdform2','inputDefa
         'div' => array('class' => 'field') )));
 ?>
 <div class="conteinerPrinc-1">
-<p><label style="float: left;">Fecha Empaquetado</label><span class="field float"><input class="input-small fecha " type="text" 	name="data[Pedido][Fecha]" required="required" /><small><em> año / mes / dia</em></small></span></p>
-
 <?php
 	//Obtengo datos del usuario
 	$usuario = $this->Session->read("usuario");
@@ -21,11 +19,15 @@ echo $this->Form->create('Pedido',array('class' => 'stdform stdform2','inputDefa
 								'after'=>'</span></p>'));
 	}
 ?>
-<br><br>
+
+<p><label style="float: left;">Fecha Salida</label><span class="field float"><input class="input-small fecha " type="text" 	name="data[Pedido][Fecha]" required="required" /><small><em> año / mes / dia</em></small></span></p>
+
+<p><label style="float: left;">Devolución Aproximada</label><span class="field float"><input class="input-small fecha " type="text" 	name="data[Pedido][FechaDev]" required="required" /><small><em> año / mes / dia</em></small></span></p>
+
 </div>
 <div class="conteinerPrinc-2">
 <?php
-echo $this->Form->input('Descripcion',array('type' => 'textarea','class'=>'span5','div'=>false,'label'=>false,'before'=>'<p>
+echo $this->Form->input('Descripcion',array('type' => 'textarea','placeholder'=>'Ingresar lugar y hora de entrega.','class'=>'span5','div'=>false,'label'=>false,'before'=>'<p>
 								                                <label style="float: left;">Comentarios</label>
 								                                <span class="field float">',
 																'after'=>'</span></p>','pattern' => '.*\S+.*'));

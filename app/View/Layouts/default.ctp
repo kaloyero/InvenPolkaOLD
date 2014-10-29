@@ -15,6 +15,7 @@
         echo $this->Html->script('PedidoSalida');
         echo $this->Html->script('PedidoHisto');
 		echo $this->Html->script('PedidoRealizado');
+		echo $this->Html->script('PedidoProyPend');
         echo $this->Html->script('Deposito');
         echo $this->Html->script('MovimientoInventario');
         echo $this->Html->script('Inventario');
@@ -109,7 +110,7 @@ jQuery(document).ready(function(){
 		if(jQuery(this).hasClass('error')) jQuery(this).removeClass('error');
 	});
 	jQuery('.logOut').click(function(){
-            jQuery('.stdformbutton').append('<img src="/invenPolka/app/webroot/files/gif/16.GIF" class ="loader" alt="CakePHP" height="50px" width="50px">');
+            		jQuery('.stdformbutton').append('<img src="/invenPolka/app/webroot/files/gif/16.GIF" class ="loader" alt="CakePHP" height="50px" width="50px">');
 			translator.logOutUser(self.type);
 			return false;
 	});

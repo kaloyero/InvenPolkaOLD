@@ -58,7 +58,7 @@ var Render = new Class({
     	//Inicializo calendario
      	jQuery('.datepicker').datepicker({ dateFormat: 'dd-mm-yy' });
 	   	jQuery('.fechaActual').datepicker( "setDate", new Date());
-        this.bindAddEvents();
+		this.bindAddEvents();
          },
     onView: function(data){
         var self=this;
@@ -67,6 +67,8 @@ var Render = new Class({
         // Transform upload file
         jQuery('.uniform-file').uniform();
         this.bindEditEvents();
+		jQuery("html, body").animate({ scrollTop: 0 }, 600);
+		
         /*jQuery('.save').bind("click", function(e) {
               //Si pasa la validacion,salvamos
               if (self.getForm().valid()){

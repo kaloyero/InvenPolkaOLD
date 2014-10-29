@@ -74,7 +74,7 @@ var Usuario = new Class({
 			 });
 		},
     bindAddEvents:function() {
-
+		
 		var self=this;
 		this.parent();
         jQuery('#UsuarioTipoRol').bind("change", function(e) {

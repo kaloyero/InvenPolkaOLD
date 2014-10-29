@@ -20,6 +20,9 @@ var RenderTranslator = new Class({
 		case "pedidoRealizado":
 			return pedidoRealizadoRender;
 			break;
+		case "pedidoProyPend":
+			return pedidoProyPendRender;
+			break;
 		case "estudio":
 			return estudioRender;
 			break;

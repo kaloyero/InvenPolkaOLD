@@ -1,6 +1,7 @@
 <?php
 App::import('Model','ConsultasPaginado');
 App::import('Model','Pedido');
+App::import('Model','Proyecto');
 App::import('Model','MovimientoInventario');
 
 
@@ -54,15 +55,25 @@ class ProyectosController extends AppController {
 		$cantidadEnMovDetall = sizeof($resultMovimientoDetalle);
 		$resultPedido=$pedido->find('list', array('conditions' => array('IdProyecto =' => $id)));
 		$cantidadEnPedido = sizeof($resultPedido);
-
+	
 		if ($cantidadEnPedido==0 && $cantidadEnMovDetall==0){
 			$this->Proyecto->delete($id);
 		} else {
-			$this->Proyecto->id = $id;
-			$this->Proyecto->saveField('inactivo', 'V');
+			$rsPedidoEnviado=$pedido->find('list', array('conditions' => array('IdProyecto =' => $id,'estado =' => "enviado")));
+			$cantidadrsPedidoEnviado = sizeof($rsPedidoEnviado);
+			if  ($cantidadrsPedidoEnviado > 0){
+				$this->render('/General/Error');		
+			} else {
+				//Convierte los pedidos en abierto a  CERRADO
+				$modelPed = new Pedido();
+				$modelPed->updateAll(array('estado'=>"'cerrado'")	, array('Pedido.IdProyecto =' => $id,'Pedido.estado =' => "abierto"));	
+				//Pone al proyecto en Inactivo
+				$modelProy = new Proyecto();
+				$modelProy->updateAll(array('Inactivo'=>"'T'"), array('Id =' => $id));
+			}
 
 		}
-			$this->render('/General/Success');
+		$this->render('/General/Success');
 	}
 
 }

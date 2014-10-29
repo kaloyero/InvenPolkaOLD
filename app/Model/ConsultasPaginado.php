@@ -487,6 +487,7 @@ private function getDataDefaultQueryInventario($tabla,$aColumns,$aColumnsFilter,
 			E -> pedidos que entraron
 			S -> pedidos de Salida
 			H -> historico de pedidos
+			PP -> Pendientes Por Proyectos
 
 			*/
 
@@ -525,7 +526,7 @@ private function getDataDefaultPedidoQuery($tabla,$aColumns,$aColumnsFilter,$ord
 		$limit = 'limit '.$_GET['iDisplayStart'].' ,'.$_GET['iDisplayLength'] ;
 		$orderBy = " order by ".$orderByfield." ";
 		switch ($tipoLista) {
-			case 'E':
+			case 'E': // pedidos que entraron
 				$sWhere = " WHERE `estado` like 'abierto' AND";
 				break;
 			case 'S':
@@ -536,6 +537,9 @@ private function getDataDefaultPedidoQuery($tabla,$aColumns,$aColumnsFilter,$ord
 				break;
 			case 'R':
 				$sWhere = " WHERE `id_proyecto` = ".$proyecto." AND";
+				break;
+			case 'PP': //Proyecto Pendiente
+				$sWhere = " WHERE (`estado` like 'enviado') AND";
 				break;
 
 		}
@@ -600,7 +604,7 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi,$tipoLista,$pri
 				$btnAccion= "<div  class= 'iconoAccion' > <a href='/InvenPolka/pedidos/generateComanda/".$j[$tabla]['id']."'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/pdf.gif' /></a></div>";
 
 				//Pregunto si el estado del producto fue enviado. Solo los productos en este estado pueden imprimir la comanda
-					if ($j[$tabla]["estado"] == "enviado"){
+					if ($j[$tabla]["estado"] == "enviado" || $j[$tabla]["estado"] == "devuelto"){
 						$btnAccion=$btnAccion."<div  class= 'iconoAccion' ><a href='/InvenPolka/app/webroot/files/remitos/Remito_".$j[$tabla]['id'].".pdf' download='Remito_".$j[$tabla]['id']."'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/recibo.jpg' /></a></div>";
 					}
 					$btnAccion= $btnAccion."</div>";
@@ -609,6 +613,22 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi,$tipoLista,$pri
 						$btnPrintComanda = "";
 					}
 					break;
+				case 'PP' :
+					$btnAccion= "<div  class= 'iconoAccion' > <a href='/InvenPolka/pedidos/generateComanda/".$j[$tabla]['id']."'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/pdf.gif' /></a></div>";
+					//Pregunto si el estado del producto fue enviado. Solo los productos en este estado pueden ser devueltos
+					if ($j[$tabla]["estado"] == "enviado"){
+//						print_r($j[$tabla]['id']);
+							$btnAccion=$btnAccion."<div  class= 'iconoAccion' > <a href='/InvenPolka/pedidos/edit/".$j[$tabla]['id']."' class='devolucionArtPorProy'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/devolver.jpg' /></a></div>";
+					}					
+
+
+				//Pregunto si el estado del producto fue enviado. Solo los productos en este estado pueden imprimir la comanda
+					if ($j[$tabla]["estado"] == "enviado" || $j[$tabla]["estado"] == "devuelto"){
+						$btnAccion=$btnAccion."<div  class= 'iconoAccion' ><a href='/InvenPolka/app/webroot/files/remitos/Remito_".$j[$tabla]['id'].".pdf' download='Remito_".$j[$tabla]['id']."'><img style= 'width:30px;height:30px' src='/InvenPolka/app/webroot/img/recibo.jpg' /></a></div>";
+					}
+					$btnAccion= $btnAccion."</div>";
+					$btnPrintPedido = "";
+					break;					
 				case 'R':
 					//Pregunto si tiene privilegios para devolver pedidos
   				    if (! empty($privilegios['btnDevPedProy'])) {
@@ -642,7 +662,7 @@ private function getArrayDataPedido($tabla,$rows,$aColumns,$titi,$tipoLista,$pri
 		$tabla="articulos_vista";
 		$model=new Articulo();
 		//Columnas que voy a mostrar
-	    $aColumns = array( 'id','CodigoArticulo','dir','idFoto','descripcion','categoria','decorado','objeto','estilo','material','dimension','stock_total','stock_dispo' );
+	    $aColumns = array( 'id','CodigoArticulo','dir','idFoto','descripcion','categoria','decorado','objeto','estilo','material','dimension','stock_total','stock_dispo','Disponible' );
         //Columnas por las que se va a filtrar
 	    $aColumnsFilter = array( 'CodigoArticulo','descripcion','categoria','decorado','objeto','estilo','material','dimension' );
 		//Columna por la cual se va ordenar
@@ -716,7 +736,7 @@ private function getDataArticulosQuery($tabla,$aColumns,$aColumnsFilter,$orderBy
 		$tabla="articulos_vista";
 		$model=new Articulo();
 		//Columnas que voy a mostrar
-	    $aColumns = array( 'id','CodigoArticulo','dir','idFoto','descripcion','categoria','decorado','objeto','estilo','material','dimension' ,'id_categoria','id_decorado','id_objeto','id_estilo','id_material','id_dimension','stock_total','stock_dispo');
+	    $aColumns = array( 'id','CodigoArticulo','dir','idFoto','descripcion','categoria','decorado','objeto','estilo','material','dimension' ,'id_categoria','id_decorado','id_objeto','id_estilo','id_material','id_dimension','stock_total','stock_dispo','Disponible');
         //Columnas por las que se va a filtrar
 	    $aColumnsFilter = array(  );
 		//Columna por la cual se va ordenar
@@ -796,8 +816,14 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumns,$aColumnsFil
 			$fila=array();
         	array_push($fila, array($j[$tabla]['id']));
 	        array_push($fila, array($j[$tabla]['CodigoArticulo']));
-
-			array_push($fila, $this->getImageSmall($j[$tabla]['dir'],$j[$tabla]['idFoto']));
+			if ( $j[$tabla]['stock_dispo'] > 0 && $j[$tabla]['Disponible'] == 'T' ){
+				//Hago imagen normal xq tiene stock
+				$imagen = 	 $this->getImageSmall($j[$tabla]['dir'],$j[$tabla]['idFoto']);			
+			} else {
+				//Hago imagen SIN stock
+				$imagen =    $this->getImageSmallOpacity($j[$tabla]['dir'],$j[$tabla]['idFoto']);	
+			}
+			array_push($fila,$imagen);					
 //	        array_push($fila, array($titi));
 			array_push($fila, array($j[$tabla]['categoria']));
 			array_push($fila, array($j[$tabla]['objeto']));
@@ -808,17 +834,33 @@ private function getDataArticuloQuerySearch($tabla,$query,$aColumns,$aColumnsFil
 			array_push($fila, array($j[$tabla]['stock_total']));
 			array_push($fila, array($j[$tabla]['stock_dispo']));
 
+		$botonEditar = '';
 //		if (! empty($privilegios['btnEditarArticulo'])) {
 		if (! empty($privilegios['btnEditar']))  {
 			//Las siguientes imagenes se preguntan en el privilegio
-			array_push($fila,'<a href="#" id='.$j[$tabla]['id'].' class="edit"><img style="width:20px;height:20;display:inline;float:right;margin-top:0.1cm;" src="/InvenPolka/app/webroot/files/gif/edit.png"></a>');
+			$botonEditar = '<a href="#" id='.$j[$tabla]['id'].' class="edit"><img style="width:20px;height:20;display:inline;float:right;margin-top:0.1cm;" src="/InvenPolka/app/webroot/files/gif/edit.png"></a>';
 		}
-
+		array_push($fila,$botonEditar);
+		
 		array_push($fila,'<a href="#" id='.$j[$tabla]['id'].' class="view"><img style="width:20px;height:20;display:inline;float:right;margin-top:0.1cm;" src="/InvenPolka/app/webroot/img/view.png"></a>');
 
+		//Decide si se muestra el checkBox para seleccionar el articulo.
+		$mostrarArt = 'S';
+		
+		if (! empty($privilegios['selectorArticulo']))  {
+			$mostrarArt =  'S';
+		} else {
+			if ($j[$tabla]['stock_dispo'] > 0 && $j[$tabla]['Disponible'] == 'T'){
+				$mostrarArt =  'S';
+			} else {
+				$mostrarArt = 'N';
+			}
+		}
+		array_push($fila, $mostrarArt);
+		array_push($fila, array($j[$tabla]['Disponible']));
 
-
-			array_push($arrayDt, $fila);
+		array_push($arrayDt, $fila);
+		
       }
 //*/
 
@@ -1128,6 +1170,9 @@ private function getDataDefaultQuery($tabla,$aColumns,$aColumnsFilter,$orderByfi
 
 }
 
+	function getImageSmallOpacity($dir,$idFoto) {
+		return '<img class="preview" style="opacity:0.2;width:150px; height:150px;border-style:solid;border-width:3px;" src="/InvenPolka/app/webroot/files/articulo/idFoto/'.$dir.'/small_'.$idFoto.'" data-zoom-image="/InvenPolka/app/webroot/files/articulo/idFoto/'.$dir.'/'.$idFoto.'" alt="CakePHP" >';
+	}
 
 	function getImageSmall($dir,$idFoto) {
 		return '<img class="preview" style="width:150px; height:150px;border-style:solid;border-width:3px;" src="/InvenPolka/app/webroot/files/articulo/idFoto/'.$dir.'/small_'.$idFoto.'" data-zoom-image="/InvenPolka/app/webroot/files/articulo/idFoto/'.$dir.'/'.$idFoto.'" alt="CakePHP" >';

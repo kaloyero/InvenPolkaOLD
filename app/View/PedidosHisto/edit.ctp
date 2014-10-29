@@ -14,12 +14,16 @@ echo $this->Form->create('Pedido',array('class' => 'stdform','inputDefaults' => 
         <span class="field float"><input name="Numero" value="<?php echo $Pe['Numero'];?>" readonly="readonly"  required="required"/></span>
     </p>
     <p>
-        <label style="float: left;">Fecha</label>
-        <span class="field float"><input name="fecha" value="<?php echo $Pe['Fecha'];?>" readonly="readonly" maxlength="100" type="text" required="required"></span>
-    </p>
-    <p>
 		<label>Proyecto</label>
 		<span class="field float"><input name="Proyecto" value="<?php echo $Pe['proyecto'];?>" readonly="readonly" type="text"  required="required"/></span>
+	</p>
+    <p>
+        <label style="float: left;">Fecha Salida</label>
+        <span class="field float"><input name="fecha" value="<?php echo $Pe['Fecha'];?>" readonly="readonly" maxlength="100" type="text" required="required"></span>
+    </p>
+    <p>        
+		<label>Devolución Aproximada</label>
+		<span class="field float" ><input name="fecha" value="<?php echo $Pe['FechaDev'];?>" class="input-medium" readonly="readonly" maxlength="100" type="text" required="required"></span>
 	</p>
 
 </div>

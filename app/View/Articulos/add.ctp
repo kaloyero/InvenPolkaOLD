@@ -68,11 +68,10 @@ color: #000 !important;}
             echo $this->Form->input('Inventario.IdDeposito',array('type'=>'select','options'=>$depositos,'empty'=>false,'class'=>'uniformselect items-select','div'=>false,'label'=>false,'before'=>'<p><label class="field categorias items-title"> Deposito : </label><span class="field float">','after'=>'</span></p>'));
     
             echo $this->Form->input('Inventario.IdProyecto',array('type'=>'select','options'=>$proyectos,'empty'=>true,'class'=>'uniformselect items-select','div'=>false,'label'=>false,'before'=>'<p><label class="field categorias items-title"> Proyecto : </label><span class="field float">','after'=>'</span></p>'));
+
+            echo $this->Form->input('Articulo.Disponible',array('type'=>'select','options'=>array('T' => 'Disponible','F' => 'NO Disponible'),'empty'=>false,'class'=>'uniformselect items-select','div'=>false,'label'=>false,'before'=>'<p><label class="field categorias items-title"> Estado : </label><span class="field float">','after'=>'</span></p>'));
         
        ?>
-
-
-
         </div>
         <div class="conteinerPrinc-2">
 

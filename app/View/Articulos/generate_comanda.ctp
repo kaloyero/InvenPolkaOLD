@@ -24,16 +24,14 @@ $tcpdf->SetFont($textfont,'B',10);
 //$tcpdf->Image('http://localhost/InvenPolka/app/webroot/files/articulo/idFoto/94/small_Screen-shot-2011-11-11-at-7.55.07-PM.png', '', '', 40, 40, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
 
 
-$encabezado = "	<table><tr><td><u>Proyecto:</u> ".$pedido['proyecto']." </td><td><u>Fecha de Emisión:</u> ".$pedido['Fecha']." </td><td><u>Estado:</u> ".$pedido['estado']."  </td></tr><tr><td colspan ='3'><u>Descripción:</u> ".$pedido['Descripcion']."</td></tr><table> <br>";
-
 $lefthtml='<table ><tr>';
 $fila=0;
 $col=0;
 $page=1;
 $listaArtis= array();
-$tope=6;
+$tope=7;
 
-foreach ($detalles as $De){
+foreach ($articulos as $art){
 
 	$fila=$fila+1;
 
@@ -56,7 +54,7 @@ foreach ($detalles as $De){
 			}
 	}
 
-	$lefthtml.='<td width="100" align="center"><img style="width:80px; height:80px;border-style:solid;border-width:0px;" src="/InvenPolka/app/webroot/files/articulo/idFoto/'.$De["det"]["IdArticulo"].'/small_'.$De["art"]["idFoto"].'"><br>'.$De['art']['codigo'].'<br>Cantidad: '.$De['det']['Cantidad'].'</td>';
+	$lefthtml.='<td width="100" align="center"><img style="width:80px; height:80px;border-style:solid;border-width:0px;" src="/InvenPolka/app/webroot/files/articulo/idFoto/'.$art["articulos_vista"]["id"].'/small_'.$art["articulos_vista"]["idFoto"].'"><br>'.$art["articulos_vista"]['CodigoArticulo'].'</td>';
 
 }
 
@@ -95,8 +93,7 @@ $html = <<<EOF
   
 </style>
 <body>
-<h1>Listado de Articulos del pedido $pedidoId</h1>
-<h2>$encabezado</h2>
+<h1>Articulos Seleccionados</h1>
 
 $listaArtis[1]
 </body>
@@ -124,7 +121,7 @@ EOF;
 // see the TCPDF examples
 
 //echo $tcpdf->Output('C:\\invoices\filename.pdf', 'I');
-$nombreComanda='Comanda_'.$pedidoId.'.pdf';
+$nombreComanda='Seleccion de Articulos.pdf';
 echo $tcpdf->Output($nombreComanda, 'D');
 
 ?>

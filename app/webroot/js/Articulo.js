@@ -2,7 +2,6 @@ var Articulo = new Class({
     Extends: Render,
     initialize: function(name){
         this.name = name;
-        console.log("ENTRA INIT")
         this.currentSelectedArticulos={};
 
         this.context="articulo";
@@ -27,31 +26,45 @@ var Articulo = new Class({
 		        self.removerBasuraPluginZoom();
       	        translator.add(self.type);
          })
+
+
+		  jQuery('#artDisponibles').bind("click", function(e) {
+			if (jQuery("#artDisponibles").attr("value") == "Mostrar Articulos Disponibles"){
+				jQuery("#artDisponibles").attr("value", "Mostrar  Todos  los  Articulos");
+		  	} else {
+				jQuery("#artDisponibles").attr("value", "Mostrar Articulos Disponibles");
+			}
+			/* ACA DEBERIA RECARGAR LA LISTA*/
+
+            appStatus.oTable.fnDraw();
+         })
+
           jQuery('.crearPedido').bind("click", function(e) {
-                self.setContext("pedido")
+		self.setContext("pedido");
                 self.removerBasuraPluginZoom();
 				translator.add("pedido",self.getDataToSendInJsonFormat());
                	return false;
           })
           jQuery('.asignarDepo').bind("click", function(e) {
-                self.setContext("pedido")
+		self.setContext("pedido");
                 self.removerBasuraPluginZoom();
 				translator.addMovimiento("movimientoInventario",self.getDataToSendInJsonFormat(),"ingresoDeArticulos");
                	return false;
           })
           jQuery('.devolucionArt').bind("click", function(e) {
-                self.setContext("pedido")
+		self.setContext("pedido");
                 self.removerBasuraPluginZoom();
 				translator.addMovimiento("movimientoInventario",self.getDataToSendInJsonFormat(),"devolucionDeArticulos");
                	return false;
           })
           jQuery('.deleteArt').bind("click", function(e) {
-                self.setContext("pedido")
+		self.setContext("pedido");
                 self.removerBasuraPluginZoom();
 				translator.addMovimiento("movimientoInventario",self.getDataToSendInJsonFormat(),"darDeBajaArticulos");
                	return false;
           })
           jQuery('.comandaArtSel').bind("click", function(e) {
+          self.setContext("pedido")
                // self.removerBasuraPluginZoom();
 				//translator.addMovimiento("articulo",self.getDataToSendInJsonFormat(),"comandaArticulosSelectPdf");
 				//e.preventDefault();
@@ -64,7 +77,7 @@ var Articulo = new Class({
 				    }else{
 				        primero =false;
 				    }
-                 cadena +="data=" +obj[item];
+                 cadena +="data"+obj[item]+"=" +obj[item];
                 }
 				console.log("DATa",cadena)
 				jQuery(this).attr("href", "/InvenPolka/articulos/generateComanda"+cadena)
@@ -73,6 +86,7 @@ var Articulo = new Class({
 //               	return false;
           })
           jQuery('.transferir').bind("click", function(e) {
+		self.setContext("pedido");
 				translator.addMovimiento("movimientoInventario",self.getDataToSendInJsonFormat(),"transferirADeposito");
                	return false;
           })
@@ -81,7 +95,6 @@ var Articulo = new Class({
 
      deleteSelectedArticlesArray:function(){
          //Ponemos en 0 nuevamente el array de seleccionados si el contexto no es Pedidos
-         console.log("ENTRA DELETE",this.getContext())
        		  if (this.getContext()!='pedido'){
        		      this.currentSelectedArticulos={};
        		  }else{
@@ -156,6 +169,8 @@ var Articulo = new Class({
 
          var self=this;
          self.removerBasuraPluginZoom();
+		 self.removerBasuraPluginZoom();
+		 self.setContext("pedido");
          this.styleForm();
          this.generateValidation();
          this.getForm().ajaxForm({
@@ -409,11 +424,8 @@ var Articulo = new Class({
 		})
 		jQuery(':checkbox').bind("change", function(e) {
 		    var articuloId=self.getArticuloIdFromCheckBoxSelection(this);
-            console.log("ENTRA CHECK",articuloId)
             if(jQuery(this).is(":checked")) {
-                console.log("Chequeado",self.currentSelectedArticulos)
                 self.currentSelectedArticulos[articuloId] = 0
-                console.log("Chequeado2",self.currentSelectedArticulos)
             }else{
                 delete self.currentSelectedArticulos[articuloId];
                  }
@@ -423,7 +435,6 @@ var Articulo = new Class({
 
 },
     checkElements:function(){
-        console.log("ENTRA CHe",this.currentSelectedArticulos)
         for (var id in this.currentSelectedArticulos)
         {
             if (jQuery("#"+id).length >0){
@@ -435,20 +446,48 @@ var Articulo = new Class({
         jQuery("tr").remove();
         jQuery(".infoShow").remove();
 
+		mostrarStock = 'S';
+		//Si NO se muestra la leyenda de mostrar articulos disponibles, muestra SOLO los Articulos DISPONIBLES
+		if ( ! (jQuery("#artDisponibles").attr("value") == "Mostrar Articulos Disponibles") ){
+			mostrarStock = 'N';
+		}
+
         for(i=0; i< data.length; i++) {
-            var htmlDiv="";
-            htmlDiv +='<div class="infoShow">'+data[i]["_aData"][2]+'<input type="checkbox" name="option3"> '+data[i]["_aData"][1];
+			//Pregunto si tiene Stock
+			conStock = 'S';
+			if ((data[i]["_aData"][10] <= 0 || data[i]["_aData"][14] == 'F') ){
+				conStock = 'N';
+			}
+			//Pregunto si muestro SOLO los articulos DISPONiBLES
+			if (mostrarStock == 'S' || ( mostrarStock == 'N' && conStock == 'S')){
 
-            //Preguntamos si estan los botones antes de ponerlos (Por ahi esta conectado un usuario que no le haya venido el boton para usar)
-            if (data[i]["_aData"][11])
-                htmlDiv +=data[i]["_aData"][11];
- 			if (data[i]["_aData"][12])
- 			    htmlDiv +=data[i]["_aData"][12];
+				var htmlDiv="";
+				htmlDiv +='<div class="infoShow">'+data[i]["_aData"][2];
 
- 			htmlDiv +='<B><c style="display:inline;float:right;margin-top:0.0cm;"> '+data[i]["_aData"][9]+' ('+ data[i]["_aData"][10]+') </c></B></div>';
+				//Pregunto si tiene stock, sino, no parece el check
+				if (data[i]["_aData"][10] <= 0 || data[i]["_aData"][14] == 'F'){
+					//ARTICULO NO DISPONIBLE
+					htmlDiv +='<div style="position: absolute;margin-top: -115px;margin-left: 15px;"><h4 style="text-align: center;font-size: 14px;color: #C59191;">ARTICULO<BR>TEMPORALMENTE<BR>NO DISPONIBLE</h4></div >'
+				}
 
- 			jQuery("#configurationTable").before(htmlDiv);
+				console.log(data[i]["_aData"][13]);
+				//Si se debe mostrar el selector
+				if (data[i]["_aData"][13] == 'S'){
+					htmlDiv += '<input type="checkbox" name="option3" class="optionGrande"> ';
+				}
+				htmlDiv += data[i]["_aData"][1];
 
+	//Preguntamos si estan los botones antes de ponerlos (Por ahi esta conectado un usuario que no le haya venido el boton para usar)
+				if (data[i]["_aData"][11])
+					htmlDiv +=data[i]["_aData"][11];
+				if (data[i]["_aData"][12])
+					htmlDiv +=data[i]["_aData"][12];
+
+				htmlDiv +='<B><c style="display:inline;float:right;margin-top:0.0cm;"> '+data[i]["_aData"][10]+'</c></B></div>';
+	// 			htmlDiv +='<B><c style="display:inline;float:right;margin-top:0.0cm;"> '+data[i]["_aData"][9]+' ('+ data[i]["_aData"][10]+') </c></B></div>';
+
+				jQuery("#configurationTable").before(htmlDiv);
+			}
         }
         //jQuery('.preview').elevateZoom({ zoomType: "inner",cursor: "crosshair" });
         jQuery('.preview').elevateZoom({zoomWindowPosition: 6});
@@ -456,7 +495,7 @@ var Articulo = new Class({
 
 
         this.checkElements();
-    },
+	},
     getSelectedRowId:function(selectedRow) {
         return jQuery(selectedRow).attr('id');
    },
