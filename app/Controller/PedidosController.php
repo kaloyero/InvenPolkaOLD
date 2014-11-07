@@ -57,11 +57,11 @@ class PedidosController extends AppController {
 			$this->setViewData();
 		}
     }
-	
+
 	function setUsuarioId(){
 		$usuario = $this->getUsuario();
 		$this->request->data['Pedido']['id_usuario'] = $usuario["id"];
-		
+
 	}
 
 	function envioNotificacionPedidoNuevo($nroPedido) {

@@ -56,7 +56,7 @@ class AppController extends Controller {
 
 			//mail($to, $subject, $message, $headers);
 
-           if ($this->params['controller']!="pages" && $this->action!="generateComanda" && $this->action!="reciboPdf"){
+           if ($this->params['controller']!="pages" && $this->action!="generateComanda" && $this->action!="createComanda" && $this->action!="reciboPdf"){
                                 if (!$this->request->is('ajax')){
                                         $this->redirect(array('controller' => 'pages', 'action' => 'display'));
                                 }else{
@@ -75,5 +75,5 @@ class AppController extends Controller {
         function getUsuario() {
 			return $this->Session->read("usuario");
         }
-		
+
 }
