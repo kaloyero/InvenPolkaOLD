@@ -3,6 +3,7 @@ var ServerManager = new Class({
         this.name = name;
         this.services={};
         this.services['articulo']={};
+		this.services['ayuda']={};
         this.services['pedido']={};
         this.services['pedidoSalida']={};
         this.services['pedidoHisto']={};
@@ -30,6 +31,8 @@ var ServerManager = new Class({
 
         this.services['articulo']["controllerName"]="articulos";
         this.services['articulo']["model"]="Articulo";
+        this.services['ayuda']["controllerName"]="ayudas";
+        this.services['ayuda']["model"]="Ayuda";
         this.services['pedido']["controllerName"]="pedidos";
         this.services['pedido']["model"]="Pedido";
         this.services['pedidoSalida']["controllerName"]="pedidosSalida";

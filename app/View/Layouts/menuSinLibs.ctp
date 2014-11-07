@@ -62,7 +62,7 @@ $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto"
         <div class="leftmenu">
             <ul class="nav nav-tabs nav-stacked">
                     <li class="nav-header animate4 fadeInUp">Navegacion</li>
-
+		<li class="active  animate8 fadeInUp"><a id="ayuda" class="option resaltado"><span class="icon-th-list"></span><B> AYUDA</B></a></li>
 					<?php if (! empty($privis['menuArticulos'])) { ?>
 						<li class="active  animate8 fadeInUp"><a id="articulo" class="option resaltado"><span class="icon-th-list"></span><B> <?php echo $privis['menuArticulos']['nombre'] ?></B></a></li>
 					<?php } ?>

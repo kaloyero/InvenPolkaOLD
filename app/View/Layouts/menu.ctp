@@ -7,6 +7,7 @@
         echo $this->Html->script('Render');
         echo $this->Html->script('RenderTranslator');
         echo $this->Html->script('Articulo');
+		echo $this->Html->script('Ayuda');
         echo $this->Html->script('Pedido');
         echo $this->Html->script('PedidoSalida');
         echo $this->Html->script('PedidoHisto');

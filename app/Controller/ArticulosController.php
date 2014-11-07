@@ -177,7 +177,6 @@ class ArticulosController extends AppController {
 				//Le asigno el valor al codigo de Articulo
 				$this->request->data['Articulo']['CodigoArticulo'] = $codigoArt ;
 
-print_r($this->request->data['Articulo']);
 		        if ($this->Articulo->save($this->request->data,array('fieldList' => $fieldsToEdit ))){
 					  $this->render('/General/Success');
 		        	}else{

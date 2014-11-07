@@ -35,7 +35,7 @@ var Articulo = new Class({
 				jQuery("#artDisponibles").attr("value", "Mostrar Articulos Disponibles");
 			}
 			/* ACA DEBERIA RECARGAR LA LISTA*/
-			
+			appStatus.oTable.fnDraw();
 			
          })
 
