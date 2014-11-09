@@ -56,8 +56,9 @@ class AppController extends Controller {
 
 			//mail($to, $subject, $message, $headers);
 
-           if ($this->params['controller']!="pages" && $this->action!="generateComanda" && $this->action!="createComanda" && $this->action!="reciboPdf"){
-                                if (!$this->request->is('ajax')){
+           if ($this->params['controller']!="pages" && $this->action!="generateComanda" && $this->action!="createComanda" && $this->action!="reciboPdf" ){
+                                if (!$this->request->is('ajax')&& $this->params['controller']!="ayudas"){
+
                                         $this->redirect(array('controller' => 'pages', 'action' => 'display'));
                                 }else{
                                         $this->layout = 'empty';

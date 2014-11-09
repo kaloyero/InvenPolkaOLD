@@ -185,6 +185,8 @@ $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto"
                         	<li><a href="#" class="changePass"><span class="icon-edit"></span> <?php echo $privis['menuCambioPass']['nombre'] ?></a></li>
 						<?php } ?>
                         <li class="divider"></li>
+						<li><a href="#" class="ayuda"><span class="icon-edit"></span> Ayuda</a></li>
+
                         <li><a href="/usuarios/logOut" class="logOut"><span class="icon-off"></span> Salir</a></li>
                     </ul>
                 </div><!--dropdown-->
@@ -252,6 +254,9 @@ jQuery(document).ready(function(){
 			//cambio clave
 			translator.cambioPassword("usuario");
 			return false;
+	});
+	jQuery('.ayuda').click(function(){
+		window.open("ayudas","Ayuda","height=1000,width=1000");
 	});
 
 

@@ -103,7 +103,7 @@ $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto"
                     <div class="progress progress-info">
                     <div class="bar" style="width: <?php echo $porcentaje; ?>%"></div>
                 </div>
-                <small><strong><?php //echo round($porcentaje, 1, PHP_ROUND_HALF_DOWN); 
+                <small><strong><?php //echo round($porcentaje, 1, PHP_ROUND_HALF_DOWN);
                 echo floor($porcentaje);?> % disponible</strong></small>
             </div><!--plainwidget-->
 		 <?php } ?>
@@ -233,6 +233,7 @@ $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto"
                         	<li><a href="#" class="changePass"><span class="icon-edit"></span> <?php echo $privis['menuCambioPass']['nombre'] ?></a></li>
 						<?php } ?>
                         <li class="divider"></li>
+						<li><a href="#" class="ayuda"><span class="icon-edit"></span> Ayuda</a></li>
                         <li><a href="#" class="logOut"><span class="icon-off"></span> Salir</a></li>
                     </ul>
                 </div><!--dropdown-->
@@ -301,6 +302,9 @@ jQuery(document).ready(function(){
 			translator.cambioPassword("usuario");
 			return false;
 	});
+	jQuery('.ayuda').click(function(){
+		window.open("ayudas","Ayuda","height=1000,width=1000");
+});
 
 
 });
